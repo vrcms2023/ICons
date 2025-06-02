@@ -1,0 +1,1 @@
+import{j as s,aa as t}from"./index-BWK7iHxT.js";const a=()=>s.jsxs("div",{className:"",children:[s.jsx(t,{classes:"image width-100"}),s.jsx(t,{classes:"title width-100"}),s.jsx(t,{classes:"text width-100"}),s.jsx(t,{classes:"text width-100"}),s.jsx(t,{classes:"text width-100"})]});export{a as S};

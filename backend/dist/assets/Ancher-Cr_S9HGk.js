@@ -1,0 +1,1 @@
+import{j as s,L as c}from"./index-BWK7iHxT.js";const x=({AncherLabel:e,AncherClass:a,Ancherpath:n,AnchersvgColor:o,handleModel:i,icon:r,iconCss:t})=>s.jsx(s.Fragment,{children:s.jsx(c,{to:n,className:a,onClick:i,children:s.jsxs("span",{children:[e,r&&s.jsx("i",{className:`fa ${r} ${t}`,"aria-hidden":"true"})]})})});export{x as A};
