@@ -54,7 +54,7 @@ const Specifications = ({
           <DeleteDialog
             onClose={onClose}
             callback={deleteSpecifications}
-            projectName={selectedSpecification.title}
+            message={`you want to restore ${project.projectTitle} project ?`}
           />
         );
       },

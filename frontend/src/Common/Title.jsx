@@ -1,16 +1,18 @@
 import React from "react";
 
+import './Title.css'
+
 const Title = ({ 
   title = "",
   subTitle = "", 
   cssClass,
-  mainTitleClassess="text-center fs-4",
+  mainTitleClassess="",
   subTitleClassess=""
 }) => {
   
   return (
     <>
-      <h5 className={`${cssClass}`}>
+      <h5 className={`${cssClass} ${mainTitleClassess}`}>
         {title}
         {subTitle ? (
           <span className={`${subTitleClassess}`}> / {subTitle}</span>

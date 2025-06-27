@@ -16,7 +16,6 @@ ul, li {
 }
 
 a {
-  font-size: .8rem;
   color: ${({ theme }) => theme.gray222};
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -44,6 +43,7 @@ body {
     background-color: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.textColor};
     font-size: 16px;
+    line-height: 1.6;
 }
 
 .btn {
@@ -358,6 +358,6 @@ body {
     }
 
     .scrollTop {
-      background-color: ${({theme}) => theme.secondaryColor};
+      background-color: ${({theme}) => theme.clientColor};
     }
 `;

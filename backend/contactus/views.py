@@ -4,8 +4,8 @@ from xmlrpc.client import Boolean
 
 from products.serializers import CategorySerializer
 from products.models import Category
-from .models import ContactUS
-from .serializers import ContactUSSerializer
+from .models import ContactUS, Brochures, IconsenggRaqForm
+from .serializers import ContactUSSerializer, BrochuresSerializer, IconsenggRaqFormSerializer
 from rest_framework import generics, permissions
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
@@ -16,7 +16,7 @@ from django.conf import settings
 from django.http import Http404
 from django.db.models import Q
 from common.CustomPagination import CustomPagination
-from common.utility import get_custom_paginated_data
+from common.utility import get_brochures_From_request_Object, get_custom_paginated_data
 from rest_framework.views import APIView
 from django.http import HttpResponse
 from openpyxl import Workbook
@@ -73,6 +73,7 @@ class ContactUSAPIView(generics.CreateAPIView):
             
             client_ctx = {
                 'user': serializer.data["firstName"], 
+                "message": settings.EMAIL_CUSTOMER_MESSAGE
             }
             client_message = get_template('customer-mesg.html').render(client_ctx)
             client_msg = EmailMessage(
@@ -170,8 +171,8 @@ class ExportToExcel(APIView):
             content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
 
-        
-        filename = f"contact_list_export_{datetime.now().strftime("%Y%m%d_%H%M%S")}.xlsx"
+        file_time_stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"contact_list_export_{file_time_stamp}.xlsx"
         response['Content-Disposition'] = f'attachment; filename="{filename}"'
         
         # Save workbook to response
@@ -271,3 +272,236 @@ class SendEnquierytoCustomer(generics.CreateAPIView):
 
     #     except Exception as e:
     #         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+# Brochures logic
+
+class CreateBrochures(generics.CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Brochures.objects.all()
+    serializer_class = BrochuresSerializer
+
+    """
+    List all App news, or create a Brochures.
+    """
+
+    def get(self, request, format=None):
+        snippets = Brochures.objects.all()
+        serializer = BrochuresSerializer(snippets, many=True)
+        return Response({"brochures": serializer.data}, status=status.HTTP_200_OK)
+    
+    def post(self, request, format=None):
+        user = request.user
+        requestObj = get_brochures_From_request_Object(request)
+        requestObj['created_by'] = user.userName
+        serializer = BrochuresSerializer(data=requestObj)
+        if 'path' in request.data and not request.data['path']:
+            serializer.remove_fields(['path','originalname','contentType'])
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"brochures": serializer.data}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdateAndDeleteBrochure(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    """
+    Retrieve, update or delete a Brochures
+    """
+    def get_object(self, pk):
+        try:
+            return Brochures.objects.get(pk=pk)
+        except Brochures.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = BrochuresSerializer(snippet)
+        return Response({"brochures": serializer.data}, status=status.HTTP_200_OK)
+
+    def patch(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        user = request.user
+        requestObj = get_brochures_From_request_Object(request)       
+        requestObj['updated_by'] = user.userName
+        serializer = BrochuresSerializer(snippet, data=requestObj)
+        if 'path' in request.data and not request.data['path']:
+            serializer.remove_fields(['path','originalname','contentType'])
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"brochures": serializer.data}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+class ClientViewBrochures(generics.CreateAPIView):
+    permission_classes = [permissions.AllowAny]
+    queryset = Brochures.objects.all()
+    serializer_class = BrochuresSerializer
+
+    """
+    List all App news, or create a Brochures
+    """
+
+    def get(self, request, format=None):
+        snippets = Brochures.objects.all()
+        results = get_custom_paginated_data(self, snippets)
+        if results is not None:
+            return results
+
+        serializer = BrochuresSerializer(snippets, many=True)
+        return Response({"brochures": serializer.data}, status=status.HTTP_200_OK)
+    
+
+
+class IconsenggRaqFormAPIView(generics.CreateAPIView):
+    permission_classes = (permissions.AllowAny,)
+    queryset = IconsenggRaqForm.objects.all()
+    serializer_class = IconsenggRaqFormSerializer
+    pagination_class = CustomPagination
+
+    """
+    List all contact us, or create a new contactus.
+    """
+
+    def get(self, request, format=None):
+        snippets = IconsenggRaqForm.objects.all()
+        results = get_custom_paginated_data(self, snippets)
+        if results is not None:
+            return results
+        
+        serializer = IconsenggRaqFormSerializer(snippets, many=True)
+        return Response({"raqform": serializer.data}, status=status.HTTP_200_OK)
+    
+    def post(self, request, format=None):
+        serializer = IconsenggRaqFormSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()            
+            
+            admin_ctx = {
+                'name': serializer.data["name"],
+                'company':  serializer.data["company"],
+                'email' : serializer.data["email"],
+                'phoneNumber' : serializer.data["phoneNumber"],
+                'cityAddress' : serializer.data["cityAddress"],
+                'stateProvince' : serializer.data["stateProvince"],
+                'natureofProject' : serializer.data["natureofProject"],
+                'country' : serializer.data["country"],
+                'description' : serializer.data["description"],
+                'teams' : serializer.data["teams"],
+                'hangout' : serializer.data["hangout"],
+                'other' : serializer.data["other"],
+            }
+            admin_message = get_template('admin_raq_mesg.html').render(admin_ctx)
+            admin_msg = EmailMessage(
+                    serializer.data["name"] + ' - RAQ Enquiry form' ,
+                    admin_message,
+                    serializer.data["email"],
+                    [settings.EMAIL_HOST_USER]
+            )
+            admin_msg.content_subtype ="html"# Main content is now text/html
+            admin_msg.send()
+            
+            client_ctx = {
+                'user': serializer.data["name"], 
+                "message": settings.EMAIL_CUSTOMER_MESSAGE
+            }
+            client_message = get_template('customer-mesg.html').render(client_ctx)
+            client_msg = EmailMessage(
+                    settings.EMAIL_THANK_YOU_MESSAGE,
+                    client_message,
+                    settings.EMAIL_HOST_USER,
+                    [serializer.data["email"]]
+            )          
+          
+            client_msg.content_subtype ="html"# Main content is now text/html
+            client_msg.send()
+             
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+class IconsenggRaqSearchAPIView(ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = IconsenggRaqFormSerializer
+    pagination_class = CustomPagination
+
+    def get_object(self, query):
+        try:
+            return IconsenggRaqForm.objects.filter(
+                Q(name__icontains=query) | Q(email__icontains=query) | Q(phoneNumber__icontains=query)
+            )
+        except IconsenggRaqForm.DoesNotExist:
+            raise Http404
+
+    def get(self, request, query, format=None):
+        snippet = self.get_object(query)
+        results = get_custom_paginated_data(self, snippet)
+        if results is not None:
+            return results
+        
+        serializer = IconsenggRaqFormSerializer(snippet, many=True)
+        return Response({"contactus": serializer.data}, status=status.HTTP_200_OK)
+    
+
+class IconsenggRaqExportToExcel(APIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = IconsenggRaqFormSerializer
+    pagination_class = CustomPagination
+
+    def get(self, request):
+        # Get data from database
+        queryset = IconsenggRaqForm.objects.all()
+        serializer = IconsenggRaqFormSerializer(queryset, many=True)
+        
+        # Create Excel workbook and worksheet
+        wb = Workbook()
+        ws = wb.active
+        ws.append(['name','company', 'email', 'phoneNumber','cityAddress','stateProvince','natureofProject','country','description','teams','hangout','other'])  # Add headers
+        ws.title = "RAQ list"
+
+        # Write headers
+        for item in queryset:
+            ws.append([
+                item.name,
+                item.company,
+                item.email,
+                item.phoneNumber,
+                item.cityAddress,
+                item.stateProvince,
+                item.natureofProject,
+                item.country,
+                item.description,
+                item.teams,
+                item.hangout,
+                item.other,
+            ])
+ 
+         # Save to BytesIO buffer
+        buffer = BytesIO()
+        wb.save(buffer)
+        buffer.seek(0)
+
+        # Create HTTP response
+        response = HttpResponse(
+            buffer.getvalue(),
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+
+        file_time_stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"raq_list_export_{file_time_stamp}.xlsx"
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+        
+        # Save workbook to response
+        wb.close()
+        buffer.close()
+        
+        return response

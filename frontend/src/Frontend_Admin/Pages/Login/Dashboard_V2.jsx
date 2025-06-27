@@ -13,6 +13,7 @@ import { axiosServiceApi } from "../../../util/axiosUtil";
 import { getDashBoardProjects } from "../../../redux/project/projectActions";
 
 import "./Dashboard.css";
+import { getCategoryPorjectList } from "../../../util/commonUtil";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Dashboard = () => {
   const [ongoingProject, setOngoingProject] = useState([]);
   const [completedProject, setCompletedProject] = useState([]);
   const [upcomingProject, setUpcomingProject] = useState([]);
-
+  const [ProjectCategoryType, setProjectCategoryType] = useState([]);
   const dispatch = useDispatch();
 
   /**
@@ -43,7 +44,7 @@ const Dashboard = () => {
       formatData(projectsByCategory.ongoing ? projectsByCategory.ongoing : [])
     );
     setUpcomingProject(
-      formatData(projectsByCategory.future ? projectsByCategory.future : [])
+      formatData(projectsByCategory.upcoming ? projectsByCategory.upcoming : [])
     );
     setCompletedProject(
       formatData(
@@ -86,19 +87,6 @@ const Dashboard = () => {
     };
   };
 
-  const getCategoryPorjectList = (data) => {
-    const projList = [];
-
-    data.forEach((proj) => {
-      if (!projList[proj.projectCategoryValue]) {
-        projList[proj.projectCategoryValue] = [];
-      }
-      projList[proj.projectCategoryValue].push(proj);
-    });
-
-    return projList;
-  };
-
   const callService = async (id, data, project, message) => {
     try {
       const response = await axiosServiceApi.patch(
@@ -137,6 +125,7 @@ const Dashboard = () => {
             onClose={onClose}
             callback={deleteDashBoardProject}
             projectName={project.projectTitle}
+            message={`${project.projectTitle}  project will be archive`}
           />
         );
       },
@@ -171,6 +160,38 @@ const Dashboard = () => {
     });
   };
 
+  const handleDeleteProjectfromDB = (event, project) => {
+    event.preventDefault();
+    const deleteSelectedNews = async () => {
+      try {
+        const response = await axiosServiceApi.delete(
+          `/project/deleteProject/${project.id}/`
+        );
+        if (response.status !== 204) {
+          setErrorMessage(response.data.message);
+          toast.error("Unable to Delete Porject");
+        }
+        if (response.status === 204) {
+          toast.success(`${project.projectTitle} project deleted`);
+          dispatch(getDashBoardProjects());
+        }
+      } catch (error) {
+        toast.error("Unable to Delete project");
+      }
+    };
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <DeleteDialog
+            onClose={onClose}
+            callback={deleteSelectedNews}
+            message={`${project.projectTitle} project will be  deleted permentely `}
+          />
+        );
+      },
+    });
+  };
+
   const filters = [
     {
       id: 1,
@@ -197,6 +218,17 @@ const Dashboard = () => {
     else updateProjects(projects?.projectList);
   };
 
+  const getPorjectCategory = async () => {
+    const response = await axiosServiceApi.get(`/project/createCategory/`);
+
+    if (response?.status === 200) {
+      setProjectCategoryType(response.data);
+    }
+  };
+  useEffect(() => {
+    getPorjectCategory();
+  }, []);
+
   return (
     <div className="container-fluid p-4  pojects-dashboard">
       {/* <div className='text-end'>
@@ -209,39 +241,53 @@ const Dashboard = () => {
             cssClass="text-center blue-500 fs-5 mb-2 mb-md-0"
           />
           <div className="d-flex gap-1 justify-content-between align-items-center">
+            {ProjectCategoryType.length > 0 && (
+              <Button
+                type=""
+                cssClass="btn btn-outline"
+                label="Add Project"
+                handlerChange={() => navigate("/addproject")}
+              />
+            )}
+
             <Button
               type=""
               cssClass="btn btn-outline"
-              label="Add Project"
-              handlerChange={() => navigate("/addproject")}
+              label="Project Category"
+              handlerChange={() => navigate("/addCategory")}
             />
           </div>
         </div>
       </div>
       {/* <hr /> */}
 
-      <div className="d-flex justify-content-center dashboardFilters align-items-center px-4 mt-4">
-        <i className="fa fa-filter" aria-hidden="true"></i>
-        <select
-          className="form-select form-select-sm border-0 text-secondary"
-          aria-label=".form-select-sm example"
-          onChange={(e) => projectFilter(e.target.value)}
-        >
-          <option defaultValue>Filters</option>
-          {filters?.length > 0 &&
-            filters.map((item) => (
-              <option value={item.value} key={item.id}>
-                {item.label}
-              </option>
-            ))}
-        </select>
-      </div>
+      {projects?.projectList?.length > 0 ? (
+        <div className="d-flex justify-content-center dashboardFilters align-items-center px-4 mt-4">
+          <i className="fa fa-filter" aria-hidden="true"></i>
+          <select
+            className="form-select form-select-sm border-0 text-secondary"
+            aria-label=".form-select-sm example"
+            onChange={(e) => projectFilter(e.target.value)}
+          >
+            <option defaultValue>Filters</option>
+            {filters?.length > 0 &&
+              filters.map((item) => (
+                <option value={item.value} key={item.id}>
+                  {item.label}
+                </option>
+              ))}
+          </select>
+        </div>
+      ) : (
+        "No Projects found"
+      )}
       <div className="row p-2 p-md-5 ">
         {ongoingProject.listAvailable && (
           <Projects
             project={ongoingProject}
             handleProjectDelete={handleProjectDelete}
             handleProjectreStore={reStoreProject}
+            handleDeleteProjectfromDB={handleDeleteProjectfromDB}
           />
         )}
         {upcomingProject.listAvailable && (
@@ -249,6 +295,7 @@ const Dashboard = () => {
             project={upcomingProject}
             handleProjectDelete={handleProjectDelete}
             handleProjectreStore={reStoreProject}
+            handleDeleteProjectfromDB={handleDeleteProjectfromDB}
           />
         )}
         {completedProject.listAvailable && (
@@ -256,6 +303,7 @@ const Dashboard = () => {
             project={completedProject}
             handleProjectDelete={handleProjectDelete}
             handleProjectreStore={reStoreProject}
+            handleDeleteProjectfromDB={handleDeleteProjectfromDB}
           />
         )}
       </div>

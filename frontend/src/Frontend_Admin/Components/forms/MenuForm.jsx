@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import _ from "lodash";
 import { toast } from "react-toastify";
@@ -11,9 +12,14 @@ import { generateOptionLength } from "../../../util/commonUtil";
 import { axiosServiceApi } from "../../../util/axiosUtil";
 import { getCookie } from "../../../util/cookieUtil";
 import { getMenu } from "../../../redux/auth/authActions";
-import { useDispatch } from "react-redux";
-import { getMenuPosition, updatedMenu } from "../../../util/menuUtil";
+
+import {
+  createServiceChildFromMenu,
+  getMenuPosition,
+  updatedMenu,
+} from "../../../util/menuUtil";
 import SEOForm from "./SEOForm";
+import { getServiceValues } from "../../../redux/services/serviceActions";
 
 const MenuForm = ({
   editHandler,
@@ -21,6 +27,8 @@ const MenuForm = ({
   editMenu,
   componentType,
   popupTitle,
+  selectedServiceMenu,
+  rootServiceMenu,
 }) => {
   const dispatch = useDispatch();
   const closeHandler = () => {
@@ -33,6 +41,7 @@ const MenuForm = ({
     }, [editMenu]),
   });
   const [error, setError] = useState(false);
+
   const [isParentVal, setisParentVal] = useState(
     editMenu ? (editMenu?.is_Parent ? true : false) : true
   );
@@ -110,24 +119,37 @@ const MenuForm = ({
       setError("Menu url should be starting with /");
       return true;
     }
+    if (isParentVal) {
+      data["page_parent_ID"] = "";
+    }
+    if (data.id === data.page_parent_ID) {
+      setError(`Same menu item selected as a parent`);
+      return true;
+    }
 
-    if (!data?.id) {
-      if (!data?.is_Parent) {
-        if (parseInt(data?.page_parent_ID) === 0) {
-          setError("Please select parent menu");
-          return true;
-        }
-        const getSelectedParentObject = _.filter(menuList, (item) => {
-          return item.id === data.page_parent_ID;
-        })[0];
-        const _url = data["page_url"].split("/");
-        if (_url.length > 0) {
-          data["page_url"] =
-            getSelectedParentObject?.page_url + "/" + _url[_url.length - 1];
-        }
-      } else {
-        data["page_position"] = menuList?.length > 0 ? menuList?.length + 1 : 1;
+    // if (data.page_parent_ID) {
+    //   const getSelectedParentObject = _.filter(menuList, (item) => {
+    //     return item.id === data.page_parent_ID;
+    //   })[0];
+    //   const _url = data["page_url"].split("/");
+
+    //   data["page_url"] =
+    //     getSelectedParentObject?.page_url + "/" + _url[_url.length - 1];
+    // }
+    //data["page_position"] = menuList?.length > 0 ? menuList?.length + 1 : 1;
+    // const _url = data["page_url"].split("/");
+
+    // data["page_url"] = "/" + _url[_url.length - 1];
+
+    if (!data?.is_Parent) {
+      if (!data?.page_parent_ID || parseInt(data?.page_parent_ID) === 0) {
+        setError("Please select parent menu");
+        return true;
       }
+    } else {
+      data["page_position"] = menuList?.length > 0 ? menuList?.length + 1 : 1;
+    }
+    if (!data?.id) {
       data["created_by"] = getCookie("userName");
     } else {
       data["updated_by"] = getCookie("userName");
@@ -144,6 +166,12 @@ const MenuForm = ({
         (response?.status === 201 || response?.status === 200) &&
         response?.data?.PageDetails
       ) {
+        if (!data.is_Parent && data.page_parent_ID === rootServiceMenu.id) {
+          updateServicePageMenu(
+            selectedServiceMenu,
+            response?.data?.PageDetails
+          );
+        }
         closeHandler();
         dispatch(getMenu());
       }
@@ -152,16 +180,34 @@ const MenuForm = ({
     }
   };
 
+  const updateServicePageMenu = async (selectedServiceMenu, PageDetails) => {
+    try {
+      const response = await createServiceChildFromMenu(
+        selectedServiceMenu,
+        PageDetails
+      );
+      if (response?.status === 201 || response?.status === 200) {
+        toast.success(`$service is created `);
+        dispatch(getServiceValues());
+      }
+    } catch (error) {
+      toast.error("Unable to load user details");
+    }
+  };
+
   const isParentHandler = () => {
     setisParentVal(!isParentVal);
+    setError("");
   };
 
   const isMaintainerHandler = () => {
     setisMaintainermenuActive(!isMaintainerMenuActive);
+    setError("");
   };
 
   const isClientMenuHandler = () => {
     setIsClientMenuActive(!isClientMenuActive);
+    setError("");
   };
 
   const onChangeHanlder = () => {

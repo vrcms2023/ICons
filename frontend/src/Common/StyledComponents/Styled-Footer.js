@@ -1,17 +1,30 @@
-import BgSymbol from "../../Images/logo-symbol.svg";
+// import BgSymbol from "../../Images/logo-symbol.svg";
+import BgSymbol from "../../Images/footerBg.png";
 
 import styled from "styled-components";
 
 export const FooterStyled = styled.div`
-  // background-image: url(${BgSymbol});
-  // background-repeat: no-repeat;
+  background-image: url(${BgSymbol});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top right;
+  
   // background-position: 120% -250px;
   // background-size: 40%;
   // background: linear-gradient(360deg, ${({ theme }) => theme.white} 0%, ${({ theme }) => theme.black} 100%);
-    background: ${({ theme }) => theme.footerBgColor};
-    color: ${({ theme }) => theme.black};
-    border-top: 1px solid ${({ theme }) => theme.grayccc};
+  // background: ${({ theme }) => theme.footerBgColor};
+    color: ${({ theme }) => theme.white};
+    // border-top: 1px solid ${({ theme }) => theme.grayccc};
     font-size: .8rem;
+
+    .footerCompanyBrief {
+      background: ${({ theme }) => theme.lightWhiteFD};
+
+      p {
+        color: ${({ theme }) => theme.gray444};
+        font-size: 1.2rem;
+      }
+    }
 
     hr {
       border-color: ${({ theme }) => theme.white};
@@ -20,20 +33,16 @@ export const FooterStyled = styled.div`
     h5 {
       font-weight: 500;
       font-style: normal;
+      font-size: 1.6rem !important;
     }
 
     a {
-      color: ${({ theme }) => theme.footerLinkColor};
-      text-decoration: underline;
-      text-underline-offset: 4px;
-      text-decoration-color: rgba(109, 47, 155, .3) !important;
-      &:hover {
-        color: ${({ theme }) => theme.footerLinkHoverColor};
-        text-decoration-color: rgba(109, 47, 155, 1) !important;
-      }
+      font-size: .8rem;
+      color: ${({ theme }) => theme.lightWhiteF8};
     }
 
   .footerDetails {
+    position: relative;
     .logo img { width: 150px; }
     // a {
     //   color: ${({ theme }) => theme.footerLinkColor};
@@ -70,7 +79,7 @@ export const FooterStyled = styled.div`
     }
   
     .mainTitle {
-      color: ${({ theme }) => theme.footerLinkHoverColor};
+      color: ${({ theme }) => theme.footerTextColor};
     }
   
     .subtitle { }
@@ -93,13 +102,14 @@ export const FooterStyled = styled.div`
 
     
     i {
-      font-size: 1.5rem;
+      
+      font-size: 2rem;
       margin: 0 8px 0;
       // color: ${({ theme }) => theme.footerLinkColor};
-      color: ${({ theme }) => theme.footerLinkHoverColor};
+      color: ${({ theme }) => theme.white};
 
       &:hover {
-        color: ${({ theme }) => theme.footerLinkHoverColor};
+        color: ${({ theme }) => theme.primaryColor};
       }
     }
 
@@ -111,7 +121,9 @@ export const FooterStyled = styled.div`
         // }
 
       .socialLinks {
-    
+        margin-top: 24px;
+        width: 100%;
+        text-align: right; 
         .editIcon  {
           top: -48px;
           right: 0px;

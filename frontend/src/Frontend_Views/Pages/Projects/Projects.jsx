@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BriefIntroFrontend from "../../../Common/BriefIntro";
 import { useDispatch, useSelector } from "react-redux";
 import { getClientProjects } from "../../../redux/project/clientProjectActions";
@@ -16,6 +16,13 @@ import "./Projects.css";
 import ImageInputsForm from "../../../Frontend_Admin/Components/forms/ImgTitleIntoForm";
 import { removeActiveClass } from "../../../util/ulrUtil";
 import useAdminLoginStatus from "../../../Common/customhook/useAdminLoginStatus";
+import ShowHideToggle from "../../../Common/ShowHideToggle";
+import { getObjectsByKey } from "../../../util/showHideComponentUtil";
+import {
+  createShowHideComponent,
+  getAllShowHideComponentsList,
+  updateShowHideComponent,
+} from "../../../redux/showHideComponent/showHideActions";
 
 const Projects = () => {
   const editComponentObj = {
@@ -43,7 +50,7 @@ const Projects = () => {
     if (clientProjects?.projectList?.length > 0) {
       const projectList = dataFormatedByCatergoryName(clientProjects);
       setCompleted(projectList.completed);
-      setFuture(projectList.future);
+      setFuture(projectList.upcoming);
       setOngoing(projectList.ongoing);
     }
   }, [clientProjects]);
@@ -61,9 +68,39 @@ const Projects = () => {
     setShow(!show);
     document.body.style.overflow = "hidden";
   };
+
+  const [showHideCompList, setShowHideCompList] = useState([]);
+  const showHideCompPageLoad = useRef(true);
+  const { error, showHideList } = useSelector((state) => state.showHide);
+
+  useEffect(() => {
+    if (showHideList.length > 0) {
+      setShowHideCompList(getObjectsByKey(showHideList));
+    }
+  }, [showHideList]);
+
+  useEffect(() => {
+    if (showHideList.length === 0 && showHideCompPageLoad.current) {
+      dispatch(getAllShowHideComponentsList());
+      showHideCompPageLoad.current = false;
+    }
+  }, [showHideList]);
+
+  const showHideHandler = async (id, compName) => {
+    if (id) {
+      dispatch(updateShowHideComponent(id));
+    } else {
+      const newData = {
+        componentName: compName.toLowerCase(),
+        pageType: pageType,
+      };
+      dispatch(createShowHideComponent(newData));
+    }
+  };
+
   return (
     <>
-      <div className="headerBottomMargin">
+      <div className="position-relative">
         {isAdmin && hasPermission && (
           <EditIcon editHandler={() => editHandler("banner", true)} />
         )}
@@ -71,69 +108,90 @@ const Projects = () => {
           getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
           bannerState={componentEdit.banner}
         />
-        {componentEdit.banner && (
-          <div className={`adminEditTestmonial selected `}>
-            <ImageInputsForm
-              editHandler={editHandler}
-              componentType="banner"
-              popupTitle="Projects Banner"
-              pageType={`${pageType}-banner`}
-              imageLabel="Project Banner Image"
-              showDescription={false}
-              showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
-              dimensions={imageDimensionsJson("banner")}
-            />
-          </div>
-        )}
       </div>
-
-      {/* Introduction */}
-      {isAdmin && hasPermission && (
-        <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+      {componentEdit.banner && (
+        <div className={`adminEditTestmonial selected `}>
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="banner"
+            popupTitle="Projects Banner"
+            pageType={`${pageType}-banner`}
+            imageLabel="Project Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
+            dimensions={imageDimensionsJson("banner")}
+          />
+        </div>
       )}
-      {/* <BriefIntro title="Welcome To HPR Infra Projects">
+
+      <div
+        className={
+          showHideCompList?.projectsbriefintro?.visibility &&
+          isAdmin &&
+          hasPermission
+            ? "border border-info mb-2"
+            : ""
+        }
+      >
+        {isAdmin && hasPermission && (
+          <ShowHideToggle
+            showhideStatus={showHideCompList?.projectsbriefintro?.visibility}
+            title={"A Brief Introduction Component"}
+            componentName={"projectsbriefintro"}
+            showHideHandler={showHideHandler}
+            id={showHideCompList?.projectsbriefintro?.id}
+          />
+        )}
+
+        {/* INTRODUCTION COMPONENT */}
+        {showHideCompList?.projectsbriefintro?.visibility && (
+          <div>
+            {/* Introduction */}
+
+            {isAdmin && hasPermission && (
+              <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+            )}
+            {/* <BriefIntro title="Welcome To HPR Infra Projects">
         We believe that construction is a man made wonder. The thought of
         bringing imagination to real life structures excites us, each day the
         passion in us grows as we contribute to this industry.
       </BriefIntro> */}
 
-      <BriefIntroFrontend
-        introState={componentEdit.briefIntro}
-        pageType={pageType}
-        introTitleCss="fs-3 fw-medium text-md-center"
-        introSubTitleCss="fw-medium text-muted text-md-center"
-        introDecTitleCss="fs-6 fw-normal w-75 m-auto text-md-center"
-      />
+            <BriefIntroFrontend
+              introState={componentEdit.briefIntro}
+              pageType={pageType}
+              introTitleCss="fs-3 fw-medium text-md-center"
+              introSubTitleCss="fw-medium text-muted text-md-center"
+              introDecTitleCss="fs-6 fw-normal w-75 m-auto text-md-center"
+            />
+            {componentEdit.briefIntro && (
+              <div className={`adminEditTestmonial selected `}>
+                <AdminBriefIntro
+                  editHandler={editHandler}
+                  popupTitle="Project Details"
+                  componentType="briefIntro"
+                  pageType={pageType}
+                />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      <div className="container-fluid container-lg ">
+        {ongoing?.length > 0 && (
+          <ProjectItem projectList={ongoing} projectType={ongoing} />
+        )}
 
-      {ongoing?.length > 0 ? (
-        <ProjectItem projectList={ongoing} projectType={ongoing} />
-      ) : (
-        ""
-      )}
+        {/* Completed Projects */}
+        {completed?.length > 0 && (
+          <ProjectItem projectList={completed} projectType={completed} />
+        )}
 
-      {/* Completed Projects */}
-      {completed?.length > 0 ? (
-        <ProjectItem projectList={completed} projectType={completed} />
-      ) : (
-        ""
-      )}
-
-      {/* future Projects */}
-      {future?.length > 0 ? (
-        <ProjectItem projectList={future} projectType={future} />
-      ) : (
-        ""
-      )}
-      {componentEdit.briefIntro && (
-        <div className={`adminEditTestmonial selected `}>
-          <AdminBriefIntro
-            editHandler={editHandler}
-            popupTitle="Project Details"
-            componentType="briefIntro"
-            pageType={pageType}
-          />
-        </div>
-      )}
+        {/* future Projects */}
+        {future?.length > 0 && (
+          <ProjectItem projectList={future} projectType={future} />
+        )}
+      </div>
 
       {show && <ModelBg />}
     </>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Title from "../../../Common/Title";
 import { axiosServiceApi } from "../../../util/axiosUtil";
@@ -14,6 +14,7 @@ import {
   getListStyle,
   getMenuObject,
   getParentObject,
+  getServiceMainMenu,
   isNotEmptyObject,
   reorder,
   updateArrIndex,
@@ -22,6 +23,8 @@ import { showContentPerRole } from "../../../util/permissions";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { getMenu } from "../../../redux/auth/authActions";
 import useAdminLoginStatus from "../../../Common/customhook/useAdminLoginStatus";
+import { getServiceValues } from "../../../redux/services/serviceActions";
+import { deleteServiceMenu, getServiceMenuItem } from "../../../util/menuUtil";
 
 const PagesConfiguration = () => {
   const editComponentObj = {
@@ -35,12 +38,23 @@ const PagesConfiguration = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { isAdmin, hasPermission } = useAdminLoginStatus();
+  const [selectedServiceMenu, setselectedServiceMenu] = useState([]);
+  const [rootServiceMenu, setRootServiceMenu] = useState({});
 
   const editHandler = (name, value, item) => {
     setEditMenu(item);
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
     document.body.style.overflow = "hidden";
+    const selectedService = getServiceMenuItem(serviceMenu, item);
+    if (
+      selectedService &&
+      !item?.is_Parent &&
+      item?.page_parent_ID &&
+      item?.page_parent_ID === rootServiceMenu?.id
+    ) {
+      setselectedServiceMenu(selectedService);
+    }
   };
 
   /**
@@ -51,6 +65,8 @@ const PagesConfiguration = () => {
       const response = await axiosServiceApi.get(`/pageMenu/createPageMenu/`);
       if (response?.status === 200 && response?.data?.PageDetails?.length > 0) {
         setRawData(response.data.PageDetails);
+        const _rootservicemenu = getServiceMainMenu(response.data.PageDetails);
+        setRootServiceMenu(_rootservicemenu);
         const result = getMenuObject(response.data.PageDetails);
         setPagesDetails(result);
       } else {
@@ -69,6 +85,7 @@ const PagesConfiguration = () => {
   const handleUserDelete = (menu) => {
     const id = menu.id;
     const title = menu.page_label;
+    const selectedService = getServiceMenuItem(serviceMenu, menu);
     const deleteMenuItemByID = async () => {
       const response = await axiosServiceApi.delete(
         `/pageMenu/updatePageMenu/${id}/`
@@ -76,6 +93,11 @@ const PagesConfiguration = () => {
       if (response.status === 204) {
         toast.success(`${title} Memu is delete successfully `);
         getAllPagesDetails();
+
+        if (selectedService) {
+          await deleteServiceMenu(selectedService);
+          dispatch(getServiceValues());
+        }
         dispatch(getMenu());
       }
     };
@@ -128,6 +150,22 @@ const PagesConfiguration = () => {
       toast.error("Unable to load user details");
     }
   };
+
+  const onPageLoadAction = useRef(true);
+  const [serviceList, setServiceList] = useState([]);
+
+  const { serviceMenu, serviceerror } = useSelector(
+    (state) => state.serviceMenu
+  );
+
+  useEffect(() => {
+    if (serviceMenu?.length === 0 && onPageLoadAction.current) {
+      onPageLoadAction.current = false;
+      dispatch(getServiceValues());
+    } else if (serviceMenu.length > 0) {
+      setServiceList(serviceMenu);
+    }
+  }, [serviceMenu]);
 
   const tableHeader = () => {
     return (
@@ -184,7 +222,11 @@ const PagesConfiguration = () => {
                   {node.page_label}
                 </td>
                 <td>
-                  <Link to={node.page_url}>{node.page_url}</Link>
+                  <Link
+                    to={`${rootServiceMenu?.id === node?.page_parent_ID ? rootServiceMenu?.page_url + node?.page_url : node.page_url}`}
+                  >
+                    {`${rootServiceMenu?.id === node?.page_parent_ID ? rootServiceMenu?.page_url + node?.page_url : node.page_url}`}
+                  </Link>
                 </td>
                 <td>{node.is_Parent ? "Parent Menu" : "Child Menu"}</td>
                 {/* <td className="text-center">
@@ -279,7 +321,7 @@ const PagesConfiguration = () => {
       if (!destination) return true;
 
       let _parentObjects = [];
-      const _parentMenu = getParentObject(rawData, draggableId);
+      const _parentMenu = getParentObject(rawData, draggableId, pagesDetails);
       if (isNotEmptyObject(_parentMenu)) {
         let _childmenu = reorder(
           _parentMenu.childMenu,
@@ -312,7 +354,7 @@ const PagesConfiguration = () => {
       });
 
       const response = await updateObjectsIndex(_finalObject);
-      if (response.length > 0) {
+      if (response?.length > 0) {
         const result = getMenuObject(response);
         setPagesDetails(result);
       }
@@ -364,6 +406,8 @@ const PagesConfiguration = () => {
               popupTitle="Menu"
               editMenu={editMenu}
               componentType="menu"
+              selectedServiceMenu={selectedServiceMenu}
+              rootServiceMenu={rootServiceMenu}
             />
           </div>
         )}
@@ -373,14 +417,14 @@ const PagesConfiguration = () => {
           <Title title={"Menu / SEO"} cssClass="fs-2 pageTitle" />
 
           <div className="text-end">
-          <Link
-            className="btn btn-primary"
-            onClick={() => editHandler("menu", true)}
-          >
-            Add <i className="fa fa-plus mx-2" aria-hidden="true"></i>
-          </Link>
-          {/* <EditIcon editHandler={() => editHandler("menu", true)} /> */}
-        </div>
+            <Link
+              className="btn btn-primary"
+              onClick={() => editHandler("menu", true)}
+            >
+              Add <i className="fa fa-plus mx-2" aria-hidden="true"></i>
+            </Link>
+            {/* <EditIcon editHandler={() => editHandler("menu", true)} /> */}
+          </div>
         </div>
       </div>
 

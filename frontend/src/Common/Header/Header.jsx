@@ -53,6 +53,7 @@ const Header = () => {
   const { serviceMenu } = useSelector((state) => state.serviceMenu);
   const dispatch = useDispatch();
   const onPageLoadServiceAction = useRef(true);
+  const [rootServiceMenu, setRootServiceMenu] = useState({});
 
   const pathList = [
     "/login",
@@ -99,11 +100,11 @@ const Header = () => {
     if (!userInfo && getCookie("access")) {
       dispatch(getUser());
     }
-    if (menuRawList.length === 0 && counter < 3) {
+    if (menuRawList?.length === 0 && counter < 3) {
       menuUpdateInitialized.current = true;
       dispatch(getMenu());
       setCounter(counter + 1);
-    } else if (menuRawList.length === 0 && counter >= 3) {
+    } else if (menuRawList?.length === 0 && counter >= 3) {
       setshowAddMenuMessage(true);
     }
   }, [userInfo, dispatch, menuRawList]);
@@ -117,6 +118,7 @@ const Header = () => {
       let _customMenulist = getClonedObject(menuRawList);
       if (permissions[0]?.name.toLowerCase() !== "all") {
         _customMenulist = getselectedUserMenu(permissions, menuRawList);
+
         let mainServiceMenu = getServiceMainMenu(_customMenulist);
         if (mainServiceMenu?.length > 0) {
           setIsServiceMenuAvailable(true);
@@ -125,6 +127,7 @@ const Header = () => {
         setIsServiceMenuAvailable(true);
       }
       const menuObject = getMenuObject(_customMenulist);
+
       dispatch(updatedMenulist(menuObject));
       dispatch(updatedMenuloadedStatus());
     }
@@ -133,8 +136,10 @@ const Header = () => {
   useEffect(() => {
     if (menuRawList?.length > 0 && menuloadedStatus) {
       let _customMenulist = getClonedObject(menuRawList);
-      let mainServiceMenu = getServiceMainMenu(_customMenulist);
-      if (mainServiceMenu?.length > 0) {
+      const _rootservicemenu = getServiceMainMenu(_customMenulist);
+      setRootServiceMenu(_rootservicemenu);
+
+      if (_rootservicemenu) {
         setIsServiceMenuAvailable(true);
       }
     }
@@ -153,11 +158,9 @@ const Header = () => {
   }, [serviceMenu, dispatch, menuList, isServiceMenuAvailable]);
 
   useEffect(() => {
-    if (serviceMenu.length > 0) {
-      setServiceMenuList(serviceMenu);
-      if (!getCookie("pageLoadServiceName") && serviceMenu.length > 0) {
-        storeServiceMenuValueinCookie(serviceMenu[0]);
-      }
+    setServiceMenuList(serviceMenu);
+    if (!getCookie("pageLoadServiceName") && serviceMenu.length > 0) {
+      storeServiceMenuValueinCookie(serviceMenu[0]);
     }
   }, [serviceMenu]);
 
@@ -261,7 +264,11 @@ const Header = () => {
           )}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {!isHideMenu && (
-              <ClientMenu serviceMenuList={serviceMenuList} key="clientMenu" />
+              <ClientMenu
+                serviceMenuList={serviceMenuList}
+                rootServiceMenu={rootServiceMenu}
+                key="clientMenu"
+              />
             )}
           </div>
         </div>
@@ -271,7 +278,7 @@ const Header = () => {
   );
 };
 
-export const ClientMenu = ({ serviceMenuList }) => {
+export const ClientMenu = ({ serviceMenuList, rootServiceMenu }) => {
   const { menuList } = useSelector((state) => state.auth);
 
   const getSelectedServiceMenu = (menu) => {
@@ -290,7 +297,9 @@ export const ClientMenu = ({ serviceMenuList }) => {
         key={menu.id}
       >
         <NavLink
-          to={urlStringFormat(menu.page_url)}
+          to={urlStringFormat(
+            `${rootServiceMenu?.id === menu?.page_parent_ID ? rootServiceMenu?.page_url + menu.page_url : menu.page_url}`
+          )}
           className={
             (({ isActive }) => (isActive ? "active" : ""),
             `${menu.is_Parent ? "nav-Link" : "dropdown-item"} ${
@@ -298,7 +307,7 @@ export const ClientMenu = ({ serviceMenuList }) => {
             }`)
           }
           onClick={
-            menu.page_url.startsWith("/services/")
+            menu?.page_parent_ID === rootServiceMenu?.id
               ? () => {
                   getSelectedServiceMenu(menu);
                 }

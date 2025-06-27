@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { FilePond, registerPlugin } from "react-filepond";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
@@ -24,6 +24,7 @@ import { getImageFileFromUrl, getImagePath } from "../../util/commonUtil";
 import "filepond/dist/filepond.min.css";
 import "./componentsCommonStyes.css";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import { toast } from "react-toastify";
 
 registerPlugin(
   FilePondPluginFileValidateType,
@@ -66,6 +67,7 @@ const FileUpload = ({
   const baseURL = getBaseURL();
 
   const [error, setError] = useState("");
+  const timeoutRef = useRef(null);
 
   const {
     register,
@@ -84,6 +86,17 @@ const FileUpload = ({
       reset({});
     }
   }, [editImage]);
+
+  useEffect(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      if (error) {
+        setError("");
+      }
+    }, 3000);
+  }, [error]);
 
   useEffect(() => {
     setError("");
@@ -230,6 +243,17 @@ const FileUpload = ({
         closePopupWindow();
       }
     } catch (error) {
+      let errorMessage = "";
+      if (error.length > 0) {
+        errorMessage = error[0];
+      } else {
+        errorMessage = error[0];
+      }
+      toast.error(errorMessage, {
+        position: "top-left",
+      });
+      setError(error);
+      window.scrollTo(0, 0);
       console.log(error);
     }
   };
@@ -284,6 +308,17 @@ const FileUpload = ({
         closePopupWindow();
       });
     } catch (error) {
+      let errorMessage = "";
+      if (error.length > 0) {
+        errorMessage = error[0];
+      } else {
+        errorMessage = error[0];
+      }
+      toast.error(errorMessage, {
+        position: "top-left",
+      });
+      setError(error);
+      window.scrollTo(0, 0);
       console.log(error);
     }
   };
@@ -364,6 +399,14 @@ const FileUpload = ({
     setFiles(files);
   };
 
+  const downloadPDF = (url) => {
+    window.open(
+      url,
+      "_blank",
+      "location=yes,height=800,width=600 ,scrollbars=yes,status=yes"
+    );
+  };
+
   const closePopupWindow = () => {
     if (closeHandler && typeof closeHandler === "function") {
       // setTimeout(() =>{
@@ -393,7 +436,6 @@ const FileUpload = ({
             <div
               className={`${editImage?.id && editImage.path ? "col-6 col-md-6 pe-0" : "col-12"}`}
             >
-              {error ? <Error>{error}</Error> : ""}
               <div className="mb-0">
                 <FilePond
                   labelIdle='Drag & Drop your files or <span className="filepond--label-action">Browse</span>'
@@ -411,23 +453,46 @@ const FileUpload = ({
                   instantUpload={false}
                 />
               </div>
-            </div>
-            {editImage?.id && editImage.path && (
-              <div className="col-6">
-                <img
-                  src={getImagePath(editImage.path, editImage.contentType)}
-                  alt={editImage?.alternitivetext}
-                  className=""
-                  style={{
-                    width: "100%",
-                    height: "74px",
-                    objectFit: "cover",
-                    objectPosition: "center",
-                    borderRadius: "6px",
-                  }}
-                />
+              <div className="text-muted">
+                You can upload a maximum of {maxFiles ? maxFiles : 4} images at
+                once.
               </div>
-            )}
+              {error ? <Error>{error}</Error> : ""}
+            </div>
+            {editImage?.id &&
+              editImage.path &&
+              editImage.contentType === ".pdf" && (
+                <div className="col-6">
+                  <div style={{ marginTop: "30px" }}>
+                    <b>File name -</b>{" "}
+                    <a
+                      href="#!"
+                      onClick={() => downloadPDF(`${baseURL}${editImage.path}`)}
+                      className="mx-1 text-dark"
+                    >
+                      {editImage.originalname}
+                    </a>
+                  </div>
+                </div>
+              )}
+            {editImage?.id &&
+              editImage.path &&
+              editImage.contentType !== ".pdf" && (
+                <div className="col-6">
+                  <img
+                    src={getImagePath(editImage.path, editImage.contentType)}
+                    alt={editImage?.alternitivetext}
+                    className=""
+                    style={{
+                      width: "100%",
+                      height: "74px",
+                      objectFit: "cover",
+                      objectPosition: "center",
+                      borderRadius: "6px",
+                    }}
+                  />
+                </div>
+              )}
             {dimensions && (
               <div className="col-12">
                 <small className="" style={{ fontSize: ".75rem" }}>

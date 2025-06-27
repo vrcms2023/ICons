@@ -76,6 +76,7 @@ const AddProject = () => {
   const [projectTitleErrorMessage, setProjectTitleErrorMessage] = useState("");
   const [projectPublish, setProjectPublish] = useState(false);
   const [saveState, setSaveState] = useState(false);
+  const [editCarousel, setEditCarousel] = useState({});
 
   const { id } = useParams();
 
@@ -91,7 +92,8 @@ const AddProject = () => {
    */
   useEffect(() => {
     const getPorjectCategory = async () => {
-      const response = await axiosServiceApi.get(`/project/categorylist/`);
+      //const response = await axiosServiceApi.get(`/project/categorylist/`);
+      const response = await axiosServiceApi.get(`/project/createCategory/`);
       if (response?.status === 200) {
         setDefaultProjectType(response.data);
       } else {
@@ -111,9 +113,9 @@ const AddProject = () => {
   const handleChange = (e) => {
     setErrorMessage("");
     setSelected(e.target.value);
-    const value = e.target.value.toLowerCase();
+    const value = e.target.value;
     const obj = defaultProjectType.filter((obj) => {
-      return obj.projectValue === value;
+      return obj.id === value;
     });
     if (obj.length > 0) {
       setProjectType(obj);
@@ -146,9 +148,15 @@ const AddProject = () => {
 
   const getProjectStatus = () => {
     return {
-      projectCategoryID: projectType[0].idprojectcategories,
-      projectCategoryName: projectType[0].projectLabel,
-      projectCategoryValue: projectType[0].projectValue,
+      projectCategoryID: projectType[0].id
+        ? projectType[0].id
+        : projectType[0].idprojectcategories,
+      projectCategoryName: projectType[0]?.category_Label
+        ? projectType[0]?.category_Label
+        : projectType[0]?.projectLabel,
+      projectCategoryValue: projectType[0]?.category_Value
+        ? projectType[0]?.category_Value
+        : projectType[0]?.projectValue,
     };
   };
 
@@ -187,8 +195,6 @@ const AddProject = () => {
       const response = await axiosServiceApi.post(`/project/addProject/`, {
         ...getProjectStatus(),
         projectTitle: projectName,
-        created_by: userName,
-        updated_by: userName,
         userID: getCookie("userId"),
         status: projectType[0].projectLabel,
         isActive: true,
@@ -288,7 +294,6 @@ const AddProject = () => {
 
     const amenitiesData = {
       projectID: newProject.id,
-      updated_by: userName,
       amenitie: amenities.amenitie,
       feature: amenities.feature,
       googleMap: amenities.googleMap,
@@ -441,7 +446,7 @@ const AddProject = () => {
               type=""
               cssClass="btn btn-outline"
               label="Dashboard"
-              handlerChange={() => navigate("/admin/dashboard")}
+              handlerChange={() => navigate("/dashboard")}
             />
             {/* <Button
               type=""
@@ -477,11 +482,8 @@ const AddProject = () => {
               {defaultProjectType?.length
                 ? defaultProjectType?.map((option, index) => {
                     return (
-                      <option
-                        key={option.idprojectcategories}
-                        value={option.projectValue}
-                      >
-                        {option.projectLabel}
+                      <option key={option.id} value={option.id}>
+                        {option.category_Label}
                       </option>
                     );
                   })
@@ -519,7 +521,7 @@ const AddProject = () => {
                     label="Cancel"
                     cssClass="btn btn-outline me-2"
                     handlerChange={() => {
-                      navigate("/admin/dashboard");
+                      navigate("/dashboard");
                     }}
                   />
                   <Button
@@ -638,7 +640,7 @@ const AddProject = () => {
                 >
                   Pdfs / Plan / Map / Cost / Availability
                 </button>
-                
+
                 <button
                   className="nav-link"
                   id="v-pills-messages-tab"
@@ -733,7 +735,6 @@ const AddProject = () => {
                         Status
                       </label>
                       <select
-                        value={projectType[0]?.projectValue}
                         className="form-select mb-3 w-100"
                         aria-label="Default select example"
                         id="projectStatus"
@@ -744,10 +745,14 @@ const AddProject = () => {
                           ? defaultProjectType?.map((option, index) => {
                               return (
                                 <option
-                                  key={option.idprojectcategories}
-                                  value={option.projectValue}
+                                  key={option.id}
+                                  value={option.id}
+                                  selected={
+                                    option.category_Value ===
+                                    projectType[0]?.projectValue
+                                  }
                                 >
-                                  {option.projectLabel}
+                                  {option.category_Label}
                                 </option>
                               );
                             })
@@ -854,6 +859,7 @@ const AddProject = () => {
                           buttonLable="Upload Plan"
                           maxFiles={1}
                           scrollEnable={true}
+                          setEditCarousel={setEditCarousel}
                         />
                       )}
 
@@ -865,11 +871,13 @@ const AddProject = () => {
                         category="thumbnail"
                         cssClass="thumb75 shadow-lg border border-0 border-warning rounded"
                       />
-                      <div className="">
-                        <small className="text-info">
-                          Click on the image to delete
-                        </small>
-                      </div>
+                      {thumbnailObject?.length > 0 && (
+                        <div className="">
+                          <small className="text-info">
+                            Click on the image to delete
+                          </small>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -906,8 +914,9 @@ const AddProject = () => {
                         showDescription={false}
                         saveState={setSaveState}
                         buttonLable="Upload PDF"
-                        maxFiles={1}
+                        maxFiles={4}
                         scrollEnable={true}
+                        setEditCarousel={setEditCarousel}
                       />
                     )}
                     <CatageoryImgC
@@ -945,8 +954,9 @@ const AddProject = () => {
                         showDescription={false}
                         saveState={setSaveState}
                         buttonLable="Upload Plan"
-                        maxFiles={1}
+                        maxFiles={4}
                         scrollEnable={true}
+                        setEditCarousel={setEditCarousel}
                       />
                     )}
                     <CatageoryImgC
@@ -957,9 +967,11 @@ const AddProject = () => {
                       category="Plans"
                       cssClass="thumb75 mb-2 shadow-lg rounded-2"
                     />
-                    <small className="text-info">
-                      Click on the image to delete
-                    </small>
+                    {planObject?.length > 0 && (
+                      <small className="text-info">
+                        Click on the image to delete
+                      </small>
+                    )}
                   </div>
 
                   <div className="mb-4">
@@ -988,8 +1000,9 @@ const AddProject = () => {
                         showDescription={false}
                         saveState={setSaveState}
                         buttonLable="Upload Availability"
-                        maxFiles={1}
+                        maxFiles={4}
                         scrollEnable={true}
+                        setEditCarousel={setEditCarousel}
                       />
                     )}
 
@@ -1029,8 +1042,9 @@ const AddProject = () => {
                         showDescription={false}
                         saveState={setSaveState}
                         buttonLable="Upload Price Details"
-                        maxFiles={1}
+                        maxFiles={4}
                         scrollEnable={true}
+                        setEditCarousel={setEditCarousel}
                       />
                     )}
 
@@ -1068,6 +1082,19 @@ const AddProject = () => {
                       rows="5"
                     />
                   </div>
+                  <small className="mt-3 mb-2 d-inline-block">
+                    Example : Please copy the 'src' URL from Google’s iframe in
+                    the <strong>‘Embed a map’</strong> section, as shown in the
+                    highlighted example below.
+                    {/* Copy the google "Embed a map" script like below  */}
+                  </small>
+                  <code className="d-block mt-4">
+                    &lt;iframe className="googlemap" src="
+                    <strong className="bg-info">
+                      https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15226.413145928846!2d78.441906!3d17.430816!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x80e4d67809745a48!2sHPR+INFRA+PROJECTS!5e0!3m2!1sen!2sin!4v1442574301202
+                    </strong>
+                    " height="450" width="100%" &gt; &;t;/iframe&gt;
+                  </code>
                 </div>
 
                 <div
@@ -1133,7 +1160,9 @@ const AddProject = () => {
                     saveState={setSaveState}
                     showDescription={false}
                     scrollEnable={true}
+                    setEditCarousel={setEditCarousel}
                   />
+
                   <CatageoryImgC
                     title={`${readOnlyTitle} Image Gallery`}
                     catategoryImgs={imgGallery}
@@ -1142,11 +1171,13 @@ const AddProject = () => {
                     category="images"
                     cssClass="thumb75 shadow-lg border border-1 rounded"
                   />
-                  <div>
-                    <small class="text-warning">
-                      Click on the image to delete
-                    </small>
-                  </div>
+                  {imgGallery?.length > 0 && (
+                    <div>
+                      <small class="text-warning">
+                        Click on the image to delete
+                      </small>
+                    </div>
+                  )}
                 </div>
 
                 <div
@@ -1263,7 +1294,7 @@ const AddProject = () => {
                 type="submit"
                 cssClass="btn btn btn-secondary"
                 label="Cancel"
-                handlerChange={() => navigate("/admin/dashboard")}
+                handlerChange={() => navigate("/dashboard")}
               />
               {/* <Button
                 type="submit"

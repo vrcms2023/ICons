@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -37,6 +37,15 @@ import {
 import { fieldValidation } from "../../../util/validationUtil";
 import Title from "../../../Common/Title";
 import ContactForm from "../../../Common/Forms/ContactForm";
+import { Link } from "react-router-dom";
+import ShowHideToggle from "../../../Common/ShowHideToggle";
+import {
+  createShowHideComponent,
+  getAllShowHideComponentsList,
+  getShowHideComponentsListByPage,
+  updateShowHideComponent,
+} from "../../../redux/showHideComponent/showHideActions";
+import { getObjectsByKey } from "../../../util/showHideComponentUtil";
 
 const Contact = () => {
   const editComponentObj = {
@@ -62,8 +71,6 @@ const Contact = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({});
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     removeActiveClass();
@@ -124,12 +131,42 @@ const Contact = () => {
       const response = await axiosClientServiceApi.get(
         `footer/getGoogleMapURL/`
       );
-      if (response?.data?.mapURL) {
+      if (response?.data?.mapURL?.length > 0) {
         const data = response.data.mapURL[0];
         setMapValues(data);
       }
     } catch (e) {
       console.log("unable to access ulr because of server is down");
+    }
+  };
+
+  const [showHideCompList, setShowHideCompList] = useState([]);
+  const showHideCompPageLoad = useRef(true);
+  const dispatch = useDispatch();
+  const { error, showHideList } = useSelector((state) => state.showHide);
+
+  useEffect(() => {
+    if (showHideList.length > 0) {
+      setShowHideCompList(getObjectsByKey(showHideList));
+    }
+  }, [showHideList]);
+
+  useEffect(() => {
+    if (showHideList.length === 0 && showHideCompPageLoad.current) {
+      dispatch(getAllShowHideComponentsList());
+      showHideCompPageLoad.current = false;
+    }
+  }, [showHideList]);
+
+  const showHideHandler = async (id, compName) => {
+    if (id) {
+      dispatch(updateShowHideComponent(id));
+    } else {
+      const newData = {
+        componentName: compName.toLowerCase(),
+        pageType: pageType,
+      };
+      dispatch(createShowHideComponent(newData));
     }
   };
 
@@ -160,31 +197,59 @@ const Contact = () => {
         </div>
       )}
 
-      {/* Introduction */}
-      {/* {isAdmin && hasPermission && (
-        <EditIcon editHandler={() => editHandler("briefIntro", true)} />
-      )}
-
-      <BriefIntroFrontend
-        introState={componentEdit.briefIntro}
-        pageType={pageType}
-        introTitleCss = "fs-3 fw-medium text-md-center"
-        introSubTitleCss = "fw-medium text-muted text-md-center"
-        introDecTitleCss = "fs-6 fw-normal w-75 m-auto text-md-center"
-      />
-{componentEdit.briefIntro && (
-        <div className={`adminEditTestmonial selected `}>
-          <AdminBriefIntro
-            editHandler={editHandler}
-            componentType="briefIntro"
-            pageType={pageType}
+      <div
+        className={
+          showHideCompList?.contactbriefintro?.visibility &&
+          isAdmin &&
+          hasPermission
+            ? "border border-info mb-2"
+            : ""
+        }
+      >
+        {isAdmin && hasPermission && (
+          <ShowHideToggle
+            showhideStatus={showHideCompList?.contactbriefintro?.visibility}
+            title={"A Brief Introduction Component"}
+            componentName={"contactbriefintro"}
+            showHideHandler={showHideHandler}
+            id={showHideCompList?.contactbriefintro?.id}
           />
-        </div> )}
-        */}
+        )}
+
+        {/* INTRODUCTION COMPONENT */}
+        {showHideCompList?.contactbriefintro?.visibility && (
+          <div>
+            {/* Introduction */}
+            {isAdmin && hasPermission && (
+              <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+            )}
+
+            <BriefIntroFrontend
+              introState={componentEdit.briefIntro}
+              pageType={pageType}
+              introTitleCss="fs-3 fw-medium text-md-center"
+              introSubTitleCss="fw-medium text-muted text-md-center"
+              introDecTitleCss="fs-6 fw-normal w-75 m-auto text-md-center"
+              anchorContainer="text-center my-4"
+              linkLabel="More.."
+              showLink={"True"}
+            />
+            {componentEdit.briefIntro && (
+              <div className={`adminEditTestmonial selected `}>
+                <AdminBriefIntro
+                  editHandler={editHandler}
+                  componentType="briefIntro"
+                  pageType={pageType}
+                />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
 
       <div className="container-fluid">
         <div className="row">
-          <div className="contactPage position-relative col-md-12 text-white blueBg-500 p-3 p-md-5">
+          <div className="contactPage position-relative col-md-12 text-white blueBg-500 p-0 p-md-3 p-md-5">
             {isAdmin && hasPermission && (
               <EditIcon editHandler={() => editHandler("address", true)} />
             )}
@@ -200,7 +265,7 @@ const Contact = () => {
             )}
 
             <div className="container">
-              <div className="row">
+              <div className="row flipCSS">
                 <>
                   {/* <div
                     className={`my-4 my-nd-0 ${addressList.length === 1 ? "col-md-8 text-center" : addressList.length === 2 ? "col-md-6" : addressList.length === 3 ? "col-md-4" : "col-md-3"}`}
@@ -214,10 +279,12 @@ const Contact = () => {
                         >
                           <Title
                             title={item.location_title}
-                            cssClass="mb-2 fs-4 text-black"
+                            cssClass="mb-2 title"
                           />
                           <div className="mb-2 contactAddress" key={index}>
-                            <p className="m-0 fw-medium">{item.company_name}</p>
+                            <p className="m-0 fs-4 fw-medium">
+                              {item.company_name}
+                            </p>
                             <p className="m-0">{item.address_dr_no}</p>
                             <p className="m-0">{item.street} </p>
                             <p className="m-0">{item.location} </p>
@@ -266,7 +333,12 @@ const Contact = () => {
                                     className="fa fa-envelope-o fs-4 me-2"
                                     aria-hidden="true"
                                   ></i>{" "}
-                                  {item.emailid_2}{" "}
+                                  {/* <a href="">{item.emailid_2}</a> */}
+                                  <Link
+                                    to={`mailto: ${item.emailid_2 && item.emailid_2}`}
+                                  >
+                                    ${item.emailid_2 && item.emailid_2}
+                                  </Link>
                                 </>
                               )}
                             </p>
@@ -277,7 +349,11 @@ const Contact = () => {
                                     className="fa fa-envelope-o fs-4 me-2"
                                     aria-hidden="true"
                                   ></i>{" "}
-                                  {item.emailid_3}{" "}
+                                  <Link
+                                    to={`mailto: ${item.emailid_3 && item.emailid_3}`}
+                                  >
+                                    ${item.emailid_3 && item.emailid_3}
+                                  </Link>
                                 </>
                               )}
                             </p>
@@ -287,7 +363,7 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="col-md-12 col-lg-4 p-5 px-4 py-3  mb-md-5 quickContact">
+                  <div className="col-md-12 col-lg-4 p-1 px-3 p-md-5 mb-md-5 quickContact">
                     {success && (
                       <Alert
                         mesg={"Thank you for contact us"}

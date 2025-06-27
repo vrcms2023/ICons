@@ -16,6 +16,48 @@ export const generateOptionLength = (values) => {
   return optionList;
 };
 
+export const generateExperienceOptions = () => {
+  let optionList = [
+    {
+      id: 1000,
+      label: "Select",
+      value: "",
+    },
+    {
+      id: 1001,
+      label: "Full-Time",
+      value: "fulltime",
+    },
+    {
+      id: 1002,
+      label: "Part-Time",
+      value: "parttime",
+    },
+    {
+      id: 1003,
+      label: "Temporary",
+      value: "temporary",
+    },
+    {
+      id: 1004,
+      label: "Contract",
+      value: "contract",
+    },
+    {
+      id: 1005,
+      label: "Seasonal",
+      value: "seasonal",
+    },
+    {
+      id: 1006,
+      label: "Leased",
+      value: "leased",
+    },
+  ];
+
+  return optionList;
+};
+
 export const showPosteddate = (dt) => {
   if (!dt) return 0;
   const postD = moment(moment(dt).format("YYYY-MM-DD"));
@@ -138,8 +180,8 @@ export const getselectedUserMenu = (permisions, menuList) => {
 };
 export const getServiceMainMenu = (data) => {
   return _.filter(data, (item) => {
-    return item.page_label.toLowerCase() === "services";
-  });
+    return item.page_url.toLowerCase() === "/services";
+  })[0];
 };
 
 export const getClonedObject = (list) => {
@@ -149,7 +191,7 @@ export const getClonedObject = (list) => {
 export const getPublishedSericeMenu = (menuList, publishedMenuList) => {
   let clonedMenu = getClonedObject(menuList);
   let mainServiceMenu = getServiceMainMenu(clonedMenu);
-  const childMenu = mainServiceMenu[0]?.childMenu;
+  const childMenu = mainServiceMenu?.childMenu;
   let selectedMenu = [];
   childMenu.forEach((item) => {
     publishedMenuList.forEach((publishedMenu) => {
@@ -163,7 +205,7 @@ export const getPublishedSericeMenu = (menuList, publishedMenuList) => {
   });
 
   _.map(clonedMenu, (item) => {
-    if (item.page_label.toLowerCase() === "services") {
+    if (item?.page_url.toLowerCase() === "/services") {
       item["childMenu"] = selectedMenu;
     }
   });
@@ -182,8 +224,8 @@ export const getMenuObject = (data) => {
     return !item.is_Parent;
   });
 
-  sortParentMenu.forEach((parent) => {
-    childList.forEach((child) => {
+  sortParentMenu.map((parent) => {
+    return childList.map((child) => {
       if (child?.page_parent_ID === parent?.id) {
         if (parent.childMenu) {
           parent.childMenu.push(child);
@@ -203,54 +245,50 @@ export const getMenuObject = (data) => {
   return sortParentMenu;
 };
 
-export const HideFooterForAdmin = () => {
-  const pathList = [
-    "/admin/login",
-    "/admin/register",
-    "/admin/unauthorized",
-    "/admin/activate",
-    "/admin/reset_password",
-    "/admin/authForm",
-    "/admin/resend_activation",
-    "/admin/password",
-    "/admin/adminNews",
-    "/admin/main",
-    "/admin/dashboard",
-    "/admin/testimonial",
-    "/admin/contactuslist",
-    "/admin/useradmin",
-    "/admin/userpermission",
-    "/admin/theme",
-    "/admin/adminpagesconfiguration",
-    "/addproject",
-    "/admin/settings",
-  ];
-  const path = window.location.pathname;
-  const match = path.match(/^\/editproject(?:\/([a-zA-Z0-9-]+))?$/);
-  if (match) {
-    return true;
-  } else {
-    return pathList.indexOf(path) >= 0 ? true : false;
-  }
-};
+export const NO_FOOTER_ROUTES = [
+  "/login",
+  "/register",
+  "/unauthorized",
+  "/activate/",
+  "/reset_password",
+  "/authForm",
+  "/resend_activation",
+  "/password/",
+  "/useradmin",
+  "/theme",
+  "/adminpagesconfiguration",
+  "/addproject",
+  "/settings",
+  "/dashboard",
+  "/raqformadministration",
+  "/useradmin",
+  "/settings",
+  "/addcategory",
+  "/userpermission",
+  "/contactuslist",
+  "/change_password",
+];
 
 export const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
+  if ([removed]) {
+    result.splice(endIndex, 0, removed);
+  }
   return result;
 };
 
 export const updateArrIndex = (list, property, parentIndex) => {
   return list.map((item, index) => {
-    let _ind = index + 1;
-    if (parentIndex) {
-      _ind = parentIndex * 10 + _ind;
-    }
-    item[property] = _ind;
+    if (item) {
+      let _ind = index + 1;
+      if (parentIndex) {
+        _ind = parentIndex * 10 + _ind;
+      }
+      item[property] = _ind;
 
-    return item;
+      return item;
+    }
   });
 };
 
@@ -325,14 +363,14 @@ function getFileNameFromUrl(url) {
   return url.substring(url.lastIndexOf("/") + 1);
 }
 
-export const getParentObject = (rawData, id) => {
+export const getParentObject = (rawData, id, formatedMenu) => {
   let parentMenuObject = {};
 
   const dragObject = getFilterObjectByID(rawData, id)[0];
 
   if (dragObject.page_parent_ID) {
     parentMenuObject = getFilterObjectByID(
-      rawData,
+      formatedMenu,
       dragObject.page_parent_ID
     )[0];
   }
@@ -351,4 +389,54 @@ export const isNotEmptyObject = (_object) => {
   } else {
     return false;
   }
+};
+
+export const getProjectwithImageMap = (data) => {
+  const project = data.projectList;
+  const images = data.imageList;
+  const projList = [];
+  const list = project.reduce((acc, val, ind) => {
+    const imgs = [];
+    images.forEach((el, i) => {
+      if (el.projectID === val.id) {
+        imgs.push(el);
+      }
+    });
+    return acc.concat({ ...val, imgs });
+  }, []);
+  return list;
+};
+
+export const getUniqueValuesFromarray = (arr1, arr2) => {
+  const set1 = new Set(arr1);
+  const set2 = new Set(arr2);
+  const unique = [];
+
+  for (const item of set1) {
+    if (!set2.has(item)) unique.push(item);
+  }
+  for (const item of set2) {
+    if (!set1.has(item)) unique.push(item);
+  }
+
+  return unique;
+};
+
+export const getFilterObjectLabel = (list, identifier, value) => {
+  return list.filter((item) => {
+    return item[identifier]?.toLowerCase() === value.toLowerCase();
+  })[0];
+};
+
+export const getCategoryPorjectList = (data) => {
+  const projList = [];
+
+  data?.forEach((proj) => {
+    if (!projList[proj.projectCategoryValue]) {
+      projList[proj.projectCategoryValue] = [];
+    }
+    projList[proj.projectCategoryValue].push(proj);
+  });
+
+  return projList;
 };

@@ -1,4 +1,4 @@
-/* .card {
+/* .card {homeIconsAllServices
   border-radius: 0px !important;
   overflow: hidden;
   border: 0px !important;
@@ -105,10 +105,6 @@
 
 /*  End of Eight Blocks */
 
-.breiftopMargin {
-  margin-top: 30px;
-}
-
 .homeProjectsInfo .breiftopMargin {
   margin-top: 0px !important;
 }
@@ -117,19 +113,204 @@
   padding-top: 0px !important;
 }
 
-.homeIconsheilights {
-  background-color: #FF9D00;
+.homeBriefheilights {
+  /* background-color: #FF9D00; */
+  background-image: url('../../../Images/homeBriefHilghtBg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   color: #fff;
   padding: 48px 0;
+  margin: 30px 0;
+
+  h5 {
+    color: #fff !important;
+    font-weight: normal !important;
+  }
+
+  p {
+    color: #f8f8f8;
+    font-weight: 300 !important;
+  }
 }
 
-.homeIconsheilights p {
-  color: #fff
-}
-
-.homeIconsAllServices {
-  padding: 48px 0;
-  background-color: #6D2F9B;
-  color: white;
+.homeDynamciServicesIntro {
+  margin: 30px 0;
+  padding: 30px 0 48px;
+  background-color: #f8f8f8;
+  color: #444;
   text-align: center;
+  /* background-image: url('../../../Images/IconHomeServicesBgImage.png'); */
+
+  .breiftopMargin {
+    border-bottom: 1px solid rgba(255, 255, 255, .1)
+  }
+
+  .briefIntro {
+    .btn{
+      border: 0 !important;
+      text-decoration: underline;
+
+      &:hover {
+        background-color: transparent !important;
+      }
+    }
+  }
+}
+
+.homeDynamciServices {
+  padding: 24px 0;
+  .briefIntro {
+    height: 320px;
+    max-height: 100%;
+    padding: 32px;
+    border-bottom: 20px solid rgba(1, 32, 96, .2);
+    background-color: rgb(1, 32, 96, .1);
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(109, 47, 155, .1);
+    }
+  }
+
+  .homeService {
+    position: relative;
+  }
+
+  .homeService a {
+    text-decoration-color: rgba(255, 255, 255, .2) !important;
+
+    &:hover {
+      text-decoration-color: rgba(255, 255, 255, 1) !important;
+    }
+  }
+
+  .homeService .breiftopMargin {
+    min-height: 320px;
+    border-bottom: 1px solid rgba(255, 255, 255, .2)
+  }
+
+  .homeService .breiftopMargin .container > div {
+    padding: 10px 0 !important;
+  }
+
+  .homeService .briefIntro h5 {
+    text-align: left;
+  }
+
+  .row {
+    .col-md-4 .briefIntro {
+      background-repeat: no-repeat;
+      background-position: right 15px bottom;
+
+      @media(max-width: 768px) {
+        background-position: right 32px bottom;
+      }
+    }
+
+    .col-md-4:nth-child(1) .briefIntro {
+      background-image: url('../../../Images/studies.png');
+    }
+
+    .col-md-4:nth-child(2) .briefIntro {
+      background-image: url('../../../Images/engineering.png');
+    }
+
+    .col-md-4:nth-child(3) .briefIntro {
+      background-image: url('../../../Images/calculator.png');
+    }
+    .col-md-4:nth-child(3) .briefIntro {
+      background-image: url('../../../Images/calculator.png');
+    }
+    .col-md-4:nth-child(4) .briefIntro {
+      background-image: url('../../../Images/management.png');
+    }
+
+    .col-md-4:nth-child(5) .briefIntro {
+      background-image: url('../../../Images/engineer.png');
+    }
+
+    .col-md-4:nth-child(6) .briefIntro{
+      background-image: url('../../../Images/engineering-services.png');
+    }
+  }
+}
+
+
+/* Home Page Projects Carousel CSS */
+
+.homeMultyPurposeCarousel {
+  /* background-color: rgba(34, 34, 34, .1); */
+  position: relative;
+
+  .container {
+    background-color: rgba(34, 34, 34, .1);
+  }
+
+  .carousel-indicators {
+    display: none;
+    button {
+      width: 16px;
+    }
+  }
+
+   .carousel-control-prev, .carousel-control-next {
+    top: 24px !important;
+    align-items: start;
+    opacity: .7 !important;
+
+    @media(max-width: 480px) {
+      top: -16px !important;
+    }
+   }
+
+   .carousel-control-prev{
+    left: 88% !important;
+
+    @media(min-width: 421px ) and (max-width: 991px) {
+      left: 78% !important;
+    }
+
+    @media(max-width: 480px) {
+      left: 65% !important;
+    }
+   }
+  
+  .carousel-control-prev-icon, .carousel-control-next-icon {
+    padding: 12px;
+    background-color: #222;
+    border-radius: 4px;
+    display: inline-block;
+    background-size: 60%;
+  }
+
+  .carouselImg, .carouselDescription {
+    height: 500px;
+    
+
+    @media(max-width: 480px) {
+      height: auto;
+    }
+
+    
+  }
+  .carouselImg img {
+   height: 100%;
+   object-fit: cover;
+  }
+
+  .carouselDescription {
+    padding: 0 80px;
+
+    @media(max-width: 820px) {
+      padding: 32px;
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #222;
+    }
+    span {
+      color: #6D2F9B;
+    }
+  }
 }

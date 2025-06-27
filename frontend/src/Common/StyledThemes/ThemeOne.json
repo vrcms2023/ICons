@@ -24,6 +24,11 @@
   "grayddd": "#dddddd",
   "grayeee": "#eeeeee",
   "graye6": "#e6e6e6",
+  "lightWhiteFB": "#fbfbfb",
+  "lightWhiteFD": "#fdfdfd",
+  "lightWhiteF8": "#f8f8f8",
+
+  "clientColor": "#6D2F9B",
 
   "yellow": "#ffff00",
 
@@ -42,11 +47,11 @@
   "teritoryHoverColor": "#2A5CA0",
 
   "navbarBg": "#222222",
-  "navbarTextColor": "#ffffff",
-  "navbarLinkColor": "#ffffff",
+  "navbarTextColor": "#012060",
+  "navbarLinkColor": "#012060",
   "navbarLinkBgColor": "#748E31",
-  "navbarLinkActiveColor": "#aaaaaa",
-  "navbarLinkHoverColor": "#aaaaaa",
+  "navbarLinkActiveColor": "#6D2F9B",
+  "navbarLinkHoverColor": "#6D2F9B",
 
   "navbarChildLinkBgColor": "#222222",
   "navbarChildLinkColor": "#ffffff",
@@ -90,11 +95,11 @@
   "pageBannerTitleColor": "#ffffff",
   "pageBannerSubTitleColor": "#ffffff",
 
-  "footerBgColor": "#999999",
-  "footerTextColor": "#ffffff",
+  "footerBgColor": "#012060",
+  "footerTextColor": "#f8f8f8",
   "footerTitleColor": "#222222",
   "footerLinkColor": "#ffffff",
-  "footerLinkHoverColor": "#6D2F9B",
+  "footerLinkHoverColor": "#ffffff",
 
   "pageTitleColor": "#222222",
 
@@ -116,12 +121,12 @@
   "btnSecondryBorderColor": "#aaaaaa",
   "btnSecondryBorderHoverColor": "#aaaaaa",
 
-  "btnOutline": "#ffffff",
+  "btnOutline": "#6D2F9B",
   "btnOutlineHover": "#ffffff",
-  "btnOutlineTextColor": "#555555",
-  "btnOutlineTextHoverColor": "#111111",
-  "btnOutlineBorderColor": "#999999",
-  "btnOutlineBorderHoverColor": "#f3f3f3",
+  "btnOutlineTextColor": "#444444",
+  "btnOutlineTextHoverColor": "#444444",
+  "btnOutlineBorderColor": "#6D2F9B",
+  "btnOutlineBorderHoverColor": "#444444",
 
   "btnLinkTextColor": "#007CB9",
   "btnLinkTextHoverColor": "#005689",

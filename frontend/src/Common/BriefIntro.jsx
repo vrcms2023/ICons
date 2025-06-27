@@ -19,7 +19,8 @@ const BriefIntroFrontend = ({
   detailsContainerCss,
   anchorContainer,
   anchersvgColor,
-  showLink,
+  showLink = true,
+  maxHeight,
 }) => {
   const [introValue, setIntroValues] = useState([]);
 
@@ -29,6 +30,7 @@ const BriefIntroFrontend = ({
         const response = await axiosClientServiceApi.get(
           `/carousel/clientHomeIntro/${pageType}/`
         );
+
         if (response?.status === 200) {
           setIntroValues(response.data.intro);
         }
@@ -42,7 +44,7 @@ const BriefIntroFrontend = ({
   }, [introState, pageType]);
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <BriefIntroStyled>
         <div className="row ">
           <div className={`${detailsContainerCss} briefIntro`}>
@@ -52,17 +54,26 @@ const BriefIntroFrontend = ({
             {introValue?.subTitle !== "" && (
               <Title title={introValue?.subTitle} cssClass={introSubTitleCss} />
             )}
-            <p className={introDecTitleCss}>
-              {introValue?.intro_desc
-                ? introValue?.intro_desc
-                : "Please Update Brief Intro"}
-            </p>
+            {introValue?.intro_desc ? (
+              <p className={introDecTitleCss}>
+                {introValue?.intro_desc
+                  ? introValue?.intro_desc
+                  : "Please Update Brief Intro"}
+              </p>
+            ) : (
+              ""
+            )}
 
-            {showLink && (
+            {showLink && introValue?.intro_morelink && (
               <div className={anchorContainer}>
                 <Ancher
                   AncherLabel={linkLabel}
-                  Ancherpath={moreLink}
+                  Ancherpath={
+                    introValue?.intro_morelink
+                      ? introValue.intro_morelink
+                      : moreLink
+                  }
+                  // Ancherpath={moreLink}
                   AncherClass={linkCss}
                   AnchersvgColor={anchersvgColor}
                 />

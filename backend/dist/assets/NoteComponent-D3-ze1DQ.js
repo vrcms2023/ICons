@@ -1,1 +1,0 @@
-import{j as e}from"./index-BWK7iHxT.js";const r=({note:t})=>e.jsx("div",{className:"p-2 fw-medium bg-warning text-center mb-2 rounded",children:e.jsxs("small",{children:["Note : ",t]})});export{r as N};

@@ -20,7 +20,13 @@ import SkeletonNews from "../../Common/Skeltons/SkeltonNews";
 import RichTextView from "../../Common/RichTextView";
 // Styles
 
-const JobPost = ({ addJobs, posts, setPosts, setPageloadResults }) => {
+const JobPost = ({
+  addJobs,
+  posts,
+  setPosts,
+  setPageloadResults,
+  setEditState,
+}) => {
   const editComponentObj = {
     job: false,
   };
@@ -36,6 +42,7 @@ const JobPost = ({ addJobs, posts, setPosts, setPageloadResults }) => {
     setEditPosts(item);
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
+    setEditState(!value);
     document.body.style.overflow = "hidden";
   };
 
@@ -210,7 +217,7 @@ const JobPost = ({ addJobs, posts, setPosts, setPageloadResults }) => {
 
             {/* publihser Icon */}
 
-            <div className="p-3 jobPost">
+            <div className="p-4 jobPost">
               <small className="d-block location mb-3">
                 <i
                   className="fa fa-map-marker fs-4 me-1"
@@ -221,15 +228,15 @@ const JobPost = ({ addJobs, posts, setPosts, setPageloadResults }) => {
               <div className="mt-0 mb-3">
                 <Title
                   title={item.job_title}
-                  cssClass="fs-5 fw-bold jobTitle"
+                  cssClass="fs-4 jobTitle"
                 />
               </div>
               <div className="mt-0 mb-3">
-                <Title title="Company" cssClass="fw-bold fs-6" />
+                <Title title="Company" cssClass="subTitle" />
                 <p className="m-0">{item.company_name} </p>
               </div>
               <div className="">
-                <Title title="Job Description" cssClass="fw-bold fs-6" />
+                <Title title="Job Description" cssClass="subTitle" />
                 <div className="m-0">
                   <RichTextView
                     data={getFirstShortDescription(item?.description)}
@@ -244,18 +251,18 @@ const JobPost = ({ addJobs, posts, setPosts, setPageloadResults }) => {
               </div>
 
               <div className="d-block my-2">
-                <Title title="Experience" cssClass="fw-bold fs-6" />
+                <Title title="Experience" cssClass="subTitle" />
                 {item.experience_from ? item.experience_from : 0} to{" "}
                 {item.experience_to ? item.experience_to : 0} Years
               </div>
               <small className="d-block">
-                <Title title="Posted on" cssClass="fw-bold fs-6" />
+                <Title title="Posted on" cssClass="subTitle" />
                 {showPosteddate(item.posted_date) === 0 ? (
                   "Today"
                 ) : (
                   <>
                     [{" "}
-                    <strong className="">
+                    <strong className="subTitle">
                       {showPosteddate(item.posted_date)}
                     </strong>{" "}
                     ] days ago
@@ -299,18 +306,18 @@ const JobPost = ({ addJobs, posts, setPosts, setPageloadResults }) => {
         <div className="text-center py-5">
           {!isAdmin && (
             <p className="text-center fs-4">
-              At present there are not news items are available.
+              Currently, there are no career opportunities available.
             </p>
           )}
           {isAdmin && hasPermission && (
             <>
               <p className="text-center fs-4">
-                There are no news items found. Please create news items.
+                No career opportunities found. Please create some careers.
               </p>
-              <Link to="/login" className="btn btn-primary fs-5 w-25">
+              {/* <Link to="/login" className="btn btn-primary fs-5 w-25">
                 Login to Add Careers{" "}
                 <i className="fa fa-plus mx-2" aria-hidden="true"></i>{" "}
-              </Link>
+              </Link> */}
             </>
           )}
         </div>

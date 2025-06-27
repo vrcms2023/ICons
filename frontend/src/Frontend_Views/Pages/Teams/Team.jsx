@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import ImageInputsForm from "../../../Frontend_Admin/Components/forms/ImgTitleIntoForm";
 import {
   getFormDynamicFields,
@@ -36,6 +37,13 @@ import { removeActiveClass } from "../../../util/ulrUtil";
 import { TeamStyled } from "../../../Common/StyledComponents/Styled-Team";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import RichTextView from "../../../Common/RichTextView";
+import { getObjectsByKey } from "../../../util/showHideComponentUtil";
+import {
+  createShowHideComponent,
+  getAllShowHideComponentsList,
+  updateShowHideComponent,
+} from "../../../redux/showHideComponent/showHideActions";
+import ShowHideToggle from "../../../Common/ShowHideToggle";
 
 const Team = () => {
   const editComponentObj = {
@@ -94,7 +102,10 @@ const Team = () => {
         console.log("unable to access ulr because of server is down");
       }
     };
-    if (!componentEdit.addSection || !componentEdit.editSection) {
+    if (
+      (!componentEdit.addSection || !componentEdit.editSection) &&
+      !searchQuery
+    ) {
       getTeamMemberDetails();
     }
   }, [componentEdit.addSection, componentEdit.editSection]);
@@ -156,6 +167,36 @@ const Team = () => {
     }
   };
 
+  const [showHideCompList, setShowHideCompList] = useState([]);
+  const showHideCompPageLoad = useRef(true);
+  const dispatch = useDispatch();
+  const { error, showHideList } = useSelector((state) => state.showHide);
+
+  useEffect(() => {
+    if (showHideList.length > 0) {
+      setShowHideCompList(getObjectsByKey(showHideList));
+    }
+  }, [showHideList]);
+
+  useEffect(() => {
+    if (showHideList.length === 0 && showHideCompPageLoad.current) {
+      dispatch(getAllShowHideComponentsList());
+      showHideCompPageLoad.current = false;
+    }
+  }, [showHideList]);
+
+  const showHideHandler = async (id, compName) => {
+    if (id) {
+      dispatch(updateShowHideComponent(id));
+    } else {
+      const newData = {
+        componentName: compName.toLowerCase(),
+        pageType: pageType,
+      };
+      dispatch(createShowHideComponent(newData));
+    }
+  };
+
   return (
     <>
       <div className="position-relative">
@@ -182,40 +223,60 @@ const Team = () => {
         </div>
       )}
 
-      {/* Brief Introduction */}
-      {isAdmin && hasPermission && (
-        <EditIcon editHandler={() => editHandler("briefIntro", true)} />
-      )}
-
-      {/* <BriefIntroFrontend
-        introState={componentEdit.briefIntro}
-        pageType={pageType}
-      /> */}
-
-      <BriefIntroFrontend
-        introState={componentEdit.briefIntro}
-        linkCss="btn btn-outline d-flex justify-content-center align-items-center"
-        linkLabel="Read More"
-        moreLink=""
-        showLink={false}
-        introTitleCss="fs-3 fw-medium text-md-center"
-        introSubTitleCss="fw-medium text-muted text-md-center"
-        introDecTitleCss="fs-6 fw-normal w-75 m-auto text-md-center"
-        detailsContainerCss="col-md-10 offset-md-1"
-        anchorContainer="d-flex justify-content-start align-items-start mt-4"
-        anchersvgColor="#17427C"
-        pageType={pageType}
-      />
-      {componentEdit.briefIntro && (
-        <div className={`adminEditTestmonial selected `}>
-          <AdminBriefIntro
-            editHandler={editHandler}
-            componentType="briefIntro"
-            popupTitle="Team Brief"
-            pageType={pageType}
+      <div
+        className={
+          showHideCompList?.teambriefintro?.visibility &&
+          isAdmin &&
+          hasPermission
+            ? "border border-info mb-2"
+            : ""
+        }
+      >
+        {isAdmin && hasPermission && (
+          <ShowHideToggle
+            showhideStatus={showHideCompList?.teambriefintro?.visibility}
+            title={"A Brief Introduction Component"}
+            componentName={"teambriefintro"}
+            showHideHandler={showHideHandler}
+            id={showHideCompList?.teambriefintro?.id}
           />
-        </div>
-      )}
+        )}
+
+        {/* INTRODUCTION COMPONENT */}
+        {showHideCompList?.teambriefintro?.visibility && (
+          <div>
+            {/* Brief Introduction */}
+            {isAdmin && hasPermission && (
+              <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+            )}
+
+            <BriefIntroFrontend
+              introState={componentEdit.briefIntro}
+              linkCss="btn btn-outline d-flex justify-content-center align-items-center"
+              linkLabel="Read More"
+              moreLink=""
+              showLink={false}
+              introTitleCss="fs-3 fw-medium text-md-center"
+              introSubTitleCss="fw-medium text-muted text-md-center"
+              introDecTitleCss="fs-6 fw-normal w-75 m-auto text-md-center"
+              detailsContainerCss="col-md-10 offset-md-1"
+              anchorContainer="d-flex justify-content-start align-items-start mt-4"
+              anchersvgColor="#17427C"
+              pageType={pageType}
+            />
+            {componentEdit.briefIntro && (
+              <div className={`adminEditTestmonial selected `}>
+                <AdminBriefIntro
+                  editHandler={editHandler}
+                  componentType="briefIntro"
+                  popupTitle="Team Brief"
+                  pageType={pageType}
+                />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
 
       <div className="container">
         <div className="row">
@@ -235,7 +296,7 @@ const Team = () => {
           </div>
         </div>
 
-        <div className="row mb-0 mb-md-4 py-2 py-md-4">
+        <div className="row mb-0 py-2 py-md-4">
           <div className="col-md-6 fs-3 mt-4 mt-md-0">
             <Title title="Our Team" cssClass="fs-1 pageTitle" />
           </div>
@@ -250,6 +311,8 @@ const Team = () => {
               setPageloadResults={setPageloadResults}
               setSearchquery={setSearchquery}
               searchQuery={searchQuery}
+              addStateChanges={componentEdit.addSection}
+              editStateChanges={!componentEdit.editSection}
             />
           </div>
         </div>
@@ -358,14 +421,14 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
     >
       {(provided) => (
         <div
-          className="col-md-6 col-lg-3 px-4 px-md-3"
+          className="col-md-6 col-lg-4 px-4 px-md-3"
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
           <div
             key={item.id}
-            className={`mx-md-1 mx-lg-1 memberCard shadow ${
+            className={`mx-md-1 mx-lg-1 memberCard border shadow-sm ${
               isAdmin ? "border border-warning position-relative" : ""
             } ${index % 2 === 0 ? "normalCSS" : "flipCSS"}`}
           >
@@ -385,9 +448,15 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
                 </Link>
               </>
             )}
-            <img src={getImagePath(item.path)} alt="" className="w-100" />
+            <div className="text-center p-3">
+              <img
+                src={getImagePath(item.path)}
+                className="rounded rounded-1 mt-2 "
+                alt=""
+              />
+            </div>
 
-            <div className="my-3 text-start p-2 memberDetails">
+            <div className=" text-start py-2 p-4 memberDetails">
               {item.team_member_designation && (
                 <small className="mb-1 fw-bold">
                   {item.team_member_designation}
@@ -400,7 +469,7 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
               {item.team_member_about_us && (
                 <RichTextView
                   data={item.team_member_about_us}
-                  className={"strengths my-3"}
+                  className={"strengths"}
                 />
                 // <div
                 //   className="strengths my-3"
@@ -411,7 +480,7 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
               )}
 
               {item.team_member_email && (
-                <div className="mb-2">
+                <div className="mt-3">
                   <a href={`mailto:${item.team_member_email}`}>
                     {item.team_member_email}
                   </a>

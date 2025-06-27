@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import Title from "../../../Common/Title";
@@ -32,6 +33,14 @@ import {
 // CSS
 import { AboutPageStyled } from "../../../Common/StyledComponents/Styled-AboutPage";
 import RichTextView from "../../../Common/RichTextView";
+import ShowHideToggle from "../../../Common/ShowHideToggle";
+import { getObjectsByKey } from "../../../util/showHideComponentUtil";
+import {
+  createShowHideComponent,
+  getAllShowHideComponentsList,
+  getShowHideComponentsListByPage,
+  updateShowHideComponent,
+} from "../../../redux/showHideComponent/showHideActions";
 
 const About = () => {
   const editComponentObj = {
@@ -40,13 +49,44 @@ const About = () => {
     addSection: false,
     editSection: false,
   };
-
+  const dispatch = useDispatch();
   const pageType = "aboutus";
   const { isAdmin, hasPermission } = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [aboutList, setAboutList] = useState([]);
   const [show, setShow] = useState(false);
   const [editCarousel, setEditCarousel] = useState({});
+  const [showHideCompList, setShowHideCompList] = useState([]);
+  const showHideCompPageLoad = useRef(true);
+
+  const { error, success, showHideList } = useSelector(
+    (state) => state.showHide
+  );
+
+  useEffect(() => {
+    if (showHideList.length > 0) {
+      setShowHideCompList(getObjectsByKey(showHideList));
+    }
+  }, [showHideList]);
+
+  useEffect(() => {
+    if (showHideList.length === 0 && showHideCompPageLoad.current) {
+      dispatch(getAllShowHideComponentsList());
+      showHideCompPageLoad.current = false;
+    }
+  }, [showHideList]);
+
+  const showHideHandler = async (id, compName) => {
+    if (id) {
+      dispatch(updateShowHideComponent(id));
+    } else {
+      const newData = {
+        componentName: compName.toLowerCase(),
+        pageType: pageType,
+      };
+      dispatch(createShowHideComponent(newData));
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -118,7 +158,6 @@ const About = () => {
 
   return (
     <>
-
       {/* Page Banner Component */}
       <div className="position-relative">
         {isAdmin && hasPermission && (
@@ -147,38 +186,61 @@ const About = () => {
           />
         </div>
       )}
-
-      {/* Brief Introduction */}
-      {isAdmin && hasPermission && (
-        <EditIcon editHandler={() => editHandler("briefIntro", true)} />
-      )}
-
-      <BriefIntroFrontend
-        introState={componentEdit.briefIntro}
-        linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
-        linkLabel="Read More"
-        moreLink=""
-        introTitleCss="fs-3 fw-medium text-md-center"
-        introSubTitleCss="fw-medium text-muted text-md-center"
-        introDecTitleCss="fs-6 fw-normal w-75 m-auto text-md-center"
-        detailsContainerCss="col-md-10 offset-md-1 py-3"
-        anchorContainer="d-flex justify-content-center align-items-center mt-4"
-        anchersvgColor="#17427C"
-        pageType={pageType}
-      />
-      {componentEdit.briefIntro && (
-        <div className={`adminEditTestmonial selected `}>
-          <AdminBriefIntro
-            editHandler={editHandler}
-            componentType="briefIntro"
-            popupTitle="About Brief Intro"
-            pageType={pageType}
+      <div
+        className={
+          showHideCompList?.aboutbriefintro?.visibility &&
+          isAdmin &&
+          hasPermission
+            ? "border border-info mb-2"
+            : ""
+        }
+      >
+        {isAdmin && hasPermission && (
+          <ShowHideToggle
+            showhideStatus={showHideCompList?.aboutbriefintro?.visibility}
+            title={"A Brief Introduction Component"}
+            componentName={"aboutbriefintro"}
+            showHideHandler={showHideHandler}
+            id={showHideCompList?.aboutbriefintro?.id}
           />
-        </div>
-      )}
+        )}
 
+        {/* INTRODUCTION COMPONENT */}
+        {showHideCompList?.aboutbriefintro?.visibility && (
+          <div className="breiftopMargin">
+            {/* Brief Introduction  */}
+            {isAdmin && hasPermission && (
+              <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+            )}
+
+            <BriefIntroFrontend
+              introState={componentEdit.briefIntro}
+              linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
+              linkLabel="Read More"
+              moreLink=""
+              introTitleCss="fs-3 fw-medium text-md-center"
+              introSubTitleCss="fw-medium text-muted text-md-center"
+              introDecTitleCss="fs-6 fw-normal w-75 m-auto text-md-center"
+              detailsContainerCss="col-md-10 offset-md-1 py-3"
+              anchorContainer="d-flex justify-content-center align-items-center mt-4"
+              anchersvgColor="#17427C"
+              pageType={pageType}
+            />
+            {componentEdit.briefIntro && (
+              <div className={`adminEditTestmonial selected `}>
+                <AdminBriefIntro
+                  editHandler={editHandler}
+                  componentType="briefIntro"
+                  popupTitle="About Brief Intro"
+                  pageType={pageType}
+                />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
       <AboutPageStyled>
-        <div className="container-fluid container-lg my-md-5 ">
+        <div className="container-fluid container-lg ">
           <div className="row my-3 d-flex align-items-center">
             {/* <div className="col-md-6 fs-3 mt-4 mt-md-0">
               <Title title="About Us" cssClass="fs-1 pageTitle" />
@@ -228,7 +290,7 @@ const About = () => {
                   key={item.id}
                   className={`row ${
                     isAdmin
-                      ? "border border-warning mb-3 position-relative"
+                      ? "border border-warning mb-4 position-relative"
                       : ""
                   } ${index % 2 === 0 ? "normalCSS" : "flipCSS"}`}
                 >
@@ -250,12 +312,12 @@ const About = () => {
                       </Link>
                     </>
                   )}
-                  <div className="col-12 col-lg-7 p-4 p-md-4 py-md-4 d-flex justify-content-center align-items-start flex-column leftColumn">
+                  <div className="col-12 col-lg-7 p-4 py-0 p-md-4 d-flex justify-content-center align-items-start flex-column leftColumn">
                     {item.aboutus_title ? (
                       <Title
                         title={item.aboutus_title}
                         cssClass=""
-                        mainTitleClassess="fs-2 mb-2 fw-medium title"
+                        mainTitleClassess="fs-3 mb-2 title"
                         subTitleClassess=""
                       />
                     ) : (
@@ -266,7 +328,7 @@ const About = () => {
                       <Title
                         title={item.aboutus_sub_title}
                         cssClass=""
-                        mainTitleClassess="fs-5 text-secondary mb-2"
+                        mainTitleClassess="fs-6 text-secondary mb-2 subTitle"
                         subTitleClassess=""
                       />
                     ) : (
@@ -284,7 +346,7 @@ const About = () => {
                     /> */}
                   </div>
 
-                  <div className="col-lg-5 p-1 p-lg-5 pe-lg-0 d-flex justify-content-center align-items-start flex-column rightColumn">
+                  <div className="col-lg-5 p-4 p-md-0 d-flex justify-content-center align-items-start flex-column rightColumn">
                     {/* <Title
                           title={"OUR WORK LOCATIONS"}
                           cssClass="fs-5 my-5 title"
@@ -292,7 +354,7 @@ const About = () => {
                     <img
                       src={getImagePath(item.path)}
                       alt=""
-                      className="w-75 h-75 object-fit-cover shadow m-auto"
+                      className="w-75 object-fit-cover shadow m-auto"
                     />
                   </div>
                 </div>
