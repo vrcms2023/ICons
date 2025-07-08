@@ -73,11 +73,18 @@ import HomeDynamicServices from "../../Components/HomeDynamicServices";
 import { getObjectsByKey } from "../../../util/showHideComponentUtil";
 import { HomeClientList } from "../../Components/HomeClientList";
 import DownloadBrochures from "../../Components/DownloadBrochures";
+import ListofTitleandDescription from "../../../Frontend_Admin/Components/forms/ListofTitleandDescription";
+import { getHomeIntroList } from "../../../redux/homeintroList/homeIntroListActions";
+import TitleWithDescripton from "../../Components/TitleWithDescripton";
+import { HomeServiceStylesComponent } from "../../../Common/StyledComponents/Styled-HomeServices-Compoent";
+import { HomeDynamicServiceStylesComponent } from "../../../Common/StyledComponents/Styled-HomeDynamicServices-Compoent";
+import { HomeCauroselComponentStyles } from "../../../Common/StyledComponents/Styled-HomeCarousel";
 
 const Home = () => {
   const editComponentObj = {
     carousel: false,
     briefIntro: false,
+    homeServicebriefIntro: false,
     projects: false,
     projectsBrief: false,
     testmonial: false,
@@ -85,6 +92,7 @@ const Home = () => {
     product_development: false,
     product_distribution: false,
     iconsHelightsBrief: false,
+    projectbriefIntro: false,
     homeService0: false,
     homeService1: false,
     homeService2: false,
@@ -120,6 +128,7 @@ const Home = () => {
 
   const [showHideCompList, setShowHideCompList] = useState([]);
   const { serviceMenu } = useSelector((state) => state.serviceMenu);
+  const { homeIntroList } = useSelector((state) => state.homeIntroList);
 
   const dispatch = useDispatch();
 
@@ -138,6 +147,12 @@ const Home = () => {
       setNews([]);
     }
   };
+
+  useEffect(() => {
+    if (homeIntroList.length == 0) {
+      dispatch(getHomeIntroList());
+    }
+  }, [homeIntroList?.length]);
 
   useEffect(() => {
     const getHomePageCategoryList = async () => {
@@ -255,7 +270,7 @@ const Home = () => {
     <>
       <div className="container-fluid p-0">
         {/*Download Broucher */}
-        <div className="">
+        <div className="homeBrochure">
           <DownloadBrochures />
         </div>
 

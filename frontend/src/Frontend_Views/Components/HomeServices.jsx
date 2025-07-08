@@ -81,13 +81,18 @@ const HomeServices = ({ title }) => {
                 <RichTextView
                   data={item.feature_description}
                   className={"description"}
+                  characterLimit={600}
+                  showMorelink={false}
                 />
                 // <div
                 //   className="description"
                 //   dangerouslySetInnerHTML={{ __html: item.feature_description }}
                 // />
               )}
-              <Link to={`/${item.serviceID}/`} className="btn btn-primary mt-4">
+              <Link
+                to={`/services/${item.services_page_title}/`}
+                className="mt-3"
+              >
                 Know More
               </Link>
             </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import _ from "lodash";
 import { getCookie } from "../../util/cookieUtil";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,21 +31,24 @@ import {
 import { getServiceValues } from "../../redux/services/serviceActions";
 import { isAppAccess } from "../../util/permissions";
 
-// import Logo from "../../Images/logo.png";
-import headersvgLogo from "../../Images/headerLogo.svg";
-import LogoForm from "../../Frontend_Admin/Components/forms/Logo";
 import {
   updatedMenulist,
   updatedMenuloadedStatus,
 } from "../../redux/auth/authSlice";
-import { use } from "react";
+import { axiosServiceApi } from "../../util/axiosUtil";
+import { toast } from "react-toastify";
+import Menudata from "../../data/Menu.json";
+import ImageInputsForm from "../../Frontend_Admin/Components/forms/ImgTitleIntoForm";
+import EditIcon from "../AdminEditIcon";
+import { getLogoFormFields } from "../../util/dynamicFormFields";
+import ApplicationLogo from "../Logo/ApplicationLogo";
 
 const Header = () => {
   const editComponentObj = {
     logo: false,
     menu: false,
   };
-  const { isAdmin } = useAdminLoginStatus();
+  const { isAdmin, hasPermission } = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
   const { userInfo, menuList, menuRawList, permissions, menuloadedStatus } =
@@ -54,6 +57,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const onPageLoadServiceAction = useRef(true);
   const [rootServiceMenu, setRootServiceMenu] = useState({});
+  const navigate = useNavigate();
+  const pageType = "header";
 
   const pathList = [
     "/login",
@@ -194,6 +199,22 @@ const Header = () => {
     }, 2000);
   }, []);
 
+  const loadAndSubmitMenuJSON = async () => {
+    try {
+      const response = await axiosServiceApi.post(
+        `/pageMenu/uploadMenuData/`,
+        Menudata
+      );
+
+      if (response.status === 201) {
+        toast.success(response.data.message || "File uploaded successfully!");
+        navigate("/adminPagesConfiguration");
+      }
+    } catch (error) {
+      toast.error("An error occurred while uploading.");
+    }
+  };
+
   // useEffect(() => {
   //   function scrollFunction() {
   //     const navbar = document.getElementsByClassName("navbar")[0]; // Get the first element with the class name
@@ -222,13 +243,6 @@ const Header = () => {
   // }
   return (
     <StyledMenu>
-      {componentEdit.menu ? (
-        <div className="adminEditTestmonial">
-          <LogoForm editHandler={editHandler} />
-        </div>
-      ) : (
-        ""
-      )}
       <nav
         className={
           isAdmin
@@ -237,9 +251,31 @@ const Header = () => {
         }
       >
         <div className="container">
+          <div className="position-relative">
+            {isAdmin && hasPermission && (
+              <EditIcon editHandler={() => editHandler("menu", true)} />
+            )}
+            {/* {componentEdit.menu && (
+              <div className={`adminEditTestmonial selected `}>
+                <ImageInputsForm
+                  editHandler={editHandler}
+                  componentType="menu"
+                  popupTitle="Application Logo"
+                  pageType={`${pageType}-logo`}
+                  imageLabel="Application Logo"
+                  category="Logo"
+                  showDescription={false}
+                  validTypes={"image/svg+xml"}
+                  showExtraFormFields={getLogoFormFields(`${pageType}-logo`)}
+                />
+              </div>
+            )} */}
+          </div>
           <Link to={isHideMenu ? "#" : "/"} className="navbar-brand logo">
-            {/* <img src={Logo} alt="" /> */}
-            <img src={headersvgLogo} alt="" />
+            <ApplicationLogo
+              getBannerAPIURL={`banner/clientBannerIntro/${pageType}-logo/`}
+              bannerState={componentEdit.menu}
+            />
           </Link>
 
           {!isHideBurgetIcon && !showAddMenuMessage && (
@@ -255,10 +291,17 @@ const Header = () => {
               <span className="navbar-toggler-icon"></span>
             </button>
           )}
-          {showAddMenuMessage && (
+          {menuRawList?.length === 0 && isAdmin && (
             <div className="w-75 text-end">
-              <Link to="/adminPagesConfiguration" className="btn btn-outline ">
+              {/* <Link to="/adminPagesConfiguration" className="btn btn-outline ">
                 Go for Menu Creation
+              </Link> */}
+              <Link
+                className="btn btn-primary mx-4"
+                onClick={loadAndSubmitMenuJSON}
+              >
+                Generate Menu
+                {/* <i className="fa fa-plus mx-2" aria-hidden="true"></i> */}
               </Link>
             </div>
           )}
@@ -273,6 +316,23 @@ const Header = () => {
           </div>
         </div>
       </nav>
+
+      {/* Edit Logo Code */}
+      {componentEdit.menu && (
+        <div className={`adminEditTestmonial selected `}>
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="menu"
+            popupTitle="Application Logo"
+            pageType={`${pageType}-logo`}
+            imageLabel="Application Logo"
+            category="Logo"
+            showDescription={false}
+            validTypes={"image/svg+xml"}
+            showExtraFormFields={getLogoFormFields(`${pageType}-logo`)}
+          />
+        </div>
+      )}
       {show && <ModalBg />}
     </StyledMenu>
   );

@@ -140,7 +140,11 @@ const TestimonialsList = () => {
           <DeleteDialog
             onClose={onClose}
             callback={deleteSection}
-            message={`deleting the ${name} Service?`}
+            message={
+              <>
+                Confirm deletion of <span>{name}</span> Service?
+              </>
+            }
           />
         );
       },
@@ -184,25 +188,12 @@ const TestimonialsList = () => {
   };
 
   const [showHideCompList, setShowHideCompList] = useState([]);
-  const showHideCompPageLoad = useRef(true);
   const dispatch = useDispatch();
   const { error, showHideList } = useSelector((state) => state.showHide);
 
   useEffect(() => {
     if (showHideList.length > 0) {
       setShowHideCompList(getObjectsByKey(showHideList));
-    }
-  }, [showHideList]);
-
-  useEffect(() => {
-    if (
-      showHideList.length === 0 &&
-      showHideCompPageLoad.current &&
-      counter < 3
-    ) {
-      dispatch(getAllShowHideComponentsList());
-      showHideCompPageLoad.current = false;
-      setCounter(counter + 1);
     }
   }, [showHideList]);
 
@@ -220,30 +211,55 @@ const TestimonialsList = () => {
 
   return (
     <>
-      {/* Page Banner Component */}
-      <div className="position-relative">
+      <div
+        className={
+          showHideCompList?.testimonialbanner?.visibility &&
+          isAdmin &&
+          hasPermission
+            ? "border border-info mb-2"
+            : ""
+        }
+      >
         {isAdmin && hasPermission && (
-          <EditIcon editHandler={() => editHandler("banner", true)} />
-        )}
-        <Banner
-          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
-          bannerState={componentEdit.banner}
-        />
-      </div>
-      {componentEdit.banner && (
-        <div className={`adminEditTestmonial selected `}>
-          <ImageInputsForm
-            editHandler={editHandler}
-            componentType="banner"
-            popupTitle={`Testimonial`}
-            pageType={`${pageType}-banner`}
-            imageLabel="Banner Image"
-            showDescription={false}
-            showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
-            dimensions={imageDimensionsJson("banner")}
+          <ShowHideToggle
+            showhideStatus={showHideCompList?.testimonialbanner?.visibility}
+            title={"Banner"}
+            componentName={"testimonialbanner"}
+            showHideHandler={showHideHandler}
+            id={showHideCompList?.testimonialbanner?.id}
           />
-        </div>
-      )}
+        )}
+        {showHideCompList?.testimonialbanner?.visibility && (
+          <>
+            {/* Page Banner Component */}
+            <div className="position-relative">
+              {isAdmin && hasPermission && (
+                <EditIcon editHandler={() => editHandler("banner", true)} />
+              )}
+              <Banner
+                getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
+                bannerState={componentEdit.banner}
+              />
+            </div>
+            {componentEdit.banner && (
+              <div className={`adminEditTestmonial selected `}>
+                <ImageInputsForm
+                  editHandler={editHandler}
+                  componentType="banner"
+                  popupTitle={`Testimonial`}
+                  pageType={`${pageType}-banner`}
+                  imageLabel="Banner Image"
+                  showDescription={false}
+                  showExtraFormFields={getFormDynamicFields(
+                    `${pageType}-banner`
+                  )}
+                  dimensions={imageDimensionsJson("banner")}
+                />
+              </div>
+            )}
+          </>
+        )}
+      </div>
       <div
         className={
           showHideCompList?.testimonialbriefintro?.visibility &&
@@ -328,7 +344,7 @@ const TestimonialsList = () => {
               clientSearchURL={"/testimonials/searchtestimonials/"}
               adminSearchURL={"/testimonials/createTestimonials/"}
               clientDefaultURL={"/testimonials/clientTestimonials/"}
-              searchfiledDeatails={"client Title / client description "}
+              searchfiledDeatails={"client Title "}
               setPageloadResults={setPageloadResults}
               setSearchquery={setSearchquery}
               searchQuery={searchQuery}
@@ -419,7 +435,9 @@ const TestimonialsList = () => {
                                     <EditIcon
                                       icon={"fa-trash-o"}
                                       iconCss={"text-danger fs-4"}
-                                      cssClasses={""}
+                                      cssClasses={
+                                        "position-absolute deleteIcon"
+                                      }
                                       editHandler={() =>
                                         deleteAboutSection(item)
                                       }
@@ -525,6 +543,7 @@ const TestimonialsList = () => {
           privacy={""}
           closeModel={closeModel}
           flag="footer"
+          cssClass="TestimonialModal"
         />
       )}
 

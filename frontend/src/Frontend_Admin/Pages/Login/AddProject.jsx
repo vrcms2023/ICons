@@ -445,6 +445,12 @@ const AddProject = () => {
             <Button
               type=""
               cssClass="btn btn-outline"
+              label="Back"
+              handlerChange={() => navigate(-1)}
+            />
+            <Button
+              type=""
+              cssClass="btn btn-outline"
               label="Dashboard"
               handlerChange={() => navigate("/dashboard")}
             />
@@ -1012,7 +1018,7 @@ const AddProject = () => {
                       catategoryImgState={setAvailabileObject}
                       project={newProject}
                       category="availability"
-                      cssClass="thumb75 mb-5 shadow-lg border border-5 border-warning rounded-5"
+                      cssClass="thumb75 mb-5 rounded-3"
                     />
                   </div>
 
@@ -1054,7 +1060,7 @@ const AddProject = () => {
                       catategoryImgState={setPriceObject}
                       project={newProject}
                       category="price"
-                      cssClass="thumb75 mb-5 shadow-lg border border-5 border-warning rounded-5"
+                      cssClass="thumb75 mb-5 rounded-3"
                     />
                   </div>
                 </div>

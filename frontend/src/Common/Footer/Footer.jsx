@@ -26,6 +26,9 @@ import Ancher from "../Ancher";
 import Title from "../Title";
 import Button from "../Button";
 import DownloadBrochures from "../../Frontend_Views/Components/DownloadBrochures";
+import BriefIntroFrontend from "../BriefIntro";
+import BriefIntroAdmin from "../../Frontend_Admin/Components/BriefIntro";
+import ApplicationLogo from "../Logo/ApplicationLogo";
 
 const Footer = () => {
   const editComponentObj = {
@@ -33,13 +36,17 @@ const Footer = () => {
     address: false,
     contact: false,
     social: false,
+    footerAboutBrief: false,
+    menu: false,
   };
+
+  const pageType = "footer";
 
   const [footerValues, setFooterValues] = useState(false);
   const [address, setAddress] = useState({});
   const [show, setShow] = useState(false);
   const [modelShow, setModelShow] = useState(false);
-  const { isAdmin } = useAdminLoginStatus();
+  const { isAdmin, hasPermission } = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [termsAndPolicyData, setTermsAndPolicyData] = useState({});
   const [termsAndConditionData, setTermsAndConditionData] = useState({});
@@ -126,21 +133,61 @@ const Footer = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-4 col-lg-3 d-flex align-items-center">
-              <img
+              <ApplicationLogo
+                getBannerAPIURL={`banner/clientBannerIntro/header-logo/`}
+                bannerState={componentEdit.menu}
+                imageCss="footerLogo"
+              />
+              {/* <img
                 src={svgLogo}
                 width="90%"
                 alt="ICONS ENGINEERING WITH EXCELLENCE"
                 className="footerLogo"
-              />
+              /> */}
             </div>
             <div className="col-md-8 col-lg-9 d-flex align-items-center">
-              <p className="description m-0 text-center text-md-start p-4 pb-0 p-md-0">
-                ICONS has Integrated Management System in accordance to ISO ,
-                focused mainly on continuous improvement and learning based on
-                the successes and failures that occur during our day-to-day
-                activities. This system is a fundamental element in the
-                innovation process and encompasses the entire value chain.
-              </p>
+              <div className="description m-0 text-center text-md-start p-4 pb-0 p-md-0">
+                <div>
+                  <div className="container">
+                    <div className="row">
+                      <div className="breiftopMargin">
+                        {isAdmin && hasPermission && (
+                          <EditIcon
+                            editHandler={() =>
+                              editHandler("footerAboutBrief", true)
+                            }
+                          />
+                        )}
+
+                        <BriefIntroFrontend
+                          introState={componentEdit.footerAboutBrief}
+                          linkCss="btn btn-primary d-flex justify-content-center align-items-center gap-3"
+                          linkLabel="Read More"
+                          moreLink=""
+                          introTitleCss="fs-3 text-left mb-2"
+                          introSubTitleCss="fw-medium text-muted text-left mb-3"
+                          introDecTitleCss="fs-6 fw-normal  text-left lh-6"
+                          detailsContainerCss="col-md-12 py-3"
+                          anchorContainer="d-flex justify-content-left align-items-center mt-4"
+                          anchersvgColor="#17427C"
+                          pageType={pageType}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {componentEdit.footerAboutBrief && (
+                    <div className={`adminEditTestmonial selected `}>
+                      <BriefIntroAdmin
+                        editHandler={editHandler}
+                        componentType="footerAboutBrief"
+                        popupTitle="Footer Company Brief"
+                        pageType={pageType}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -337,15 +384,14 @@ const Footer = () => {
               ) : (
                 ""
               )}
-              {/* 
-              <div className="d-flex flex-column justify-content-center align-items-center text-center justify-content-md-start align-items-md-start text-md-start mt-4">
-              <Title title="Downloads" />
-                <Button label="Download Brochure" cssClass="btn btn-primary" /> 
 
+              <div className="d-flex flex-column justify-content-center align-items-center text-center justify-content-md-start align-items-md-start text-md-start mt-4">
+                <Title title="Downloads" />
+                {/* <Button label="Download Brochure" cssClass="btn btn-primary" />  */}
                 <div>
                   <DownloadBrochures />
                 </div>
-              </div> */}
+              </div>
             </div>
             <hr className="d-block d-md-none my-4" />
             {
@@ -450,8 +496,7 @@ const Footer = () => {
                   )}
                 </div>
                 {/* <small className="mt-3 fw-medium text-center text-md-end copyRight">
-                  {" "}
-                  {fullYear} 2025 Copyright ICONS Engineering. All rights reserved.
+                  &copy;  {fullYear} {addressList[0]?.company_name}. All rights reserved.
                 </small> */}
               </div>
             }
@@ -467,7 +512,8 @@ const Footer = () => {
             <div className="row">
               <div className="">
                 <div className="d-flex flex-column flex-md-row justify-content-between align-items-center  gap-2">
-                  &copy; {fullYear} - All rights reserved
+                  &copy; {fullYear} - {addressList[0]?.company_name}. All rights
+                  reserved
                   {/* <span className="d-inline-block  d-none d-md-block">|</span> */}
                   <div className="d-flex gap-2">
                     <Link
@@ -487,14 +533,14 @@ const Footer = () => {
                     </Link>
                   </div>
                 </div>
-                {/* <span className="d-block mt-2 ">
+                <span className="d-block mt-2 ">
                   Designed & developed by{" "}
                   <a href="http://www.varadesigns.com" className="dby">
                     <small className="p-1 fw-bold d-inline-block">
                       VARA-DESIGNS
                     </small>
                   </a>
-                </span> */}
+                </span>
               </div>
             </div>
           </div>

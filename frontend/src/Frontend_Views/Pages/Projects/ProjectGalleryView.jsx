@@ -44,7 +44,7 @@ const ProjectGalleryView = ({ projectImages, type }) => {
             ) : (
               ""
             )}
-            <p className="fs-6 text-dark text-start">
+            <p className="">
               {project.imageDescription}
             </p>
             <GalleryImgThumb

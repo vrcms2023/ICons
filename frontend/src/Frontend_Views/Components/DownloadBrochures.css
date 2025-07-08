@@ -1,3 +1,4 @@
+.homeBrochure {
 .floatingButton {
     position: fixed;
     top: 600px;
@@ -39,3 +40,5 @@
 .floatingButton.scrolled {
   top: 100px;     /* On scroll position */
 }
+}
+

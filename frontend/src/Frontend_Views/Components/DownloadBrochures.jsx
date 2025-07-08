@@ -5,8 +5,9 @@ import { getBaseURL } from "../../util/ulrUtil";
 import Button from "../../Common/Button";
 import RaqFormModel from "../../Common/RaqFormModel";
 import ModelBg from "../../Common/ModelBg";
+import { toast } from "react-toastify";
 
-import './DownloadBrochures.css'
+import "./DownloadBrochures.css";
 
 const DownloadBrochures = () => {
   const [brochuresList, setBrochuresList] = useState([]);
@@ -94,7 +95,7 @@ const DownloadBrochures = () => {
       {brochuresList.length > 1 && (
         <div class="dropdown">
           <button
-            class="btn btn-primary mb-1 p-4  dropdown-toggle"
+            class="btn btn-primary mb-1 dropdown-toggle"
             type="button"
             id="dropdownMenuButton1"
             data-bs-toggle="dropdown"
@@ -105,7 +106,10 @@ const DownloadBrochures = () => {
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             {brochuresList?.map((brochures) => (
               <li>
-                <i class="fa fa-file-pdf-o cursor-pointer fs-4 me-2" aria-hidden="true"></i>
+                <i
+                  class="fa fa-file-pdf-o cursor-pointer fs-4 me-2"
+                  aria-hidden="true"
+                ></i>
                 <a
                   href="#!"
                   onClick={() =>

@@ -114,7 +114,8 @@ const HomeNews = ({
           <DeleteDialog
             onClose={onClose}
             callback={deleteImageByID}
-            message={`deleting the ${name} News?`}
+            // message={`deleting the ${name} News?`}
+            message={<>Confirm deletion of <span>{name}</span> News?</>}
           />
         );
       },
@@ -238,7 +239,7 @@ const HomeNews = ({
             editCarousel={editNews}
             setEditCarousel={setEditNews}
             componentType="news"
-            popupTitle="News"
+            popupTitle="Edit News"
             imageGetURL="appNews/createAppNews/"
             imagePostURL="appNews/createAppNews/"
             imageUpdateURL="appNews/updateAppNews/"
@@ -261,16 +262,18 @@ const HomeNews = ({
               </Link>
             </div>
             <div className="my-3 newsDetails">
-              <div className="text-center">
-                <img
-                  className="w-auto mb-3"
-                  style={{ height: "240px", objectFit: "cover" }}
-                  src={getImagePath(obj.path)}
-                  alt={obj.news_title}
-                />
-              </div>
+              <img
+                className="w-100 mb-3"
+                style={{ height: "240px", objectFit: "cover" }}
+                src={getImagePath(obj.path)}
+                alt={obj.news_title}
+              />
               {obj.news_description ? (
-                <RichTextView data={obj.news_description} className={""} />
+                <RichTextView
+                  data={obj.news_description}
+                  className={""}
+                  showMorelink={false}
+                />
               ) : (
                 // <div
                 //   dangerouslySetInnerHTML={{ __html: obj.news_description }}
@@ -364,6 +367,7 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
                             <RichTextView
                               data={item?.news_description}
                               className={`lineClamp ${isAdmin ? "lc1" : "lc2"}`}
+                              showMorelink={false}
                             />
                           ) : (
                             // <div

@@ -1,5 +1,6 @@
 import React from "react";
 import RichTextEditor from "../../../Frontend_Views/Components/RichTextEditor";
+import RichTextEditor_V2 from "../../../Frontend_Views/Components/RichTextEditor_v2";
 
 export const InputFields = ({
   label,
@@ -146,12 +147,6 @@ export const InputFields = ({
 export const RichTextInputEditor = ({ label, editorSetState, initialText }) => {
   return (
     <div className="mb-2 row">
-      {/* <label
-        htmlFor=""
-        className="col-sm-3 col-form-label text-start text-md-end text-capitalize"
-      >
-        <small>{label}</small>
-      </label> */}
       <div className="col-sm-12">
         <p className="fs-6 pt-3 py-md-0">
           <small>{label}</small>
@@ -159,6 +154,34 @@ export const RichTextInputEditor = ({ label, editorSetState, initialText }) => {
         <RichTextEditor
           initialText={initialText ? initialText : ""}
           RichEditorState={editorSetState}
+        />
+      </div>
+    </div>
+  );
+};
+
+export const RichTextInputEditor_V2 = ({
+  label,
+  Controller,
+  name,
+  control,
+}) => {
+  return (
+    <div className="mb-2 row">
+      <div className="col-sm-12">
+        <p className="fs-6 pt-3 py-md-0">
+          <small>{label}</small>
+        </p>
+        <Controller
+          name={name}
+          control={control}
+          render={({ field }) => (
+            <RichTextEditor_V2
+              field={field}
+              onChange={field.onChange}
+              value={field.value}
+            />
+          )}
         />
       </div>
     </div>

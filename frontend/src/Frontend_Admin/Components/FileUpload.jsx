@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { FilePond, registerPlugin } from "react-filepond";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
@@ -15,8 +15,7 @@ import { axiosFileUploadServiceApi } from "../../util/axiosUtil";
 import {
   InputField,
   InputFields,
-  TextAreaField,
-  RichTextInputEditor,
+  RichTextInputEditor_V2,
 } from "./forms/FormFields";
 import { getImageFileFromUrl, getImagePath } from "../../util/commonUtil";
 
@@ -58,6 +57,7 @@ const FileUpload = ({
   dimensions,
   closeHandler,
   scrollEnable = false,
+  isclosePopup = true,
 }) => {
   const [files, setFiles] = useState([]);
   const [extTypes, setExtTypes] = useState([]);
@@ -70,9 +70,11 @@ const FileUpload = ({
   const timeoutRef = useRef(null);
 
   const {
+    control,
     register,
     reset,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: useMemo(() => {
@@ -148,28 +150,7 @@ const FileUpload = ({
     if (showExtraFormFields) {
       for (const key in showExtraFormFields) {
         if (showExtraFormFields.hasOwnProperty(key)) {
-          if (key === "feature_description") {
-            formData.append("feature_description", editorState);
-          } else if (key === "news_description") {
-            formData.append("news_description", editorState);
-          } else if (key === "aboutus_description") {
-            formData.append("aboutus_description", editorState);
-          } else if (key === "team_member_about_us") {
-            formData.append("team_member_about_us", editorState);
-          } else if (key === "case_studies_description") {
-            formData.append("case_studies_description", editorState);
-          } else if (key === "client_description") {
-            formData.append("client_description", editorState);
-          } else if (key === "description") {
-            formData.append("description", editorState);
-          } else if (
-            key === "banner_descripiton" &&
-            listofAboutSection.indexOf(pageType) > -1
-          ) {
-            formData.append("banner_descripiton", editorState);
-          } else {
-            formData.append(key, data[key]);
-          }
+          formData.append(key, data[key]);        
         }
       }
     }
@@ -284,7 +265,7 @@ const FileUpload = ({
       setError("Please add an image ");
       return true;
     }
-    data = getFormDataonSubmit();
+    data = getFormDataonSubmit(data);
 
     if (files.length > 0) {
       files.forEach((element, index) => {
@@ -323,10 +304,10 @@ const FileUpload = ({
     }
   };
 
-  const getFormDataonSubmit = () => {
+  const getFormDataonSubmit = (data) => {
     const adminActionForm = document.getElementById("adminActionForm");
     const getFormData = new FormData(adminActionForm);
-    const data = {};
+
     for (const pair of getFormData.entries()) {
       if (pair[0] !== "path") {
         data[pair[0]] = pair[1];
@@ -408,7 +389,7 @@ const FileUpload = ({
   };
 
   const closePopupWindow = () => {
-    if (closeHandler && typeof closeHandler === "function") {
+    if (isclosePopup && closeHandler && typeof closeHandler === "function") {
       // setTimeout(() =>{
       //   closeHandler()
       // },1000)
@@ -516,29 +497,14 @@ const FileUpload = ({
 
               if (type == "richText") {
                 return (
-                  <RichTextInputEditor
+                  
+                  <RichTextInputEditor_V2
+                    Controller={Controller}
+                    control={control}
                     key={index}
                     label={label}
-                    editorSetState={setEditorState}
-                    initialText={
-                      editImage?.feature_description
-                        ? editImage?.feature_description
-                        : editImage?.news_description
-                          ? editImage?.news_description
-                          : editImage?.banner_descripiton
-                            ? editImage?.banner_descripiton
-                            : editImage?.aboutus_description
-                              ? editImage?.aboutus_description
-                              : editImage?.client_description
-                                ? editImage?.client_description
-                                : editImage?.case_studies_description
-                                  ? editImage?.case_studies_description
-                                  : editImage?.team_member_about_us
-                                    ? editImage?.team_member_about_us
-                                    : editImage?.description
-                                      ? editImage?.description
-                                      : ""
-                    }
+                    name={fieldName}
+                    value={value}
                   />
                 );
               } else {
@@ -594,12 +560,14 @@ const FileUpload = ({
                 fieldName={imageTitleFieldName}
                 register={register}
               />
-
-              <TextAreaField
+              <RichTextInputEditor_V2
+                Controller={Controller}
+                control={control}
                 label={descriptionTitle}
-                fieldName={imageDescriptionFieldName}
-                register={register}
+                name={imageDescriptionFieldName}
+                value={value}
               />
+
               <>
                 {extraFormParamas.map((item, index) => {
                   let key = Object.keys(item);

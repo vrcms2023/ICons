@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import "./RichTextView.css";
 import Button from "./Button";
 
-const RichTextView = ({ data, className = "", characterLimit = 240 }) => {
+const RichTextView = ({
+  data,
+  className = "",
+  characterLimit = 400,
+  showMorelink = true,
+}) => {
   if (!data) return;
   const [showFullContent, setShowFullContent] = useState(false);
   const displayedContent = showFullContent
@@ -21,18 +26,20 @@ const RichTextView = ({ data, className = "", characterLimit = 240 }) => {
             <div
               className={className}
               dangerouslySetInnerHTML={{
-                __html: displayedContent,
+                __html: showMorelink ? displayedContent : data,
               }}
             ></div>
           </div>
         </div>
       </div>
-      {data.length > characterLimit && (
+      {showMorelink && data.length > characterLimit && (
+        <div className="d-flex justify-content-center align-items-center">
         <Button
-          label={showFullContent ? "Less" : "More..."}
+          label={showFullContent ? " LESS ⇡" : " MORE ⇣"}
           handlerChange={toggleShowContent}
-          cssClass="btn moreLink float-end p-0"
+          cssClass="btn moreLink p-0"
         />
+        </div>
       )}
     </div>
   );
