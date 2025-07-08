@@ -79,6 +79,7 @@ import TitleWithDescripton from "../../Components/TitleWithDescripton";
 import { HomeServiceStylesComponent } from "../../../Common/StyledComponents/Styled-HomeServices-Compoent";
 import { HomeDynamicServiceStylesComponent } from "../../../Common/StyledComponents/Styled-HomeDynamicServices-Compoent";
 import { HomeCauroselComponentStyles } from "../../../Common/StyledComponents/Styled-HomeCarousel";
+import { BrochureDownloadStyling } from "../../../Common/StyledComponents/Styled-BrochureDownload";
 
 const Home = () => {
   const editComponentObj = {
@@ -270,9 +271,11 @@ const Home = () => {
     <>
       <div className="container-fluid p-0">
         {/*Download Broucher */}
-        <div className="homeBrochure">
-          <DownloadBrochures />
-        </div>
+        <BrochureDownloadStyling>
+          <div className="homeBrochure">
+            <DownloadBrochures />
+          </div>
+        </BrochureDownloadStyling>
 
         {/* ==== CAROUSEL COMPONENT START ======================================================================================================= */}
         <div

@@ -24,6 +24,14 @@ export const FooterStyled = styled.div`
         color: ${({ theme }) => theme.gray444};
         font-size: 1.2rem;
       }
+
+      img.footerLogo {
+        width: 90%;
+
+        @media (max-width: 480px) {
+          width: 60%;
+        }
+      }
     }
 
     hr {
