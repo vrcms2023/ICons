@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const ContactPageStyled = styled.div`
   .contactPage {
     .title {
-      color: ${({ theme }) => theme.btnPrimary};
-      font-size: 12px !important;
+      color: ${({ theme }) => theme.clientSecondaryColor};
+      font-size: 1rem !important;
       text-transform: uppercase;
       font-weight: 500;
     }

@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 
 import "./DownloadBrochures.css";
 
+import IconsIconImg from '../../Images/IconsIcon.svg'
+
 const DownloadBrochures = () => {
   const [brochuresList, setBrochuresList] = useState([]);
   const [show, setShow] = useState(false);
@@ -80,7 +82,7 @@ const DownloadBrochures = () => {
       {brochuresList.length === 1 && (
         <Button
           label="BROCHURE"
-          cssClass="btn btn-primary mb-1 p-4 text-uppercase"
+          cssClass="btn btn-primary p-3 text-uppercase"
           icon="fa-download"
           handlerChange={() =>
             checkClientInfoAndDownload(
@@ -91,6 +93,25 @@ const DownloadBrochures = () => {
             )
           }
         />
+
+        // <Button
+        //     label=""
+        //     cssClass="btn btn-primary mb-1 p-2 text-uppercase"
+        //     icon=""
+        //     image={IconsIconImg}
+        //     imageLabel="DOWNLOAD"
+        //     imgeLabelCss="d-flex justify-content-center align-items-center flex-column"
+        //     handlerChange={() =>
+        //       checkClientInfoAndDownload(
+        //         brochuresList[0]?.path,
+        //         brochuresList[0]?.brochures_downloadName
+        //           ? brochuresList[0]?.brochures_downloadName
+        //           : brochuresList[0]?.originalname
+        //       )
+        //     }
+        //   >
+        //   </Button>
+
       )}
       {brochuresList.length > 1 && (
         <div class="dropdown">
