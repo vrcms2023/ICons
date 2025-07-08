@@ -79,6 +79,8 @@ import TitleWithDescripton from "../../Components/TitleWithDescripton";
 import { HomeServiceStylesComponent } from "../../../Common/StyledComponents/Styled-HomeServices-Compoent";
 import { HomeDynamicServiceStylesComponent } from "../../../Common/StyledComponents/Styled-HomeDynamicServices-Compoent";
 import { HomeCauroselComponentStyles } from "../../../Common/StyledComponents/Styled-HomeCarousel";
+import Button from "../../../Common/Button";
+import WeServeCarousel from "../../Components/WeServeCarousel";
 
 const Home = () => {
   const editComponentObj = {
@@ -239,18 +241,6 @@ const Home = () => {
     }
   }, [showHideList]);
 
-  useEffect(() => {
-    if (
-      showHideList.length === 0 &&
-      showHideCompPageLoad.current &&
-      counter < 3
-    ) {
-      dispatch(getAllShowHideComponentsList());
-      showHideCompPageLoad.current = false;
-      setCounter(counter + 1);
-    }
-  }, [showHideList]);
-
   const showHideHandler = async (id, compName) => {
     if (id) {
       dispatch(updateShowHideComponent(id));
@@ -301,7 +291,10 @@ const Home = () => {
                         editHandler={() => editHandler("carousel", true)}
                       />
                     )}
-                    <Carousel carouselState={componentEdit.carousel} />
+                    <Carousel
+                      carouselState={componentEdit.carousel}
+                      category={"carousel"}
+                    />
                   </div>
                 </div>
               </div>
@@ -312,9 +305,9 @@ const Home = () => {
                     editHandler={editHandler}
                     componentType="carousel"
                     popupTitle="Carousel Banners"
-                    getImageListURL="carousel/createCarousel/"
+                    getImageListURL="carousel/createCarousel/carousel/"
                     deleteImageURL="carousel/updateCarousel/"
-                    imagePostURL="carousel/createCarousel/"
+                    imagePostURL="carousel/createCarousel/carousel/"
                     imageUpdateURL="carousel/updateCarousel/"
                     imageIndexURL="carousel/updateCarouselindex/"
                     imageLabel="Add Carousel Image"
@@ -453,7 +446,8 @@ const Home = () => {
               </div>
               <div className="container homeDynamciServices">
                 <div className="row">
-                  {homeServices.map((service, i) => (
+                  <HomeServices />
+                  {/* {homeServices.map((service, i) => (
                     <div className="col-sm-6 col-md-4" key={i}>
                       <HomeDynamicServices
                         key={i}
@@ -462,7 +456,15 @@ const Home = () => {
                         pageType={`homeService${i}`}
                       />
                     </div>
-                  ))}
+                  ))} */}
+                </div>
+                <div>
+                  <Ancher
+                    AncherLabel="View All Services"
+                    Ancherpath="/all-serivces"
+                    AncherClass="btn btn-primary mx-3"
+                    AnchersvgColor="#ffffff"
+                  />
                 </div>
               </div>
             </div>
@@ -636,6 +638,68 @@ const Home = () => {
           )}
         </div>
         {/* BANNER COMPONENT END =========================================================================================================== */}
+
+        {/* ==== CAROUSEL COMPONENT START ======================================================================================================= */}
+        <div
+          className={
+            showHideCompList?.industriesweserve?.visibility &&
+            isAdmin &&
+            hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
+          {isAdmin && hasPermission && (
+            <ShowHideToggle
+              showhideStatus={showHideCompList?.industriesweserve?.visibility}
+              title={"Industries We Serve"}
+              componentName={"industriesweserve"}
+              showHideHandler={showHideHandler}
+              id={showHideCompList?.industriesweserve?.id}
+            />
+          )}
+          {showHideCompList?.industriesweserve?.visibility && (
+            <>
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-md-12 p-0 carousel">
+                    {isAdmin && hasPermission && (
+                      <EditIcon
+                        editHandler={() =>
+                          editHandler("industriesweserve", true)
+                        }
+                      />
+                    )}
+                    <WeServeCarousel
+                      carouselState={componentEdit.industriesweserve}
+                      category={"industriesweserve"}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {componentEdit.industriesweserve && (
+                <div className={`adminEditTestmonial selected `}>
+                  <AdminBanner
+                    editHandler={editHandler}
+                    componentType="industriesweserve"
+                    popupTitle="Industries We Serve"
+                    getImageListURL="carousel/createCarousel/industriesweserve/"
+                    deleteImageURL="carousel/updateCarousel/"
+                    imagePostURL="carousel/createCarousel/industriesweserve/"
+                    imageUpdateURL="carousel/updateCarousel/"
+                    imageIndexURL="carousel/updateCarouselindex/"
+                    imageLabel="industries we serve"
+                    showDescription={false}
+                    showExtraFormFields={getCarouselFields("industriesweserve")}
+                    dimensions={imageDimensionsJson("carousel")}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </div>
+        {/* ==== CAROUSEL COMPONENT END ========================================================================================================= */}
 
         {/* LEON Pharma Products START =========================================================================================================== */}
         <div

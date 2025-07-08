@@ -154,6 +154,7 @@ const RaqUseForm = ({ closeModel, downloadPDF }) => {
             </div>
             <div className="col-4">
               <InputFields
+                type="hidden"
                 label="Teams"
                 fieldName="teams"
                 register={register}
@@ -164,6 +165,7 @@ const RaqUseForm = ({ closeModel, downloadPDF }) => {
             </div>
             <div className="col-4">
               <InputFields
+                type="hidden"
                 label="Teams"
                 fieldName="hangout"
                 register={register}
@@ -174,6 +176,7 @@ const RaqUseForm = ({ closeModel, downloadPDF }) => {
             </div>
             <div className="col-4">
               <InputFields
+                type="hidden"
                 label="Teams"
                 fieldName="other"
                 register={register}

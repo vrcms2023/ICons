@@ -2,14 +2,11 @@
 
 # dependencies
 /node_modules
-/frontend/node_modules/
 /.pnp
 .pnp.js
 /public/uploads
 /backend/media/
 /backend/build/
-/backend/static/
-/backend/staticfiles/
 /frontend/build/
 /backend/**/*.pyc
 # testing
@@ -39,6 +36,8 @@ dist
 dist-ssr
 *.local
 .env
+backend/static/
+backend/staticfiles/
 
 # Editor directories and files
 .vscode/*

@@ -29,6 +29,7 @@ import { getCookie } from "./util/cookieUtil";
 import SEO from "./Common/SEO";
 import { getAllShowHideComponentsList } from "./redux/showHideComponent/showHideActions.js";
 import { getObjectsByKey } from "./util/showHideComponentUtil.js";
+import AllServices from "./Frontend_Views/Pages/Services/allServices.jsx";
 
 // Lazy Loading
 
@@ -138,6 +139,9 @@ const AdminSettings = lazy(
 
 const RAQAdmininistration = lazy(
   () => import("./Frontend_Admin/Pages/Auth/RAQAdmininistration")
+);
+const HomeServices = lazy(
+  () => import("./Frontend_Views/Components/HomeServices")
 );
 
 function App() {
@@ -264,6 +268,7 @@ function App() {
 
             <Route path="/services" element={<Services />} />
             <Route path="/services/:uid" element={<Services />} />
+            <Route path="/all-serivces" element={<AllServices />} />
 
             <Route path="/contact" element={<Contact />} />
 
