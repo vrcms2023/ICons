@@ -136,8 +136,11 @@ const AddService = ({
       dispatch(getServiceValues());
     } else if (serviceMenu) {
       if (serviceMenu.length > 0) {
-        const filterMenu = _.filter(serviceMenu, (item) => {
-          return item.services_page_title.toLowerCase() !== "add new service";
+        // let filterMenu = _.filter(serviceMenu, (item) => {
+        //   return item.services_page_title.toLowerCase() !== "all services";
+        // });
+        let filterMenu = _.filter(serviceMenu, (item) => {
+          return item.services_page_title.toLowerCase() !== "add new services";
         });
         setServiceList(filterMenu);
       } else {
@@ -196,7 +199,11 @@ const AddService = ({
             onClose={onClose}
             callback={deleteImageByID}
             // message={`deleting the ${name} Service?`}
-            message={<>Confirm deletion of  <span>{name}</span> Service?</>}
+            message={
+              <>
+                Confirm deletion of <span>{name}</span> Service?
+              </>
+            }
           />
         );
       },

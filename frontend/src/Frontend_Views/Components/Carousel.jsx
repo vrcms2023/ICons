@@ -10,7 +10,7 @@ import "./Carousel.css";
 import SkeletonImage from "../../Common/Skeltons/SkeletonImage";
 import { CarouselItem } from "./CarouselItem";
 
-const Carousel = ({ carouselState }) => {
+const Carousel = ({ carouselState, category }) => {
   const { isLoading } = useSelector((state) => state.loader);
   const [carousel, setCarousel] = useState([]);
   const pageType = "imagegallery";
@@ -19,7 +19,7 @@ const Carousel = ({ carouselState }) => {
     const getCarousels = async () => {
       try {
         const response = await axiosClientServiceApi.get(
-          `carousel/clientCarousel/`
+          `carousel/clientCarousel/${category}/`
         );
 
         if (response?.status === 200) {
