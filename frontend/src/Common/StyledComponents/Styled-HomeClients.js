@@ -119,7 +119,10 @@ export const HomeClientsStyled = styled.div`
 }
 
 .slick-initialized .slick-slide {
- 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 200px;
   min-height: 120px;
   padding: 16px;
