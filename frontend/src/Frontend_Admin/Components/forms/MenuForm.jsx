@@ -17,6 +17,7 @@ import {
   createServiceChildFromMenu,
   getMenuPosition,
   updatedMenu,
+  updateServiceMmenuID,
 } from "../../../util/menuUtil";
 import SEOForm from "./SEOForm";
 import { getServiceValues } from "../../../redux/services/serviceActions";
@@ -196,9 +197,16 @@ const MenuForm = ({
         selectedServiceMenu,
         PageDetails
       );
+      if (response?.status === 201) {
+        const res = await updateServiceMmenuID(
+          response.data.services,
+          PageDetails
+        );
+      }
       if (response?.status === 201 || response?.status === 200) {
         toast.success(`$service is created `);
         dispatch(getServiceValues());
+        dispatch(getMenu());
       }
     } catch (error) {
       toast.error("Unable to load user details");

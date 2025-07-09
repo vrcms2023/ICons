@@ -54,7 +54,7 @@ const PagesConfiguration = () => {
       item?.page_parent_ID === rootServiceMenu?.id
     ) {
       setselectedServiceMenu(selectedService);
-    }
+    } else setselectedServiceMenu("");
   };
 
   /**

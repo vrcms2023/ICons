@@ -41,6 +41,10 @@ export const getSelectedMenuDetails = async (
     data["page_position"] = getMenuPosition(_getSelectedParentObject);
   }
   let _response = await updatedMenu(data);
+  if (_response?.status === 201) {
+    let res = await updateServieMneuID(_response.data, serviceResponse);
+    return res;
+  }
   return _response;
 };
 
@@ -57,6 +61,25 @@ export const updatedMenu = async (data) => {
   }
   return response;
 };
+const updateServieMneuID = async (data, serviceResponse) => {
+  serviceResponse["menu_ID"] = data?.PageDetails?.id;
+  serviceResponse["updated_by"] = getCookie("userName");
+  const response = await axiosServiceApi.put(
+    `/services/updateService/${serviceResponse.id}/`,
+    serviceResponse
+  );
+  return response;
+};
+
+export const updateServiceMmenuID = async (data, pageMenuResponse) => {
+  pageMenuResponse["service_menu_ID"] = data?.id;
+  pageMenuResponse["updated_by"] = getCookie("userName");
+  const response = await axiosServiceApi.patch(
+    `/pageMenu/updatePageMenu/${pageMenuResponse?.id}/`,
+    pageMenuResponse
+  );
+  return response;
+};
 
 export const getMenuPosition = (ParentObject) => {
   return ParentObject?.childMenu?.length > 0
@@ -67,6 +90,12 @@ export const getMenuPosition = (ParentObject) => {
 export const getMenuParent = (menuList, labelName) => {
   return _.filter(menuList, (item) => {
     return labelName?.toLowerCase().match(item?.page_label?.toLowerCase());
+  })[0];
+};
+
+export const getMenuByID = (menuList, id) => {
+  return _.filter(menuList, (item) => {
+    return item?.service_menu_ID === id;
   })[0];
 };
 

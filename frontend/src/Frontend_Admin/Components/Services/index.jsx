@@ -78,7 +78,7 @@ const AddService = ({
       //   return item;
       // });
       let filterMenu = _.filter(serviceMenu, (item) => {
-        return item?.page_url?.toLowerCase() !== "/services/services";
+        return item?.page_url?.toLowerCase() !== "/services/addservices";
       });
       setServiceList(filterMenu);
     } else {
@@ -250,7 +250,7 @@ const AddService = ({
       isEdit,
       oldTilte
     );
-
+    dispatch(getServiceValues());
     dispatch(getMenu());
   };
 
