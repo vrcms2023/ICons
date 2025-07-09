@@ -52,10 +52,10 @@ const HomeServices = ({ title }) => {
       console.log("Unable to get the intro");
     }
   };
+
   return (
     <>
-    
-      {clientServiceList?.slice(0, 6).map((servicelist, index) =>
+      {clientServiceList?.map((servicelist, index) =>
         servicelist?.service.map((item) => (
             <div className="col-md-4 col-sm-6 p-4 py-3 p-md-3" key={`${index}+homeService`}>
               <div className="briefIntro" 
