@@ -15,7 +15,10 @@ import DeleteDialog from "../../../Common/DeleteDialog";
 import Title from "../../../Common/Title";
 import moment from "moment";
 import { sortByCreatedDate } from "../../../util/dataFormatUtil";
-import { storeServiceMenuValueinCookie } from "../../../util/commonUtil";
+import {
+  getClonedObject,
+  storeServiceMenuValueinCookie,
+} from "../../../util/commonUtil";
 
 import { useLocation } from "react-router-dom";
 import {
@@ -24,6 +27,7 @@ import {
 } from "../../../util/menuUtil";
 import { getMenu } from "../../../redux/auth/authActions";
 import { getServiceValues } from "../../../redux/services/serviceActions";
+import Ancher from "../../../Common/Ancher";
 
 const AddService = ({
   setSelectedServiceProject,
@@ -40,7 +44,7 @@ const AddService = ({
   const { serviceMenu, serviceerror } = useSelector(
     (state) => state.serviceMenu
   );
-  const { menuList } = useSelector((state) => state.auth);
+  const { menuList, menuRawList } = useSelector((state) => state.auth);
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const location = useLocation();
@@ -61,6 +65,27 @@ const AddService = ({
     setUserName(getCookie("userName"));
   }, []);
 
+  useEffect(() => {
+    if (serviceMenu.length > 0) {
+      //const _clonedServicemenu = getClonedObject(serviceMenu);
+      // const _serviceList = _clonedServicemenu.map((item) => {
+      //   const menu = _.filter(menuRawList, (menu) => {
+      //     return menu.service_menu_ID === item.id;
+      //   })[0];
+      //   if (menu) {
+      //     item["page_url"] = menu.page_url;
+      //   }
+      //   return item;
+      // });
+      let filterMenu = _.filter(serviceMenu, (item) => {
+        return item?.page_url?.toLowerCase() !== "/services/services";
+      });
+      setServiceList(filterMenu);
+    } else {
+      setServiceList(serviceMenu);
+    }
+  }, [serviceMenu]);
+
   /**
    * Add Service handler
    */
@@ -74,13 +99,14 @@ const AddService = ({
       services_page_title: serviceName,
       created_by: userName,
       pageType: pageType,
-      publish: editServiceObject.publish ? true : false,
+      publish: editServiceObject?.publish ? true : false,
     };
     try {
       if (editServiceObject?.id) {
         const _tempEditObj = _.cloneDeep(editServiceObject);
         data["id"] = editServiceObject.id;
         data["updated_by"] = userName;
+        data["page_url"] = editServiceObject.page_url;
         response = await axiosServiceApi.put(
           `/services/updateService/${editServiceObject.id}/`,
           data
@@ -93,6 +119,8 @@ const AddService = ({
         setServiceName("");
         setEditServiceObject({});
       } else {
+        data["page_url"] =
+          `/services/${serviceName.replace(/\s/g, "").toLowerCase()}`;
         response = await axiosServiceApi.post(`/services/createService/`, data);
         createChildMenu(response.data.services, false, "");
       }
@@ -134,19 +162,8 @@ const AddService = ({
     if (serviceMenu?.length === 0 && onPageLoadAction.current) {
       onPageLoadAction.current = false;
       dispatch(getServiceValues());
-    } else if (serviceMenu) {
-      if (serviceMenu.length > 0) {
-        // let filterMenu = _.filter(serviceMenu, (item) => {
-        //   return item.services_page_title.toLowerCase() !== "all services";
-        // });
-        let filterMenu = _.filter(serviceMenu, (item) => {
-          return item.services_page_title.toLowerCase() !== "add new services";
-        });
-        setServiceList(filterMenu);
-      } else {
-        setServiceList(serviceMenu);
-      }
     }
+
     if (serviceMenu?.length === 0) {
       removeCookie("pageLoadServiceID");
       removeCookie("pageLoadServiceName");
@@ -184,7 +201,7 @@ const AddService = ({
         `/services/updateService/${item.id}/`
       );
       if (response.status === 204) {
-        const deleteresponse = await deleteServiceItem(menuList, item);
+        const deleteresponse = await deleteServiceItem(item.menu_ID);
 
         dispatch(getServiceValues());
         dispatch(getMenu());
@@ -299,12 +316,19 @@ const AddService = ({
                     key={item.id}
                   >
                     <div className="w-50">
-                      <Link
-                        onClick={(event) => onClickSelectedService(item)}
+                      <Ancher
+                        Ancherpath={item.page_url}
+                        AncherClass="text-dark pageTitle"
+                        handleModel=""
+                        AncherLabel={item.services_page_title}
+                      />
+                      {/* <Link
+                      hrefLang=""
+                        // onClick={(event) => onClickSelectedService(item)}
                         className="text-dark pageTitle"
                       >
                         {item.services_page_title}{" "}
-                      </Link>
+                      </Link> */}
                     </div>
 
                     {/* <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p> */}

@@ -16,8 +16,7 @@ import { WeServeCarouselItem } from "./WeServeCarouselItem";
 const WeServeCarousel = ({ carouselState, category }) => {
   const { isLoading } = useSelector((state) => state.loader);
   const [carousel, setCarousel] = useState([]);
-
-  var settings = {
+  const settings = {
     className: "slider variable-width",
     dots: false,
     infinite: true,
@@ -58,13 +57,14 @@ const WeServeCarousel = ({ carouselState, category }) => {
   }, [carouselState]);
 
   return (
-    <div>
+    <div className="">
       {isLoading ? <SkeletonImage /> : ""}
-
       <div className="slider-container">
         <Slider {...settings}>
           {carousel.map((item, index) => {
-            return <WeServeCarouselItem item={item} index={index} />;
+            return (
+              <WeServeCarouselItem key={item.id} item={item} index={index} />
+            );
           })}
         </Slider>
       </div>

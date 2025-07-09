@@ -3,7 +3,8 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useLocation } from "react-router-dom";
+import _ from "lodash";
 // Components
 import ImageInputsForm from "../../../Frontend_Admin/Components/forms/ImgTitleIntoForm";
 import AdminBriefIntro from "../../../Frontend_Admin/Components/BriefIntro/index";
@@ -27,7 +28,11 @@ import {
   axiosClientServiceApi,
   axiosServiceApi,
 } from "../../../util/axiosUtil";
-import { getImagePath, urlStringFormat } from "../../../util/commonUtil";
+import {
+  getImagePath,
+  storeServiceMenuValueinCookie,
+  urlStringFormat,
+} from "../../../util/commonUtil";
 import { sortByCreatedDate } from "../../../util/dataFormatUtil";
 import { getCookie } from "../../../util/cookieUtil";
 
@@ -62,6 +67,26 @@ const Services = () => {
   const navigate = useNavigate();
   const pageLoadServiceID = getCookie("pageLoadServiceID");
   const pageLoadServiceName = getCookie("pageLoadServiceName");
+  const location = useLocation();
+  const { serviceMenu, serviceerror } = useSelector(
+    (state) => state.serviceMenu
+  );
+
+  useEffect(() => {
+    const pageURL = location.pathname;
+    if (pageURL && serviceMenu.length > 0) {
+      const selectedMneu = _.filter(serviceMenu, (item) => {
+        return item.page_url.toLowerCase() === pageURL;
+      })[0];
+      if (selectedMneu) {
+        storeServiceMenuValueinCookie(selectedMneu);
+        setSelectedServiceProject(selectedMneu);
+      } else {
+        storeServiceMenuValueinCookie(serviceMenu[0]);
+        setSelectedServiceProject(serviceMenu[0]);
+      }
+    }
+  }, [location, serviceMenu]);
 
   // useEffect(() => {
   //   window.scrollTo(0, 0);
@@ -114,10 +139,10 @@ const Services = () => {
       );
       setSelectedServiceList(sortByCreatedDate(response.data.servicesFeatures));
       //window.scrollTo(0, 0);
-      if (window.history.replaceState && isAdmin) {
-        const url = `${getReactHostDetils()}/services/${pageLoadServiceName}/`;
-        window.history.pushState({}, null, url);
-      }
+      // if (window.history.replaceState && isAdmin) {
+      //   const url = `${getReactHostDetils()}/services/${pageLoadServiceName}/`;
+      //   window.history.pushState({}, null, url);
+      // }
     } catch (error) {
       console.log("Unable to get the intro");
     }

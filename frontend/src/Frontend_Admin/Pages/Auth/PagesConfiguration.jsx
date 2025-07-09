@@ -94,8 +94,8 @@ const PagesConfiguration = () => {
         toast.success(`${title} Memu is delete successfully `);
         getAllPagesDetails();
 
-        if (selectedService) {
-          await deleteServiceMenu(selectedService);
+        if (menu.service_menu_ID) {
+          await deleteServiceMenu(menu.service_menu_ID);
           dispatch(getServiceValues());
         }
         dispatch(getMenu());
@@ -109,7 +109,11 @@ const PagesConfiguration = () => {
             onClose={onClose}
             callback={deleteMenuItemByID}
             // message={`you want to delete the ${title} Menu`}
-            message={<>Confirm deletion of  <span>{title}</span> Menu?</>}
+            message={
+              <>
+                Confirm deletion of <span>{title}</span> Menu?
+              </>
+            }
           />
         );
       },
@@ -223,11 +227,7 @@ const PagesConfiguration = () => {
                   {node.page_label}
                 </td>
                 <td>
-                  <Link
-                    to={`${rootServiceMenu?.id === node?.page_parent_ID ? rootServiceMenu?.page_url + node?.page_url : node.page_url}`}
-                  >
-                    {`${rootServiceMenu?.id === node?.page_parent_ID ? rootServiceMenu?.page_url + node?.page_url : node.page_url}`}
-                  </Link>
+                  <Link to={`${node.page_url}`}>{`${node.page_url}`}</Link>
                 </td>
                 <td>{node.is_Parent ? "Parent Menu" : "Child Menu"}</td>
                 {/* <td className="text-center">

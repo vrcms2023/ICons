@@ -137,15 +137,15 @@ const MenuForm = ({
       return true;
     }
 
-    // if (data.page_parent_ID) {
-    //   const getSelectedParentObject = _.filter(menuList, (item) => {
-    //     return item.id === data.page_parent_ID;
-    //   })[0];
-    //   const _url = data["page_url"].split("/");
+    if (data.page_parent_ID) {
+      const getSelectedParentObject = _.filter(menuList, (item) => {
+        return item.id === data.page_parent_ID;
+      })[0];
+      const _url = data["page_url"].split("/");
 
-    //   data["page_url"] =
-    //     getSelectedParentObject?.page_url + "/" + _url[_url.length - 1];
-    // }
+      data["page_url"] =
+        getSelectedParentObject?.page_url + "/" + _url[_url.length - 1];
+    }
     //data["page_position"] = menuList?.length > 0 ? menuList?.length + 1 : 1;
     // const _url = data["page_url"].split("/");
 

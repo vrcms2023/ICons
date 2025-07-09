@@ -134,7 +134,7 @@ export const storeServiceMenuValueinCookie = (item) => {
 
 export const urlStringFormat = (str) => {
   if (!str) return null;
-  return str.replace(/\s+/g, "-").toLowerCase();
+  return str.replace(/\s+/g, "").toLowerCase();
 };
 
 export const TitleStringFormat = (str) => {

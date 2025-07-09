@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { getImagePath } from "../../util/commonUtil";
 import RichTextView from "../../Common/RichTextView";
 
-export const WeServeCarouselItem = ({ item, key, index }) => {
+export const WeServeCarouselItem = ({ item, index }) => {
   const [hover, setHover] = useState(false);
-  console.log("index", index);
 
   const mouseOver = (event) => {
     setHover(true);
@@ -21,11 +20,11 @@ export const WeServeCarouselItem = ({ item, key, index }) => {
         className="d-block w-100"
       />
 
-      <h5 className="carousel-caption ">
+      <div className="carousel-caption ">
         {item.carouse_title && (
           <h1 className="fw-bold my-4">{item.carouse_title}</h1>
         )}
-      </h5>
+      </div>
       <RichTextView data={item?.carouse_description} showMorelink={false} />
     </div>
   );

@@ -173,7 +173,6 @@ const Header = () => {
     if (
       menuList.length > 0 &&
       serviceMenuList.length > 0 &&
-      !isAdmin &&
       menuUpdateInitialized.current
     ) {
       menuUpdateInitialized.current = false;
@@ -357,9 +356,7 @@ export const ClientMenu = ({ serviceMenuList, rootServiceMenu }) => {
         key={menu.id}
       >
         <NavLink
-          to={urlStringFormat(
-            `${rootServiceMenu?.id === menu?.page_parent_ID ? rootServiceMenu?.page_url + menu.page_url : menu.page_url}`
-          )}
+          to={urlStringFormat(`${menu.page_url}`)}
           className={
             (({ isActive }) => (isActive ? "active" : ""),
             `${menu.is_Parent ? "nav-Link" : "dropdown-item"} ${
