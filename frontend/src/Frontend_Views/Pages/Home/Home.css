@@ -133,13 +133,12 @@
   }
 }
 
-.homeDynamciServicesIntro {
+/* .homeDynamciServicesIntro {
   margin: 30px 0;
   padding: 30px 0 48px;
   background-color: #f8f8f8;
   color: #444;
   text-align: center;
-  /* background-image: url('../../../Images/IconHomeServicesBgImage.png'); */
 
   .breiftopMargin {
     border-bottom: 1px solid rgba(255, 255, 255, .1)
@@ -155,9 +154,9 @@
       }
     }
   }
-}
+} */
 
-.homeDynamciServices {
+/* .homeDynamciServices {
   padding: 24px 0;
   .briefIntro {
     height: 320px;
@@ -233,7 +232,7 @@
       background-image: url('../../../Images/engineering-services.png');
     }
   }
-}
+} */
 
 
 /* Home Page Projects Carousel CSS */
