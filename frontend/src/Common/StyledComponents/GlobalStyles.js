@@ -21,7 +21,7 @@ a {
   text-underline-offset: 4px;
   text-decoration-color: rgba(109, 47, 155, .3) !important;
   &:hover {
-    color: ${({ theme }) => theme.footerLinkHoverColor};
+    color: ${({ theme }) => theme.clientColor};
     text-decoration-color: rgba(109, 47, 155, 1) !important;
   }
 }
@@ -359,5 +359,32 @@ body {
 
     .scrollTop {
       background-color: ${({theme}) => theme.clientColor};
+    }
+
+    .modal {
+      z-index: 99999 !important;
+      .modal-header {
+        padding: .7rem 1rem !important;
+      }
+      .modal-header .modal-title {
+        color: ${({ theme }) => theme.gray444} !important;
+        font-weight: 600 !important;
+        font-size: 1.4rem !important;
+      }
+
+      .modal-body {
+        padding: 1.5rem 2rem !important;
+      }
+    }
+
+    .quill {
+      background-color: transparent !important;
+      p, p span {
+        background-color: transparent !important;
+      }
+      .ql-editor {
+        padding: 1rem 0 0px;
+        color: ${({ theme }) => theme.gray444} !important;
+      }
     }
 `;

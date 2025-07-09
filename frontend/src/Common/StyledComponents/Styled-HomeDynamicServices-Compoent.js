@@ -3,7 +3,7 @@ import styled from "styled-components"
 export const HomeDynamicServiceStylesComponent = styled.div`
 
 .homeDynamciServicesIntro {
-  padding: 30px 0 0px;
+  padding: 30px 0;
   background-color:${({ theme }) => theme.lightWhiteF8}; 
   color: ${({ theme }) => theme.textColor};
 
@@ -19,69 +19,73 @@ export const HomeDynamicServiceStylesComponent = styled.div`
   }
 
   .homeDynamciServices {
-    padding: 24px 0;
 
     .briefIntro {
-        height: 320px;
+        position: relative;
+        height: 300px;
         max-height: 100%;
         padding: 32px;
-        /* border-bottom: 20px solid rgba(1, 32, 96, .2); */
-        background-color: #f8f8f8;
+        border-bottom: 10px solid rgba(1, 32, 96, .85); 
+        background-size: 72px;
         cursor: pointer;
-
-        h5 {
-            font-weight: 500;
-        }
-    }
-
-    .row {
-        .col-md-4 .briefIntro {
         background-repeat: no-repeat;
         background-position: right 15px bottom;
-        border-radius: 8px;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        transition: border-color 0.4s ease, border-bottom-width 0.3s ease, background-color 0.4s ease;
 
         &:hover {
-            background-color: #0d75ba;
+            background-color:rgba(0, 0, 0, 0.2);
+            border-bottom: 15px solid #FF9D00; 
 
             * {
             color: #fff;
             }
         }
-
-        @media (max-width: 768px) {
-            background-position: right 32px bottom;
+        
+        h5, .quill, a {
+          position: relative
         }
-        }
-
-        /* .col-md-4:nth-child(1) .briefIntro {
-        background-image: url('../../../Images/studies.png');
-        }
-
-        .col-md-4:nth-child(2) .briefIntro {
-        background-image: url('../../../Images/engineering.png');
+        h5 {
+            z-index: 2;
+            font-weight: 500 !important;
+            font-size: 1.6rem !important;
+            color: #fff !important;
         }
 
-        .col-md-4:nth-child(3) .briefIntro {
-        background-image: url('../../../Images/calculator.png');
-        }
-        .col-md-4:nth-child(3) .briefIntro {
-        background-image: url('../../../Images/calculator.png');
-        }
-        .col-md-4:nth-child(4) .briefIntro {
-        background-image: url('../../../Images/management.png');
+        .quill {
+          z-index: 3;
+
+          p, p span {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 6;
+            color: #fff !important;
+          }
+          }
+
+          a {
+            color: #fff;
+            z-index: 4;
+            font-size: .9rem;
+            margin-top: 2rem;
+            display: block;
+          }
         }
 
-        .col-md-4:nth-child(5) .briefIntro {
-        background-image: url('../../../Images/engineer.png');
+        .briefIntro:after {
+          content: "";
+          // background: linear-gradient(173deg,rgba(109, 47, 155, 0.9) 1%, rgba(1, 32, 96, .75) 100%);
+          background: linear-gradient(135deg,rgba(109, 47, 155, 0.9) 15%, rgba(0, 0, 0, .2) 100%);
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          left: 0;
+          z-index: 0;
+          color: #fff;
         }
-
-        .col-md-4:nth-child(6) .briefIntro{
-        background-image: url('../../../Images/engineering-services.png');
-        } */
     }
-    }
-}
+  }
 
 
 `;

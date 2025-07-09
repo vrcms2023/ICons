@@ -412,68 +412,70 @@ const Home = () => {
             />
           )}
           {showHideCompList?.homedynamciservicesbrief?.visibility && (
-            <div className="homeDynamciServicesIntro">
-              <div>
-                <div className="breiftopMargin">
-                  {isAdmin && hasPermission && (
-                    <EditIcon
-                      editHandler={() =>
-                        editHandler("homeDynamciServicesBrief", true)
-                      }
+            <HomeDynamicServiceStylesComponent>
+              <div className="homeDynamciServicesIntro">
+                <div className="container">
+                  <div className="breiftopMargin">
+                    {isAdmin && hasPermission && (
+                      <EditIcon
+                        editHandler={() =>
+                          editHandler("homeDynamciServicesBrief", true)
+                        }
+                      />
+                    )}
+
+                    <BriefIntroFrontend
+                      introState={componentEdit.homeDynamciServicesBrief}
+                      linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
+                      linkLabel="Read More"
+                      moreLink=""
+                      introTitleCss="mb-0"
+                      introSubTitleCss="fw-medium text-muted text-center"
+                      introDecTitleCss="fs-6 fw-normal mx-4 text-center"
+                      detailsContainerCss="col-md-12"
+                      anchorContainer="d-flex justify-content-center align-items-center mt-4"
+                      anchersvgColor="#17427C"
+                      pageType={"homeDynamciServicesBrief"}
+                      maxHeight="300"
                     />
-                  )}
 
-                  <BriefIntroFrontend
-                    introState={componentEdit.homeDynamciServicesBrief}
-                    linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
-                    linkLabel="Read More"
-                    moreLink=""
-                    introTitleCss="text-center mb-4"
-                    introSubTitleCss="fw-medium text-muted text-center"
-                    introDecTitleCss="fs-6 fw-normal mx-4 text-center"
-                    detailsContainerCss="col-md-12 py-3"
-                    anchorContainer="d-flex justify-content-center align-items-center mt-4"
-                    anchersvgColor="#17427C"
-                    pageType={"homeDynamciServicesBrief"}
-                    maxHeight="300"
-                  />
-
-                  {componentEdit.homeDynamciServicesBrief && (
-                    <div className={`adminEditTestmonial selected `}>
-                      <BriefIntroAdmin
-                        editHandler={editHandler}
-                        componentType="homeDynamciServicesBrief"
-                        popupTitle="Brief Intro Banner"
-                        pageType="homeDynamciServicesBrief"
-                      />
-                    </div>
-                  )}
+                    {componentEdit.homeDynamciServicesBrief && (
+                      <div className={`adminEditTestmonial selected `}>
+                        <BriefIntroAdmin
+                          editHandler={editHandler}
+                          componentType="homeDynamciServicesBrief"
+                          popupTitle="Brief Intro Banner"
+                          pageType="homeDynamciServicesBrief"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="container homeDynamciServices">
+                  <div className="row">
+                    <HomeServices />
+                    {/* {homeServices.map((service, i) => (
+                      <div className="col-sm-6 col-md-4" key={i}>
+                        <HomeDynamicServices
+                          key={i}
+                          editHandler={editHandler}
+                          objectstatus={componentEdit[`homeService${i}`]}
+                          pageType={`homeService${i}`}
+                        />
+                      </div>
+                    ))} */}
+                  </div>
+                  <div className="text-center text-md-end">
+                    <Ancher
+                      AncherLabel="View All Services"
+                      Ancherpath="/all-serivces"
+                      AncherClass="mt-4 d-block"
+                      AnchersvgColor="#ffffff"
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="container homeDynamciServices">
-                <div className="row">
-                  <HomeServices />
-                  {/* {homeServices.map((service, i) => (
-                    <div className="col-sm-6 col-md-4" key={i}>
-                      <HomeDynamicServices
-                        key={i}
-                        editHandler={editHandler}
-                        objectstatus={componentEdit[`homeService${i}`]}
-                        pageType={`homeService${i}`}
-                      />
-                    </div>
-                  ))} */}
-                </div>
-                <div>
-                  <Ancher
-                    AncherLabel="View All Services"
-                    Ancherpath="/all-serivces"
-                    AncherClass="btn btn-primary mx-3"
-                    AnchersvgColor="#ffffff"
-                  />
-                </div>
-              </div>
-            </div>
+            </HomeDynamicServiceStylesComponent>
           )}
         </div>
         {/* END OF ICONS ALL SERVICES */}

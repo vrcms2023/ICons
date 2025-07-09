@@ -55,25 +55,15 @@ const HomeServices = ({ title }) => {
 
   return (
     <>
-      {clientServiceList.map((servicelist, index) =>
+      {clientServiceList.slice(0, 6).map((servicelist, index) =>
         servicelist?.service.map((item) => (
-          <div
-            className="row service mb-3 mb-md-5"
-            key={`${index}+homeService`}
-          >
-            <div className="col-md-6 p-2 homeServiceImg">
-              <img
-                src={
-                  item.path
-                    ? getImagePath(item.path)
-                    : getImagePath("/media/images/dummy-image-square.png")
-                }
-                alt={item.alternitivetext}
-                className="img-fluid w-100 h-100"
-              />
-            </div>
-            <div className="col-md-6 p-2 p-md-4 homeServiceDetails">
-              <Title
+            <div className="col-md-4 col-sm-6 p-4 py-3 p-md-3" key={`${index}+homeService`}>
+              <div className="briefIntro" 
+              style={{
+  backgroundImage: `url(${item.path ? getImagePath(item.path) : getImagePath("/media/images/dummy-image-square.png")})`
+}}
+              >
+                 <Title
                 title={item.feature_title}
                 cssClass="fw-bold serviceTitle"
               />
@@ -81,7 +71,7 @@ const HomeServices = ({ title }) => {
                 <RichTextView
                   data={item.feature_description}
                   className={"description"}
-                  characterLimit={600}
+                  // characterLimit={200}
                   showMorelink={false}
                 />
                 // <div
@@ -95,8 +85,51 @@ const HomeServices = ({ title }) => {
               >
                 Know More
               </Link>
+              </div>
             </div>
-          </div>
+
+          //   <div
+          //   className="row service mb-3 mb-md-5"
+          //   key={`${index}+homeService`}
+          // >
+          //    <div className="col-md-6 p-2 homeServiceImg">
+          //     <img
+          //       src={
+          //         item.path
+          //           ? getImagePath(item.path)
+          //           : getImagePath("/media/images/dummy-image-square.png")
+          //       }
+          //       alt={item.alternitivetext}
+          //       className="img-fluid w-100 h-100"
+          //     />
+          //   </div> 
+          //   <div className="col-sm-6 col-md-4 p-2 p-md-4 homeServiceDetails">
+          //     <Title
+          //       title={item.feature_title}
+          //       cssClass="fw-bold serviceTitle"
+          //     />
+          //     {item.feature_description && (
+          //       <RichTextView
+          //         data={item.feature_description}
+          //         className={"description"}
+          //         characterLimit={600}
+          //         showMorelink={false}
+          //       />
+          //        <div
+          //        className="description"
+          //        dangerouslySetInnerHTML={{ __html: item.feature_description }}
+          //      />
+          //     )}
+          //     <Link
+          //       to={`/services/${item.services_page_title}/`}
+          //       className="mt-3"
+          //     >
+          //       Know More
+          //     </Link>
+          //   </div>
+
+            
+          // </div>
         ))
       )}
 
