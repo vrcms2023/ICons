@@ -32,6 +32,10 @@ export const HomeDynamicServiceStylesComponent = styled.div`
         background-position: right 15px bottom;
         transition: border-color 0.4s ease, border-bottom-width 0.3s ease, background-color 0.4s ease;
 
+        @media (max-width: 1023px) {
+          padding: 16px;
+        }
+
         &:hover {
             background-color:rgba(0, 0, 0, 0.2);
             border-bottom: 15px solid #FF9D00; 
@@ -49,6 +53,9 @@ export const HomeDynamicServiceStylesComponent = styled.div`
             font-weight: 500 !important;
             font-size: 1.6rem !important;
             color: #fff !important;
+            hyphens: manual;
+            overflow-wrap: break-word; /* optional, for better word breaking */
+            word-break: break-word;    /* optional, for better word breaking */
         }
 
         .quill {
@@ -61,6 +68,13 @@ export const HomeDynamicServiceStylesComponent = styled.div`
             -webkit-line-clamp: 6;
             color: #fff !important;
           }
+
+          .description {
+            p:not(:first-child) {
+              display: none;
+            }
+          }
+
           }
 
           a {

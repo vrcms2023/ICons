@@ -9,6 +9,14 @@ export const BrochureDownloadStyling = styled.div`
             z-index: 99999;
             transition: top 0.4s ease;
 
+            @media(max-width: 1023px) {
+                top: 600px;
+            }
+
+            @media(max-width: 480px) {
+                top: 400px;
+            }
+
             img {
                 width: 68px;
             }
@@ -25,9 +33,22 @@ export const BrochureDownloadStyling = styled.div`
                 // background-color: #012060;
             }
 
-            button i {
-                font-size: 24px;
-                margin-right:8px
+            button {
+                i {
+                    font-size: 24px;
+                    margin-right:8px
+                }
+
+                @media(max-width: 768px) {
+                    padding: 10px !important;
+
+                    i {
+                        margin-right:0
+                    }
+                    span {
+                        display: none;
+                    }
+                }
             }
 
             ul.dropdown-menu {

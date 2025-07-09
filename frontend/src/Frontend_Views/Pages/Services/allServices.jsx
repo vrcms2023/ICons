@@ -17,6 +17,7 @@ import RichTextView from "../../../Common/RichTextView";
 import Ancher from "../../../Common/Ancher";
 import useAdminLoginStatus from "../../../Common/customhook/useAdminLoginStatus";
 import { getImagePath } from "../../../util/commonUtil";
+import { ShowAllServicesPage } from "../../../Common/StyledComponents/Styled-ListAllServicesPage";
 
 // Components
 
@@ -141,51 +142,54 @@ const AllServices = () => {
         )}
       </div>
       {/* END OF ICONS ALL SERVICES */}
-      {clientServiceList.map((servicelist, index) =>
-        servicelist?.service.map((item) => (
-          <div
-            className="row service mb-3 mb-md-5"
-            key={`${index}+homeService`}
-          >
-            <div className="col-md-6 p-2 homeServiceImg">
-              <img
-                src={
-                  item.path
-                    ? getImagePath(item.path)
-                    : getImagePath("/media/images/dummy-image-square.png")
-                }
-                alt={item.alternitivetext}
-                className="img-fluid w-100 h-100"
-              />
-            </div>
-            <div className="col-md-6 p-2 p-md-4 homeServiceDetails">
-              <Title
-                title={item.feature_title}
-                cssClass="fw-bold serviceTitle"
-              />
-              {item.feature_description && (
-                <RichTextView
-                  data={item.feature_description}
-                  className={"description"}
-                  characterLimit={600}
-                  showMorelink={false}
-                />
-                // <div
-                //   className="description"
-                //   dangerouslySetInnerHTML={{ __html: item.feature_description }}
-                // />
-              )}
-              <Ancher
-                AncherLabel=" Know More"
-                Ancherpath={`/services/${item.services_page_title}/`}
-                AncherClass="btn btn-primary mx-3"
-                AnchersvgColor="#ffffff"
-              />
-            </div>
-          </div>
-        ))
-      )}
-
+      <ShowAllServicesPage>
+        <div className="container">
+          {clientServiceList.map((servicelist, index) =>
+            servicelist?.service.map((item) => (
+              <div
+                className="row allService mb-5"
+                key={`${index}+homeService`}
+              >
+                <div className="col-md-6 p-0 allServiceImg">
+                  <img
+                    src={
+                      item.path
+                        ? getImagePath(item.path)
+                        : getImagePath("/media/images/dummy-image-square.png")
+                    }
+                    alt={item.alternitivetext}
+                    className="img-fluid"
+                  />
+                </div>
+                <div className="col-md-6 p-4 allServiceDetails">
+                  <Title
+                    title={item.feature_title}
+                    cssClass="serviceTitle"
+                  />
+                  {item.feature_description && (
+                    <RichTextView
+                      data={item.feature_description}
+                      className={"description"}
+                      characterLimit={600}
+                      showMorelink={false}
+                    />
+                    // <div
+                    //   className="description"
+                    //   dangerouslySetInnerHTML={{ __html: item.feature_description }}
+                    // />
+                  )}
+                  <Ancher
+                    AncherLabel="Read More"
+                    Ancherpath={`/services/${item.services_page_title}/`}
+                    AncherClass="d-block mt-3"
+                    AnchersvgColor="#ffffff"
+                  />
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </ShowAllServicesPage>
       {componentEdit.service ? (
         <div className="adminEditTestmonial">
           <ServiceForm
