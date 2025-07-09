@@ -85,7 +85,6 @@ import WeServeCarousel from "../../Components/WeServeCarousel";
 
 import { BrochureDownloadStyling } from "../../../Common/StyledComponents/Styled-BrochureDownload";
 
-
 const Home = () => {
   const editComponentObj = {
     carousel: false,

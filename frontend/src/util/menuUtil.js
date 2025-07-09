@@ -10,8 +10,11 @@ export const getSelectedMenuDetails = async (
   oldTitle
 ) => {
   const _userName = getCookie("userName");
-  const _getSelectedParentObject = getMenuParent(menuList, location.pathname);
-
+  const _getSelectedParentObject = getParentMenuByURL(
+    menuList,
+    location.pathname
+  );
+  if (!_getSelectedParentObject) return;
   let data = {
     is_Admin_menu: true,
     is_Client_menu: true,
@@ -19,13 +22,13 @@ export const getSelectedMenuDetails = async (
     is_Parent: false,
     page_isActive: true,
     page_label: serviceResponse.services_page_title,
-    page_parent_ID: _getSelectedParentObject.id,
-    page_url: `/${serviceResponse.services_page_title.replace(/\s/g, "").toLowerCase()}`,
+    page_parent_ID: _getSelectedParentObject?.id,
+    page_url: serviceResponse.page_url,
   };
 
   if (isEdit) {
     const _getSelectedChildMenu = getMenuParent(
-      _getSelectedParentObject.childMenu,
+      _getSelectedParentObject?.childMenu,
       oldTitle
     );
     data["updated_by"] = _userName;
@@ -33,6 +36,7 @@ export const getSelectedMenuDetails = async (
     data["page_position"] = _getSelectedChildMenu.page_position;
     data["page_url"] = _getSelectedChildMenu.page_url;
   } else {
+    data["service_menu_ID"] = serviceResponse.id;
     data["created_by"] = _userName;
     data["page_position"] = getMenuPosition(_getSelectedParentObject);
   }
@@ -66,6 +70,12 @@ export const getMenuParent = (menuList, labelName) => {
   })[0];
 };
 
+export const getParentMenuByURL = (menuList, labelName) => {
+  return _.filter(menuList, (item) => {
+    return labelName?.toLowerCase().match(item?.page_url?.toLowerCase());
+  })[0];
+};
+
 export const createServiceChildFromMenu = async (
   selectedServiceMenu,
   menuData
@@ -76,6 +86,8 @@ export const createServiceChildFromMenu = async (
     created_by: getCookie("userName"),
     pageType: "MenuForm",
     publish: false,
+    menu_ID: menuData.id,
+    page_url: menuData.page_url,
   };
 
   if (selectedServiceMenu?.id) {
@@ -92,15 +104,10 @@ export const createServiceChildFromMenu = async (
   return response;
 };
 
-export const deleteServiceItem = async (menuList, item) => {
+export const deleteServiceItem = async (id) => {
   try {
-    const _getSelectedParentObject = getMenuParent(menuList, "Services");
-    const _getSelectedChildMenu = getMenuParent(
-      _getSelectedParentObject.childMenu,
-      item.services_page_title
-    );
     const response = await axiosServiceApi.delete(
-      `/pageMenu/updatePageMenu/${_getSelectedChildMenu.id}/`
+      `/pageMenu/updatePageMenu/${id}/`
     );
     return response;
   } catch (error) {
@@ -108,10 +115,10 @@ export const deleteServiceItem = async (menuList, item) => {
   }
 };
 
-export const deleteServiceMenu = async (item) => {
+export const deleteServiceMenu = async (id) => {
   try {
     const response = await axiosServiceApi.delete(
-      `/services/updateService/${item.id}/`
+      `/services/updateService/${id}/`
     );
     return response;
   } catch (error) {
