@@ -18,6 +18,12 @@ export const HomeDynamicServiceStylesComponent = styled.div`
     }
   }
 
+  .introDecTitleCss {
+    p, p span {
+      text-align: left !important;
+    }
+  }
+
   .homeDynamciServices {
 
     .briefIntro {
@@ -67,6 +73,7 @@ export const HomeDynamicServiceStylesComponent = styled.div`
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 6;
             color: #fff !important;
+            
           }
 
           .description {
@@ -75,6 +82,7 @@ export const HomeDynamicServiceStylesComponent = styled.div`
             }
           }
 
+          
           }
 
           a {
