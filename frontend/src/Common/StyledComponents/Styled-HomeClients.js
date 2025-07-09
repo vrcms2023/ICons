@@ -123,7 +123,7 @@ export const HomeClientsStyled = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 200px;
+  width: 200px !important;
   min-height: 120px;
   padding: 16px;
   border: 1px solid #ededed;
