@@ -363,10 +363,10 @@ const Home = () => {
                       linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
                       linkLabel="Read More"
                       moreLink=""
-                      introTitleCss="fs-3 text-center mb-4"
-                      introSubTitleCss="fw-medium text-muted text-center"
+                      introTitleCss="fs-3 text-center mb-3"
+                      introSubTitleCss="fw-medium fs-5 text-center"
                       introDecTitleCss="fs-6 fw-normal mx-4 text-center lh-6"
-                      detailsContainerCss="col-md-12 py-3"
+                      detailsContainerCss="col-md-12 py-2 text-center"
                       anchorContainer="d-flex justify-content-center align-items-center mt-4"
                       anchersvgColor="#17427C"
                       pageType={pageType}

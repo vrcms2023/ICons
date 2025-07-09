@@ -28,4 +28,12 @@ export const BriefIntroStyled = styled.div`
     font-size: 2.5rem;
     color: ${({ theme }) => theme.briefIntroTitleColor};
   }
+
+  .quill {
+    .ql-editor {
+      p, p span {
+        text-align: center;
+      }
+    }
+  }
 `;
