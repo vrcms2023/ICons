@@ -76,7 +76,7 @@ const Services = () => {
     const pageURL = location.pathname;
     if (pageURL && serviceMenu.length > 0) {
       const selectedMneu = _.filter(serviceMenu, (item) => {
-        return item.page_url.toLowerCase() === pageURL;
+        return item?.page_url.toLowerCase() === pageURL;
       })[0];
       if (selectedMneu) {
         storeServiceMenuValueinCookie(selectedMneu);
@@ -327,27 +327,31 @@ const Services = () => {
             <div
               className={isAdmin && hasPermission ? "col-md-12" : "col-md-12"}
             >
-              {isAdmin && hasPermission && selectedServiceProject?.id && (
-                <div className="d-flex justify-content-center align-items-center my-4 p-2 border border-info">
-                  <span className="mx-2 text-dark">
-                    {" "}
-                    Add new section in
-                    <span className="text-dark fw-bold mx-1">
-                      {selectedServiceProject.services_page_title}
+              {isAdmin &&
+                hasPermission &&
+                selectedServiceProject?.id &&
+                selectedServiceProject.services_page_title !==
+                  "addnewservice" && (
+                  <div className="d-flex justify-content-center align-items-center my-4 p-2 border border-info">
+                    <span className="mx-2 text-dark">
+                      {" "}
+                      Add new section in
+                      <span className="text-dark fw-bold mx-1">
+                        {selectedServiceProject.services_page_title}
+                      </span>
+                      page
                     </span>
-                    page
-                  </span>
-                  <button
-                    type="submit"
-                    className="btn btn-outline px-3"
-                    onClick={() => editHandler("addSection", true)}
-                    // style={{ position: "absolute", right: "60px" }}
-                  >
-                    {/* Add data */}
-                    <i className="fa fa-plus" aria-hidden="true"></i>
-                  </button>
-                </div>
-              )}
+                    <button
+                      type="submit"
+                      className="btn btn-outline px-3"
+                      onClick={() => editHandler("addSection", true)}
+                      // style={{ position: "absolute", right: "60px" }}
+                    >
+                      {/* Add data */}
+                      <i className="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                )}
               {componentEdit.editSection || componentEdit.addSection ? (
                 <div className={`adminEditTestmonial selected`}>
                   <AddEditAdminNews
