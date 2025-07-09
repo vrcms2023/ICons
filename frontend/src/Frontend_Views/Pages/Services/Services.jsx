@@ -394,10 +394,10 @@ const Services = () => {
               </div>
               {selectedServiceList.map((item, index) => (
                 <div
-                  className={`row my-5 ${
+                  className={`row mb-5 my-md-5 ${
                     isAdmin
                       ? "border border-warning mb-3 position-relative"
-                      : ""
+                      : "border border-md-1"
                   } ${index % 2 === 0 ? "normalCSS" : "flipCSS"}`}
                   key={item.id}
                 >
@@ -419,28 +419,31 @@ const Services = () => {
                       </Link>
                     </>
                   )}
-                  <div className="col-md-8 px-5">
-                    <Title
+                  <div className="col-md-8 p-4">
+                    {item.feature_title &&  <Title
                       title={
                         item.feature_title
                           ? item.feature_title
                           : "Update Feature title"
                       }
-                      cssClass="fs-1 fw-bold mt-3 mb-1"
-                    />
-                    <Title
+                      cssClass="fs-3 fw-medium "
+                    />}
+                   
+                   {item.feature_sub_title &&  <Title
                       title={
                         item.feature_sub_title
                           ? item.feature_sub_title
                           : "Update Feature sub title"
                       }
                       cssClass="fs-5 text-secondary mb-2"
-                    />
-                    <RichTextView
+                    />}
+                   
+                   {item.feature_description && <RichTextView
                       data={item.feature_description}
                       className={""}
                       showMorelink={false}
-                    />
+                    />}
+                    
                     {/*                  
                     <div
                       dangerouslySetInnerHTML={{
@@ -448,8 +451,8 @@ const Services = () => {
                       }}
                     /> */}
                   </div>
-                  <div className="col-md-4">
-                    <img src={getImagePath(item.path)} alt="" />
+                  <div className="col-md-4 p-0">
+                    <img src={getImagePath(item.path)} alt="" className="h-100 "/>
                   </div>
                 </div>
               ))}

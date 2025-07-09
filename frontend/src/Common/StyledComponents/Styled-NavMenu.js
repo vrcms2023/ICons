@@ -90,15 +90,21 @@ export const StyledMenu = styled.menu`
                 }
               }
           }
+
+          @media (max-width: 992px) {
+            color:  ${({theme}) => theme.white}; 
+          }
         }
 
         @media (max-width: 992px) {
           background: ${({theme}) => theme.navbarBg};
           // background: linear-gradient(90deg, rgba(225,242,253,1) 0%, rgba(255,255,255,1) 50%, rgba(225,242,253,1) 100%);
-          border-bottom: 1px solid ${({theme}) => theme.navbarLinkActiveColor};
+          border-bottom: 1px solid ${({theme}) => theme.gray444};
           text-align:center;
           padding: 8px;
 
+          
+          
           .dropdown-menu {
             .nav-item {
               border: 0px !important
@@ -191,8 +197,8 @@ export const StyledMenu = styled.menu`
           background: ${({ theme }) => theme.navbarLinkHoverColor};
           
           a {
-            color: ${({ theme }) => theme.gray333} !important;
-            font-weight: 600;
+            color: ${({ theme }) => theme.white} !important;
+            font-weight: 500;
 
             &::before {
               content: "+";

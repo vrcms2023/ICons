@@ -147,10 +147,10 @@ const AllServices = () => {
           {clientServiceList.map((servicelist, index) =>
             servicelist?.service.map((item) => (
               <div
-                className="row allService mb-5"
+                className="row allService mb-5 border border-1"
                 key={`${index}+homeService`}
               >
-                <div className="col-md-6 p-0 allServiceImg">
+                <div className="col-md-5 p-0 allServiceImg">
                   <img
                     src={
                       item.path
@@ -161,7 +161,7 @@ const AllServices = () => {
                     className="img-fluid"
                   />
                 </div>
-                <div className="col-md-6 p-4 allServiceDetails">
+                <div className="col-md-7 p-4 allServiceDetails">
                   <Title
                     title={item.feature_title}
                     cssClass="serviceTitle"

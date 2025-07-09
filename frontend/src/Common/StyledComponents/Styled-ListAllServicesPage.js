@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const ShowAllServicesPage = styled.div`
     padding: 48px 0 24px;
     .allService {
-        box-shadow: 0 .3rem .7rem rgba(0, 0, 0, .15) !important;
+        // box-shadow: 0 .3rem .7rem rgba(0, 0, 0, .15) !important;
         .allServiceImg {
             text-align: center;
             img{
