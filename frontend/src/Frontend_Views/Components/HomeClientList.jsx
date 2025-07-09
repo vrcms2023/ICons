@@ -36,9 +36,9 @@ export const HomeClientList = ({ clientsList }) => {
   };
   return (
     <>
-      <div className="text-center my-5">
+      <div className="text-center">
         <span
-          className="fs-3 px-4 py-2"
+          className="fs-2 px-4 py-0"
           // style={{ borderBottom: "1px solid #444444" }}
         >
           Our Clients We Proudly Served

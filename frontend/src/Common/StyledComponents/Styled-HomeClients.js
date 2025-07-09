@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import bgImage from "../../Images/background-styling-image.png";
 
 export const HomeClientsStyled = styled.div`
-  background-color: ${({ theme }) => theme.white};
-  margin: 64px 0;
+  // background-color: ${({ theme }) => theme.white};
+  background-image: url(${bgImage});
+  background-position: center;
+  padding: 64px 0;
 
 
 .clients-image-slider{
@@ -127,6 +130,7 @@ export const HomeClientsStyled = styled.div`
   min-height: 120px;
   padding: 16px;
   border: 1px solid #ededed;
+  background: white;
   margin: 0 12px;
   cursor: pointer;
   

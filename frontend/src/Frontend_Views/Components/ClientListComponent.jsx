@@ -140,28 +140,31 @@ const Client = ({ item, index, editHandler, deleteAboutSection }) => {
               </>
             )}
 
-            <div className={`${isAdmin ? "d-md-flex p-3" : ""}`}>
+            <div className={`${isAdmin ? "d-md-flex p-3" : "d-flex justify-content-center align-items-center flex-column"}`}>
               <div className="text-center clientAvatar">
                 <img
                   src={getImagePath(item.path)}
                   alt=""
-                  className="img-fluid shadow img-thumbnail"
+                  className="img-fluid  mb-3"
                 />
               </div>
-              <div className="mt-3 d-flex justify-content-center align-items-center justify-content-md-center align-items-md-center flex-column  clientDetails ms-3">
+              <div className="mt-1 d-flex justify-content-center align-items-center justify-content-md-center align-items-md-start flex-column  clientDetails ">
                 {item.client_title && (
                   <Title
                     title={item.client_title}
-                    cssClass="fs-5 mb-2 text-center"
+                    cssClass="fs-5 text-start"
                   />
                 )}
-                <RichTextView
+                {item.client_description && (
+                  <RichTextView
                   data={item.client_description}
                   className={`details ${
-                    isAdmin ? "" : "overlay fa fa-map-marker"
+                    isAdmin ? "" : ""
                   }`}
                   showMorelink={false}
                 />
+                )}
+                
                 {/* <div
                   className={`details ${
                     isAdmin ? "" : "overlay fa fa-map-marker"
