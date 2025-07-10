@@ -67,10 +67,13 @@ const HomeServices = ({ title }) => {
                 backgroundImage: `url(${item.path ? getImagePath(item.path) : getImagePath("/media/images/dummy-image-square.png")})`,
               }}
             >
-              <Title
-                title={item.feature_title}
-                cssClass="fw-bold serviceTitle"
-              />
+              <Link to={`${item.services_page_url}`}>
+                <Title
+                  title={item.feature_title}
+                  cssClass="fw-bold serviceTitle"
+                />
+              </Link>
+
               {item.feature_description && (
                 <RichTextView
                   data={item.feature_description}
