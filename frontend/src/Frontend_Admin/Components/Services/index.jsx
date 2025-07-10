@@ -309,19 +309,19 @@ const AddService = ({
                     key={item.id}
                   >
                     <div className="w-50">
-                      {/* <Ancher
+                      <Ancher
                         Ancherpath={item.page_url}
                         AncherClass="text-dark pageTitle"
-                        handleModel=""
                         AncherLabel={item.services_page_title}
-                      /> */}
-                      <Link
+                        handleModel={(event) => onClickSelectedService(item)}
+                      />
+                      {/* <Link
                         to={item.page_url}
                         onClick={(event) => onClickSelectedService(item)}
                         className="text-dark pageTitle"
                       >
                         {item.services_page_title}{" "}
-                      </Link>
+                      </Link> */}
                     </div>
 
                     {/* <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p> */}
