@@ -38,7 +38,7 @@ const DynamicKeyPoint = ({
   return (
     <KeypointsStyled>
         <div className="container-fluid">
-        <div className="row IconsMainKeys">
+        <div className="row IconsMainKeys d-flex justiy-content-center align-items-center gap-3">
           <div className="col-md-2 p-2 d-flex align-items-center keyPoint">
               {keyPointsdata.path ? (
                 <img
@@ -55,7 +55,7 @@ const DynamicKeyPoint = ({
               )}
             
           </div>
-          <div className="col-md-10 p-2 d-flex align-items-center">{keyPointsdata?.banner_title}</div>
+          <div className="col-md-10 p-2 d-flex align-items-center point">{keyPointsdata?.banner_title}</div>
         </div>
       </div>
       </KeypointsStyled>

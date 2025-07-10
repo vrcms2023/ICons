@@ -381,6 +381,7 @@ body {
       background-color: transparent !important;
       p, p span {
         background-color: transparent !important;
+        font-size: 1rem !important;
       }
       .ql-editor {
         padding: 1rem 0 0px;
