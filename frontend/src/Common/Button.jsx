@@ -20,7 +20,7 @@ const Button = ({
       onClick={() => handlerChange(label)}
     >
       {icon ? <i className={`fa ${icon}`} aria-hidden="true"></i> : ""}
-      {isMobile ? " " : <span className="">{label}</span>}
+      {isMobile ? " " : <span className="linkLabel">{label}</span>}
       {image ? <div className={imgeLabelCss}><img src={image} /> <span style={{fontSize: ".7rem"}}>{imageLabel}</span></div> : ""}
     </button>
   );
