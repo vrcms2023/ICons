@@ -67,6 +67,7 @@ const Services = () => {
   const navigate = useNavigate();
   const pageLoadServiceID = getCookie("pageLoadServiceID");
   const pageLoadServiceName = getCookie("pageLoadServiceName");
+  const pageLoadServiceURL = getCookie("pageLoadServiceURL");
   const location = useLocation();
   const { serviceMenu, serviceerror } = useSelector(
     (state) => state.serviceMenu
@@ -100,12 +101,13 @@ const Services = () => {
   });
 
   useEffect(() => {
-    if (pageLoadServiceID && pageLoadServiceName)
+    if (pageLoadServiceID && pageLoadServiceName && pageLoadServiceURL)
       getSelectedServiceObject(pageLoadServiceID);
     setSelectedServiceName(pageLoadServiceName);
     setSelectedServiceProject({
       id: pageLoadServiceID,
       services_page_title: pageLoadServiceName,
+      page_url: pageLoadServiceURL,
     });
   }, [uid, pageLoadServiceID]);
 
@@ -372,6 +374,9 @@ const Services = () => {
                       selectedServiceProject ? selectedServiceProject?.id : "",
                       selectedServiceProject
                         ? selectedServiceProject?.services_page_title
+                        : "",
+                      selectedServiceProject
+                        ? selectedServiceProject?.page_url
                         : ""
                     )}
                     dimensions={imageDimensionsJson("addService")}

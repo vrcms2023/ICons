@@ -149,8 +149,14 @@ const FileUpload = ({
 
     if (showExtraFormFields) {
       for (const key in showExtraFormFields) {
-        if (showExtraFormFields.hasOwnProperty(key)) {
-          formData.append(key, data[key]);        
+        if (
+          showExtraFormFields.hasOwnProperty(key) &&
+          showExtraFormFields[key].type !== "hidden"
+        ) {
+          formData.append(key, data[key]);
+        }
+        if (showExtraFormFields[key].type === "hidden") {
+          formData.append(key, showExtraFormFields[key]?.value);
         }
       }
     }
@@ -497,7 +503,6 @@ const FileUpload = ({
 
               if (type == "richText") {
                 return (
-                  
                   <RichTextInputEditor_V2
                     Controller={Controller}
                     control={control}

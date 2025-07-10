@@ -86,7 +86,7 @@ export const getFirstShortDescription = (data) => {
 export const mapServicePagetoComponent = (data) => {
   const services = sortByCreatedDate(data.services);
   const serviceSection = data.serviceSection;
-  const displayCount = 5;
+  const displayCount = 7;
 
   return services.reduce((acc, val, ind) => {
     let service = [];

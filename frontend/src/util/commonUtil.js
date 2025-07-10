@@ -128,8 +128,10 @@ export const getObjectDescription = (type, item) => {
 export const storeServiceMenuValueinCookie = (item) => {
   removeCookie("pageLoadServiceID");
   removeCookie("pageLoadServiceName");
+  removeCookie("pageLoadServiceURL");
   setCookie("pageLoadServiceID", item.id);
   setCookie("pageLoadServiceName", urlStringFormat(item?.services_page_title));
+  setCookie("pageLoadServiceURL", item?.page_url);
 };
 
 export const urlStringFormat = (str) => {
