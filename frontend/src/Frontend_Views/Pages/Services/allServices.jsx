@@ -74,7 +74,7 @@ const AllServices = () => {
         `/services/getClientHomePageService/`
       );
 
-      let data = mapServicePagetoComponent(response.data);
+      let data = mapServicePagetoComponent(response.data, 100);
       setClientServiceList(data);
     } catch (error) {
       console.log("Unable to get the intro");
