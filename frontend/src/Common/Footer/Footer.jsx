@@ -219,10 +219,10 @@ const Footer = () => {
           </div> */}
           {/* <hr className="my-4" /> */}
           <div className="row py-5">
-            <div className="col-md-4 text-center text-md-start">
-              <Title title="Company" />
+            <div className="col-md-3 col-lg-4 text-center text-md-start">
+              <Title title="Company" cssClass="mb-4 mb-md-0" />
 
-              <ul className="row ps-2">
+              <ul className="row ps-2 mx-3 mx-md-auto">
                 {menuList?.map((menu) => {
                   return <ChildMenuContent menu={menu} key={menu.id} />;
                 })}
@@ -296,7 +296,7 @@ const Footer = () => {
             </div> */}
 
             <div
-              className={`col-md-4 col-lg-4 text-center text-md-start reachUs ${
+              className={`col-md-3 col-lg-4 text-center text-md-start reachUs ${
                 isAdmin ? "" : ""
               }`}
             >
@@ -397,7 +397,7 @@ const Footer = () => {
               <div
                 // align-items-center justify-content-md-center justify-content-lg-end align-items-md-end align-items-end justify-content-md-end
                 // ${ isAdmin ? "border border-warning mb-3 position-relative" : "" }
-                className={`col-md-4 col-lg-4 pb-md-0 socialMedia d-flex flex-column gap-5 gap-md-0 align-items-center align-items-md-start justify-content-between pb-4 pb-md-0`}
+                className={`col-md-6 col-lg-4 pb-md-0 socialMedia d-flex flex-column gap-5 gap-md-0 align-items-center align-items-md-start justify-content-between pb-4 pb-md-0`}
               >
                 <div className="FooterAddress">
                   <Title title="We Are At" />
@@ -510,7 +510,7 @@ const Footer = () => {
           <div className="container">
             <div className="row">
               <div className="">
-                <div className="d-flex flex-column flex-md-row justify-content-between align-items-center  gap-2">
+                <div className="d-flex flex-column flex-lg-row text-center text-lg-start justify-content-center justify-content-lg-between align-items-center gap-2">
                   &copy; {fullYear} - {addressList[0]?.company_name}. All rights
                   reserved
                   {/* <span className="d-inline-block  d-none d-md-block">|</span> */}
@@ -532,11 +532,11 @@ const Footer = () => {
                     </Link>
                   </div>
                 </div>
-                <span className="d-block mt-2 ">
+                <span className="d-block mt-2 text-center text-lg-start d-block">
                   Designed & developed by{" "}
-                  <a href="http://www.varadesigns.com" className="dby">
+                  <a href="https://vitsols.com/" className="dby">
                     <small className="p-1 fw-bold d-inline-block">
-                      VARA-DESIGNS
+                      VITSOLS
                     </small>
                   </a>
                 </span>
@@ -590,7 +590,7 @@ export default Footer;
 
 const ChildMenuContent = ({ menu }) => {
   return (
-    <li className="col-6">
+    <li className="col-6 col-sm-12 col-lg-6 text-start">
       <Link to={menu?.page_url}>{menu?.page_label}</Link>
     </li>
   );
