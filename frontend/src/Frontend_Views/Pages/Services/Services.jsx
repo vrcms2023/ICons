@@ -86,6 +86,7 @@ const Services = () => {
         storeServiceMenuValueinCookie(serviceMenu[0]);
         setSelectedServiceProject(serviceMenu[0]);
       }
+      setSelectedServiceList([]);
     }
   }, [location, serviceMenu]);
 
@@ -100,16 +101,16 @@ const Services = () => {
     }
   });
 
-  useEffect(() => {
-    if (pageLoadServiceID && pageLoadServiceName && pageLoadServiceURL)
-      getSelectedServiceObject(pageLoadServiceID);
-    setSelectedServiceName(pageLoadServiceName);
-    setSelectedServiceProject({
-      id: pageLoadServiceID,
-      services_page_title: pageLoadServiceName,
-      page_url: pageLoadServiceURL,
-    });
-  }, [uid, pageLoadServiceID]);
+  // useEffect(() => {
+  //   if (pageLoadServiceID && pageLoadServiceName && pageLoadServiceURL)
+  //     getSelectedServiceObject(pageLoadServiceID);
+  //   setSelectedServiceName(pageLoadServiceName);
+  //   setSelectedServiceProject({
+  //     id: pageLoadServiceID,
+  //     services_page_title: pageLoadServiceName,
+  //     page_url: pageLoadServiceURL,
+  //   });
+  // }, [uid, pageLoadServiceID]);
 
   useEffect(() => {
     removeActiveClass();
@@ -139,12 +140,8 @@ const Services = () => {
       let response = await axiosClientServiceApi.get(
         `/services/getSelectedClientService/${id}/`
       );
-      setSelectedServiceList(sortByCreatedDate(response.data.servicesFeatures));
-      //window.scrollTo(0, 0);
-      // if (window.history.replaceState && isAdmin) {
-      //   const url = `${getReactHostDetils()}/services/${pageLoadServiceName}/`;
-      //   window.history.pushState({}, null, url);
-      // }
+      const createdDate = sortByCreatedDate(response.data.servicesFeatures);
+      setSelectedServiceList(createdDate);
     } catch (error) {
       console.log("Unable to get the intro");
     }
@@ -425,30 +422,36 @@ const Services = () => {
                     </>
                   )}
                   <div className="col-md-8 p-4">
-                    {item.feature_title &&  <Title
-                      title={
-                        item.feature_title
-                          ? item.feature_title
-                          : "Update Feature title"
-                      }
-                      cssClass="fs-3 fw-medium "
-                    />}
-                   
-                   {item.feature_sub_title &&  <Title
-                      title={
-                        item.feature_sub_title
-                          ? item.feature_sub_title
-                          : "Update Feature sub title"
-                      }
-                      cssClass="fs-5 text-secondary mb-2"
-                    />}
-                   
-                   {item.feature_description && <RichTextView
-                      data={item.feature_description}
-                      className={""}
-                      showMorelink={false}
-                    />}
-                    
+                    {item.feature_title && (
+                      <Title
+                        title={
+                          item.feature_title
+                            ? item.feature_title
+                            : "Update Feature title"
+                        }
+                        cssClass="fs-3 fw-medium "
+                      />
+                    )}
+
+                    {item.feature_sub_title && (
+                      <Title
+                        title={
+                          item.feature_sub_title
+                            ? item.feature_sub_title
+                            : "Update Feature sub title"
+                        }
+                        cssClass="fs-5 text-secondary mb-2"
+                      />
+                    )}
+
+                    {item.feature_description && (
+                      <RichTextView
+                        data={item.feature_description}
+                        className={""}
+                        showMorelink={false}
+                      />
+                    )}
+
                     {/*                  
                     <div
                       dangerouslySetInnerHTML={{
@@ -457,7 +460,11 @@ const Services = () => {
                     /> */}
                   </div>
                   <div className="col-md-4 p-0">
-                    <img src={getImagePath(item.path)} alt="" className="h-100 "/>
+                    <img
+                      src={getImagePath(item.path)}
+                      alt=""
+                      className="h-100 "
+                    />
                   </div>
                 </div>
               ))}

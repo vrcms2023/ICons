@@ -162,10 +162,7 @@ const AllServices = () => {
                   />
                 </div>
                 <div className="col-md-7 p-4 allServiceDetails">
-                  <Title
-                    title={item.feature_title}
-                    cssClass="serviceTitle"
-                  />
+                  <Title title={item.feature_title} cssClass="serviceTitle" />
                   {item.feature_description && (
                     <RichTextView
                       data={item.feature_description}
@@ -180,7 +177,7 @@ const AllServices = () => {
                   )}
                   <Ancher
                     AncherLabel="Read More"
-                    Ancherpath={`/services/${item.services_page_title}/`}
+                    Ancherpath={`${item.services_page_url}`}
                     AncherClass="d-block mt-3"
                     AnchersvgColor="#ffffff"
                   />
