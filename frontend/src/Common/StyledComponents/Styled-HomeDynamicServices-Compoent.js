@@ -31,7 +31,7 @@ export const HomeDynamicServiceStylesComponent = styled.div`
         height: 300px;
         max-height: 100%;
         padding: 32px;
-        border-bottom: 10px solid rgba(1, 32, 96, .85); 
+        border-bottom: 5px solid rgba(1, 32, 96, .70); 
         background-size: 72px;
         cursor: pointer;
         background-repeat: no-repeat;
@@ -44,10 +44,12 @@ export const HomeDynamicServiceStylesComponent = styled.div`
 
         &:hover {
             background-color:rgba(0, 0, 0, 0.2);
-            border-bottom: 15px solid #FF9D00; 
+            border-bottom: 15px solid ${({ theme }) => theme.clientSecondaryColor};
+            
+            // #FF9D00; 
 
             * {
-            color: #fff;
+            color: ${({ theme }) => theme.clientSecondaryColor};
             }
         }
         
@@ -58,7 +60,7 @@ export const HomeDynamicServiceStylesComponent = styled.div`
             z-index: 2;
             font-weight: 500 !important;
             font-size: 1.6rem !important;
-            color: #fff !important;
+             color: ${({ theme }) => theme.clientSecondaryColor} !important;
             hyphens: manual;
             overflow-wrap: break-word; /* optional, for better word breaking */
             word-break: break-word;    /* optional, for better word breaking */
@@ -76,7 +78,7 @@ export const HomeDynamicServiceStylesComponent = styled.div`
 
           p, p span, h1, h1 strong, span {
             background: transparent !important;
-            color: #fff !important;
+            color: ${({ theme }) => theme.gray333} !important;
             font-family: Roboto;
             font-size: 1rem !important;
             font-family: roboto;
@@ -90,11 +92,14 @@ export const HomeDynamicServiceStylesComponent = styled.div`
             }
           }
 
+          .ql-editor {
+            padding: .3rem 0 0px;
+          }
           
           }
 
           a {
-            color: #fff;
+            color: #444;
             z-index: 4;
             font-size: .9rem;
             margin-top: 2rem;
@@ -105,7 +110,9 @@ export const HomeDynamicServiceStylesComponent = styled.div`
         .briefIntro:after {
           content: "";
           // background: linear-gradient(173deg,rgba(109, 47, 155, 0.9) 1%, rgba(1, 32, 96, .75) 100%);
-          background: linear-gradient(135deg,rgba(109, 47, 155, 0.9) 15%, rgba(0, 0, 0, .2) 100%);
+          // background: linear-gradient(135deg,rgba(109, 47, 155, 0.9) 15%, rgba(0, 0, 0, .2) 100%);
+          // background: linear-gradient(163deg, hsl(220, 100.00%, 79.60%) 25%, hsl(219, 100.00%, 95.00%) 100%);
+          background: linear-gradient(163deg,rgba(122, 155, 222, 1) 0%, rgba(245, 245, 245, 1) 100%);
           position: absolute;
           top: 0;
           bottom: 0;
