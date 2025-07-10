@@ -13,7 +13,6 @@ export const TeamStyled = styled.div`
     font-size: 1.1rem;
   }
 
-
   // a {
   //   color: ${({ theme }) => theme.teamLinkColor};
   // }
@@ -30,14 +29,10 @@ export const TeamStyled = styled.div`
   }
 
   img {
-    object-fit: contain;
+    object-fit: cover;
     object-position: top;
-    height: auto;
-    max-height: 300px;
+    height: 300px;
     width: 100%;
-  }
-
-  .aboutMe {
   }
   
   .ql-editor {
@@ -47,7 +42,7 @@ export const TeamStyled = styled.div`
   .memberCard {
     background-color: ${({ theme }) => theme.white};
     // border:1px solid ${({ theme }) => theme.secondaryColor};
-    border-radius: 5px;
+    // border-radius: 5px;
     margin: 15px 0;
     overflow: hidden;
 
@@ -57,7 +52,7 @@ export const TeamStyled = styled.div`
       small {
         font-size: 0.7rem;
         text-transform: uppercase;
-        color: ${({ theme }) => theme.clientColor};
+        color: ${({ theme }) => theme.clientSecondaryColor};
       }
 
       .strengths {
@@ -77,6 +72,18 @@ export const TeamStyled = styled.div`
         //   margin-left: 10px;
         //   margin-bottom: 0px;
         // }
+      }
+    }
+
+    span.linkLabel {
+      margin: 10px;
+      font-size: .8rem;
+      // text-decoration: underline;
+      // text-underline-offset: 2px;
+      // text-decoration-color: rgba(109, 47, 155, .3) !important;
+
+      strong {
+        color: ${({ theme }) => theme.clientColor};
       }
     }
   }

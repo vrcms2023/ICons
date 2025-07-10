@@ -447,7 +447,7 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
         >
           <div
             key={item.id}
-            className={`mx-md-1 mx-lg-1 memberCard border shadow-sm ${
+            className={`mx-md-0 mx-lg-0 memberCard border shadow-sm ${
               isAdmin ? "border border-warning position-relative" : ""
             } ${index % 2 === 0 ? "normalCSS" : "flipCSS"}`}
           >
@@ -467,17 +467,17 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
                 </Link>
               </>
             )}
-            <div className="text-center p-3">
+            <div className="text-center">
               <img
                 src={getImagePath(item.path)}
-                className="rounded rounded-1 mt-2 "
+                className=""
                 alt=""
               />
             </div>
 
-            <div className=" text-start py-2 p-4 memberDetails">
+            <div className=" text-start p-4 memberDetails">
               {item.team_member_designation && (
-                <small className="mb-1 fw-bold">
+                <small className="mb-2 fw-bold">
                   {item.team_member_designation}
                 </small>
               )}
