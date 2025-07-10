@@ -54,16 +54,19 @@ const HomeServices = ({ title }) => {
   };
   return (
     <>
-    
-      {clientServiceList?.slice(0, 6).map((servicelist, index) =>
+      {clientServiceList?.map((servicelist, index) =>
         servicelist?.service.map((item) => (
-            <div className="col-md-4 col-sm-6 p-4 py-3 p-md-3" key={`${index}+homeService`}>
-              <div className="briefIntro" 
+          <div
+            className="col-md-4 col-sm-6 p-4 py-3 p-md-3"
+            key={`${index}+homeService`}
+          >
+            <div
+              className="briefIntro"
               style={{
-  backgroundImage: `url(${item.path ? getImagePath(item.path) : getImagePath("/media/images/dummy-image-square.png")})`
-}}
-              >
-                 <Title
+                backgroundImage: `url(${item.path ? getImagePath(item.path) : getImagePath("/media/images/dummy-image-square.png")})`,
+              }}
+            >
+              <Title
                 title={item.feature_title}
                 cssClass="fw-bold serviceTitle"
               />
@@ -79,14 +82,11 @@ const HomeServices = ({ title }) => {
                 //   dangerouslySetInnerHTML={{ __html: item.feature_description }}
                 // />
               )}
-              <Link
-                to={`/services/${item.services_page_title}/`}
-                className="mt-3"
-              >
+              <Link to={`${item.services_page_url}`} className="mt-3">
                 Know More
               </Link>
-              </div>
             </div>
+          </div>
 
           //   <div
           //   className="row service mb-3 mb-md-5"
@@ -102,7 +102,7 @@ const HomeServices = ({ title }) => {
           //       alt={item.alternitivetext}
           //       className="img-fluid w-100 h-100"
           //     />
-          //   </div> 
+          //   </div>
           //   <div className="col-sm-6 col-md-4 p-2 p-md-4 homeServiceDetails">
           //     <Title
           //       title={item.feature_title}
@@ -128,7 +128,6 @@ const HomeServices = ({ title }) => {
           //     </Link>
           //   </div>
 
-            
           // </div>
         ))
       )}

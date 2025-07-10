@@ -133,8 +133,11 @@ export const InputFields = ({
         <div className="mb-2 row">
           <input
             {...register(fieldName)}
+            value={value}
             type={type}
-            defaultValue={value}
+            id={rest?.id}
+            onChange={onChange}
+            disabled={rest.disabled}
             className="form-control p-2"
           />
         </div>
