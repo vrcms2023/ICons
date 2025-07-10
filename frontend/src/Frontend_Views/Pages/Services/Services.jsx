@@ -329,8 +329,7 @@ const Services = () => {
               {isAdmin &&
                 hasPermission &&
                 selectedServiceProject?.id &&
-                selectedServiceProject.services_page_title !==
-                  "addnewservice" && (
+                selectedServiceProject.page_url !== "/services/addservices" && (
                   <div className="d-flex justify-content-center align-items-center my-4 p-2 border border-info">
                     <span className="mx-2 text-dark">
                       {" "}
