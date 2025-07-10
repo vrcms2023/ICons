@@ -182,7 +182,7 @@ export const getselectedUserMenu = (permisions, menuList) => {
 };
 export const getServiceMainMenu = (data) => {
   return _.filter(data, (item) => {
-    return item.page_url.toLowerCase() === "/services";
+    return item?.page_url.toLowerCase() === "/services";
   })[0];
 };
 
@@ -207,7 +207,7 @@ export const getPublishedSericeMenu = (menuList, publishedMenuList) => {
   });
 
   _.map(clonedMenu, (item) => {
-    if (item?.page_url.toLowerCase() === "/services") {
+    if (item?.page_url?.toLowerCase() === "/services") {
       item["childMenu"] = selectedMenu;
     }
   });

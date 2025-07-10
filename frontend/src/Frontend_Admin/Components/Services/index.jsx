@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import Button from "../../../Common/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   axiosClientServiceApi,
@@ -33,6 +33,7 @@ const AddService = ({
   setSelectedServiceProject,
   selectedServiceProject,
   pageType,
+  isNewServiceCreated,
 }) => {
   const [serviceName, setServiceName] = useState("");
   const [error, setError] = useState("");
@@ -48,6 +49,7 @@ const AddService = ({
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const onChangeHandler = (event) => {
     setError("");
@@ -55,10 +57,10 @@ const AddService = ({
   };
 
   const onClickSelectedService = (item) => {
-    storeServiceMenuValueinCookie(item);
-    setSelectedServiceProject(item);
-    //window.scroll(0, 700);
-    // document.getElementById('servicesPage').scrollTo(0,100);
+    isNewServiceCreated.current = false;
+    navigate(item.page_url, { replace: true });
+    // storeServiceMenuValueinCookie(item);
+    // setSelectedServiceProject(item);
   };
 
   useEffect(() => {
@@ -67,16 +69,6 @@ const AddService = ({
 
   useEffect(() => {
     if (serviceMenu.length > 0) {
-      //const _clonedServicemenu = getClonedObject(serviceMenu);
-      // const _serviceList = _clonedServicemenu.map((item) => {
-      //   const menu = _.filter(menuRawList, (menu) => {
-      //     return menu.service_menu_ID === item.id;
-      //   })[0];
-      //   if (menu) {
-      //     item["page_url"] = menu.page_url;
-      //   }
-      //   return item;
-      // });
       let filterMenu = _.filter(serviceMenu, (item) => {
         return item?.page_url?.toLowerCase() !== "/services/addservices";
       });
@@ -128,7 +120,7 @@ const AddService = ({
         toast.success(`${serviceName} service is created `);
         setServiceName("");
         dispatch(getServiceValues());
-
+        isNewServiceCreated.current = true;
         setSelectedServiceProject(response.data.services);
       } else {
         setError(response.data.message);
@@ -240,6 +232,7 @@ const AddService = ({
     setServiceName("");
     setEditServiceObject({});
     setEditState(false);
+    isNewServiceCreated.current = false;
   };
 
   const createChildMenu = async (serviceResponse, isEdit, oldTilte) => {
@@ -316,19 +309,19 @@ const AddService = ({
                     key={item.id}
                   >
                     <div className="w-50">
-                      <Ancher
+                      {/* <Ancher
                         Ancherpath={item.page_url}
                         AncherClass="text-dark pageTitle"
                         handleModel=""
                         AncherLabel={item.services_page_title}
-                      />
-                      {/* <Link
-                      hrefLang=""
-                        // onClick={(event) => onClickSelectedService(item)}
+                      /> */}
+                      <Link
+                        to={item.page_url}
+                        onClick={(event) => onClickSelectedService(item)}
                         className="text-dark pageTitle"
                       >
                         {item.services_page_title}{" "}
-                      </Link> */}
+                      </Link>
                     </div>
 
                     {/* <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p> */}

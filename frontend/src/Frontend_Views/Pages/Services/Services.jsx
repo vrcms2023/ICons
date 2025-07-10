@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
@@ -69,15 +69,16 @@ const Services = () => {
   const pageLoadServiceName = getCookie("pageLoadServiceName");
   const pageLoadServiceURL = getCookie("pageLoadServiceURL");
   const location = useLocation();
+  const isNewServiceCreated = useRef(false);
   const { serviceMenu, serviceerror } = useSelector(
     (state) => state.serviceMenu
   );
 
   useEffect(() => {
     const pageURL = location.pathname;
-    if (pageURL && serviceMenu.length > 0) {
+    if (pageURL && serviceMenu.length > 0 && !isNewServiceCreated.current) {
       const selectedMneu = _.filter(serviceMenu, (item) => {
-        return item?.page_url.toLowerCase() === pageURL;
+        return item?.page_url?.toLowerCase() === pageURL;
       })[0];
       if (selectedMneu) {
         storeServiceMenuValueinCookie(selectedMneu);
@@ -197,6 +198,7 @@ const Services = () => {
       let data = item;
       data.services_page_title = selectedServiceProject?.services_page_title;
       setEditCarousel(data);
+      isNewServiceCreated.current = false;
     }
     document.body.style.overflow = "hidden";
   };
@@ -310,6 +312,7 @@ const Services = () => {
             setSelectedServiceProject={setSelectedServiceProject}
             selectedServiceProject={selectedServiceProject}
             pageType="service"
+            isNewServiceCreated={isNewServiceCreated}
           />
         )}
         {/* End of Add Service Page */}
