@@ -67,13 +67,21 @@ export const HomeDynamicServiceStylesComponent = styled.div`
         .quill {
           z-index: 3;
 
-          p, p span {
+          p, p span, h1 {
             overflow: hidden;
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 6;
+          }
+
+          p, p span, h1, h1 strong, span {
+            background: transparent !important;
             color: #fff !important;
-            
+            font-family: Roboto;
+            font-size: 1rem !important;
+            font-family: roboto;
+            font-weight: normal;
+            line-height: 1.5;
           }
 
           .description {
