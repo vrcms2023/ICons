@@ -305,7 +305,7 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
     >
       {(provided) => (
         <div
-          className={`${isAdmin ? "col-12" : "col-sm-6 col-lg-4 px-2 px-md-4 px-lg-5"} image`}
+          className={`${isAdmin ? "col-12" : "col-sm-6 col-lg-3 px-2 px-md-4 px-lg-3"} image`}
           ref={provided.innerRef}
           {...provided.draggableProps}
         >
@@ -320,12 +320,12 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
                 style={{ minHeight: isAdmin ? "auto" : "" }}
               >
                 <div
-                  className={`${isAdmin ? "d-flex align-items-center p-2 px-3 mb-3 border rounded" : ""} `}
+                  className={`${isAdmin ? "d-flex align-items-center p-2 px-3 mb-3 border" : ""} `}
                 >
                   {!isAdmin && (
                     <img
                       src={getImagePath(item.path)}
-                      className="img-fluid rounded-3"
+                      className="img-fluid"
                       alt={item.alternitivetext}
                     />
                   )}
@@ -339,10 +339,10 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
                     ""
                   )}
                   <div
-                    className="w-100"
+                    className="cardInfo"
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <div className={`${isAdmin ? "px-3" : "py-3"}`}>
+                    <div className={`${isAdmin ? "px-3" : "p-3"}`}>
                       <Title
                         title={
                           item.news_title
@@ -355,7 +355,7 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
                       />
                       {/* <small className="d-block my-2">{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</small> */}
                       {!isAdmin && (
-                        <small className="d-block mb-3">
+                        <small className="d-block mb-3 newsDate">
                           {moment(item.created_at).format("MMM DD, YYYY")}
                         </small>
                       )}
