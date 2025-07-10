@@ -2,13 +2,33 @@ import styled from "styled-components";
 
 export const NewsStyled = styled.div`
   .card {
-    min-height: 380px;
+    position: relative;
+    min-height: 440px;
     background-color: ${({ theme }) => theme.newsCardBg};
     color: ${({ theme }) => theme.newsCardTextColor};
-    // margin-bottom: 30px;
-    // border-radius: 10px;
+    margin-bottom: 30px;
+    border-radius: 0px;
+    border: 1px solid ${({ theme }) => theme.grayddd};
     // overflow: hidden;
-    border: 0px;
+
+    .ql-editor {
+      padding: 0 !important;
+    }
+
+    .cardInfo {
+      h5 {
+        font-size: 1.1rem !important;
+        color: ${({ theme }) => theme.gray444};
+      }
+      .newsDate {
+        color: ${({ theme }) => theme.clientSecondaryColor};
+      }
+
+      a {
+        font-size: .9rem
+        position: absolute;
+      }
+    }
 
     .title {
       color: ${({ theme }) => theme.newsCardTitleColor};
@@ -32,12 +52,19 @@ export const NewsStyled = styled.div`
     }
     
   }
+  .homeNews img {
+    height: 240px;
+    width: 100%;
+    object-fit: cover;
+  }
   .adminView {
     img {
       width: 80px !important;
       height: 80px;
     }
 
-    
+    .moreLink {
+      font-size: .9rem
+    }
   }
 `;
