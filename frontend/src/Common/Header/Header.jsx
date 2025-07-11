@@ -357,23 +357,25 @@ export const ClientMenu = ({ serviceMenuList, rootServiceMenu }) => {
       >
         <NavLink
           to={urlStringFormat(`${menu.page_url}`)}
-          className={
-            (({ isActive }) => (isActive ? "active" : ""),
-            `${menu.is_Parent ? "nav-Link" : "dropdown-item"} ${
-              menu.childMenu?.length > 0 && "dropdown-toggle isChildAvailable"
-            }`)
-          }
-          onClick={
-            menu?.page_parent_ID === rootServiceMenu?.id
-              ? () => {
-                  getSelectedServiceMenu(menu);
-                }
-              : ""
-          }
+          className={({ isActive }) => {
+            const baseClass = menu.is_Parent ? "nav-Link" : "dropdown-item";
+            const childToggleClass =
+              menu.childMenu?.length > 0
+                ? "dropdown-toggle isChildAvailable"
+                : "";
+            const activeClass = isActive ? "active" : "";
+
+            return `${baseClass} ${childToggleClass} ${activeClass}`;
+          }}
+          onClick={(e) => {
+            if (menu?.page_parent_ID === rootServiceMenu?.id) {
+              getSelectedServiceMenu(menu);
+            }
+          }}
           id={menu.id}
-          data-bs-toggle={`${menu.childMenu?.length > 0 ? "dropdown" : ""}`}
-          aria-expanded={`${menu.childMenu?.length > 0 ? false : true}`}
-          role={`${menu.childMenu?.length > 0 ? "button" : ""}`}
+          data-bs-toggle={menu.childMenu?.length > 0 ? "dropdown" : undefined}
+          aria-expanded={menu.childMenu?.length > 0 ? "false" : "true"}
+          role={menu.childMenu?.length > 0 ? "button" : undefined}
         >
           {menu.page_label}
         </NavLink>

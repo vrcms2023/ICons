@@ -83,7 +83,7 @@ export const getFirstShortDescription = (data) => {
   return data.substring(0, 50);
 };
 
-export const mapServicePagetoComponent = (data, displayCount = 6) => {
+export const mapServicePagetoComponent = (data, displayCount = 7) => {
   const services = sortByCreatedDate(data.services);
   const serviceSection = data.serviceSection;
 

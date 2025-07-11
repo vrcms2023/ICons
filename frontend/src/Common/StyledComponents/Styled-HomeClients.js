@@ -11,51 +11,57 @@ export const HomeClientsStyled = styled.div`
     padding: 32px 0;
   }
 
-
-.clients-image-slider{
+  .clients-image-slider {
     display: flex;
-    // place-it 
+    // place-it
     position: relative;
     overflow: hidden;
 
-    height: 100%;  
+    height: 100%;
     width: 100%;
     justify-content: flex-end;
 
-      &::before,
-      &::after {
-        background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-        content: '';
-        height: 100%;
-        width: 15%;
-        z-index: 2;
-        position: absolute;
-      }
-    
-      &::before {
-        left: 0;
-        top: 0;
-      }
-    
-      &::after {
-        right: 0;
-        top: 0;
-        background: linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-      }
+    &::before,
+    &::after {
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      content: "";
+      height: 100%;
+      width: 15%;
+      z-index: 2;
+      position: absolute;
+    }
 
+    &::before {
+      left: 0;
+      top: 0;
+    }
 
-    .image-slider-track{
+    &::after {
+      right: 0;
+      top: 0;
+      background: linear-gradient(
+        to left,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0) 100%
+      );
+    }
+
+    .image-slider-track {
       display: flex;
       animation: play 40s linear infinite;
-  
-      &::hover{
+
+      &::hover {
         -webkit-animation-play-state: paused;
         -moz-animation-play-state: paused;
         -o-animation-play-state: paused;
         animation-play-state: paused;
       }
-      
-      .slide{
+
+      .slide {
         // height: 150px;
         width: 200px;
         display: flex;
@@ -81,95 +87,87 @@ export const HomeClientsStyled = styled.div`
           bottom: 100%;
           left: 0;
           right: 0;
-          background-color: #008CBA;
+          background-color: #008cba;
           overflow: hidden;
           width: 100%;
           // height:0;
-          transition: .5s ease;
-          opacity: .85;
-          
+          transition: 0.5s ease;
+          opacity: 0.85;
+
           p {
             margin: 0px 0 5px;
             padding: 0;
-            transition: .5s ease;
+            transition: 0.5s ease;
             justify-content: center;
-          align-items: center;
+            align-items: center;
           }
         }
 
-        img{
+        img {
           height: 100%;
-          width:100%;
+          width: 100%;
         }
+      }
     }
   }
-}
 
-@keyframes play{
-    0%{
-        transform: translateX(100%);
+  @keyframes play {
+    0% {
+      transform: translateX(100%);
     }
 
-    100%{
-        transform: translateX(-120%);
-    }
-}
-
-.slider-container {
-  .slick-slider {
-    overflow: hidden !important;
-    margin: 16px auto 0;
-  }
-
-  .slick-track {
-    overflow: hidden !important;
-  }
-}
-
-.slick-initialized .slick-slide {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 200px !important;
-  min-height: 120px;
-  padding: 16px;
-  border: 1px solid #ededed;
-  background: white;
-  margin: 0 12px;
-  cursor: pointer;
-  
-  div { 
-    img {
-      margin: 0 auto;
-      width: 100%;
-      height: 100% !important;
+    100% {
+      transform: translateX(-120%);
     }
   }
-}
 
-.ql-editor {
-  padding: 10px !imporrant;
-  text-align: center;
-  max-width: 240px;
+  .slider-container {
+    .slick-slider {
+      overflow: hidden !important;
+      margin: 16px auto 0;
+    }
 
-  p {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+    .slick-track {
+      overflow: hidden !important;
+    }
   }
-}
 
-    
- 
-  
+  .slick-initialized .slick-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px !important;
+    min-height: 120px;
+    padding: 16px;
+    border: 1px solid #ededed;
+    background: white;
+    margin: 0 12px;
+    cursor: pointer;
 
+    div {
+      img {
+        margin: 0 auto;
+        width: 100%;
+        height: 100% !important;
+      }
+    }
+  }
+
+  .ql-editor {
+    padding: 10px;
+    text-align: center;
+    max-width: 240px;
+
+    p {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
 `;
 // https://www.youtube.com/watch?v=3Z780EOzIQs
-
-
-
 
 // https://github.com/Coding-with-Robby/infinite-logo-carousel/tree/main
 

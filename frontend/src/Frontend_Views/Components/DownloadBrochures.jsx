@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 import "./DownloadBrochures.css";
 
-import IconsIconImg from '../../Images/IconsIcon.svg'
+import IconsIconImg from "../../Images/IconsIcon.svg";
 
 const DownloadBrochures = () => {
   const [brochuresList, setBrochuresList] = useState([]);
@@ -111,18 +111,21 @@ const DownloadBrochures = () => {
         //     }
         //   >
         //   </Button>
-
       )}
       {brochuresList.length > 1 && (
         <div class="dropdown">
           <button
-            class="btn btn-primary mb-1 dropdown-toggle"
+            class="btn btn-primary mb-1 dropdown-toggle px-3"
             type="button"
             id="dropdownMenuButton1"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            BROCHURES
+            <i
+              class="fa fa-download cursor-pointer fs-4"
+              aria-hidden="true"
+            ></i>
+            <span>BROCHURES </span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             {brochuresList?.map((brochures) => (

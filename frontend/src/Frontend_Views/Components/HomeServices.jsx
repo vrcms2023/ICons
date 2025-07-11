@@ -67,10 +67,13 @@ const HomeServices = ({ title }) => {
                 backgroundImage: `url(${item.path ? getImagePath(item.path) : getImagePath("/media/images/dummy-image-square.png")})`,
               }}
             >
-              <Link to={`${item.services_page_url}`} className="m-0 text-decoration-none titleLink">
+              <Link
+                to={`${item.services_page_url}`}
+                className="m-0 text-decoration-none titleLink"
+              >
                 <Title
                   title={item.feature_title}
-                  cssClass="fw-bold serviceTitle"
+                  cssClass="fw-bold serviceTitle lc1 lineClamp"
                 />
               </Link>
 
