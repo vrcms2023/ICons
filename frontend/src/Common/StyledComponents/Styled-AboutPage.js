@@ -11,13 +11,13 @@ export const AboutPageStyled = styled.div`
   }
   .aboutPage {
 
-    padding-bottom: 24px;
+    // padding-bottom: 24px;
 
     .row {
       border-bottom: 2px solid ${({ theme }) => theme.white};
 
       &:last-child {
-        border-bottom: 0 !important;
+        // border-bottom: 0 !important;
       }
     }
     
@@ -45,7 +45,7 @@ export const AboutPageStyled = styled.div`
       img {
         position: relative;
         transition: opacity 0.5s ease, transform 0.5s ease, border-radius 0.5s ease;
-        border-radius: 8px;
+        // border-radius: 8px;
         
       
         &:hover {
@@ -105,7 +105,7 @@ export const AboutPageStyled = styled.div`
       .flipCSS {
         flex-direction: row-reverse;
         background: #fbfbfb;
-        padding: 24px 10px;
+        // padding: 24px 10px;
         margin-top: 32px;
         margin-bottom: 32px;
 

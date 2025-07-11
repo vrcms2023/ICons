@@ -73,7 +73,7 @@ const HomeServices = ({ title }) => {
               >
                 <Title
                   title={item.feature_title}
-                  cssClass="fw-bold serviceTitle lc1 lineClamp"
+                  cssClass="serviceTitle lc1 lineClamp"
                 />
               </Link>
 
