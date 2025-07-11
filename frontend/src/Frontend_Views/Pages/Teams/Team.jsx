@@ -316,8 +316,8 @@ const Team = () => {
         </div>
 
         <div className="row mb-0 py-2 py-md-4">
-          <div className="col-md-6 fs-3 mt-4 mt-md-0">
-            <Title title="Our Team" cssClass="fs-1 pageTitle" />
+          <div className="col-md-6">
+            <Title title="Our Team" cssClass="fs-3 fs-md-1 pageTitle" />
           </div>
 
           <div className="col-md-6 mb-4">

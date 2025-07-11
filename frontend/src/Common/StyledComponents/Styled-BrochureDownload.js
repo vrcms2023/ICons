@@ -27,7 +27,7 @@ export const BrochureDownloadStyling = styled.div`
       }
 
       button.btn.btn-primary {
-        background-color: #6d2f9b;
+        background-color: #6d2f9b !important;
         box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
         // background: radial-gradient(circle,rgba(109, 47, 155, 0.89) 1%, rgba(0, 0, 0, 1) 100%);
         // background-color: #012060;

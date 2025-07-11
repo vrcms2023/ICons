@@ -358,7 +358,7 @@ body {
     }
 
     .scrollTop {
-      background-color: ${({ theme }) => theme.clientColor};
+      background-color: ${({ theme }) => theme.clientColor} !important;
     }
 
     .modal {
@@ -377,8 +377,12 @@ body {
       }
     }
 
-    .quill, * {
+    .quill {
       background-color: transparent !important;
+      * {
+        background-color: transparent !important;
+      }
+      
       p, p span {
         background-color: transparent !important;
         font-size: 1rem;
@@ -387,6 +391,10 @@ body {
       .ql-editor {
         padding: 1rem 0 0px;
         color: ${({ theme }) => theme.gray444};
+
+        .description, strong {
+          background-color: transparent !important;
+        }
       }
     }
 `;

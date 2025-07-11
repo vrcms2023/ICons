@@ -34,12 +34,27 @@ export const StyledMenu = styled.menu`
 
   .navbar {
     padding: 0;
-    background-color: rgba(255, 255, 255, .95);
+    background-color: rgba(255, 255, 255, .95) !important;
     // background-color:${({ theme }) => theme.navbarBg}; 
     box-shadow: 0px 2px 10px ${({ theme }) => theme.navbarLinkActiveColor};
     // box-shadow: 0 .125rem .25rem ${({ theme }) => theme.navbarLinkActiveColor};
 
     .nav-item {
+
+      @media (max-width: 992px) {
+          background: ${({theme}) => theme.navbarBg} !important;
+          // background: linear-gradient(90deg, rgba(225,242,253,1) 0%, rgba(255,255,255,1) 50%, rgba(225,242,253,1) 100%);
+          border-bottom: 1px solid ${({theme}) => theme.gray444};
+          text-align:center;
+          padding: 8px;
+          
+          .dropdown-menu {
+            .nav-item {
+              border: 0px !important
+            }
+          }
+        }
+
         .nav-Link {
           color:${({ theme }) => theme.navbarTextColor}; 
           margin: 0 12px;
@@ -96,25 +111,9 @@ export const StyledMenu = styled.menu`
           }
         }
 
-        @media (max-width: 992px) {
-          background: ${({theme}) => theme.navbarBg};
-          // background: linear-gradient(90deg, rgba(225,242,253,1) 0%, rgba(255,255,255,1) 50%, rgba(225,242,253,1) 100%);
-          border-bottom: 1px solid ${({theme}) => theme.gray444};
-          text-align:center;
-          padding: 8px;
-
-          
-          
-          .dropdown-menu {
-            .nav-item {
-              border: 0px !important
-            }
-          }
-        }
         
-        @media (min-width: 992px) {
-          background-color: ${({ theme }) => theme.transparent};
-        }
+        
+        
     }
 
     .navbar-toggler {
