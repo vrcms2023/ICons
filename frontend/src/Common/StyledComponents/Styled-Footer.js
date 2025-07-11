@@ -20,6 +20,12 @@ export const FooterStyled = styled.div`
     .footerCompanyBrief {
       background: ${({ theme }) => theme.lightWhiteFD};
 
+      .ql-editor {
+        p, p span {
+          text-align: left;
+        }
+      }
+      
       p {
         color: ${({ theme }) => theme.gray444};
         font-size: 1.2rem;

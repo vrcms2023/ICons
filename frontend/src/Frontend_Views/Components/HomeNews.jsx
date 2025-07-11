@@ -305,7 +305,7 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
     >
       {(provided) => (
         <div
-          className={`${isAdmin ? "col-12" : "col-sm-6 col-lg-3 px-2 px-md-4 px-lg-3"} image`}
+          className={`${isAdmin ? "col-12" : "col-sm-6 col-lg-3 px-4 px-lg-3"} image`}
           ref={provided.innerRef}
           {...provided.draggableProps}
         >

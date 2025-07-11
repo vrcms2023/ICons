@@ -8,8 +8,12 @@ export const NewsStyled = styled.div`
     color: ${({ theme }) => theme.newsCardTextColor};
     margin-bottom: 30px;
     border-radius: 0px;
-    border: 1px solid ${({ theme }) => theme.grayddd};
+    border: 1px solid ${({ theme }) => theme.verylightgray};
     // overflow: hidden;
+
+    @media (max-width: 480px) {
+      min-height: auto;
+    }
 
     .ql-editor {
       padding: 0 !important;

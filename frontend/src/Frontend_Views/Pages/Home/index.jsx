@@ -1127,7 +1127,7 @@ const Home = () => {
             />
           )}
           {showHideCompList?.news?.visibility && (
-            <div className="row py-5 homeNews">
+            <div className="row pb-2 homeNews">
               <div className="col-md-12 d-flex justify-content-center align-items-center">
                 <div className="container">
                   <Title
@@ -1140,7 +1140,7 @@ const Home = () => {
                     pagetype={pageType}
                   />
 
-                  <div className="d-flex justify-content-center align-items-center mt-4">
+                  <div className="d-flex justify-content-center align-items-center mt-md-4">
                     {/* <Ancher
                   AncherLabel="Read more"
                   Ancherpath="/news"

@@ -1,9 +1,10 @@
 import styled from "styled-components"
 
 export const HomeDynamicServiceStylesComponent = styled.div`
+  margin: 24px 0 0;
 
 .homeDynamciServicesIntro {
-  padding: 30px 0;
+  padding: 16px 0;
   background-color:${({ theme }) => theme.lightWhiteF8}; 
   color: ${({ theme }) => theme.textColor};
 
