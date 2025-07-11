@@ -16,7 +16,7 @@ export const NewsStyled = styled.div`
     }
 
     .ql-editor {
-      padding: 0 !important;
+      padding: 0 
     }
 
     .cardInfo {

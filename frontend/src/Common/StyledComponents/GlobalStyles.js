@@ -138,7 +138,7 @@ body {
 
 // .ABriefAbout h3, .ABriefAbout .title { border-color: ${({ theme }) => theme.ABriefAboutTitleBorderColor}; }
 
-// .ABriefAbout h3::before, .ABriefAbout .title::before { border-color: ${({ theme}) => theme.ABriefAboutTitleBorderColor}; }
+// .ABriefAbout h3::before, .ABriefAbout .title::before { border-color: ${({ theme }) => theme.ABriefAboutTitleBorderColor}; }
 
 .homeServices {
     color:${({ theme }) => theme.secondaryColor}; 
@@ -339,26 +339,26 @@ body {
 
     input,
     textarea, select {
-      background-color: ${({theme}) => theme.inputBg};
-      border: 1px solid ${({theme}) => theme.inputBorder} !important;
+      background-color: ${({ theme }) => theme.inputBg};
+      border: 1px solid ${({ theme }) => theme.inputBorder} !important;
       padding: 10px !important;
       border-radius: 0px !important;
-      color: ${({theme}) => theme.gray444} !important;
+      color: ${({ theme }) => theme.gray444} !important;
       font-size: 14px !important;
     }
     input[type="checkbox"], input[type="radio"] {
       padding: 0;
       margin: 0;
       border-radius:3px !important;
-      background-color: ${({theme}) => theme.white};
+      background-color: ${({ theme }) => theme.white};
     }
 
     input:checked[type=checkbox] {
-      background-color: ${({theme}) => theme.primaryColor};
+      background-color: ${({ theme }) => theme.primaryColor};
     }
 
     .scrollTop {
-      background-color: ${({theme}) => theme.clientColor};
+      background-color: ${({ theme }) => theme.clientColor};
     }
 
     .modal {
@@ -377,16 +377,16 @@ body {
       }
     }
 
-    .quill {
+    .quill, * {
       background-color: transparent !important;
       p, p span {
         background-color: transparent !important;
-        font-size: 1rem !important;
-        color: ${({ theme }) => theme.gray444} !important;
+        font-size: 1rem;
+        color: ${({ theme }) => theme.gray444} ;
       }
       .ql-editor {
         padding: 1rem 0 0px;
-        color: ${({ theme }) => theme.gray444} !important;
+        color: ${({ theme }) => theme.gray444};
       }
     }
 `;

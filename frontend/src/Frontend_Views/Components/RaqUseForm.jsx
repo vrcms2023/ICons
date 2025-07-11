@@ -152,10 +152,10 @@ const RaqUseForm = ({ closeModel, downloadPDF }) => {
                 onChange={() => handleChange("description")}
               />
             </div>
-            <div className="col-4">
+            <div className="col-12">
               <InputFields
-                type="hidden"
-                label="Teams"
+                type="text"
+                label="Services Interested"
                 fieldName="teams"
                 register={register}
                 validationObject={fieldValidation.teams}
@@ -169,20 +169,13 @@ const RaqUseForm = ({ closeModel, downloadPDF }) => {
                 label="Teams"
                 fieldName="hangout"
                 register={register}
-                validationObject={fieldValidation.hangout}
-                error={errors?.hangout?.message}
-                onChange={() => handleChange("hangout")}
               />
-            </div>
-            <div className="col-4">
+
               <InputFields
                 type="hidden"
                 label="Teams"
                 fieldName="other"
                 register={register}
-                validationObject={fieldValidation.other}
-                error={errors?.other?.message}
-                onChange={() => handleChange("other")}
               />
             </div>
             <div className="d-flex justify-content-center flex-wrap flex-column flex-sm-row align-items-center gap-1 mt-3">

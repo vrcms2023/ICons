@@ -31,7 +31,7 @@
   content: "";
   width: 35%;
   /* height: 1px; */
-  border-bottom: 2px solid #748E31;
+  border-bottom: 2px solid #748e31;
   bottom: -4px;
 }
 
@@ -40,7 +40,7 @@
   content: "";
   width: 0%;
   /* height: 1px; */
-  border-bottom: 2px solid #748E31;
+  border-bottom: 2px solid #748e31;
   bottom: -4px;
   transition: width 0.3s;
 }
@@ -99,3 +99,10 @@
     background-color: #17427f !important;
   }
 } */
+
+.nav-item.dropdown .dropdown-menu {
+  display: none;
+}
+.nav-item.dropdown.show .dropdown-menu {
+  display: block;
+}
