@@ -252,25 +252,7 @@ const Header = () => {
         <div className="container">
           <>
           {isAdmin && hasPermission && (
-            <>
               <EditIcon editHandler={() => editHandler("menu", true)} />
-           
-            {/* {componentEdit.menu && (
-              <div className={`adminEditTestmonial selected `}>
-                <ImageInputsForm
-                  editHandler={editHandler}
-                  componentType="menu"
-                  popupTitle="Application Logo"
-                  pageType={`${pageType}-logo`}
-                  imageLabel="Application Logo"
-                  category="Logo"
-                  showDescription={false}
-                  validTypes={"image/svg+xml"}
-                  showExtraFormFields={getLogoFormFields(`${pageType}-logo`)}
-                />
-              </div>
-            )} */}
-            </>
            )}
           <Link to={isHideMenu ? "#" : "/"} className="navbar-brand logo">
             <ApplicationLogo
