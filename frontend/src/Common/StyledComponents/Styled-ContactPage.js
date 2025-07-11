@@ -9,6 +9,14 @@ export const ContactPageStyled = styled.div`
       font-weight: 500;
     }
 
+    .addressItem  {
+      @media(max-width: 480px) {
+        border-bottom: 1px solid ${({ theme }) => theme.verylightgray};
+
+        
+      }
+    }
+
     .contactAddress {
       color: ${({ theme }) => theme.textColor};
   
