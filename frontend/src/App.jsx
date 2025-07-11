@@ -7,7 +7,11 @@ import { ThemeProvider } from "styled-components";
 
 // Components
 import LoadingSpinner from "./Common/LoadingSpinner";
-import { isNotEmptyObject, NO_FOOTER_ROUTES } from "./util/commonUtil";
+import {
+  isNotEmptyObject,
+  NO_FOOTER_ROUTES,
+  NO_HEADER_ROUTES,
+} from "./util/commonUtil";
 import SkeletonPage from "./Common/Skeltons/SkeletonPage";
 import Footer from "./Common/Footer/Footer";
 import Header from "./Common/Header/Header";
@@ -150,6 +154,7 @@ function App() {
   const dispatch = useDispatch();
 
   const isHideMenu = NO_FOOTER_ROUTES.includes(location.pathname);
+  const isHideHeader = NO_HEADER_ROUTES.includes(location.pathname);
   const [flashAdd, setFlashAdd] = useState(false);
   const [counter, setCounter] = useState(0);
   const { userInfo, permissions } = useSelector((state) => state.auth);
@@ -220,7 +225,7 @@ function App() {
 
         {isLoading ? <LoadingSpinner /> : ""}
         <TopStrip />
-        <Header />
+        {!isHideHeader && <Header />}
 
         <Suspense fallback={<SkeletonPage />}>
           <Routes>
