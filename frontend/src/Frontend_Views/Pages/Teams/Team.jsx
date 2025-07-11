@@ -468,11 +468,7 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
               </>
             )}
             <div className="text-center">
-              <img
-                src={getImagePath(item.path)}
-                className=""
-                alt=""
-              />
+              <img src={getImagePath(item.path)} className="" alt="" />
             </div>
 
             <div className=" text-start p-4 memberDetails">
@@ -489,6 +485,7 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
                 <RichTextView
                   data={item.team_member_about_us}
                   className={"strengths"}
+                  showMorelink={true}
                 />
                 // <div
                 //   className="strengths my-3"

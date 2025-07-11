@@ -258,7 +258,7 @@ const MenuForm = ({
                 fieldName={"page_url"}
                 register={register}
                 onChange={onChangeHanlder}
-                disabled={pageUrlValue != null && pageUrlValue !== ""}
+                disabled={!selectedServiceMenu?.id}
               />
 
               <div className={!isParentHasChilds ? "d-flex" : ""}>

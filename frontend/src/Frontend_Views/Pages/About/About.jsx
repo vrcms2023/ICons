@@ -371,7 +371,7 @@ const About = () => {
                     <img
                       src={getImagePath(item.path)}
                       alt=""
-                      className="object-fit-cover shadow m-auto"
+                      className="object-fit-cover shadow m-auto w-100 h-100"
                     />
                   </div>
                 </div>

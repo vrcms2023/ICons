@@ -270,6 +270,15 @@ export const NO_FOOTER_ROUTES = [
   "/contactuslist",
   "/change_password",
 ];
+export const NO_HEADER_ROUTES = [
+  "/login",
+  "/register",
+  "/unauthorized",
+  "/activate/",
+  "/reset_password",
+  "/authForm",
+  "/resend_activation",
+];
 
 export const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
