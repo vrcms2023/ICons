@@ -78,7 +78,7 @@ const ImagesGallery = () => {
       <ImageGalleryStyled>
         <div className="container">
           <div className="row">
-            <div className="col-md-12 py-5">
+            <div className="col-md-12 pb-5">
               {isAdmin && hasPermission && (
                 <EditIcon
                   editHandler={() => editHandler("gallery", true)}
