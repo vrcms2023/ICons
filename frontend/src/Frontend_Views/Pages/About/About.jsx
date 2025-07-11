@@ -234,10 +234,10 @@ const About = () => {
               linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
               linkLabel="Read More"
               moreLink=""
-              introTitleCss="fs-3 fw-medium text-md-center"
-              introSubTitleCss="fw-medium text-muted text-md-center"
-              introDecTitleCss="fs-6 fw-normal w-75 m-auto text-md-center"
-              detailsContainerCss="col-md-10 offset-md-1 py-3"
+              introTitleCss="fs-3 fw-medium text-center"
+              introSubTitleCss="fs-5 fw-medium text-muted text-center"
+              introDecTitleCss="fs-6 fw-normal w-75 m-auto text-center"
+              detailsContainerCss="col-md-12 p-4 p-lg-5"
               anchorContainer="d-flex justify-content-center align-items-center mt-4"
               anchersvgColor="#17427C"
               pageType={pageType}
@@ -304,10 +304,10 @@ const About = () => {
               aboutList.map((item, index) => (
                 <div
                   key={item.id}
-                  className={`row ${
+                  className={`row mx-2 mb-4 ${
                     isAdmin
-                      ? "border border-warning mb-4 position-relative"
-                      : ""
+                      ? "border border-warning mb-5 position-relative"
+                      : "border"
                   } ${index % 2 === 0 ? "normalCSS" : "flipCSS"}`}
                 >
                   {isAdmin && hasPermission && (
@@ -328,7 +328,7 @@ const About = () => {
                       </Link>
                     </>
                   )}
-                  <div className="col-12 col-lg-7 p-5 d-flex justify-content-center align-items-start flex-column leftColumn">
+                  <div className="col-12 col-lg-7 p-4 d-flex justify-content-center align-items-start flex-column leftColumn">
                     {item.aboutus_title ? (
                       <Title
                         title={item.aboutus_title}
@@ -363,7 +363,7 @@ const About = () => {
                     /> */}
                   </div>
 
-                  <div className="col-lg-5 p-4 p-md-0 d-flex justify-content-center align-items-start flex-column rightColumn">
+                  <div className="col-lg-5 p-0 d-flex justify-content-center align-items-start flex-column rightColumn">
                     {/* <Title
                           title={"OUR WORK LOCATIONS"}
                           cssClass="fs-5 my-5 title"
@@ -371,7 +371,7 @@ const About = () => {
                     <img
                       src={getImagePath(item.path)}
                       alt=""
-                      className="object-fit-cover shadow m-auto w-100 h-100"
+                      className="object-fit-cover m-auto w-100 h-100"
                     />
                   </div>
                 </div>

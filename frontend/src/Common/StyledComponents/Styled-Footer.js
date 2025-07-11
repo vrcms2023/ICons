@@ -22,7 +22,7 @@ export const FooterStyled = styled.div`
 
       .ql-editor {
         p, p span {
-          text-align: left;
+          text-align: left !important;
         }
       }
       

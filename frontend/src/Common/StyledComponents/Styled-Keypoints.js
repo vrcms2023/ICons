@@ -28,7 +28,9 @@ export const KeypointsStyled = styled.div`
         justify-content: center;
         align-items: center;
         img {
-            width: 32px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
         }
     }
 
