@@ -7,6 +7,10 @@ export const HomeClientsStyled = styled.div`
   background-position: center;
   padding: 64px 0;
 
+  @media (max-width: 480px) {
+    padding: 32px 0;
+  }
+
 
 .clients-image-slider{
     display: flex;
@@ -114,6 +118,7 @@ export const HomeClientsStyled = styled.div`
 .slider-container {
   .slick-slider {
     overflow: hidden !important;
+    margin: 16px auto 0;
   }
 
   .slick-track {

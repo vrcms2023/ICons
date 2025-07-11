@@ -146,7 +146,7 @@ const Footer = () => {
               /> */}
             </div>
             <div className="col-md-8 col-lg-9 d-flex align-items-center">
-              <div className="description m-0 text-center text-md-start p-4 pb-0 p-md-0">
+              <div className="description m-0 text-center text-md-start pb-0 p-md-0">
                 <div>
                   <div className="container">
                     <div className="row">
@@ -167,7 +167,7 @@ const Footer = () => {
                           introTitleCss="fs-3 text-left mb-2"
                           introSubTitleCss="fw-medium text-muted text-left mb-3"
                           introDecTitleCss="fs-6 fw-normal  text-left lh-6"
-                          detailsContainerCss="col-md-12 py-3"
+                          detailsContainerCss="col-md-12 py-0"
                           anchorContainer="d-flex justify-content-left align-items-center mt-4"
                           anchersvgColor="#17427C"
                           pageType={pageType}
@@ -532,7 +532,7 @@ const Footer = () => {
                     </Link>
                   </div>
                 </div>
-                <span className="d-block mt-2 text-center text-lg-start d-block">
+                <span className="d-block mt-0 text-center text-lg-start d-block">
                   Designed & developed by{" "}
                   <a href="https://vitsols.com/" className="dby">
                     <small className="p-1 fw-bold d-inline-block">

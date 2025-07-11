@@ -382,6 +382,7 @@ body {
       p, p span {
         background-color: transparent !important;
         font-size: 1rem !important;
+        color: ${({ theme }) => theme.gray444} !important;
       }
       .ql-editor {
         padding: 1rem 0 0px;
