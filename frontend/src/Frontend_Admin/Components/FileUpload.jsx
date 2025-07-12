@@ -463,8 +463,8 @@ const FileUpload = ({
                 </div>
               )}
             {editImage?.id &&
-              editImage.path &&
-              editImage.contentType !== ".pdf" && (
+              editImage?.path &&
+              editImage?.contentType !== ".pdf" && (
                 <div className="col-6">
                   <img
                     src={getImagePath(editImage.path, editImage.contentType)}

@@ -25,7 +25,6 @@ const DCarousel = ({ obj, all, closeCarousel }) => {
         <i className="fa fa-times fs-4" aria-hidden="true"></i>
       </span>
       <div className="carousel-inner">
-       
         {uniqueImgsArray.length > 0
           ? uniqueImgsArray.map((item, index) => (
               <div
@@ -34,41 +33,43 @@ const DCarousel = ({ obj, all, closeCarousel }) => {
               >
                 <div className="imgContainer">
                   <img
-                    src={getImagePath(item.path)}
+                    src={getImagePath(item?.path)}
                     alt={item.alternitivetext}
                     className="d-block img-fluid"
                   />
                 </div>
                 <div className="imgInfo">
-                {item?.image_title || item?.client_title && (
-                  <h5
-                    className=" w-100 py-2 fs-4 text-center d-block"
-                    style={{
-                    }}
-                  >
-                    {item?.image_title || item?.client_title}
-                  </h5>
-                )}
-                {item?.image_description || item?.client_description && (
-                  // <p
-                  //   className=" w-100 px-0 text-center"
-                  //   style={{
-                      
-                  //   }}
-                  // >
-                  //   {item?.image_description}
-                  // </p>
-                  <RichTextView
-                    data={item?.image_description || item?.client_description}
-                    className={" w-100 px-0 text-center"}
-                    showMorelink={false}
-                  />
-                )}
-                 </div>
+                  {item?.image_title ||
+                    (item?.client_title && (
+                      <h5
+                        className=" w-100 py-2 fs-4 text-center d-block"
+                        style={{}}
+                      >
+                        {item?.image_title || item?.client_title}
+                      </h5>
+                    ))}
+                  {item?.image_description ||
+                    (item?.client_description && (
+                      // <p
+                      //   className=" w-100 px-0 text-center"
+                      //   style={{
+
+                      //   }}
+                      // >
+                      //   {item?.image_description}
+                      // </p>
+                      <RichTextView
+                        data={
+                          item?.image_description || item?.client_description
+                        }
+                        className={" w-100 px-0 text-center"}
+                        showMorelink={false}
+                      />
+                    ))}
+                </div>
               </div>
             ))
           : null}
-           
       </div>
       <button
         className="carousel-control-prev"

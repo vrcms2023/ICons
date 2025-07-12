@@ -153,8 +153,8 @@ const AllServices = () => {
                 <div className="col-md-5 p-0 allServiceImg">
                   <img
                     src={
-                      item.path
-                        ? getImagePath(item.path)
+                      item?.path
+                        ? getImagePath(item?.path)
                         : getImagePath("/media/images/dummy-image-square.png")
                     }
                     alt={item.alternitivetext}

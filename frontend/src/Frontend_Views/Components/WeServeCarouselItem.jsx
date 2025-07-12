@@ -15,7 +15,7 @@ export const WeServeCarouselItem = ({ item, index }) => {
   return (
     <div key={item.id} onMouseEnter={mouseOver} onMouseLeave={mouseOut}>
       <img
-        src={getImagePath(item.path)}
+        src={getImagePath(item?.path)}
         alt={item.alternitivetext}
         className="d-block w-100"
       />

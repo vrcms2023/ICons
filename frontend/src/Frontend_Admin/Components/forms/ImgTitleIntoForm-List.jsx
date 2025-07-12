@@ -267,7 +267,7 @@ const AdminCarouselItem = ({
                 aria-hidden="true"
               ></i>
               <img
-                src={item.path ? getImagePath(item.path) : getDummyImage()}
+                src={item?.path ? getImagePath(item?.path) : getDummyImage()}
                 alt={item.alternitivetext}
                 className="w-100 d-none d-lg-block"
               />
@@ -281,10 +281,10 @@ const AdminCarouselItem = ({
                 {/* {item.carouseDescription && item.carouseDescription}
                 {item.image_description && item.image_description} */}
                 <RichTextView
-                    data={getObjectDescription(componentType, item)}
-                    className={""}
-                    showMorelink={false}
-                  />
+                  data={getObjectDescription(componentType, item)}
+                  className={""}
+                  showMorelink={false}
+                />
                 {/* <RichTextView
                     data={item.carouseDescription && item.carouseDescription}
                     className={""}
