@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ClientStyled } from "../../Common/StyledComponents/Styled-Clients";
 import { useSelector } from "react-redux";
 import SkeletonImage from "../../Common/Skeltons/SkeletonImage";
@@ -15,6 +15,9 @@ import useAdminLoginStatus from "../../Common/customhook/useAdminLoginStatus";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { axiosServiceApi } from "../../util/axiosUtil";
 import RichTextView from "../../Common/RichTextView";
+import ModelBg from "../../Common/ModelBg";
+
+import DynamicCarousel from "./DynamicCarousel";
 
 export const ClientListComponent = ({
   clientsList,
@@ -23,6 +26,8 @@ export const ClientListComponent = ({
   editHandler,
 }) => {
   const { isLoading } = useSelector((state) => state.loader);
+  const [showModal, setShowModal] = useState(false);
+  const [img, setImg] = useState(null);
 
   const onDragEnd = async (result) => {
     const { source, destination } = result;
@@ -45,6 +50,18 @@ export const ClientListComponent = ({
     } catch (error) {
       console.log("unable to save clinet position");
     }
+  };
+
+  const clientThumbHandler = (item) => {
+    // console.log(clientsList, id, "Client item")
+    const findImg = clientsList.find((client) => client.id === item.id);
+    console.log(findImg, "Client item")
+    setShowModal(!showModal);
+    setImg(findImg);
+  };
+
+  const closeModel = () => {
+    setShowModal(!showModal);
   };
 
   return (
@@ -77,6 +94,7 @@ export const ClientListComponent = ({
                         index={index}
                         editHandler={editHandler}
                         deleteAboutSection={deleteAboutSection}
+                        clientThumbHandler={clientThumbHandler}
                       />
                     ))
                   ) : (
@@ -92,11 +110,24 @@ export const ClientListComponent = ({
           </DragDropContext>
         </div>
       </ClientStyled>
+
+      {/* {show && <ModelBg />} */}
+      {showModal && (
+        <DynamicCarousel
+          obj={img}
+          all={clientsList}
+          closeCarousel={closeModel}
+        />
+      )}
+      {showModal && <ModelBg closeModel={closeModel} />}
     </div>
   );
 };
 
-const Client = ({ item, index, editHandler, deleteAboutSection }) => {
+
+
+const Client = ({ item, index, editHandler, deleteAboutSection, clientThumbHandler }) => {
+  console.log(item)
   const { isAdmin, hasPermission } = useAdminLoginStatus();
   return (
     <Draggable
@@ -146,10 +177,11 @@ const Client = ({ item, index, editHandler, deleteAboutSection }) => {
                   src={getImagePath(item.path)}
                   alt=""
                   className="img-fluid  mb-3"
+                  onClick={() => clientThumbHandler(item)}
                 />
               </div>
-              <div className="mt-1 d-flex justify-content-center align-items-center justify-content-md-center align-items-md-start flex-column  clientDetails ">
-                {item.client_title && (
+              {/* <div className="mt-1 d-flex justify-content-center align-items-center justify-content-md-center align-items-md-start flex-column  clientDetails "> */}
+                {/* {item.client_title && (
                   <Title
                     title={item.client_title}
                     cssClass="fs-5 text-start"
@@ -163,7 +195,7 @@ const Client = ({ item, index, editHandler, deleteAboutSection }) => {
                   }`}
                   showMorelink={false}
                 />
-                )}
+                )} */}
                 
                 {/* <div
                   className={`details ${
@@ -173,7 +205,7 @@ const Client = ({ item, index, editHandler, deleteAboutSection }) => {
                     __html: item.client_description,
                   }}
                 /> */}
-              </div>
+              {/* </div> */}
             </div>
           </div>
         </div>

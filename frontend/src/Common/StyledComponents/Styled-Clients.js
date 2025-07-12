@@ -15,7 +15,7 @@ export const ClientStyled = styled.div`
  
   .clientFrontend  {
     // border-radius: 10px;
-    
+    cursor: pointer;
     .details p {
       margin: 0px
     }
