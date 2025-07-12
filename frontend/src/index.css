@@ -257,6 +257,12 @@
 
 .modal {
   position: fixed !important;
+
+  .quill {
+    .ql-editor {
+        padding: 0 !important
+      }
+  }
 }
 
 .modal-body {

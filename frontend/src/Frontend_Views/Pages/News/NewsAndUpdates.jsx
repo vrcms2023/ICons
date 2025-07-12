@@ -225,7 +225,7 @@ const NewsAndUpdates = () => {
         )}
       </div>
 
-      <div className="container my-4 newsAndUpdates">
+      <div className="container mt-4 newsAndUpdates">
         {isAdmin && hasPermission && (
           <div className="text-end">
             <Link

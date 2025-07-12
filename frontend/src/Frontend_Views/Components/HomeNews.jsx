@@ -255,7 +255,7 @@ const HomeNews = ({
         <div className="newsModel ">
           <div className="newsModalWrapper p-4 bg-white shadow-lg">
             <div className="d-flex justify-content-between align-items-center gap-4 mb-1 pb-2 border-bottom">
-              <Title title={obj.news_title} cssClass="fw-medium" />
+              <Title title={obj.news_title} cssClass="fs-4" />
               <Link onClick={closeModel} className="text-secondary ">
                 {/* <span className="d-none d-lg-block">Close</span> */}
                 <i className="fa fa-times fs-4" aria-hidden="true"></i>
