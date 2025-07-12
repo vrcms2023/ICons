@@ -15,10 +15,21 @@ export const AboutPageStyled = styled.div`
 
     .row {
       border-bottom: 2px solid ${({ theme }) => theme.white};
+      transition: background-color 0.4s ease;
 
       &:last-child {
         // border-bottom: 0 !important;
       }
+
+      img {
+        transition: transform 0.4s ease;
+      }
+
+      &:hover {background:rgb(248, 248, 248);}
+
+        &:hover img {
+            transform: scale(1.1);
+        }
     }
     
     .quill {
@@ -33,6 +44,8 @@ export const AboutPageStyled = styled.div`
       line-height: 1.6;
       margin-bottom: 12px
     }
+
+    
       
     }
     
@@ -46,6 +59,7 @@ export const AboutPageStyled = styled.div`
         position: relative;
         transition: opacity 0.5s ease, transform 0.5s ease, border-radius 0.5s ease;
         // border-radius: 8px;
+        
         
       
         &:hover {
