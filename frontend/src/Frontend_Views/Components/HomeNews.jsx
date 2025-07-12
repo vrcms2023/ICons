@@ -115,7 +115,11 @@ const HomeNews = ({
             onClose={onClose}
             callback={deleteImageByID}
             // message={`deleting the ${name} News?`}
-            message={<>Confirm deletion of <span>{name}</span> News?</>}
+            message={
+              <>
+                Confirm deletion of <span>{name}</span> News?
+              </>
+            }
           />
         );
       },
@@ -324,7 +328,7 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
                 >
                   {!isAdmin && (
                     <img
-                      src={getImagePath(item.path)}
+                      src={getImagePath(item?.path)}
                       className="img-fluid"
                       alt={item.alternitivetext}
                     />

@@ -8,7 +8,7 @@ export const CarouselItem = ({ item, index }) => {
       key={item.id}
     >
       <img
-        src={getImagePath(item.path)}
+        src={getImagePath(item?.path)}
         alt={item.alternitivetext}
         className="d-block w-100"
       />
@@ -19,7 +19,7 @@ export const CarouselItem = ({ item, index }) => {
         ) : (
           ""
         )}
-        
+
         {item.carouse_title ? (
           <h1 className="fw-bold my-4">{item.carouse_title}</h1>
         ) : (
