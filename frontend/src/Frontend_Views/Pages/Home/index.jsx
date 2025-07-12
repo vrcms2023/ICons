@@ -1126,13 +1126,14 @@ const Home = () => {
               id={showHideCompList?.news?.id}
             />
           )}
+          <div className="container">
           {showHideCompList?.news?.visibility && (
             <div className="row pb-2 homeNews">
               <div className="col-md-12 d-flex justify-content-center align-items-center">
                 <div className="container">
                   <Title
                     title="News"
-                    cssClass="fs-1 fw-bold text-center my-5 pt-0 pt-md-5 text-uppercase"
+                    cssClass="fs-1 fw-bold text-center my-5 pt-0 pt-md-0 text-uppercase"
                   />
                   <HomeNews
                     news={news}
@@ -1172,6 +1173,7 @@ const Home = () => {
               </div>
             </div>
           )}
+          </div>
         </div>
         {/* END OF HOME NEWS START =================================================================================================*/}
 

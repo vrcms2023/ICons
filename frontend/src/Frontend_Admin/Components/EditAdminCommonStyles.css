@@ -16,7 +16,7 @@
 
 .adminEditTestmonial {
   background-color: #ddd;
-  /* border: 2px dashed rgb(255, 193, 7); */
+
   position: fixed;
   top: 0;
   right: 0;
@@ -24,13 +24,22 @@
   z-index: 99999;
   width: 640px !important;
   overflow-x: hidden;
-  /* overflow-y: hidden; */
   outline: 0;
   padding: 0 15px;
-  /* right: -1000px;
-  transition: 1s; */
   transform: translateX(100%);
+   /* right: -1000px;
+  transition: 1s; */
+   /* overflow-y: hidden; */
   /* -webkit-transform: translateX(100%); */
+    /* border: 2px dashed rgb(255, 193, 7); */
+
+    .quill {
+      background-color: #fff !important;
+
+      .ql-editor {
+        padding: 0 !important
+      }
+    }
 }
 
 .selected {
