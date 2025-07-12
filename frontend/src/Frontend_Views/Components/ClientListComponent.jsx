@@ -55,7 +55,7 @@ export const ClientListComponent = ({
   const clientThumbHandler = (item) => {
     // console.log(clientsList, id, "Client item")
     const findImg = clientsList.find((client) => client.id === item.id);
-    console.log(findImg, "Client item")
+    console.log(findImg, "Client item");
     setShowModal(!showModal);
     setImg(findImg);
   };
@@ -124,10 +124,13 @@ export const ClientListComponent = ({
   );
 };
 
-
-
-const Client = ({ item, index, editHandler, deleteAboutSection, clientThumbHandler }) => {
-  console.log(item)
+const Client = ({
+  item,
+  index,
+  editHandler,
+  deleteAboutSection,
+  clientThumbHandler,
+}) => {
   const { isAdmin, hasPermission } = useAdminLoginStatus();
   return (
     <Draggable
@@ -171,7 +174,9 @@ const Client = ({ item, index, editHandler, deleteAboutSection, clientThumbHandl
               </>
             )}
 
-            <div className={`${isAdmin ? "d-md-flex p-3" : "d-flex justify-content-center align-items-center flex-column"}`}>
+            <div
+              className={`${isAdmin ? "d-md-flex p-3" : "d-flex justify-content-center align-items-center flex-column"}`}
+            >
               <div className="text-center clientAvatar">
                 <img
                   src={getImagePath(item.path)}
@@ -181,7 +186,7 @@ const Client = ({ item, index, editHandler, deleteAboutSection, clientThumbHandl
                 />
               </div>
               {/* <div className="mt-1 d-flex justify-content-center align-items-center justify-content-md-center align-items-md-start flex-column  clientDetails "> */}
-                {/* {item.client_title && (
+              {/* {item.client_title && (
                   <Title
                     title={item.client_title}
                     cssClass="fs-5 text-start"
@@ -196,8 +201,8 @@ const Client = ({ item, index, editHandler, deleteAboutSection, clientThumbHandl
                   showMorelink={false}
                 />
                 )} */}
-                
-                {/* <div
+
+              {/* <div
                   className={`details ${
                     isAdmin ? "" : "overlay fa fa-map-marker"
                   }`}

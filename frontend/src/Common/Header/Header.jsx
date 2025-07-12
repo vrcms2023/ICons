@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import _ from "lodash";
 import { getCookie } from "../../util/cookieUtil";
 import { useDispatch, useSelector } from "react-redux";
@@ -251,15 +251,15 @@ const Header = () => {
       >
         <div className="container">
           <>
-          {isAdmin && hasPermission && (
+            {isAdmin && hasPermission && (
               <EditIcon editHandler={() => editHandler("menu", true)} />
-           )}
-          <Link to={isHideMenu ? "#" : "/"} className="navbar-brand logo">
-            <ApplicationLogo
-              getBannerAPIURL={`banner/clientBannerIntro/${pageType}-logo/`}
-              bannerState={componentEdit.menu}
-            />
-          </Link>
+            )}
+            <Link to={isHideMenu ? "#" : "/"} className="navbar-brand logo">
+              <ApplicationLogo
+                getBannerAPIURL={`banner/clientBannerIntro/${pageType}-logo/`}
+                bannerState={componentEdit.menu}
+              />
+            </Link>
           </>
 
           {!isHideBurgetIcon && !showAddMenuMessage && (
@@ -335,6 +335,26 @@ export const ClientMenu = ({ serviceMenuList, rootServiceMenu }) => {
   };
 
   const ChildMenuContent = ({ menu, className }) => {
+    const location = useLocation();
+    const isParentActive = (item) => {
+      const current = location.pathname;
+
+      // Check if home route matches
+      if (current === "/" && item.page_url === "/home") return true;
+
+      // Check if current route matches parent or aliases
+      if (current === item.page_url) return true;
+
+      // Check if any child path exactly matches
+      if (item.childMenu) {
+        return item.childMenu.some(
+          (child) => child.page_url.toLowerCase() === current
+        );
+      }
+
+      return false;
+    };
+
     return (
       <li
         className={`nav-item ${className}-${menu.page_label.replaceAll(" ", "-")} ${menu.childMenu ? "dropdown" : ""}`}
@@ -348,7 +368,8 @@ export const ClientMenu = ({ serviceMenuList, rootServiceMenu }) => {
               menu.childMenu?.length > 0
                 ? "dropdown-toggle isChildAvailable"
                 : "";
-            const activeClass = isActive ? "active" : "";
+            const activeClass =
+              isActive || isParentActive(menu) ? "active" : "";
 
             return `${baseClass} ${childToggleClass} ${activeClass}`;
           }}
