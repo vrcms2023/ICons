@@ -84,6 +84,7 @@ import Button from "../../../Common/Button";
 import WeServeCarousel from "../../Components/WeServeCarousel";
 
 import { BrochureDownloadStyling } from "../../../Common/StyledComponents/Styled-BrochureDownload";
+import { WeServedStyled } from "../../../Common/StyledComponents/Styled-WeServe-Component";
 
 const Home = () => {
   const editComponentObj = {
@@ -677,10 +678,12 @@ const Home = () => {
                         }
                       />
                     )}
-                    <WeServeCarousel
-                      carouselState={componentEdit.industriesweserve}
-                      category={"industriesweserve"}
-                    />
+                    <WeServedStyled>
+                      <WeServeCarousel
+                        carouselState={componentEdit.industriesweserve}
+                        category={"industriesweserve"}
+                      />
+                    </WeServedStyled>
                   </div>
                 </div>
               </div>

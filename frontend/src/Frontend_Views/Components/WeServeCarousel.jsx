@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 
 // Components
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getImagePath, sortByFieldName } from "../../util/commonUtil";
 
 // Styles
-import "./Carousel.css";
+// import "./Carousel.css";
 import SkeletonImage from "../../Common/Skeltons/SkeletonImage";
 import { WeServeCarouselItem } from "./WeServeCarouselItem";
+
 
 const WeServeCarousel = ({ carouselState, category }) => {
   const { isLoading } = useSelector((state) => state.loader);
@@ -59,21 +60,21 @@ const WeServeCarousel = ({ carouselState, category }) => {
   return (
     <div className="">
       {isLoading ? <SkeletonImage /> : ""}
-      <div className="slider-container">
-        <Slider {...settings}>
-          {carousel.map((item, index) => {
-            return (
-              <WeServeCarouselItem key={item.id} item={item} index={index} />
-            );
-          })}
-        </Slider>
-      </div>
-
-      {carousel.length === 0 && (
-        <div className="d-flex justify-content-center align-items-center fs-5 text-muted text-center noImg">
-          {!isLoading && <p>Please add images for Carousel...</p>}
+        <div className="slider-container">
+          <Slider {...settings}>
+            {carousel.map((item, index) => {
+              return (
+                <WeServeCarouselItem key={item.id} item={item} index={index} />
+              );
+            })}
+          </Slider>
         </div>
-      )}
+
+        {carousel.length === 0 && (
+          <div className="d-flex justify-content-center align-items-center fs-5 text-muted text-center noImg">
+            {!isLoading && <p>Please add images for Carousel...</p>}
+          </div>
+        )}
     </div>
   );
 };
