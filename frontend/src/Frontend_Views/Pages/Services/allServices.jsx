@@ -74,7 +74,7 @@ const AllServices = () => {
         `/services/getClientHomePageService/`
       );
 
-      let data = mapServicePagetoComponent(response.data, 100);
+      let data = mapServicePagetoComponent(response.data);
       setClientServiceList(data);
     } catch (error) {
       console.log("Unable to get the intro");
@@ -144,8 +144,8 @@ const AllServices = () => {
       {/* END OF ICONS ALL SERVICES */}
       <ShowAllServicesPage>
         <div className="container">
-          {clientServiceList.map((servicelist, index) =>
-            servicelist?.service.map((item) => (
+          {clientServiceList?.map((items, index) =>
+            items?.child.map((item) => (
               <div
                 className="row allService mb-5 border border-1"
                 key={`${index}+homeService`}

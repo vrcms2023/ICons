@@ -11,6 +11,8 @@ class Services(BaseModel):
         pageType =              models.CharField(max_length=100, null=True, blank=True )
         page_url =              models.CharField(max_length=100, null=True, blank=True )
         menu_ID =               models.CharField(max_length=100, null=True, blank=True )
+        service_postion =        models.CharField(max_length=10, null=True, blank=True)
+      
 
 class ServiceFeature(ServiceImageModel):
         serviceID  =            models.CharField(max_length=100, null=False)

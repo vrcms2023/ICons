@@ -14,9 +14,10 @@ import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../../Common/DeleteDialog";
 import Title from "../../../Common/Title";
 import moment from "moment";
-import { sortByCreatedDate } from "../../../util/dataFormatUtil";
+import { sortByCreatedDate, sortByDate } from "../../../util/dataFormatUtil";
 import {
   getClonedObject,
+  sortByFieldName,
   storeServiceMenuValueinCookie,
 } from "../../../util/commonUtil";
 
@@ -72,7 +73,10 @@ const AddService = ({
       let filterMenu = _.filter(serviceMenu, (item) => {
         return item?.page_url?.toLowerCase() !== "/services/addservices";
       });
-      setServiceList(filterMenu);
+
+      const sortedMapped = sortByFieldName(filterMenu, "service_postion");
+
+      setServiceList(sortedMapped);
     } else {
       setServiceList(serviceMenu);
     }
@@ -111,17 +115,24 @@ const AddService = ({
         setServiceName("");
         setEditServiceObject({});
       } else {
+        const _serviceMenuObject = serviceMenu[0];
+        const position = Math.floor(
+          parseInt(_serviceMenuObject?.service_postion) / 10
+        );
+        data["service_postion"] = position * 10 + serviceMenu.length + 1;
         data["page_url"] =
           `/services/${serviceName.replace(/\s/g, "").toLowerCase()}`;
         response = await axiosServiceApi.post(`/services/createService/`, data);
         createChildMenu(response.data.services, false, "");
       }
       if (response?.status === 201 || response?.status === 200) {
+        const item = response.data.services;
         toast.success(`${serviceName} service is created `);
         setServiceName("");
         dispatch(getServiceValues());
         isNewServiceCreated.current = true;
-        setSelectedServiceProject(response.data.services);
+        setSelectedServiceProject(item);
+        navigate(item.page_url, { replace: true });
       } else {
         setError(response.data.message);
       }

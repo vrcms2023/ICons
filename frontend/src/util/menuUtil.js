@@ -24,6 +24,7 @@ export const getSelectedMenuDetails = async (
     page_label: serviceResponse.services_page_title,
     page_parent_ID: _getSelectedParentObject?.id,
     page_url: serviceResponse.page_url,
+    page_position: serviceResponse?.service_postion || 1,
   };
 
   if (isEdit) {
@@ -38,7 +39,6 @@ export const getSelectedMenuDetails = async (
   } else {
     data["service_menu_ID"] = serviceResponse.id;
     data["created_by"] = _userName;
-    data["page_position"] = getMenuPosition(_getSelectedParentObject);
   }
   let _response = await updatedMenu(data);
   if (_response?.status === 201) {
@@ -82,9 +82,16 @@ export const updateServiceMmenuID = async (data, pageMenuResponse) => {
 };
 
 export const getMenuPosition = (ParentObject) => {
-  return ParentObject?.childMenu?.length > 0
-    ? parseInt(ParentObject.childMenu.length) + 1
-    : parseInt(ParentObject.page_position) * 10 + 1;
+  const childLength = ParentObject?.childMenu?.length;
+  const pagePosition = ParentObject?.page_position;
+  if (childLength > 0) {
+    return parseInt(pagePosition) * 10 + childLength + 1;
+  } else {
+    return parseInt(pagePosition) * 10 + 1;
+  }
+  // return ParentObject?.childMenu?.length > 0
+  //   ? parseInt(ParentObject.childMenu.length) + 1
+  //   : parseInt(ParentObject.page_position) * 10 + 1;
 };
 
 export const getMenuParent = (menuList, labelName) => {
@@ -117,6 +124,7 @@ export const createServiceChildFromMenu = async (
     publish: false,
     menu_ID: menuData.id,
     page_url: menuData.page_url,
+    service_postion: menuData.page_position,
   };
 
   if (selectedServiceMenu?.id) {
@@ -131,6 +139,33 @@ export const createServiceChildFromMenu = async (
     response = await axiosServiceApi.post(`/services/createService/`, data);
   }
   return response;
+};
+
+export const updateServiceMenuIndex = async (data, serviceList) => {
+  const groupedChildren = {};
+  const _cloneServiceList = _.cloneDeep(serviceList);
+
+  for (const child of data) {
+    if (!groupedChildren[child.service_menu_ID]) {
+      groupedChildren[child.service_menu_ID] = child; // only keep first match
+    }
+  }
+  _cloneServiceList.map((parent) => {
+    const matchingChild = groupedChildren[parent.id];
+    if (matchingChild) {
+      parent["service_postion"] = matchingChild.page_position;
+    }
+  });
+
+  try {
+    const response = await axiosServiceApi.put(
+      `/services/updateServiceIndex/`,
+      _cloneServiceList
+    );
+    return response;
+  } catch (error) {
+    console.log("unable to update the service menu index");
+  }
 };
 
 export const deleteServiceItem = async (id) => {

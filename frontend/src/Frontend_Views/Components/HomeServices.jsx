@@ -25,7 +25,6 @@ const HomeServices = ({ title }) => {
     service: false,
   };
 
-  const { isAdmin, hasPermission } = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
   const [clientServiceList, setClientServiceList] = useState([]);
@@ -46,7 +45,7 @@ const HomeServices = ({ title }) => {
         `/services/getClientHomePageService/`
       );
 
-      let data = mapServicePagetoComponent(response.data);
+      let data = mapServicePagetoComponent(response.data, 6);
       setClientServiceList(data);
     } catch (error) {
       console.log("Unable to get the intro");
@@ -55,8 +54,8 @@ const HomeServices = ({ title }) => {
 
   return (
     <>
-      {clientServiceList?.map((servicelist, index) =>
-        servicelist?.service.map((item) => (
+      {clientServiceList?.map((items, index) =>
+        items?.child.map((item) => (
           <div
             className="col-md-4 col-sm-6 p-4 py-3 p-md-3"
             key={`${index}+homeService`}
