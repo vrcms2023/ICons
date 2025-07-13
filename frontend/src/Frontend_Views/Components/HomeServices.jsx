@@ -62,9 +62,9 @@ const HomeServices = ({ title }) => {
           >
             <div
               className="briefIntro"
-              style={{
-                backgroundImage: `url(${item.path ? getImagePath(item.path) : getImagePath("/media/images/dummy-image-square.png")})`,
-              }}
+              // style={{
+              //   backgroundImage: `url(${item.path ? getImagePath(item.path) : getImagePath("/media/images/dummy-image-square.png")})`,
+              // }}
             >
               <Link
                 to={`${item.services_page_url}`}
