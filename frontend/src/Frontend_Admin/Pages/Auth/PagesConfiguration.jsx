@@ -10,6 +10,7 @@ import ModelBg from "../../../Common/ModelBg";
 import MenuForm from "../../Components/forms/MenuForm";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getFilterObjectByID,
   getItemStyle,
   getListStyle,
   getMenuObject,
@@ -24,7 +25,11 @@ import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { getMenu } from "../../../redux/auth/authActions";
 import useAdminLoginStatus from "../../../Common/customhook/useAdminLoginStatus";
 import { getServiceValues } from "../../../redux/services/serviceActions";
-import { deleteServiceMenu, getServiceMenuItem } from "../../../util/menuUtil";
+import {
+  deleteServiceMenu,
+  getServiceMenuItem,
+  updateServiceMenuIndex,
+} from "../../../util/menuUtil";
 
 const PagesConfiguration = () => {
   const editComponentObj = {
@@ -353,9 +358,15 @@ const PagesConfiguration = () => {
           _finalObject.push(...childObjs);
         }
       });
+      const serviceMenuRoot = getFilterObjectByID(rawData, draggableId)[0];
 
       const response = await updateObjectsIndex(_finalObject);
       if (response?.length > 0) {
+        if (serviceMenuRoot && serviceMenuRoot?.page_url?.match("/services/")) {
+          await updateServiceMenuIndex(response, serviceList);
+          dispatch(getServiceValues());
+        }
+
         const result = getMenuObject(response);
         setPagesDetails(result);
       }

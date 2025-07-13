@@ -30,6 +30,7 @@ import {
 } from "../../../util/axiosUtil";
 import {
   getImagePath,
+  sortByFieldName,
   storeServiceMenuValueinCookie,
   urlStringFormat,
 } from "../../../util/commonUtil";
@@ -77,15 +78,17 @@ const Services = () => {
   useEffect(() => {
     const pageURL = location.pathname;
     if (pageURL && serviceMenu.length > 0 && !isNewServiceCreated.current) {
-      const selectedMneu = _.filter(serviceMenu, (item) => {
+      const sortedMapped = sortByFieldName(serviceMenu, "service_postion");
+      const selectedMneu = _.filter(sortedMapped, (item) => {
         return item?.page_url?.toLowerCase() === pageURL;
       })[0];
       if (selectedMneu) {
         storeServiceMenuValueinCookie(selectedMneu);
         setSelectedServiceProject(selectedMneu);
       } else {
-        storeServiceMenuValueinCookie(serviceMenu[0]);
-        setSelectedServiceProject(serviceMenu[0]);
+        navigate(sortedMapped[0]?.page_url);
+        storeServiceMenuValueinCookie(sortedMapped[0]);
+        setSelectedServiceProject(sortedMapped[0]);
       }
       setSelectedServiceList([]);
     }
