@@ -35,6 +35,8 @@ import { getAllShowHideComponentsList } from "./redux/showHideComponent/showHide
 import { getObjectsByKey } from "./util/showHideComponentUtil.js";
 import AllServices from "./Frontend_Views/Pages/Services/allServices.jsx";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 // Lazy Loading
 
 const HPRHome = lazy(() => import("./Frontend_Views/Pages/HPR-Home"));
