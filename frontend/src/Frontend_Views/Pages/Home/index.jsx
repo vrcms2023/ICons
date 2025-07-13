@@ -78,13 +78,13 @@ import { getHomeIntroList } from "../../../redux/homeintroList/homeIntroListActi
 import TitleWithDescripton from "../../Components/TitleWithDescripton";
 import { HomeServiceStylesComponent } from "../../../Common/StyledComponents/Styled-HomeServices-Compoent";
 import { HomeDynamicServiceStylesComponent } from "../../../Common/StyledComponents/Styled-HomeDynamicServices-Compoent";
-import { HomeCauroselComponentStyles } from "../../../Common/StyledComponents/Styled-HomeCarousel";
 
 import Button from "../../../Common/Button";
 import WeServeCarousel from "../../Components/WeServeCarousel";
 
 import { BrochureDownloadStyling } from "../../../Common/StyledComponents/Styled-BrochureDownload";
 import { WeServedStyled } from "../../../Common/StyledComponents/Styled-WeServe-Component";
+import { HomeProjectCauroselComponentStyles } from "../../../Common/StyledComponents/Styled-HomeProjectCarousel-Component";
 
 const Home = () => {
   const editComponentObj = {
@@ -542,9 +542,9 @@ const Home = () => {
             </div>
           )}
         </div>
-        {/* END OF ICONS HEILIGHT ========================= */}
+{/* END  ========================= */}
 
-        {/* ==== HOME PROJECT CAROUSEL CATEGORIES START ===================================================================================================== */}
+      {/* ==== HOME PROJECT CAROUSEL - START ===================================================================================================== */}
         <div
           className={
             showHideCompList?.homeprojectcarousel?.visibility &&
@@ -564,18 +564,20 @@ const Home = () => {
             />
           )}
           {showHideCompList?.homeprojectcarousel?.visibility && (
-            <HomeProjectCarousel />
+            <HomeProjectCauroselComponentStyles>
+              <HomeProjectCarousel />
+            </HomeProjectCauroselComponentStyles>
           )}
         </div>
 
-        {/* END OF HOME PROJECT CAROUSEL CATEGORIES END ============================== */}
+{/* END ============================== */}
 
         {/* === CLIENTS - COMPONENTS DEVELOPER IN SAP DESIGNS START ===========================================================================  */}
         <div
           className={
             showHideCompList?.homeclient?.visibility && isAdmin && hasPermission
               ? "border border-info mb-2"
-              : ""
+              : "my-md-5"
           }
         >
           {isAdmin && hasPermission && (
@@ -647,7 +649,7 @@ const Home = () => {
         </div>
         {/* BANNER COMPONENT END =========================================================================================================== */}
 
-        {/* ==== CAROUSEL COMPONENT START ======================================================================================================= */}
+        {/* ==== INDUSTRIES WE SERVE - START ======================================================================================================= */}
         <div
           className={
             showHideCompList?.industriesweserve?.visibility &&

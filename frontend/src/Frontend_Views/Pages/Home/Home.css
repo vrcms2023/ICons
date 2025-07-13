@@ -237,11 +237,11 @@
 
 /* Home Page Projects Carousel CSS */
 
-.homeMultyPurposeCarousel {
-  /* background-color: rgba(34, 34, 34, .1); */
-  position: relative;
+  /*.homeMultyPurposeCarousel {
+ background-color: rgba(34, 34, 34, .1); */
+  /* position: relative;
 
-  .container {
+  .container-fluid {
     background-color: rgba(34, 34, 34, .1);
   }
 
@@ -312,4 +312,4 @@
       color: #6D2F9B;
     }
   }
-}
+} */
