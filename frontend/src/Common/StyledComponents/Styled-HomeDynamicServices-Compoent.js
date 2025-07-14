@@ -4,8 +4,8 @@ export const HomeDynamicServiceStylesComponent = styled.div`
   margin: 24px 0 0;
 
   .homeDynamciServicesIntro {
-    padding: 16px 0;
-    background-color: ${({ theme }) => theme.lightWhiteF8};
+    padding: 16px 0 48px;
+    background-color: #ecececff;
     color: ${({ theme }) => theme.textColor};
 
     .briefIntro {
@@ -49,7 +49,7 @@ export const HomeDynamicServiceStylesComponent = styled.div`
 
         &:hover {
           background-color: rgba(0, 0, 0, 0.2);
-          border: 4px solid rgba(255, 255, 255, .4);
+          // border: 4px solid rgba(255, 255, 255, .4);
           border-bottom: 20px solid rgba(255, 255, 255, .4);
 
           // #FF9D00;
@@ -144,7 +144,7 @@ export const HomeDynamicServiceStylesComponent = styled.div`
         .col-md-4 .briefIntro {
           background-repeat: no-repeat;
           background-position: right 15px bottom;
-          border-radius: 10px;
+          border-radius: 3px;
 
           &:hover {
             box-shadow: 0 .8rem 1rem rgba(0, 0, 0, .35) !important;
