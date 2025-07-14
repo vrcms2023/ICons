@@ -107,7 +107,9 @@ export default function CounterForm({
                     <div className="text-end">
                       <Link
                         className="btn btn-primary"
-                        onClick={() => append({ label: "", counter: 0 })}
+                        onClick={() =>
+                          append({ label: "", counter: 0, specialChar: "" })
+                        }
                       >
                         Add{" "}
                         <i className="fa fa-plus mx-2" aria-hidden="true"></i>
@@ -131,7 +133,7 @@ export default function CounterForm({
                 {/* Counter objects */}
                 {fields.map((item, index) => (
                   <div key={index} className="d-flex flex-wrap items-center">
-                    <div className="col-md-5">
+                    <div className="col-md-12">
                       <InputFields
                         key={index}
                         label={"counters Title"}
@@ -162,24 +164,20 @@ export default function CounterForm({
                         }}
                       />
                     </div>
+                    <div className="col-md-5">
+                      <InputFields
+                        key={index}
+                        label={"Symbol"}
+                        type={"text"}
+                        error={errors?.[`counters.${index}.label`]?.symbol}
+                        fieldName={`counters.${index}.symbol`}
+                        register={register}
+                        validationObject={{
+                          required: "Please enter counters Symbol",
+                        }}
+                      />
+                    </div>
 
-                    {/* <input
-                      type="text"
-                      {...register(`counters.${index}.label`, {
-                        required: true,
-                      })}
-                      placeholder="Label"
-                      className="border p-2 w-1/2"
-                    /> */}
-                    {/* <input
-                      type="number"
-                      {...register(`counters.${index}.counter`, {
-                        required: true,
-                        valueAsNumber: true,
-                      })}
-                      placeholder="Counter"
-                      className="border p-2 w-1/2"
-                    /> */}
                     <div className="col-md-1">
                       <Link
                         to=""

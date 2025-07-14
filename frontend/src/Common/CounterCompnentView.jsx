@@ -46,6 +46,7 @@ const CounterCompnentView = ({ getDataAPIURL, componentState }) => {
               <p className="counterValue">
                 <CountUp end={counter.counter} delay={5} />
               </p>
+              <p>{counter.symbol}</p>
             </div>
           ))}
       </div>
