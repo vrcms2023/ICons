@@ -169,12 +169,8 @@ export default function CounterForm({
                         key={index}
                         label={"Symbol"}
                         type={"text"}
-                        error={errors?.[`counters.${index}.label`]?.symbol}
                         fieldName={`counters.${index}.symbol`}
                         register={register}
-                        validationObject={{
-                          required: "Please enter counters Symbol",
-                        }}
                       />
                     </div>
 
