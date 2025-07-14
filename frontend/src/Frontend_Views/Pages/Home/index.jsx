@@ -35,7 +35,6 @@ import {
 } from "../../../util/commonUtil";
 import {
   getCarouselFields,
-  getCounterFields,
   getFormDynamicFields,
   getserviceOfferedFields,
   getTestimonialsFields,

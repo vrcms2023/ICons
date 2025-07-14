@@ -87,12 +87,6 @@ export default function CounterForm({
     }
   }, [componentState, getDataAPIURL]);
 
-  useEffect(() => {
-    if (errors) {
-      console.log("Form errors: ", errors);
-    }
-  }, [errors]);
-
   return (
     <>
       <EditAdminPopupHeader
