@@ -731,3 +731,26 @@ export const getLogoFormFields = (pageType) => {
     },
   };
 };
+
+export const getCounterFields = () => {
+  return {
+    title: {
+      label: "Title",
+      type: "text",
+      fieldName: "title",
+      validationObject: { required: "Please enter Title" },
+    },
+    label: {
+      label: "Counter Label",
+      type: "text",
+      fieldName: "label",
+      validationObject: { required: "Please enter counter label" },
+    },
+    counter: {
+      label: "Counter ",
+      type: "text",
+      fieldName: "counter",
+      validationObject: { required: "Please enter counter value" },
+    },
+  };
+};

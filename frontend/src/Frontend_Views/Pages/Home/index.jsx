@@ -35,6 +35,7 @@ import {
 } from "../../../util/commonUtil";
 import {
   getCarouselFields,
+  getCounterFields,
   getFormDynamicFields,
   getserviceOfferedFields,
   getTestimonialsFields,
@@ -85,6 +86,8 @@ import WeServeCarousel from "../../Components/WeServeCarousel";
 import { BrochureDownloadStyling } from "../../../Common/StyledComponents/Styled-BrochureDownload";
 import { WeServedStyled } from "../../../Common/StyledComponents/Styled-WeServe-Component";
 import { HomeProjectCauroselComponentStyles } from "../../../Common/StyledComponents/Styled-HomeProjectCarousel-Component";
+import CounterForm from "../../../Frontend_Admin/Components/forms/CounterForm";
+import CounterCompnentView from "../../../Common/CounterCompnentView";
 
 const Home = () => {
   const editComponentObj = {
@@ -107,6 +110,7 @@ const Home = () => {
     homeService5: false,
     homeDynamciServices: false,
     homeDynamciServicesBrief: false,
+    counterlist: false,
   };
 
   const productComp = {
@@ -542,9 +546,9 @@ const Home = () => {
             </div>
           )}
         </div>
-{/* END  ========================= */}
+        {/* END  ========================= */}
 
-      {/* ==== HOME PROJECT CAROUSEL - START ===================================================================================================== */}
+        {/* ==== HOME PROJECT CAROUSEL - START ===================================================================================================== */}
         <div
           className={
             showHideCompList?.homeprojectcarousel?.visibility &&
@@ -570,7 +574,7 @@ const Home = () => {
           )}
         </div>
 
-{/* END ============================== */}
+        {/* END ============================== */}
 
         {/* === CLIENTS - COMPONENTS DEVELOPER IN SAP DESIGNS START ===========================================================================  */}
         <div
@@ -641,6 +645,59 @@ const Home = () => {
                       `${pageType}-banner`
                     )}
                     dimensions={imageDimensionsJson("banner")}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </div>
+        {/* BANNER COMPONENT END =========================================================================================================== */}
+
+        {/* BANNER COMPONENT START =========================================================================================================== */}
+        <div
+          className={
+            showHideCompList?.counterlist?.visibility &&
+            isAdmin &&
+            hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
+          {isAdmin && hasPermission && (
+            <ShowHideToggle
+              showhideStatus={showHideCompList?.counterlist?.visibility}
+              title={"Counter Component"}
+              componentName={"counterlist"}
+              showHideHandler={showHideHandler}
+              id={showHideCompList?.counterlist?.id}
+            />
+          )}
+
+          {showHideCompList?.counterlist?.visibility && (
+            <>
+              <div className="row">
+                <div className="col-md-12 p-0 position-relative homePage">
+                  {isAdmin && hasPermission && (
+                    <EditIcon
+                      editHandler={() => editHandler("counterlist", true)}
+                    />
+                  )}
+                  <CounterCompnentView
+                    getDataAPIURL={`counter/getClientCounterSet/`}
+                    componentState={componentEdit.counterlist}
+                  />
+                </div>
+              </div>
+              {componentEdit.counterlist && (
+                <div className="adminEditTestmonial selected">
+                  <CounterForm
+                    editHandler={editHandler}
+                    componentType={"counterlist"}
+                    componentTitle="Counter component"
+                    formPostURL={`/counter/create/`}
+                    formUpdateURL={`/counter/updateCounterlist/`}
+                    getDataAPIURL={`/counter/getClientCounterSet/`}
+                    componentState={componentEdit.counterlist}
                   />
                 </div>
               )}
@@ -1132,22 +1189,22 @@ const Home = () => {
             />
           )}
           <div className="container">
-          {showHideCompList?.news?.visibility && (
-            <div className="row pb-2 homeNews">
-              <div className="col-md-12 d-flex justify-content-center align-items-center">
-                <div className="container">
-                  <Title
-                    title="News"
-                    cssClass="fs-1 fw-bold text-center my-5 pt-0 pt-md-0 text-uppercase"
-                  />
-                  <HomeNews
-                    news={news}
-                    setNews={setResponseData}
-                    pagetype={pageType}
-                  />
+            {showHideCompList?.news?.visibility && (
+              <div className="row pb-2 homeNews">
+                <div className="col-md-12 d-flex justify-content-center align-items-center">
+                  <div className="container">
+                    <Title
+                      title="News"
+                      cssClass="fs-1 fw-bold text-center my-5 pt-0 pt-md-0 text-uppercase"
+                    />
+                    <HomeNews
+                      news={news}
+                      setNews={setResponseData}
+                      pagetype={pageType}
+                    />
 
-                  <div className="d-flex justify-content-center align-items-center mt-md-4">
-                    {/* <Ancher
+                    <div className="d-flex justify-content-center align-items-center mt-md-4">
+                      {/* <Ancher
                   AncherLabel="Read more"
                   Ancherpath="/news"
                   AncherClass="btn btn-primary d-flex justify-content-center align-items-center "
@@ -1160,24 +1217,24 @@ const Home = () => {
                   AnchersvgColor="#17427C"
                 /> */}
 
-                    <Ancher
-                      AncherLabel="View more news articles"
-                      Ancherpath="/news"
-                      AncherClass="btn btn-outline d-flex justify-content-center align-items-center "
-                      AnchersvgColor="#17427C"
-                    />
+                      <Ancher
+                        AncherLabel="View more news articles"
+                        Ancherpath="/news"
+                        AncherClass="btn btn-outline d-flex justify-content-center align-items-center "
+                        AnchersvgColor="#17427C"
+                      />
 
-                    {/* <Ancher
+                      {/* <Ancher
                   AncherLabel="Read more"
                   Ancherpath="/news"
                   AncherClass="btn moreLink d-flex justify-content-center align-items-center "
                   AnchersvgColor="#17427C"
                 /> */}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
           </div>
         </div>
         {/* END OF HOME NEWS START =================================================================================================*/}
