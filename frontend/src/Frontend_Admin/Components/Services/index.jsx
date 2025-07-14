@@ -36,6 +36,8 @@ const AddService = ({
   pageType,
   isNewServiceCreated,
 }) => {
+  const [serviceLinksBoxHeight, setServiceLinksBoxHeight] = useState(86);
+  const [showAll, setShowAll] = useState("SHOW ALL..")
   const [serviceName, setServiceName] = useState("");
   const [error, setError] = useState("");
   const [serviceList, setServiceList] = useState([]);
@@ -258,13 +260,25 @@ const AddService = ({
     dispatch(getMenu());
   };
 
+  
+  const handlerHeightSetting = () => {
+    if(serviceLinksBoxHeight === 86) {
+      setServiceLinksBoxHeight(320);
+      setShowAll("FEW ONLY");
+    } else {
+      setServiceLinksBoxHeight(86);
+      setShowAll("SHOW ALL..")
+    }
+  }
+
   return (
     <div className="pb-3 border border-0">
       <Title title="Create New Service Page" cssClass="p-3 fs-6 text-dark" />
       <hr className="m-0 mb-5" />
       {/* <h3 className={`text-center ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''} `}>Add New Service </h3> */}
-
+      
       <div className="container">
+        
         {/* <div className={`container bg-light p-5 border shadow-lg ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''}`}> */}
         <div className="row">
           {error ? <Error>{error}</Error> : ""}
@@ -288,13 +302,14 @@ const AddService = ({
             <div className="d-flex gap-2">
               <Button
                 type="submit"
-                cssClass="btn btn-secondary mt-3"
+                // cssClass="btn btn-primary mt-2"
+                cssClass={serviceName ? "btn btn-primary mt-2" : "btn btn-secondary mt-2"}
                 handlerChange={submitHandler}
-                label={editServiceObject?.id ? "Change Name" : "Save"}
+                label={editServiceObject?.id ? "Change Name" : "SAVE"}
               />
               {editServiceObject?.id ? (
                 <Button
-                  cssClass="btn btn-primary mt-3"
+                  cssClass="btn btn-outline mt-2"
                   handlerChange={CancelServiceNameChange}
                   label="Cancel"
                 />
@@ -304,13 +319,14 @@ const AddService = ({
             </div>
           </div>
 
-          <div className="col-md-6 servicePageLinks">
+          <div className={"col-md-6 p-0 servicePageLinks"}>
+            
             {/* <Title title="Pages" cssClass="fs-6 fw-bold text-center border-bottom pb-2 mb-2 " /> */}
-            <ul>
+            <ul style={{height: `${serviceLinksBoxHeight}px`}}>
               {serviceList &&
                 serviceList.map((item) => (
                   <li
-                    className={`d-flex justify-content-between align-items-center p-1 px-3
+                    className={`d-flex justify-content-between align-items-center py-1
                      ${editState && item.id === editServiceObject?.id ? "border border-warning" : ""} 
               ${
                 item.id === selectedServiceProject?.id
@@ -336,7 +352,7 @@ const AddService = ({
                     </div>
 
                     {/* <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p> */}
-                    <div className="w-50 text-end">
+                    <div className="w-50 text-end publishState">
                       <Link
                         onClick={() => publishService(item)}
                         // className={`p-1 px-2 rounded ${
@@ -380,7 +396,14 @@ const AddService = ({
                   </li>
                 ))}
             </ul>
+
+            <div className="row">
+          <div className="col-12 text-end"><a href="#" className="btn viewAllServices" onClick={() => handlerHeightSetting()}>
+            {showAll}
+            </a></div>
+        </div>
           </div>
+          
         </div>
       </div>
     </div>
