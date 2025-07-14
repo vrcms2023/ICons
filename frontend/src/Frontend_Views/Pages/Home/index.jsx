@@ -291,7 +291,7 @@ const Home = () => {
             <>
               <div className="container-fluid">
                 <div className="row">
-                  <div className="col-md-12 p-0 carousel">
+                  <div className="col-md-12 p-0 carousel mb-4">
                     {isAdmin && hasPermission && (
                       <EditIcon
                         editHandler={() => editHandler("carousel", true)}
@@ -326,7 +326,7 @@ const Home = () => {
             </>
           )}
         </div>
-        {/* ==== CAROUSEL COMPONENT END ========================================================================================================= */}
+{/* ==== END CAROUSEL ========================================================================================================= */}
 
         {/* INTRODUCTION COMPONENT START =========================================================================================================== */}
         <div
@@ -346,9 +346,8 @@ const Home = () => {
             />
           )}
 
-          {/* INTRODUCTION COMPONENT */}
           {showHideCompList?.briefintro?.visibility && (
-            <div>
+            <>
               <div className="container">
                 <div className="row">
                   <div className="breiftopMargin">
@@ -363,7 +362,7 @@ const Home = () => {
                       linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
                       linkLabel="Read More"
                       moreLink=""
-                      introTitleCss="fs-3 text-center mb-3"
+                      introTitleCss="text-center mb-3"
                       introSubTitleCss="fw-medium fs-5 text-center"
                       introDecTitleCss="fs-6 fw-normal mx-4 text-center lh-6"
                       detailsContainerCss="col-md-12 py-2 text-center"
@@ -385,10 +384,10 @@ const Home = () => {
                   />
                 </div>
               )}
-            </div>
+            </>
           )}
         </div>
-        {/* INTRODUCTION COMPONENT END  =========================================================================================================== */}
+{/* === END INTRODUCTION=========================================================================================================== */}
 
         {/* ICONS ALL SERVICES ============================ */}
         <div
@@ -467,7 +466,7 @@ const Home = () => {
                   </div>
                   <div className="text-center text-md-end">
                     <Ancher
-                      AncherLabel="View All Services"
+                      AncherLabel="View All"
                       Ancherpath="/all-serivces"
                       AncherClass="mt-4 d-block"
                       AnchersvgColor="#ffffff"
@@ -577,7 +576,7 @@ const Home = () => {
           className={
             showHideCompList?.homeclient?.visibility && isAdmin && hasPermission
               ? "border border-info mb-2"
-              : "my-md-5"
+              : ""
           }
         >
           {isAdmin && hasPermission && (
@@ -1161,7 +1160,7 @@ const Home = () => {
                 /> */}
 
                     <Ancher
-                      AncherLabel="View more news articles"
+                      AncherLabel="More Articles"
                       Ancherpath="/news"
                       AncherClass="btn btn-outline d-flex justify-content-center align-items-center "
                       AnchersvgColor="#17427C"
