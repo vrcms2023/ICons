@@ -28,8 +28,7 @@ export const ServicesStyled = styled.div`
             margin: 15px 10px;
 
             li {
-                border-bottom: 1px solid ${({ theme }) =>
-                  theme.lightgray};
+                border-bottom: 1px solid ${({ theme }) => theme.lightgray};
                 padding: 12px 7px;
               }
         }
@@ -42,21 +41,40 @@ export const ServicesStyled = styled.div`
         }
       }
       
-      
+      .viewAllServices {
+        padding: 8px !important;
+        font-weight: 600 !important;
+        font-size: .8rem;
+      }
       
       .servicePageLinks {
-
         // width: 600px; 
         // margin: 0 auto;
-        height: 120px;
-        overflow-y: scroll;
-}
-        
+        // height: 86px;
+      }
+        ul {
+          overflow-y: auto;
+          border: 1px solid ${({ theme }) => theme.lightgray};
+        }
         li {
+          padding: 5px 10px;
             cursor: pointer;
-
             span.notPublished {
               color: #ccc !important;
+            }
+
+            .publishState a {
+              text-decoration: none !important;
+            }
+
+            &:hover {
+              background:  ${({ theme }) => theme.verylightgray};
+              
+
+              a {
+              text-decoration: none !important;
+            }
+
             }
           }
 
@@ -65,9 +83,11 @@ export const ServicesStyled = styled.div`
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            // text-decoration: none;
+            font-size: .9rem;
             // height: 20px;
           }
-      }
+      
       
       .addPageForm {
         // background-color: ${({ theme }) => theme.teritoryColor};
