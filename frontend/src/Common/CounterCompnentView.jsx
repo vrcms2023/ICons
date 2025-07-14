@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Title from "./Title";
 import { axiosClientServiceApi } from "../util/axiosUtil";
 import SkeletonImage from "./Skeltons/SkeletonImage";
+import CountUp from "react-countup";
 
 const CounterCompnentView = ({ getDataAPIURL, componentState }) => {
   const [counterData, setCounterData] = useState([]);
@@ -33,7 +34,7 @@ const CounterCompnentView = ({ getDataAPIURL, componentState }) => {
   return (
     <div className="counterComponentView d-flex flex-column align-items-center justify-content-center">
       {!counterData && <SkeletonImage />}
-      {counterData.title !== "" && <Title title={counterData.title} />}
+      {counterData?.title !== "" && <Title title={counterData?.title} />}
       <div className="counterComponentViewContainer d-flex flex-wrap justify-content-center">
         {counterData.counters &&
           counterData.counters.map((counter, index) => (
@@ -42,7 +43,9 @@ const CounterCompnentView = ({ getDataAPIURL, componentState }) => {
               className="counterItem text-center d-flex flex-column m-2 p-3"
             >
               <h3 className="counterLabel">{counter.label}</h3>
-              <p className="counterValue">{counter.counter}</p>
+              <p className="counterValue">
+                <CountUp end={counter.counter} delay={5} />
+              </p>
             </div>
           ))}
       </div>
