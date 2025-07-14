@@ -87,6 +87,7 @@ import { WeServedStyled } from "../../../Common/StyledComponents/Styled-WeServe-
 import { HomeProjectCauroselComponentStyles } from "../../../Common/StyledComponents/Styled-HomeProjectCarousel-Component";
 import CounterForm from "../../../Frontend_Admin/Components/forms/CounterForm";
 import CounterCompnentView from "../../../Common/CounterCompnentView";
+import { CounterComponentStyles } from "../../../Common/StyledComponents/Styled-Count-Component";
 
 const Home = () => {
   const editComponentObj = {
@@ -651,7 +652,7 @@ const Home = () => {
         </div>
         {/* BANNER COMPONENT END =========================================================================================================== */}
 
-        {/* BANNER COMPONENT START =========================================================================================================== */}
+        {/* COUNTER COMPONENT START =========================================================================================================== */}
         <div
           className={
             showHideCompList?.counterlist?.visibility &&
@@ -674,16 +675,18 @@ const Home = () => {
           {showHideCompList?.counterlist?.visibility && (
             <>
               <div className="row">
-                <div className="col-md-12 p-0 position-relative homePage">
+                <div className="col-md-12 p-0 ">
                   {isAdmin && hasPermission && (
                     <EditIcon
                       editHandler={() => editHandler("counterlist", true)}
                     />
                   )}
+                <CounterComponentStyles>
                   <CounterCompnentView
                     getDataAPIURL={`counter/getClientCounterSet/`}
                     componentState={componentEdit.counterlist}
                   />
+                  </CounterComponentStyles>
                 </div>
               </div>
               {componentEdit.counterlist && (
@@ -702,7 +705,7 @@ const Home = () => {
             </>
           )}
         </div>
-        {/* BANNER COMPONENT END =========================================================================================================== */}
+{/* === END COUNTER =========================================================================================================== */}
 
         {/* ==== INDUSTRIES WE SERVE - START ======================================================================================================= */}
         <div
