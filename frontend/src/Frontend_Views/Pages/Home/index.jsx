@@ -304,6 +304,7 @@ const Home = () => {
                     <Carousel
                       carouselState={componentEdit.carousel}
                       category={"carousel"}
+                      containerId="carouselHomeGallery"
                     />
                   </div>
                 </div>
@@ -330,7 +331,7 @@ const Home = () => {
             </>
           )}
         </div>
-{/* ==== END CAROUSEL ========================================================================================================= */}
+        {/* ==== END CAROUSEL ========================================================================================================= */}
 
         {/* INTRODUCTION COMPONENT START =========================================================================================================== */}
         <div
@@ -391,7 +392,7 @@ const Home = () => {
             </>
           )}
         </div>
-{/* === END INTRODUCTION=========================================================================================================== */}
+        {/* === END INTRODUCTION=========================================================================================================== */}
 
         {/* ICONS ALL SERVICES ============================ */}
         <div
@@ -681,11 +682,11 @@ const Home = () => {
                       editHandler={() => editHandler("counterlist", true)}
                     />
                   )}
-                <CounterComponentStyles>
-                  <CounterCompnentView
-                    getDataAPIURL={`counter/getClientCounterSet/`}
-                    componentState={componentEdit.counterlist}
-                  />
+                  <CounterComponentStyles>
+                    <CounterCompnentView
+                      getDataAPIURL={`counter/getClientCounterSet/`}
+                      componentState={componentEdit.counterlist}
+                    />
                   </CounterComponentStyles>
                 </div>
               </div>
@@ -705,7 +706,7 @@ const Home = () => {
             </div>
           )}
         </div>
-{/* === END COUNTER =========================================================================================================== */}
+        {/* === END COUNTER =========================================================================================================== */}
 
         {/* ==== INDUSTRIES WE SERVE - START ======================================================================================================= */}
         <div
@@ -738,12 +739,21 @@ const Home = () => {
                         }
                       />
                     )}
-                    <WeServedStyled>
+
+                    {/* <Carousel
+                      carouselState={componentEdit.industriesweserve}
+                      category={"industriesweserve"}
+                      containerId="industriesweserve-carousel"
+                    /> */}
+
+                    {/* <WeServedStyled>
+                      
                       <WeServeCarousel
                         carouselState={componentEdit.industriesweserve}
                         category={"industriesweserve"}
+                        containerId="industriesweserve-carousel"
                       />
-                    </WeServedStyled>
+                    </WeServedStyled> */}
                   </div>
                 </div>
               </div>
@@ -1218,14 +1228,12 @@ const Home = () => {
                   AnchersvgColor="#17427C"
                 /> */}
 
-
-                    <Ancher
-                      AncherLabel="More Articles"
-                      Ancherpath="/news"
-                      AncherClass="btn btn-outline d-flex justify-content-center align-items-center "
-                      AnchersvgColor="#17427C"
-                    />
-
+                      <Ancher
+                        AncherLabel="More Articles"
+                        Ancherpath="/news"
+                        AncherClass="btn btn-outline d-flex justify-content-center align-items-center "
+                        AnchersvgColor="#17427C"
+                      />
 
                       {/* <Ancher
                   AncherLabel="Read more"
@@ -1423,60 +1431,62 @@ const Home = () => {
                   View Gallery
                 </span>
               </div> */}
-              
 
-            <>
-              <div className="container">
-                <div className="row">
-                  <div className="breiftopMargin">
-                    {isAdmin && hasPermission && (
-                      <EditIcon
-                        editHandler={() => editHandler("weserve", true)}
+              <>
+                <div className="container">
+                  <div className="row">
+                    <div className="breiftopMargin">
+                      {isAdmin && hasPermission && (
+                        <EditIcon
+                          editHandler={() => editHandler("weserve", true)}
+                        />
+                      )}
+
+                      <BriefIntroFrontend
+                        introState={componentEdit.weserve}
+                        linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
+                        linkLabel="Read More"
+                        moreLink=""
+                        introTitleCss="text-center mb-3"
+                        introSubTitleCss="fw-medium fs-5 text-center"
+                        introDecTitleCss="fs-6 fw-normal mx-4 text-center lh-6"
+                        detailsContainerCss="col-md-12 py-2 text-center"
+                        anchorContainer="d-flex justify-content-center align-items-center mt-4"
+                        anchersvgColor="#17427C"
+                        pageType={pageType}
                       />
-                    )}
-
-                    <BriefIntroFrontend
-                      introState={componentEdit.weserve}
-                      linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
-                      linkLabel="Read More"
-                      moreLink=""
-                      introTitleCss="text-center mb-3"
-                      introSubTitleCss="fw-medium fs-5 text-center"
-                      introDecTitleCss="fs-6 fw-normal mx-4 text-center lh-6"
-                      detailsContainerCss="col-md-12 py-2 text-center"
-                      anchorContainer="d-flex justify-content-center align-items-center mt-4"
-                      anchersvgColor="#17427C"
-                      pageType={pageType}
-                    />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {componentEdit.weserve && (
-                <div className={`adminEditTestmonial selected `}>
-                  <BriefIntroAdmin
-                    editHandler={editHandler}
-                    componentType="weserve"
-                    popupTitle="Brief Intro Banner"
-                    pageType="Home"
-                  />
-                </div>
-              )}
-            </>
-
+                {componentEdit.weserve && (
+                  <div className={`adminEditTestmonial selected `}>
+                    <BriefIntroAdmin
+                      editHandler={editHandler}
+                      componentType="weserve"
+                      popupTitle="Brief Intro Banner"
+                      pageType="Home"
+                    />
+                  </div>
+                )}
+              </>
 
               <div className="container">
-              <div className="row ">
-                <div className="col-md-10 offset-md-1 homeGalleryCarousel">
-                  <div className="container">
-                    <div className="row">
-                      <div className="col-md-10 offset-md-1">
-                        <Carousel carouselState={componentEdit.carousel} />
+                <div className="row ">
+                  <div className="col-md-10 offset-md-1 homeGalleryCarousel">
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-md-10 offset-md-1">
+                          <Carousel
+                            carouselState={componentEdit.carousel}
+                            category={"industriesweserve"}
+                            containerId="imageGallerycarousel"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
               </div>
               <div
                 className="text-center py-4 position-relative "

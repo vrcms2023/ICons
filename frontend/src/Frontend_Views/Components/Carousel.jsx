@@ -10,7 +10,7 @@ import "./Carousel.css";
 import SkeletonImage from "../../Common/Skeltons/SkeletonImage";
 import { CarouselItem } from "./CarouselItem";
 
-const Carousel = ({ carouselState, category }) => {
+const Carousel = ({ carouselState, category, containerId }) => {
   const { isLoading } = useSelector((state) => state.loader);
   const [carousel, setCarousel] = useState([]);
   const pageType = "imagegallery";
@@ -42,7 +42,7 @@ const Carousel = ({ carouselState, category }) => {
 
   return (
     <div
-      id="carouselExampleIndicators"
+      id={containerId}
       className="homeCarousel carousel slide"
       data-bs-ride="carousel"
     >
@@ -85,7 +85,7 @@ const Carousel = ({ carouselState, category }) => {
           <button
             className="carousel-control-prev"
             type="button"
-            data-bs-target="#carouselExampleIndicators"
+            data-bs-target={`#${containerId}`}
             data-bs-slide="prev"
           >
             <span
@@ -97,7 +97,7 @@ const Carousel = ({ carouselState, category }) => {
           <button
             className="carousel-control-next"
             type="button"
-            data-bs-target="#carouselExampleIndicators"
+            data-bs-target={`#${containerId}`}
             data-bs-slide="next"
           >
             <span
