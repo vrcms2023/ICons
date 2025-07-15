@@ -58,26 +58,6 @@ const Carousel = ({ carouselState, category, containerId }) => {
             {!isLoading && <p>Please add images for Carousel...</p>}
           </div>
         )}
-        {/* {carousel?.map((item, index) => (
-          <div
-            className={`carousel-item ${index == 0 ? "active" : ""}`}
-            key={item.id}
-          >
-            <img
-              src={getImagePath(item.path)}
-              alt={item.alternitivetext}
-              className="d-block w-100"
-            />
-            <div className="carousel-caption d-none d-md-block">
-              <h1 className="fw-bold">
-                {item.carouse_title ? item.carouse_title : ""}{" "}
-              </h1>
-              <p className="fw-normal fs-5">
-                {item.carouse_description ? item.carouse_description : ""}{" "}
-              </p>
-            </div>
-          </div>
-        ))} */}
       </div>
 
       {carousel.length > 1 && (
