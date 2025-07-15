@@ -729,7 +729,7 @@ const Home = () => {
           )}
           {showHideCompList?.industriesweserve?.visibility && (
             <>
-              <div className="container">
+              <div className="container pt-5">
                 <div className="breiftopMargin">
                   {isAdmin && hasPermission && (
                     <EditIcon
@@ -744,7 +744,7 @@ const Home = () => {
                     linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
                     linkLabel="Read More"
                     moreLink=""
-                    introTitleCss="mb-0"
+                    introTitleCss="mb-0 text-center fw-medium"
                     introSubTitleCss="fw-medium text-muted text-center"
                     introDecTitleCss="fs-6 fw-normal mx-4 text-center"
                     detailsContainerCss="col-md-12"
@@ -783,12 +783,12 @@ const Home = () => {
                       containerId="industriesweserve-carousel"
                     /> */}
                     <ImageGalleryStyled>
-                      <div className="container">
+                      <div className="container-fluid">
                         <div className="row ">
                           <div className="col-md-10 offset-md-1 homeGalleryCarousel">
                             <div className="container">
                               <div className="row">
-                                <div className="col-md-10 offset-md-1">
+                                <div className="col-md-12">
                                   <Carousel
                                     carouselState={
                                       componentEdit.industriesweserve
