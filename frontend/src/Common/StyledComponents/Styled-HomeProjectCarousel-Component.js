@@ -58,7 +58,8 @@ export const HomeProjectCauroselComponentStyles = styled.div`
 
   .carouselImg,
   .carouselDescription {
-    height: 600px;
+    // height: 600px;
+    height: 100vh;
 
     @media (max-width: 480px) {
       height: auto;
