@@ -673,7 +673,7 @@ const Home = () => {
           )}
 
           {showHideCompList?.counterlist?.visibility && (
-            <>
+            <div className="container-fluid">
               <div className="row">
                 <div className="col-md-12 p-0 ">
                   {isAdmin && hasPermission && (
@@ -702,7 +702,7 @@ const Home = () => {
                   />
                 </div>
               )}
-            </>
+            </div>
           )}
         </div>
 {/* === END COUNTER =========================================================================================================== */}
@@ -1415,14 +1415,57 @@ const Home = () => {
           )}
           {showHideCompList?.gallery?.visibility && (
             <ImageGalleryStyled>
-              <div className="text-center mb-5" style={{ marginTop: "100px" }}>
+              {/* <div className="text-center mb-5" style={{ marginTop: "100px" }}>
                 <span
                   className="fs-1 px-4 py-2"
                   style={{ borderBottom: "1px solid #444444" }}
                 >
                   View Gallery
                 </span>
+              </div> */}
+              
+
+            <>
+              <div className="container">
+                <div className="row">
+                  <div className="breiftopMargin">
+                    {isAdmin && hasPermission && (
+                      <EditIcon
+                        editHandler={() => editHandler("weserve", true)}
+                      />
+                    )}
+
+                    <BriefIntroFrontend
+                      introState={componentEdit.weserve}
+                      linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
+                      linkLabel="Read More"
+                      moreLink=""
+                      introTitleCss="text-center mb-3"
+                      introSubTitleCss="fw-medium fs-5 text-center"
+                      introDecTitleCss="fs-6 fw-normal mx-4 text-center lh-6"
+                      detailsContainerCss="col-md-12 py-2 text-center"
+                      anchorContainer="d-flex justify-content-center align-items-center mt-4"
+                      anchersvgColor="#17427C"
+                      pageType={pageType}
+                    />
+                  </div>
+                </div>
               </div>
+
+              {componentEdit.weserve && (
+                <div className={`adminEditTestmonial selected `}>
+                  <BriefIntroAdmin
+                    editHandler={editHandler}
+                    componentType="weserve"
+                    popupTitle="Brief Intro Banner"
+                    pageType="Home"
+                  />
+                </div>
+              )}
+            </>
+
+
+              <div className="container">
               <div className="row ">
                 <div className="col-md-10 offset-md-1 homeGalleryCarousel">
                   <div className="container">
@@ -1433,6 +1476,7 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
+              </div>
               </div>
               <div
                 className="text-center py-4 position-relative "

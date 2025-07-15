@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import bgImage from "../../Images/background-styling-image.png";
+// import bgImage from "../../Images/homeServicesBg.jpg";
+
 
 export const HomeClientsStyled = styled.div`
   // background-color: ${({ theme }) => theme.white};
@@ -7,6 +9,7 @@ export const HomeClientsStyled = styled.div`
   background-image: url(${bgImage});
   background-position: center;
   padding: 120px 0;
+  margin: 32px 0;
 
   @media (max-width: 480px) {
     padding: 32px 0;
