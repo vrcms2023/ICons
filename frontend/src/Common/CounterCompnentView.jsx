@@ -40,9 +40,9 @@ const CounterCompnentView = ({ getDataAPIURL, componentState }) => {
           counterData.counters.map((counter, index) => (
             <div
               key={index}
-              className="counterItem text-center d-flex align-items-center justify-content-center m-2 p-3"
+              className="counterItem text-center d-flex align-items-center justify-content-center m-md-2"
             >
-              <h3 className="counterLabel fs-4">{counter.label}</h3>
+              <h3 className="counterLabel">{counter.label}</h3>
               <p className="counterValue">
                 <CountUp end={counter.counter} delay={2} />
               </p>
