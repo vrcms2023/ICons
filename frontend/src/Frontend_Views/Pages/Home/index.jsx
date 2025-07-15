@@ -729,6 +729,43 @@ const Home = () => {
           )}
           {showHideCompList?.industriesweserve?.visibility && (
             <>
+              <div className="container">
+                <div className="breiftopMargin">
+                  {isAdmin && hasPermission && (
+                    <EditIcon
+                      editHandler={() =>
+                        editHandler("industriesweserveBrief", true)
+                      }
+                    />
+                  )}
+
+                  <BriefIntroFrontend
+                    introState={componentEdit.industriesweserveBrief}
+                    linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
+                    linkLabel="Read More"
+                    moreLink=""
+                    introTitleCss="mb-0"
+                    introSubTitleCss="fw-medium text-muted text-center"
+                    introDecTitleCss="fs-6 fw-normal mx-4 text-center"
+                    detailsContainerCss="col-md-12"
+                    anchorContainer="d-flex justify-content-center align-items-center mt-4"
+                    anchersvgColor="#17427C"
+                    pageType={"industriesweserveBrief"}
+                    maxHeight="300"
+                  />
+
+                  {componentEdit.industriesweserveBrief && (
+                    <div className={`adminEditTestmonial selected `}>
+                      <BriefIntroAdmin
+                        editHandler={editHandler}
+                        componentType="industriesweserveBrief"
+                        popupTitle="Brief Intro Banner"
+                        pageType="industriesweserveBrief"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-md-12 p-0 carousel">
@@ -745,6 +782,27 @@ const Home = () => {
                       category={"industriesweserve"}
                       containerId="industriesweserve-carousel"
                     /> */}
+                    <ImageGalleryStyled>
+                      <div className="container">
+                        <div className="row ">
+                          <div className="col-md-10 offset-md-1 homeGalleryCarousel">
+                            <div className="container">
+                              <div className="row">
+                                <div className="col-md-10 offset-md-1">
+                                  <Carousel
+                                    carouselState={
+                                      componentEdit.industriesweserve
+                                    }
+                                    category={"industriesweserve"}
+                                    containerId="industriesweserve-carousel"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ImageGalleryStyled>
 
                     {/* <WeServedStyled>
                       
