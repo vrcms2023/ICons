@@ -1,8 +1,7 @@
 // import bgImage from '../../Images/homeBriefHilghtBg.png';
-import bgImage from '../../Images/careers-bg.jpg';
+import bgImage from '../../Images/industriesWeServe.jpg';
 
 import styled from 'styled-components'
-
 
 export const CounterComponentStyles = styled.div`
     background-image: url(${bgImage});
@@ -11,8 +10,15 @@ export const CounterComponentStyles = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
     color: #ffffff;
-    padding: 180px 0;
     position: relative;
+
+    @media(min-width: 992px) {
+        padding: 180px 0;
+    }
+
+    @media(max-width: 991px) {
+        padding: 120px 0;
+    }
 
     @media(max-width: 480px) {
         padding: 90px 0;
@@ -41,11 +47,14 @@ export const CounterComponentStyles = styled.div`
 
     .counterComponentView {
         .counterTitle{
-            font-size: 4rem !important;
-            font-weight: bold;
+            font-size: 2rem !important;
+            text-align: center;
+            width: 80%;
+            margin: auto;
 
             @media(max-width: 480px) {
-                font-size: 3rem !important;
+                font-size: 1.5rem !important;
+                margin-bottom: 20px;
             }
         }
     }
@@ -62,7 +71,11 @@ export const CounterComponentStyles = styled.div`
         }
 
         .counterItem {
-            gap: 24px;
+            gap: 48px;
+
+            @media(max-width: 991px) { 
+                gap: 24px;
+            }
 
             @media(max-width: 480px) {
                 gap: 12px;
@@ -72,6 +85,14 @@ export const CounterComponentStyles = styled.div`
         .counterLabel {
             width: 120px;
             text-align: left;
+
+            @media(min-width: 481px) {
+                font-size: 1.6rem;
+            }
+
+            @media(max-width: 480px) {
+                font-size: 1.2rem;
+            }
         }
 
         .counterValue {

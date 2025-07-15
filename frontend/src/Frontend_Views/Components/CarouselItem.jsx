@@ -22,7 +22,7 @@ export const CarouselItem = ({ item, index }) => {
         )}
 
         {item.carouse_title ? (
-          <h1 className="fw-bold my-4">{item.carouse_title}</h1>
+          <h1 className="fw-bold my-2 my-md-3">{item.carouse_title}</h1>
         ) : (
           ""
         )}
@@ -33,9 +33,11 @@ export const CarouselItem = ({ item, index }) => {
           ""
         )} */}
 
-        {item?.carouse_description && (
-          <RichTextView data={item?.carouse_description} showMorelink={false} />
-        )}
+        <div className="d-none d-lg-block">
+          {item?.carouse_description && (
+            <RichTextView data={item?.carouse_description} showMorelink={false} />
+          )}
+        </div>
       </div>
     </div>
   );
