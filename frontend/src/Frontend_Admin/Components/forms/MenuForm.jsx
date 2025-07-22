@@ -13,23 +13,11 @@ import { axiosServiceApi } from "../../../util/axiosUtil";
 import { getCookie } from "../../../util/cookieUtil";
 import { getMenu } from "../../../redux/auth/authActions";
 
-import {
-  createServiceChildFromMenu,
-  updatedMenu,
-  updateServiceMmenuID,
-} from "../../../util/menuUtil";
+import { createServiceChildFromMenu, updatedMenu, updateServiceMmenuID } from "../../../util/menuUtil";
 import SEOForm from "./SEOForm";
 import { getServiceValues } from "../../../redux/services/serviceActions";
 
-const MenuForm = ({
-  editHandler,
-  menuList,
-  editMenu,
-  componentType,
-  popupTitle,
-  selectedServiceMenu,
-  rootServiceMenu,
-}) => {
+const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, selectedServiceMenu, rootServiceMenu }) => {
   const dispatch = useDispatch();
   const closeHandler = () => {
     editHandler(componentType, false);
@@ -52,25 +40,15 @@ const MenuForm = ({
 
   const pageUrlValue = watch("page_url");
 
-  const [isParentVal, setisParentVal] = useState(
-    editMenu ? (editMenu?.is_Parent ? true : false) : true
-  );
+  const [isParentVal, setisParentVal] = useState(editMenu ? (editMenu?.is_Parent ? true : false) : true);
 
-  const [isMaintainerMenuActive, setisMaintainermenuActive] = useState(
-    editMenu ? (editMenu?.is_Admin_menu ? true : false) : true
-  );
+  const [isMaintainerMenuActive, setisMaintainermenuActive] = useState(editMenu ? (editMenu?.is_Admin_menu ? true : false) : true);
 
-  const [isClientMenuActive, setIsClientMenuActive] = useState(
-    editMenu ? (editMenu?.is_Client_menu ? true : false) : true
-  );
+  const [isClientMenuActive, setIsClientMenuActive] = useState(editMenu ? (editMenu?.is_Client_menu ? true : false) : true);
   const [optionMenulist, setOptionMenuList] = useState([]);
-  const [menuIndexValues, setMenuIndexValues] = useState(
-    generateOptionLength(15)
-  );
+  const [menuIndexValues, setMenuIndexValues] = useState(generateOptionLength(15));
 
-  const [isParentHasChilds, setIsParentHasChilds] = useState(
-    editMenu?.childMenu?.length > 0 ? true : false
-  );
+  const [isParentHasChilds, setIsParentHasChilds] = useState(editMenu?.childMenu?.length > 0 ? true : false);
 
   const updateMenuIndexValues = (menuOptinList) => {
     menuOptinList.forEach((item) => {
@@ -142,15 +120,13 @@ const MenuForm = ({
         return item.id === data.page_parent_ID;
       })[0];
       const _url = data["page_url"].split("/");
+      if (getSelectedParentObject?.page_url === "/services") {
+        data["page_url"] = getSelectedParentObject?.page_url + "/" + _url[_url.length - 1];
+      }
 
-      data["page_url"] =
-        getSelectedParentObject?.page_url + "/" + _url[_url.length - 1];
       if (!data?.id) {
-        const parentPosition = getSelectedParentObject.childMenu?.length
-          ? getSelectedParentObject.childMenu.length
-          : 1;
-        data["page_position"] =
-          getSelectedParentObject.page_position * 10 + parentPosition;
+        const parentPosition = getSelectedParentObject.childMenu?.length ? getSelectedParentObject.childMenu.length : 1;
+        data["page_position"] = getSelectedParentObject.page_position * 10 + parentPosition;
       }
     } else if (!data.page_parent_ID && !data?.id) {
       data["page_position"] = menuList?.length > 0 ? menuList?.length + 1 : 1;
@@ -179,15 +155,9 @@ const MenuForm = ({
 
     try {
       let response = await updatedMenu(data);
-      if (
-        (response?.status === 201 || response?.status === 200) &&
-        response?.data?.PageDetails
-      ) {
+      if ((response?.status === 201 || response?.status === 200) && response?.data?.PageDetails) {
         if (!data.is_Parent && data.page_parent_ID === rootServiceMenu.id) {
-          updateServicePageMenu(
-            selectedServiceMenu,
-            response?.data?.PageDetails
-          );
+          updateServicePageMenu(selectedServiceMenu, response?.data?.PageDetails);
         }
         closeHandler();
         dispatch(getMenu());
@@ -199,18 +169,12 @@ const MenuForm = ({
 
   const updateServicePageMenu = async (selectedServiceMenu, PageDetails) => {
     try {
-      const response = await createServiceChildFromMenu(
-        selectedServiceMenu,
-        PageDetails
-      );
+      const response = await createServiceChildFromMenu(selectedServiceMenu, PageDetails);
       if (response?.status === 201) {
-        const res = await updateServiceMmenuID(
-          response.data.services,
-          PageDetails
-        );
+        const res = await updateServiceMmenuID(response.data.services, PageDetails);
       }
       if (response?.status === 201 || response?.status === 200) {
-        toast.success(`$service is created `);
+        toast.success(`service is created `);
         dispatch(getServiceValues());
         dispatch(getMenu());
       }
@@ -245,35 +209,13 @@ const MenuForm = ({
       <div className="container">
         <div className="row py-0 pb-md-5">
           <div className="col-md-12 mb-5 mb-md-0">
-            {error && (
-              <div className="fw-bold">{error && <Error>{error}</Error>}</div>
-            )}
+            {error && <div className="fw-bold">{error && <Error>{error}</Error>}</div>}
             <form onSubmit={handleSubmit(saveMenu)}>
-              <InputFields
-                key={0}
-                label={"Menu Lable"}
-                type={"text"}
-                fieldName={"page_label"}
-                register={register}
-                onChange={onChangeHanlder}
-              />
-              <InputFields
-                key={1}
-                label={"Menu URL"}
-                type={"text"}
-                fieldName={"page_url"}
-                register={register}
-                onChange={onChangeHanlder}
-              />
+              <InputFields key={0} label={"Menu Lable"} type={"text"} fieldName={"page_label"} register={register} onChange={onChangeHanlder} />
+              <InputFields key={1} label={"Menu URL"} type={"text"} fieldName={"page_url"} register={register} onChange={onChangeHanlder} />
 
               <div className={!isParentHasChilds ? "d-flex" : ""}>
-                <CheckboxField
-                  label="Parent"
-                  fieldName={"is_Parent"}
-                  register={register}
-                  onChange={isParentHandler}
-                  isChecked={isParentVal}
-                />
+                <CheckboxField label="Parent" fieldName={"is_Parent"} register={register} onChange={isParentHandler} isChecked={isParentVal} />
 
                 <CheckboxField
                   label="Maintainer"
@@ -316,25 +258,12 @@ const MenuForm = ({
                 </>
               )}
               {!isParentHasChilds && (
-                <div
-                  className="p-4 py-1 pb-3 seoform"
-                  style={{ backgroundColor: "rgba(255, 255, 255, .4)" }}
-                >
-                  <SEOForm
-                    register={register}
-                    onChangeHanlder={onChangeHanlder}
-                    Controller={Controller}
-                    control={control}
-                  />
+                <div className="p-4 py-1 pb-3 seoform" style={{ backgroundColor: "rgba(255, 255, 255, .4)" }}>
+                  <SEOForm register={register} onChangeHanlder={onChangeHanlder} Controller={Controller} control={control} />
                 </div>
               )}
               <div className="d-flex justify-content-center flex-wrap flex-column flex-sm-row align-items-center gap-1 mt-3">
-                <Button
-                  type="submit"
-                  cssClass="btn btn-outline"
-                  label={"Close"}
-                  handlerChange={closeHandler}
-                />
+                <Button type="submit" cssClass="btn btn-outline" label={"Close"} handlerChange={closeHandler} />
                 <button className="btn btn-primary mx-3">Save</button>
               </div>
             </form>

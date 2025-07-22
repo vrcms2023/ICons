@@ -4,7 +4,7 @@ import { getBaseURL } from "./ulrUtil";
 import { getCookie } from "./cookieUtil";
 import { startLoading, stoptLoading } from "../redux/project/loadingSlice";
 
-axios.defaults.baseURL = getBaseURL() + "/api/v1";
+axios.defaults.baseURL = `${getBaseURL()}/api/v1`;
 
 axios.defaults.withCredentials = true;
 /**
@@ -19,8 +19,7 @@ const fileUploadHeader = {
   Accept: "application/json",
   "Content-type": "application/json",
   "X-CSRFToken": getCookie("csrftoken"),
-  "Content-Type":
-    "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
+  "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
 };
 export const axiosServiceApi = axios.create({ headers: headers });
 
@@ -88,29 +87,11 @@ const clientresponseInterceptorErrortHanler = async (error) => {
   return Promise.reject(error?.response?.data[key]);
 };
 
-axiosServiceApi.interceptors.request.use(
-  requestInterceptorRequestHanler,
-  requestInterceptorErrortHanler
-);
-axiosServiceApi.interceptors.response.use(
-  responseInterceptorResponseHanler,
-  responseInterceptorErrortHanler
-);
+axiosServiceApi.interceptors.request.use(requestInterceptorRequestHanler, requestInterceptorErrortHanler);
+axiosServiceApi.interceptors.response.use(responseInterceptorResponseHanler, responseInterceptorErrortHanler);
 
-axiosFileUploadServiceApi.interceptors.request.use(
-  requestInterceptorRequestHanler,
-  requestInterceptorErrortHanler
-);
-axiosFileUploadServiceApi.interceptors.response.use(
-  responseInterceptorResponseHanler,
-  responseInterceptorErrortHanler
-);
+axiosFileUploadServiceApi.interceptors.request.use(requestInterceptorRequestHanler, requestInterceptorErrortHanler);
+axiosFileUploadServiceApi.interceptors.response.use(responseInterceptorResponseHanler, responseInterceptorErrortHanler);
 
-axiosClientServiceApi.interceptors.request.use(
-  requestInterceptorClientRequestHanler,
-  requestInterceptorErrortHanler
-);
-axiosClientServiceApi.interceptors.response.use(
-  responseInterceptorResponseHanler,
-  clientresponseInterceptorErrortHanler
-);
+axiosClientServiceApi.interceptors.request.use(requestInterceptorClientRequestHanler, requestInterceptorErrortHanler);
+axiosClientServiceApi.interceptors.response.use(responseInterceptorResponseHanler, clientresponseInterceptorErrortHanler);
