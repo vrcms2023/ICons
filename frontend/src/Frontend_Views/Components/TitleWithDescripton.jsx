@@ -34,11 +34,7 @@ const ItemSlide = (props) => {
       <div className="quill ">
         <div className="ql-container ql-snow">
           <div className="ql-editor">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: item.intro_desc,
-              }}
-            ></div>
+            <RichTextView data={item.intro_desc} showMorelink={false} />
           </div>
         </div>
       </div>
