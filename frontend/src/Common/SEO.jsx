@@ -61,41 +61,11 @@ const SEO = () => {
   return (
     <>
       <Helmet>
-        <title>
-          {seoObject?.seo_title
-            ? seoObject?.seo_title
-            : "EZI Press - Custom CMS"}
-        </title>
-        <meta
-          name="description"
-          content={
-            seoObject?.seo_description
-              ? seoObject?.seo_description
-              : "EZI Press - Custom CMS"
-          }
-        />
-        <meta
-          name="link"
-          content={
-            seoObject?.seo_link ? seoObject?.seo_link : "EZI Press - Custom CMS"
-          }
-        />
-        <meta
-          name="keywords"
-          content={
-            seoObject?.seo_keywords
-              ? seoObject?.seo_keywords
-              : "EZI Press - Custom CMS"
-          }
-        />
-        <meta
-          name="author"
-          content={
-            seoObject?.seo_author
-              ? seoObject?.seo_author
-              : "EZI Press - Custom CMS"
-          }
-        />
+        <title>{seoObject?.seo_title ? seoObject?.seo_title : "ICONSENGG"}</title>
+        <meta name="description" content={seoObject?.seo_description ? seoObject?.seo_description : "ICONSENGG"} />
+        <meta name="link" content={seoObject?.seo_link ? seoObject?.seo_link : "ICONSENGG"} />
+        <meta name="keywords" content={seoObject?.seo_keywords ? seoObject?.seo_keywords : "ICONSENGG"} />
+        <meta name="author" content={seoObject?.seo_author ? seoObject?.seo_author : "ICONSENGG"} />
       </Helmet>
     </>
   );

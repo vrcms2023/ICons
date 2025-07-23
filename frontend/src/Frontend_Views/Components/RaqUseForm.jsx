@@ -6,10 +6,7 @@ import { toast } from "react-toastify";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 
 import { removeCookie, setCookie } from "../../util/cookieUtil";
-import {
-  InputFields,
-  SelectField,
-} from "../../Frontend_Admin/Components/forms/FormFields";
+import { InputFields, SelectField } from "../../Frontend_Admin/Components/forms/FormFields";
 import { generateOptionLength } from "../../util/commonUtil";
 import Button from "../../Common/Button";
 import { countries, natureofprojectOptions } from "../../data/coutrieslist";
@@ -40,6 +37,7 @@ const RaqUseForm = ({ closeModel, downloadPDF }) => {
         closeModel();
         downloadPDF();
       } else {
+        closeModel();
         toast.error("unable to process your request");
       }
     } catch (error) {
@@ -51,10 +49,7 @@ const RaqUseForm = ({ closeModel, downloadPDF }) => {
     <>
       {/* User Contact Form */}
       <div className="col-md-12 d-flex justify-content-center align-items-center flex-column">
-        <form
-          className="my-2 contactForm"
-          onSubmit={handleSubmit(onFormSubmit)}
-        >
+        <form className="my-2 contactForm" onSubmit={handleSubmit(onFormSubmit)}>
           <div className="row">
             <div className="col-6">
               <InputFields
@@ -164,19 +159,9 @@ const RaqUseForm = ({ closeModel, downloadPDF }) => {
               />
             </div>
             <div className="col-4">
-              <InputFields
-                type="hidden"
-                label="Teams"
-                fieldName="hangout"
-                register={register}
-              />
+              <InputFields type="hidden" label="Teams" fieldName="hangout" register={register} />
 
-              <InputFields
-                type="hidden"
-                label="Teams"
-                fieldName="other"
-                register={register}
-              />
+              <InputFields type="hidden" label="Teams" fieldName="other" register={register} />
             </div>
             <div className="d-flex justify-content-center flex-wrap flex-column flex-sm-row align-items-center gap-1 mt-3">
               <button className="btn btn-primary mx-3">DOWNLOAD</button>

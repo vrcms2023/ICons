@@ -4,11 +4,7 @@ import { axiosServiceApi } from "../../../util/axiosUtil";
 import { toast } from "react-toastify";
 import Search from "../../../Common/Search";
 import CustomPagination from "../../../Common/CustomPagination";
-import {
-  getDateAndTimeValue,
-  getTodayDate,
-  paginationDataFormat,
-} from "../../../util/commonUtil";
+import { getDateAndTimeValue, getTodayDate, paginationDataFormat } from "../../../util/commonUtil";
 import { sortCreatedDateByDesc } from "../../../util/dataFormatUtil";
 import Button from "../../../Common/Button";
 import Ancher from "../../../Common/Ancher";
@@ -49,9 +45,7 @@ const RAQAdmininistration = () => {
   }, []);
 
   const setResponseData = (data) => {
-    setUserDetails(
-      data.results.length > 0 ? sortCreatedDateByDesc(data.results) : []
-    );
+    setUserDetails(data.results.length > 0 ? sortCreatedDateByDesc(data.results) : []);
     setPaginationData(paginationDataFormat(data));
     setCurrentPage(1);
   };
@@ -62,9 +56,7 @@ const RAQAdmininistration = () => {
         responseType: "blob",
         withCredentials: true,
       });
-      const filename = response.headers["content-disposition"]
-        .split("filename=")[1]
-        .replace(/"/g, "");
+      const filename = response.headers["content-disposition"].split("filename=")[1].replace(/"/g, "");
 
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
@@ -89,12 +81,9 @@ const RAQAdmininistration = () => {
       description: user.description,
     };
     try {
-      const response = await axiosServiceApi.post(
-        `/contactus/sendRequesttoClient/`,
-        {
-          ...data,
-        }
-      );
+      const response = await axiosServiceApi.post(`/contactus/sendRequesttoClient/`, {
+        ...data,
+      });
 
       if (response.status === 200) {
         toast.success(`Request is sent successfully`);
@@ -118,7 +107,7 @@ const RAQAdmininistration = () => {
     <div className="container-fluid pt-5 contactsList">
       <div className="row px-2 px-lg-5">
         <div className="col-md-3">
-          <Title title={"RAQ Form list"} cssClass="fs-1 pageTitle" />
+          <Title title={"RAQ Contacts"} cssClass="fs-1 pageTitle" />
         </div>
         {userDetails?.length > 0 && (
           <>
@@ -137,10 +126,10 @@ const RAQAdmininistration = () => {
 
             <div className="col-md-2 p-0">
               <Button
-                label={"RAQ Contacts"}
+                label={" RAQ Contacts"}
                 handlerChange={downloadExcelfile}
                 cssClass="btn btn-outline float-end"
-                icon="fa-download"
+                icon="fa-download  me-2 d-inline-block"
               />
             </div>
           </>
@@ -164,16 +153,18 @@ const RAQAdmininistration = () => {
               {userDetails?.map((user) => (
                 <tr key={user.id}>
                   <td class="align-middle">{user.name}</td>
-                  <td class="align-middle">{user.email}</td>
-                  <td class="align-middle">{user.phoneNumber}</td>
+                  <td class="align-middle">
+                    <i class="fa fs-6 me-2 text-primary fa-envelope" aria-hidden="true"></i>
+                    <a href={`mailto:${user.email}`}>{user.email}</a>
+                  </td>
+                  <td class="align-middle">
+                    <i class="fa fs-4 me-2 fa-mobile" aria-hidden="true"></i>
+                    <a href={`tel:${user.phoneNumber}`}>{user.phoneNumber}</a>
+                  </td>
                   <td class="align-middle">{user.description} </td>
                   <td class="align-middle">
                     {getDateAndTimeValue(user.created_at)}
-                    {getTodayDate(user.created_at) && (
-                      <span className="badge bg-warning text-dark px-2 ms-2">
-                        NEW
-                      </span>
-                    )}
+                    {getTodayDate(user.created_at) && <span className="badge bg-warning text-dark px-2 ms-2">NEW</span>}
                   </td>
                   {/* <td class="align-middle"> */}
                   {/* <Button
@@ -204,11 +195,7 @@ const RAQAdmininistration = () => {
           <CustomPagination
             paginationData={paginationData}
             paginationURL={"/contactus/"}
-            paginationSearchURL={
-              searchQuery
-                ? `/contactus/searchContacts/${searchQuery}/`
-                : "/contactus/"
-            }
+            paginationSearchURL={searchQuery ? `/contactus/searchContacts/${searchQuery}/` : "/contactus/"}
             searchQuery={searchQuery}
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
@@ -219,12 +206,7 @@ const RAQAdmininistration = () => {
           ""
         )}
       </div>
-      {modelShow && (
-        <ContactsendRequstModel
-          closeModel={closeModel}
-          selectedUser={selectedUser}
-        />
-      )}
+      {modelShow && <ContactsendRequstModel closeModel={closeModel} selectedUser={selectedUser} />}
       {modelShow && <ModelBg closeModel={closeModel} />}
     </div>
   );
