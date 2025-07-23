@@ -7,11 +7,7 @@ import { ThemeProvider } from "styled-components";
 
 // Components
 import LoadingSpinner from "./Common/LoadingSpinner";
-import {
-  isNotEmptyObject,
-  NO_FOOTER_ROUTES,
-  NO_HEADER_ROUTES,
-} from "./util/commonUtil";
+import { isNotEmptyObject, NO_FOOTER_ROUTES, NO_HEADER_ROUTES } from "./util/commonUtil";
 import SkeletonPage from "./Common/Skeltons/SkeletonPage";
 import Footer from "./Common/Footer/Footer";
 import Header from "./Common/Header/Header";
@@ -41,114 +37,56 @@ import "slick-carousel/slick/slick-theme.css";
 
 const HPRHome = lazy(() => import("./Frontend_Views/Pages/HPR-Home"));
 
-const PageNotFound = lazy(
-  () => import("./Frontend_Views/Pages/404/PageNotFound")
-);
+const PageNotFound = lazy(() => import("./Frontend_Views/Pages/404/PageNotFound"));
 const Home = lazy(() => import("./Frontend_Views/Pages/Home/index"));
 const About = lazy(() => import("./Frontend_Views/Pages/About/About"));
-const WhyChooseUs = lazy(
-  () => import("./Frontend_Views/Pages/whychooseus/whychooseus.jsx")
-);
+const WhyChooseUs = lazy(() => import("./Frontend_Views/Pages/whychooseus/whychooseus.jsx"));
 const Contact = lazy(() => import("./Frontend_Views/Pages/Contact/Contact"));
 const Services = lazy(() => import("./Frontend_Views/Pages/Services/Services"));
 const Products = lazy(() => import("./Frontend_Views/Pages/Products/index"));
-const ProductDetails = lazy(
-  () => import("./Frontend_Views/Pages/Products/ProductDetails")
-);
-const ClientsList = lazy(
-  () => import("./Frontend_Views/Pages/Clients/ClientsList")
-);
+const ProductDetails = lazy(() => import("./Frontend_Views/Pages/Products/ProductDetails"));
+const ClientsList = lazy(() => import("./Frontend_Views/Pages/Clients/ClientsList"));
 const Careers = lazy(() => import("./Frontend_Views/Pages/Careers/Careers"));
-const CareerDetails = lazy(
-  () => import("./Frontend_Views/Pages/Careers/career-details")
-);
+const CareerDetails = lazy(() => import("./Frontend_Views/Pages/Careers/career-details"));
 const Team = lazy(() => import("./Frontend_Views/Pages/Teams/Team"));
 const Projects = lazy(() => import("./Frontend_Views/Pages/Projects/Projects"));
-const ProjectsGallery = lazy(
-  () => import("./Frontend_Views/Pages/Projects/ProjectsGallery")
-);
-const ProjectTabs = lazy(
-  () => import("./Frontend_Views/Components/ProjectsTabs/ProjecTabs")
-);
+const ProjectsGallery = lazy(() => import("./Frontend_Views/Pages/Projects/ProjectsGallery"));
+const ProjectTabs = lazy(() => import("./Frontend_Views/Components/ProjectsTabs/ProjecTabs"));
 
-const ImagesGallery = lazy(
-  () => import("./Frontend_Views/Pages/Gallery/ImagesGallery")
-);
-const VideosGallery = lazy(
-  () => import("./Frontend_Views/Pages/Gallery/VideosGallery")
-);
-const CaseStudies = lazy(
-  () => import("./Frontend_Views/Pages/Casestudies/CaseStudies")
-);
-const CaseStudiesDetails = lazy(
-  () => import("./Frontend_Views/Pages/Casestudies/caseStudies-details")
-);
-const NewsAndUpdates = lazy(
-  () => import("./Frontend_Views/Pages/News/NewsAndUpdates")
-);
-const TestimonialsList = lazy(
-  () => import("./Frontend_Views/Pages/Testimonials/TestimonialsList")
-);
+const ImagesGallery = lazy(() => import("./Frontend_Views/Pages/Gallery/ImagesGallery"));
+const VideosGallery = lazy(() => import("./Frontend_Views/Pages/Gallery/VideosGallery"));
+const CaseStudies = lazy(() => import("./Frontend_Views/Pages/Casestudies/CaseStudies"));
+const CaseStudiesDetails = lazy(() => import("./Frontend_Views/Pages/Casestudies/caseStudies-details"));
+const NewsAndUpdates = lazy(() => import("./Frontend_Views/Pages/News/NewsAndUpdates"));
+const TestimonialsList = lazy(() => import("./Frontend_Views/Pages/Testimonials/TestimonialsList"));
 
 const Login = lazy(() => import("./Frontend_Admin/Pages/Auth/Login"));
-const Registration = lazy(
-  () => import("./Frontend_Admin/Pages/Auth/Registration")
-);
-const ChangePassword = lazy(
-  () => import("./Frontend_Admin/Pages/Auth/ChangePassword")
-);
-const ResetPassword = lazy(
-  () => import("./Frontend_Admin/Pages/Auth/ResetPassword")
-);
-const ResetPasswordConfirmation = lazy(
-  () => import("./Frontend_Admin/Pages/Auth/ResetPasswordConfirmation")
-);
+const Registration = lazy(() => import("./Frontend_Admin/Pages/Auth/Registration"));
+const ChangePassword = lazy(() => import("./Frontend_Admin/Pages/Auth/ChangePassword"));
+const ResetPassword = lazy(() => import("./Frontend_Admin/Pages/Auth/ResetPassword"));
+const ResetPasswordConfirmation = lazy(() => import("./Frontend_Admin/Pages/Auth/ResetPasswordConfirmation"));
 const Activation = lazy(() => import("./Frontend_Admin/Pages/Auth/Activation"));
-const ResendActivationEmail = lazy(
-  () => import("./Frontend_Admin/Pages/Auth/ResendActivationEmail")
-);
+const ResendActivationEmail = lazy(() => import("./Frontend_Admin/Pages/Auth/ResendActivationEmail"));
 // const Dashboard = lazy(
 //   () => import("./Frontend_Admin/Pages/Login/Dashboard_V1")
 // );
-const Dashboard = lazy(
-  () => import("./Frontend_Admin/Pages/Login/Dashboard_V2")
-);
+const Dashboard = lazy(() => import("./Frontend_Admin/Pages/Login/Dashboard_V2"));
 const UserAdmin = lazy(() => import("./Frontend_Admin/Pages/Auth/UserAdmin"));
 const Themes = lazy(() => import("./Frontend_Admin/Pages/Auth/Themes"));
-const UnauthorizedPage = lazy(
-  () => import("./Frontend_Admin/Pages/Login/UnauthorizedPage")
-);
+const UnauthorizedPage = lazy(() => import("./Frontend_Admin/Pages/Login/UnauthorizedPage"));
 const AuthForm = lazy(() => import("./Frontend_Admin/Pages/Auth/AuthForm"));
-const AddProject = lazy(
-  () => import("./Frontend_Admin/Pages/Login/AddProject")
-);
-const ProjectCategory = lazy(
-  () => import("./Frontend_Admin/Pages/Login/ProjectCategory")
-);
+const AddProject = lazy(() => import("./Frontend_Admin/Pages/Login/AddProject"));
+const ProjectCategory = lazy(() => import("./Frontend_Admin/Pages/Login/ProjectCategory"));
 const AdminNews = lazy(() => import("./Frontend_Admin/Pages/Login/AdminNews"));
-const ContactUSAdmin = lazy(
-  () => import("./Frontend_Admin/Pages/Auth/ContactUSAdmin")
-);
-const PagesConfiguration = lazy(
-  () => import("./Frontend_Admin/Pages/Auth/PagesConfiguration")
-);
-const UserPagePermission = lazy(
-  () => import("./Frontend_Admin/Pages/Auth/UserPagePermission")
-);
-const AdminTestimonial = lazy(
-  () => import("./Frontend_Admin/Pages/Login/AdminTestimonial")
-);
+const ContactUSAdmin = lazy(() => import("./Frontend_Admin/Pages/Auth/ContactUSAdmin"));
+const PagesConfiguration = lazy(() => import("./Frontend_Admin/Pages/Auth/PagesConfiguration"));
+const UserPagePermission = lazy(() => import("./Frontend_Admin/Pages/Auth/UserPagePermission"));
+const AdminTestimonial = lazy(() => import("./Frontend_Admin/Pages/Login/AdminTestimonial"));
 
-const AdminSettings = lazy(
-  () => import("./Frontend_Admin/Pages/Auth/AdminSettings")
-);
+const AdminSettings = lazy(() => import("./Frontend_Admin/Pages/Auth/AdminSettings"));
 
-const RAQAdmininistration = lazy(
-  () => import("./Frontend_Admin/Pages/Auth/RAQAdmininistration")
-);
-const HomeServices = lazy(
-  () => import("./Frontend_Views/Components/HomeServices")
-);
+const RAQAdmininistration = lazy(() => import("./Frontend_Admin/Pages/Auth/RAQAdmininistration"));
+const HomeServices = lazy(() => import("./Frontend_Views/Components/HomeServices"));
 
 function App() {
   const { isLoading } = useSelector((state) => state.loader);
@@ -161,9 +99,7 @@ function App() {
   const [counter, setCounter] = useState(0);
   const { userInfo, permissions } = useSelector((state) => state.auth);
 
-  const { error, success, showHideList } = useSelector(
-    (state) => state.showHide
-  );
+  const { error, success, showHideList } = useSelector((state) => state.showHide);
 
   useEffect(() => {
     const isAdmin = Boolean(getCookie("is_admin"));
@@ -243,20 +179,11 @@ function App() {
               <Route path="/userAdmin" element={<UserAdmin />} />
               <Route path="/theme" element={<Themes />} />
               <Route path="/userPermission" element={<UserPagePermission />} />
-              <Route
-                path="/adminPagesConfiguration"
-                element={<PagesConfiguration />}
-              />
-              <Route
-                path="/raqformAdministration"
-                element={<RAQAdmininistration />}
-              />
+              <Route path="/adminPagesConfiguration" element={<PagesConfiguration />} />
+              <Route path="/raqformAdministration" element={<RAQAdmininistration />} />
               <Route path="/settings" element={<AdminSettings />} />
               <Route path="/editproject/:id" element={<AddProject />} />
-              <Route
-                path="/password/reset/:uid/:token"
-                element={<ResetPasswordConfirmation />}
-              />
+              <Route path="/password/reset/:uid/:token" element={<ResetPasswordConfirmation />} />
             </Route>
 
             <Route path="*" element={<PageNotFound />} />
@@ -272,22 +199,20 @@ function App() {
             <Route path="/news" element={<NewsAndUpdates />} />
             <Route path="/team" element={<Team />} />
             <Route path="/clients" element={<ClientsList />} />
-
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/career-details/:id" element={<CareerDetails />} />
             <Route path="/services" element={<Services />} />
             <Route path="/services/:uid" element={<Services />} />
             <Route path="/all-serivces" element={<AllServices />} />
 
             <Route path="/contact" element={<Contact />} />
-
+            <Route path="/testimonials" element={<TestimonialsList />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Registration />} />
             <Route path="/reset_password" element={<ResetPassword />} />
 
             <Route path="/activate/:uid/:token" element={<Activation />} />
-            <Route
-              path="/resend_activation"
-              element={<ResendActivationEmail />}
-            />
+            <Route path="/resend_activation" element={<ResendActivationEmail />} />
             <Route path="/unauthorized" element={<UnauthorizedPage />} />
             <Route path="/authForm" element={<AuthForm />} />
           </Routes>
@@ -296,12 +221,7 @@ function App() {
         {!isHideMenu && <Footer />}
       </ThemeProvider>
       <ToastContainer autoClose={2000} theme="colored" />
-      <ScrollToTop
-        smooth
-        color="#fff"
-        height="20"
-        className="shadow rounded-circle scrollTop"
-      />
+      <ScrollToTop smooth color="#fff" height="20" className="shadow rounded-circle scrollTop" />
     </>
   );
 }

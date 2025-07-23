@@ -36,26 +36,15 @@ const TopStrip = () => {
       {isAdmin && (
         <div className="d-flex justify-content-center justify-content-md-between align-items-center px-5 py-3 topStrip">
           <div className="d-none d-md-flex">
-            <Title
-              title="Welcome to EZI Press"
-              mainTitleClassess="fw-normal"
-              subTitleClassess=""
-            />
+            <Title title="Welcome to ICONENGG" mainTitleClassess="fw-normal" subTitleClassess="" />
           </div>
           <div className="d-flex justify-content-between quickContact gap-5">
-            <span className="d-none d-md-flex">
-              {" "}
-              {footerValues?.phonen_number
-                ? footerValues?.phonen_number
-                : ""}{" "}
-            </span>
+            <span className="d-none d-md-flex"> {footerValues?.phonen_number ? footerValues?.phonen_number : ""} </span>
 
             {footerValues.emailid ? (
               <span className="d-none d-md-flex justify-content-center align-items-center">
                 <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                <a href={`mailto:${footerValues.emailid}`}>
-                  {footerValues.emailid}
-                </a>
+                <a href={`mailto:${footerValues.emailid}`}>{footerValues.emailid}</a>
               </span>
             ) : (
               ""

@@ -10,18 +10,11 @@ import { sortCreatedDateByDesc } from "../../../util/dataFormatUtil";
 import Button from "../../../Common/Button";
 import ModalBg from "../../../Common/ModelBg";
 import ShowHideToggle from "../../../Common/ShowHideToggle";
-import {
-  createShowHideComponent,
-  getShowHideComponentsListByPage,
-  updateShowHideComponent,
-} from "../../../redux/showHideComponent/showHideActions";
+import { createShowHideComponent, getShowHideComponentsListByPage, updateShowHideComponent } from "../../../redux/showHideComponent/showHideActions";
 import DeleteDialog from "../../../Common/DeleteDialog";
 import { confirmAlert } from "react-confirm-alert";
 import SingleImageUlploadWithForm from "../../Components/forms/SingleImageUlploadWithForm";
-import {
-  getAdvertisementFormDynamicFields,
-  imageDimensionsJson,
-} from "../../../util/dynamicFormFields";
+import { getAdvertisementFormDynamicFields, imageDimensionsJson } from "../../../util/dynamicFormFields";
 import RadioButtonGroup from "../../Components/RadioButtonGroup";
 
 import "./adminSettingStyles.css";
@@ -49,9 +42,7 @@ const AdvertisementsAdminSettings = () => {
     { label: "large", value: "large" },
   ];
 
-  const { error, success, showHideCompPageList } = useSelector(
-    (state) => state.showHide
-  );
+  const { error, success, showHideCompPageList } = useSelector((state) => state.showHide);
 
   useEffect(() => {
     if (showHideCompPageList && showHideCompPageList[pageType]) {
@@ -79,13 +70,9 @@ const AdvertisementsAdminSettings = () => {
 
   const getAdvertisementList = async () => {
     try {
-      const response = await axiosServiceApi.get(
-        `/advertisement/createAdvertisement/`
-      );
+      const response = await axiosServiceApi.get(`/advertisement/createAdvertisement/`);
       if (response?.status === 200) {
-        const sortbyCreateData = sortCreatedDateByDesc(
-          response?.data?.advertisementList
-        );
+        const sortbyCreateData = sortCreatedDateByDesc(response?.data?.advertisementList);
         setAdvertisementList(sortbyCreateData);
       }
     } catch (error) {
@@ -98,9 +85,7 @@ const AdvertisementsAdminSettings = () => {
 
   const getAdvertisementSize = async () => {
     try {
-      const response = await axiosServiceApi.get(
-        `/advertisement/createAdvSize/`
-      );
+      const response = await axiosServiceApi.get(`/advertisement/createAdvSize/`);
       if (response?.status === 200 && response?.data.length > 0) {
         setadvSize(response.data[0]);
         setSelectedOption(response.data[0].size);
@@ -114,12 +99,9 @@ const AdvertisementsAdminSettings = () => {
     try {
       let response = "";
       if (advSize?.id) {
-        response = await axiosServiceApi.patch(
-          `/advertisement/updateAdvSize/${advSize?.id}/`,
-          {
-            size: value,
-          }
-        );
+        response = await axiosServiceApi.patch(`/advertisement/updateAdvSize/${advSize?.id}/`, {
+          size: value,
+        });
       } else {
         response = await axiosServiceApi.post(`/advertisement/createAdvSize/`, {
           size: value,
@@ -148,12 +130,9 @@ const AdvertisementsAdminSettings = () => {
     advertisement.showAndHide = !advertisement.showAndHide;
     advertisement.path = "";
     try {
-      const response = await axiosServiceApi.patch(
-        `/advertisement/updateAdvertisement/${advertisement.id}/`,
-        {
-          ...advertisement,
-        }
-      );
+      const response = await axiosServiceApi.patch(`/advertisement/updateAdvertisement/${advertisement.id}/`, {
+        ...advertisement,
+      });
 
       if (response.status === 200) {
         toast.success(`Advertisement update successfully`);
@@ -182,9 +161,7 @@ const AdvertisementsAdminSettings = () => {
   const handleAdvertisementDelete = (advertisement) => {
     const title = advertisement.title;
     const deleteMenuItemByID = async () => {
-      const response = await axiosServiceApi.delete(
-        `/advertisement/updateAdvertisement/${advertisement.id}/`
-      );
+      const response = await axiosServiceApi.delete(`/advertisement/updateAdvertisement/${advertisement.id}/`);
       if (response.status === 204) {
         toast.success(`${title} Advertisement is delete successfully `);
         getAdvertisementList();
@@ -220,15 +197,11 @@ const AdvertisementsAdminSettings = () => {
       <div className="container-fluid pt-5 contactsList">
         <div className="row px-2 px-lg-5">
           <div className="col-sm-12 col-md-7">
-            <Title title={"Advertisements"} cssClass="fs-1 pageTitle" />
+            <Title title={"Advertisements"} cssClass="fs-4 pageTitle" />
           </div>
 
           <div className="col-12 col-sm-6 col-md-3 d-flex align-items-center text-center bg-light my-3 my-md-0 py-3 py-md-0 advSizes">
-            <RadioButtonGroup
-              options={radioOptions}
-              onChange={handleOptionChange}
-              defaultOption={selectedOption}
-            />
+            <RadioButtonGroup options={radioOptions} onChange={handleOptionChange} defaultOption={selectedOption} />
           </div>
           <div className="col-6 col-sm-3 col-md-1 d-flex align-items-center justify-content-center publishAdvertisement">
             <ShowHideToggle
@@ -239,12 +212,7 @@ const AdvertisementsAdminSettings = () => {
             />
           </div>
           <div className="col-6 col-sm-3 col-md-1  justify-content-center addAdvertisement">
-            <Button
-              type=""
-              cssClass="btn btn-outline"
-              label="Add"
-              handlerChange={() => addNewAdvertisement("advertisement", true)}
-            />
+            <Button type="" cssClass="btn btn-outline" label="Add" handlerChange={() => addNewAdvertisement("advertisement", true)} />
           </div>
         </div>
 
@@ -261,10 +229,7 @@ const AdvertisementsAdminSettings = () => {
                   <th className="align-middle" style={{ width: "100px" }}>
                     Show or Hide
                   </th>
-                  <th
-                    className="align-middle text-end"
-                    style={{ width: "100px" }}
-                  >
+                  <th className="align-middle text-end" style={{ width: "100px" }}>
                     Action
                   </th>
                 </tr>
@@ -273,16 +238,10 @@ const AdvertisementsAdminSettings = () => {
                 {advertisementList?.map((advertisement) => (
                   <tr key={advertisement.id}>
                     <td className="align-middle">{advertisement.title}</td>
-                    <td className="align-middle">
-                      {advertisement.advertisement_description}
-                    </td>
+                    <td className="align-middle">{advertisement.advertisement_description}</td>
                     <td className="align-middle text-center">
                       <img
-                        src={
-                          advertisement?.path
-                            ? getImagePath(advertisement?.path)
-                            : getDummyImage()
-                        }
+                        src={advertisement?.path ? getImagePath(advertisement?.path) : getDummyImage()}
                         alt={advertisement.alternitivetext}
                         className="thumb75 d-lg-block rounded-1"
                         style={{
@@ -304,29 +263,12 @@ const AdvertisementsAdminSettings = () => {
                       {advertisement.showAndHide}
                     </td>
                     <td className="align-middle text-end">
-                      <Link
-                        to=""
-                        onClick={() =>
-                          editHandler("advertisement", true, advertisement)
-                        }
-                        className="p-2"
-                      >
-                        <i
-                          className="fa fa-pencil text-warning cursor-pointer fs-5"
-                          aria-hidden="true"
-                        ></i>
+                      <Link to="" onClick={() => editHandler("advertisement", true, advertisement)} className="p-2">
+                        <i className="fa fa-pencil text-warning cursor-pointer fs-5" aria-hidden="true"></i>
                       </Link>
 
-                      <Link
-                        to=""
-                        className=" ms-4"
-                        onClick={() => handleAdvertisementDelete(advertisement)}
-                      >
-                        <i
-                          className="fa fa-trash-o fs-4 text-danger"
-                          aria-hidden="true"
-                          title="Delete"
-                        ></i>
+                      <Link to="" className=" ms-4" onClick={() => handleAdvertisementDelete(advertisement)}>
+                        <i className="fa fa-trash-o fs-4 text-danger" aria-hidden="true" title="Delete"></i>
                       </Link>
                     </td>
                   </tr>
@@ -352,9 +294,7 @@ const AdvertisementsAdminSettings = () => {
                   imageDeleteURL="/advertisement/updateAdvertisement/"
                   imageLabel="Advertisement Image"
                   showDescription={false}
-                  showExtraFormFields={getAdvertisementFormDynamicFields(
-                    editAdvertisement
-                  )}
+                  showExtraFormFields={getAdvertisementFormDynamicFields(editAdvertisement)}
                   dimensions={imageDimensionsJson("advertisement")}
                 />
               </div>

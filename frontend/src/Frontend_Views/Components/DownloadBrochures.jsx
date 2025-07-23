@@ -21,13 +21,9 @@ const DownloadBrochures = () => {
 
   const getBrochuresList = async () => {
     try {
-      const response = await axiosClientServiceApi.get(
-        `/contactus/clientBrochures/`
-      );
+      const response = await axiosClientServiceApi.get(`/contactus/clientBrochures/`);
       if (response?.status === 200) {
-        const sortbyCreateData = sortCreatedDateByDesc(
-          response?.data?.brochures
-        );
+        const sortbyCreateData = sortCreatedDateByDesc(response?.data?.brochures);
         setBrochuresList(sortbyCreateData);
       }
     } catch (error) {
@@ -48,20 +44,9 @@ const DownloadBrochures = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // const downloadPDF = (url) => {
-  //   window.open(
-  //     url,
-  //     "_blank",
-  //     "location=yes,height=800,width=600 ,scrollbars=yes,status=yes"
-  //   );
-  // };
-
   const downloadPDF = () => {
-    const link = document.createElement("a");
-    link.download = fileName;
-    link.href = baseURL + pathName;
-    link.target = "_blank";
-    link.click();
+    const url = baseURL + pathName;
+    window.open(url, "_blank", "location=yes,height=800,width=600 ,scrollbars=yes,status=yes");
   };
 
   const checkClientInfoAndDownload = (path, name) => {
@@ -87,30 +72,10 @@ const DownloadBrochures = () => {
           handlerChange={() =>
             checkClientInfoAndDownload(
               brochuresList[0]?.path,
-              brochuresList[0]?.brochures_downloadName
-                ? brochuresList[0]?.brochures_downloadName
-                : brochuresList[0]?.originalname
+              brochuresList[0]?.brochures_downloadName ? brochuresList[0]?.brochures_downloadName : brochuresList[0]?.originalname
             )
           }
         />
-
-        // <Button
-        //     label=""
-        //     cssClass="btn btn-primary mb-1 p-2 text-uppercase"
-        //     icon=""
-        //     image={IconsIconImg}
-        //     imageLabel="DOWNLOAD"
-        //     imgeLabelCss="d-flex justify-content-center align-items-center flex-column"
-        //     handlerChange={() =>
-        //       checkClientInfoAndDownload(
-        //         brochuresList[0]?.path,
-        //         brochuresList[0]?.brochures_downloadName
-        //           ? brochuresList[0]?.brochures_downloadName
-        //           : brochuresList[0]?.originalname
-        //       )
-        //     }
-        //   >
-        //   </Button>
       )}
       {brochuresList.length > 1 && (
         <div class="dropdown">
@@ -121,27 +86,19 @@ const DownloadBrochures = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <i
-              class="fa fa-download cursor-pointer fs-4"
-              aria-hidden="true"
-            ></i>
+            <i class="fa fa-download cursor-pointer fs-4" aria-hidden="true"></i>
             <span>BROCHURES </span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             {brochuresList?.map((brochures) => (
               <li>
-                <i
-                  class="fa fa-file-pdf-o cursor-pointer fs-4 me-2"
-                  aria-hidden="true"
-                ></i>
+                <i class="fa fa-file-pdf-o cursor-pointer fs-4 me-2" aria-hidden="true"></i>
                 <a
                   href="#!"
                   onClick={() =>
                     checkClientInfoAndDownload(
                       brochures.path,
-                      brochures.brochures_downloadName
-                        ? brochures.brochures_downloadName
-                        : brochures.originalname
+                      brochures.brochures_downloadName ? brochures.brochures_downloadName : brochures.originalname
                     )
                   }
                   className="mx-1 text-dark"
@@ -153,9 +110,7 @@ const DownloadBrochures = () => {
           </ul>
         </div>
       )}
-      {show && (
-        <RaqFormModel closeModel={closeModel} downloadPDF={downloadPDF} />
-      )}
+      {show && <RaqFormModel closeModel={closeModel} downloadPDF={downloadPDF} />}
       {show && <ModelBg />}
     </div>
   );

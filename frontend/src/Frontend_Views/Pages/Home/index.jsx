@@ -28,11 +28,7 @@ import { HomeClientsStyled } from "../../../Common/StyledComponents/Styled-HomeC
 // Utilities
 import { axiosClientServiceApi } from "../../../util/axiosUtil";
 import { removeActiveClass } from "../../../util/ulrUtil";
-import {
-  getObjectPositionKey,
-  sortByFieldName,
-  genereateCategoryProducts,
-} from "../../../util/commonUtil";
+import { getObjectPositionKey, sortByFieldName, genereateCategoryProducts } from "../../../util/commonUtil";
 import {
   getCarouselFields,
   getFormDynamicFields,
@@ -170,9 +166,7 @@ const Home = () => {
       let categoryId = "";
       const arrURL = [];
       categories.forEach((item, index) => {
-        arrURL.push(
-          axiosClientServiceApi.get(`/products/getClinetProduct/${item.id}/`)
-        );
+        arrURL.push(axiosClientServiceApi.get(`/products/getClinetProduct/${item.id}/`));
       });
 
       await Promise.all(arrURL).then(function (values) {
@@ -194,14 +188,9 @@ const Home = () => {
   useEffect(() => {
     const getTestimonial = async () => {
       try {
-        const response = await axiosClientServiceApi.get(
-          `/testimonials/clientTestimonials/`
-        );
+        const response = await axiosClientServiceApi.get(`/testimonials/clientTestimonials/`);
         if (response?.status === 200) {
-          const _testimonialsList = sortByFieldName(
-            response.data.results,
-            "testimonial_position"
-          );
+          const _testimonialsList = sortByFieldName(response.data.results, "testimonial_position");
           setTestmonis(_testimonialsList);
         }
       } catch (e) {
@@ -216,14 +205,9 @@ const Home = () => {
   useEffect(() => {
     const getClientList = async () => {
       try {
-        const response = await axiosClientServiceApi.get(
-          `/client/getAllClientLogos/`
-        );
+        const response = await axiosClientServiceApi.get(`/client/getAllClientLogos/`);
         if (response?.status === 200) {
-          const _clientList = sortByFieldName(
-            response.data.clientLogo,
-            "client_position"
-          );
+          const _clientList = sortByFieldName(response.data.clientLogo, "client_position");
 
           setClientsList(_clientList);
         }
@@ -239,9 +223,7 @@ const Home = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const { error, success, showHideList } = useSelector(
-    (state) => state.showHide
-  );
+  const { error, success, showHideList } = useSelector((state) => state.showHide);
 
   useEffect(() => {
     if (showHideList.length > 0) {
@@ -275,13 +257,7 @@ const Home = () => {
         </BrochureDownloadStyling>
 
         {/* ==== CAROUSEL COMPONENT START ======================================================================================================= */}
-        <div
-          className={
-            showHideCompList?.carousel?.visibility && isAdmin && hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
+        <div className={showHideCompList?.carousel?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.carousel?.visibility}
@@ -296,16 +272,8 @@ const Home = () => {
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-md-12 p-0 carousel mb-4">
-                    {isAdmin && hasPermission && (
-                      <EditIcon
-                        editHandler={() => editHandler("carousel", true)}
-                      />
-                    )}
-                    <Carousel
-                      carouselState={componentEdit.carousel}
-                      category={"carousel"}
-                      containerId="carouselHomeGallery"
-                    />
+                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("carousel", true)} />}
+                    <Carousel carouselState={componentEdit.carousel} category={"carousel"} containerId="carouselHomeGallery" />
                   </div>
                 </div>
               </div>
@@ -334,13 +302,7 @@ const Home = () => {
         {/* ==== END CAROUSEL ========================================================================================================= */}
 
         {/* INTRODUCTION COMPONENT START =========================================================================================================== */}
-        <div
-          className={
-            showHideCompList?.briefintro?.visibility && isAdmin && hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
+        <div className={showHideCompList?.briefintro?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.briefintro?.visibility}
@@ -356,11 +318,7 @@ const Home = () => {
               <div className="container">
                 <div className="row">
                   <div className="breiftopMargin">
-                    {isAdmin && hasPermission && (
-                      <EditIcon
-                        editHandler={() => editHandler("briefIntro", true)}
-                      />
-                    )}
+                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("briefIntro", true)} />}
 
                     <BriefIntroFrontend
                       introState={componentEdit.briefIntro}
@@ -381,12 +339,7 @@ const Home = () => {
 
               {componentEdit.briefIntro && (
                 <div className={`adminEditTestmonial selected `}>
-                  <BriefIntroAdmin
-                    editHandler={editHandler}
-                    componentType="briefIntro"
-                    popupTitle="Brief Intro Banner"
-                    pageType="Home"
-                  />
+                  <BriefIntroAdmin editHandler={editHandler} componentType="briefIntro" popupTitle="Brief Intro Banner" pageType="Home" />
                 </div>
               )}
             </>
@@ -395,20 +348,10 @@ const Home = () => {
         {/* === END INTRODUCTION=========================================================================================================== */}
 
         {/* ICONS ALL SERVICES ============================ */}
-        <div
-          className={
-            showHideCompList?.homedynamciservicesbrief?.visibility &&
-            isAdmin &&
-            hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
+        <div className={showHideCompList?.homedynamciservicesbrief?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
           {isAdmin && hasPermission && (
             <ShowHideToggle
-              showhideStatus={
-                showHideCompList?.homedynamciservicesbrief?.visibility
-              }
+              showhideStatus={showHideCompList?.homedynamciservicesbrief?.visibility}
               title={"Dynamci Services Brief"}
               componentName={"homedynamciservicesbrief"}
               showHideHandler={showHideHandler}
@@ -420,13 +363,7 @@ const Home = () => {
               <div className="homeDynamciServicesIntro">
                 <div className="container">
                   <div className="breiftopMargin">
-                    {isAdmin && hasPermission && (
-                      <EditIcon
-                        editHandler={() =>
-                          editHandler("homeDynamciServicesBrief", true)
-                        }
-                      />
-                    )}
+                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("homeDynamciServicesBrief", true)} />}
 
                     <BriefIntroFrontend
                       introState={componentEdit.homeDynamciServicesBrief}
@@ -470,12 +407,7 @@ const Home = () => {
                     ))} */}
                   </div>
                   <div className="text-center text-md-end">
-                    <Ancher
-                      AncherLabel="View All"
-                      Ancherpath="/all-serivces"
-                      AncherClass="mt-4 d-block"
-                      AnchersvgColor="#ffffff"
-                    />
+                    <Ancher AncherLabel="View All" Ancherpath="/all-serivces" AncherClass="mt-4 d-block" AnchersvgColor="#ffffff" />
                   </div>
                 </div>
               </div>
@@ -485,15 +417,7 @@ const Home = () => {
         {/* END OF ICONS ALL SERVICES */}
 
         {/* ICONS HEILIGHT START ================================= */}
-        <div
-          className={
-            showHideCompList?.iconshelightsbrief?.visibility &&
-            isAdmin &&
-            hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
+        <div className={showHideCompList?.iconshelightsbrief?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.iconshelightsbrief?.visibility}
@@ -508,13 +432,7 @@ const Home = () => {
               <div className="container">
                 <div className="row">
                   <div className="breiftopMargin">
-                    {isAdmin && hasPermission && (
-                      <EditIcon
-                        editHandler={() =>
-                          editHandler("iconsHelightsBrief", true)
-                        }
-                      />
-                    )}
+                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("iconsHelightsBrief", true)} />}
 
                     <BriefIntroFrontend
                       introState={componentEdit.iconsHelightsBrief}
@@ -549,15 +467,7 @@ const Home = () => {
         {/* END  ========================= */}
 
         {/* ==== HOME PROJECT CAROUSEL - START ===================================================================================================== */}
-        <div
-          className={
-            showHideCompList?.homeprojectcarousel?.visibility &&
-            isAdmin &&
-            hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
+        <div className={showHideCompList?.homeprojectcarousel?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.homeprojectcarousel?.visibility}
@@ -577,13 +487,7 @@ const Home = () => {
         {/* END ============================== */}
 
         {/* === CLIENTS - COMPONENTS DEVELOPER IN SAP DESIGNS START ===========================================================================  */}
-        <div
-          className={
-            showHideCompList?.homeclient?.visibility && isAdmin && hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
+        <div className={showHideCompList?.homeclient?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.homeclient?.visibility}
@@ -603,13 +507,7 @@ const Home = () => {
         {/* === CLIENTS - COMPONENTS DEVELOPER IN SAP DESIGNS END ===========================================================================  */}
 
         {/* BANNER COMPONENT START =========================================================================================================== */}
-        <div
-          className={
-            showHideCompList?.banner?.visibility && isAdmin && hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
+        <div className={showHideCompList?.banner?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.banner?.visibility}
@@ -624,13 +522,8 @@ const Home = () => {
             <>
               <div className="row">
                 <div className="col-md-12 p-0 position-relative homePage">
-                  {isAdmin && hasPermission && (
-                    <EditIcon editHandler={() => editHandler("banner", true)} />
-                  )}
-                  <Banner
-                    getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
-                    bannerState={componentEdit.banner}
-                  />
+                  {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("banner", true)} />}
+                  <Banner getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`} bannerState={componentEdit.banner} />
                 </div>
               </div>
               {componentEdit.banner && (
@@ -641,9 +534,7 @@ const Home = () => {
                     pageType={`${pageType}-banner`}
                     imageLabel="Banner Image"
                     showDescription={false}
-                    showExtraFormFields={getFormDynamicFields(
-                      `${pageType}-banner`
-                    )}
+                    showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
                     dimensions={imageDimensionsJson("banner")}
                   />
                 </div>
@@ -654,15 +545,7 @@ const Home = () => {
         {/* BANNER COMPONENT END =========================================================================================================== */}
 
         {/* COUNTER COMPONENT START =========================================================================================================== */}
-        <div
-          className={
-            showHideCompList?.counterlist?.visibility &&
-            isAdmin &&
-            hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
+        <div className={showHideCompList?.counterlist?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.counterlist?.visibility}
@@ -677,16 +560,9 @@ const Home = () => {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-md-12 p-0 ">
-                  {isAdmin && hasPermission && (
-                    <EditIcon
-                      editHandler={() => editHandler("counterlist", true)}
-                    />
-                  )}
+                  {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("counterlist", true)} />}
                   <CounterComponentStyles>
-                    <CounterCompnentView
-                      getDataAPIURL={`counter/getClientCounterSet/`}
-                      componentState={componentEdit.counterlist}
-                    />
+                    <CounterCompnentView getDataAPIURL={`counter/getClientCounterSet/`} componentState={componentEdit.counterlist} />
                   </CounterComponentStyles>
                 </div>
               </div>
@@ -709,15 +585,7 @@ const Home = () => {
         {/* === END COUNTER =========================================================================================================== */}
 
         {/* ==== INDUSTRIES WE SERVE - START ======================================================================================================= */}
-        <div
-          className={
-            showHideCompList?.industriesweserve?.visibility &&
-            isAdmin &&
-            hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
+        <div className={showHideCompList?.industriesweserve?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.industriesweserve?.visibility}
@@ -731,13 +599,7 @@ const Home = () => {
             <>
               <div className="container pt-5">
                 <div className="breiftopMargin">
-                  {isAdmin && hasPermission && (
-                    <EditIcon
-                      editHandler={() =>
-                        editHandler("industriesweserveBrief", true)
-                      }
-                    />
-                  )}
+                  {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("industriesweserveBrief", true)} />}
 
                   <BriefIntroFrontend
                     introState={componentEdit.industriesweserveBrief}
@@ -769,13 +631,7 @@ const Home = () => {
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-md-12 p-0 carousel">
-                    {isAdmin && hasPermission && (
-                      <EditIcon
-                        editHandler={() =>
-                          editHandler("industriesweserve", true)
-                        }
-                      />
-                    )}
+                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("industriesweserve", true)} />}
 
                     {/* <Carousel
                       carouselState={componentEdit.industriesweserve}
@@ -790,9 +646,7 @@ const Home = () => {
                               <div className="row">
                                 <div className="col-md-12">
                                   <Carousel
-                                    carouselState={
-                                      componentEdit.industriesweserve
-                                    }
+                                    carouselState={componentEdit.industriesweserve}
                                     category={"industriesweserve"}
                                     containerId="industriesweserve-carousel"
                                   />
@@ -839,252 +693,8 @@ const Home = () => {
         </div>
         {/* ==== CAROUSEL COMPONENT END ========================================================================================================= */}
 
-        {/* LEON Pharma Products START =========================================================================================================== */}
-        <div
-          className={
-            showHideCompList?.producthilight?.visibility &&
-            isAdmin &&
-            hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-          style={
-            showHideCompList?.producthilight?.visibility
-              ? { height: "160px" }
-              : {}
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.producthilight?.visibility}
-              title={"Product highlight"}
-              componentName={"producthilight"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.producthilight?.id}
-            />
-          )}
-          {showHideCompList?.producthilight?.visibility && (
-            <ProductHilightsStyled>
-              <div className="container position-relative d-none d-md-block">
-                <div className="row rounded-3 overflow-hidden position-absolute hiligntsContainer">
-                  <div className="col-sm-4 p-4 p-lg-5 py-lg-4 ">
-                    <div className="position-relative">
-                      {isAdmin && hasPermission && (
-                        <EditIcon
-                          editHandler={() =>
-                            editHandler(productComp.product_development, true)
-                          }
-                        />
-                      )}
-
-                      <SimpleTitleDescComponent
-                        formgetURL={`/carousel/clientHomeIntro/${productComp.product_development}/`}
-                        componentEdit={componentEdit.product_development}
-                        setFormValues={setProductDevelopment}
-                        formvalues={productDevelopment}
-                      />
-                      {componentEdit.product_development && (
-                        <div className={`adminEditTestmonial selected `}>
-                          <DynamicForm
-                            editHandler={editHandler}
-                            componentType={productComp.product_development}
-                            componentTitle="Product Development component"
-                            formPostURL={`/carousel/createHomeIntro/`}
-                            formUpdateURL={`/carousel/updateHomeIntro/`}
-                            editObject={productDevelopment}
-                            dynamicFormFields={getTitleAndDescriptionFields(
-                              productComp.product_development
-                            )}
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="col-sm-4 p-4 p-lg-5 py-lg-4 ">
-                    <div className="position-relative">
-                      {isAdmin && hasPermission && (
-                        <EditIcon
-                          editHandler={() =>
-                            editHandler(productComp.product_distribution, true)
-                          }
-                        />
-                      )}
-                      <SimpleTitleDescComponent
-                        formgetURL={`/carousel/clientHomeIntro/${productComp.product_distribution}/`}
-                        componentEdit={componentEdit.product_distribution}
-                        setFormValues={setProductDistribution}
-                        formvalues={productDistribution}
-                      />
-                      {componentEdit.product_distribution && (
-                        <div className={`adminEditTestmonial selected `}>
-                          <DynamicForm
-                            editHandler={editHandler}
-                            componentType={productComp.product_distribution}
-                            componentTitle="Product Distribution component"
-                            formPostURL={`/carousel/createHomeIntro/`}
-                            formUpdateURL={`/carousel/updateHomeIntro/`}
-                            editObject={productDistribution}
-                            dynamicFormFields={getTitleAndDescriptionFields(
-                              productComp.product_distribution
-                            )}
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="col-sm-4 p-4 p-lg-5 py-lg-4 ">
-                    <div className="position-relative">
-                      {isAdmin && hasPermission && (
-                        <EditIcon
-                          editHandler={() =>
-                            editHandler(productComp.product_registration, true)
-                          }
-                        />
-                      )}
-                      <SimpleTitleDescComponent
-                        formgetURL={`/carousel/clientHomeIntro/${productComp.product_registration}/`}
-                        componentEdit={componentEdit.product_registration}
-                        setFormValues={setProductRegistration}
-                        formvalues={productRegistration}
-                      />
-                      {componentEdit.product_registration && (
-                        <div className={`adminEditTestmonial selected `}>
-                          <DynamicForm
-                            editHandler={editHandler}
-                            componentType={productComp.product_registration}
-                            componentTitle="Product Distribution component"
-                            formPostURL={`/carousel/createHomeIntro/`}
-                            formUpdateURL={`/carousel/updateHomeIntro/`}
-                            editObject={productRegistration}
-                            dynamicFormFields={getTitleAndDescriptionFields(
-                              productComp.product_registration
-                            )}
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ProductHilightsStyled>
-          )}
-        </div>
-        {/* LEON Pharma Products END =========================================================================================================== */}
-
-        {/* === Random Hilights START =========================================================================================================== */}
-        <div
-          className={
-            showHideCompList?.services?.visibility && isAdmin && hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.services?.visibility}
-              title={"Service"}
-              componentName={"services"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.services?.id}
-            />
-          )}
-          {showHideCompList?.services?.visibility && (
-            <ABriefIntroStyled>
-              <h1 className="fs-1 fw-bold text-center text-uppercase">
-                Services
-              </h1>
-              <div className="container-lg mx-0 mx-md-0 px-md-0 mx-lg-auto randomServices">
-                <div className="row">
-                  <ABriefAbout
-                    col1="col-md-6 ps-sm-0"
-                    col2="col-md-6 p-4 p-md-5 d-flex justify-content-center align-items-start flex-column"
-                    cssClass="fs-3 mb-3 fw-bolder title"
-                    imageClass="w-100 object-fit-cover imgStylingLeft shadow"
-                    dimensions={imageDimensionsJson("whoweare")}
-                    pageType={"productPortfolio"}
-                    componentFlip={false}
-                  />
-                </div>
-
-                <div className="row d-flex flex-row-reverse my-3 my-md-5">
-                  <ABriefAbout
-                    col1="col-md-6 pe-sm-0"
-                    col2="col-md-6 p-4 p-md-5 d-flex justify-content-center align-items-start flex-column"
-                    cssClass="fs-3 mb-3 fw-bolder title"
-                    imageClass="w-100 object-fit-cover imgStylingRight shadow imgStyling"
-                    dimensions={imageDimensionsJson("whoweare")}
-                    pageType={"promoting"}
-                    componentFlip={false}
-                  />
-                </div>
-                <div className="row">
-                  <ABriefAbout
-                    col1="col-md-6 ps-sm-0"
-                    col2="col-md-6 p-4 p-md-5 d-flex justify-content-center align-items-start flex-column"
-                    cssClass="fs-3 mb-3 fw-bolder title"
-                    imageClass="w-100 object-fit-cover imgStylingLeft shadow"
-                    dimensions={imageDimensionsJson("whoweare")}
-                    pageType={"whatwedo"}
-                    componentFlip={false}
-                  />
-                </div>
-              </div>
-            </ABriefIntroStyled>
-          )}
-        </div>
-        {/* END OF Random Hilights =========================================================================================================== */}
-
-        {/* ==== PRODUCTS CATEGORIES  START ===================================================================================================== */}
-        <div
-          className={
-            showHideCompList?.homeproducts?.visibility &&
-            isAdmin &&
-            hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.homeproducts?.visibility}
-              title={"Home Products"}
-              componentName={"homeproducts"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.homeproducts?.id}
-            />
-          )}
-          {showHideCompList?.homeproducts?.visibility && (
-            <div className="container">
-              <Title
-                title="Products"
-                cssClass="fs-1 fw-bold text-center my-5 pt-0 pt-md-5 text-uppercase"
-              />
-              <div className="row">
-                {homeCategoriesList.map(
-                  (category) =>
-                    category?.products?.length > 0 && (
-                      <div key={category.id}>
-                        <Product
-                          item={category.products[0]}
-                          categoryId={category.id}
-                        />
-                      </div>
-                    )
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-        {/* END OF PRODUCTS CATEGORIES =========================================================================================================== */}
-
         {/* ==== TESTIMONIAL COMPONENT START ====================================================================================================*/}
-        <div
-          className={
-            showHideCompList?.testimonis?.visibility && isAdmin && hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
+        <div className={showHideCompList?.testimonis?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.testimonis?.visibility}
@@ -1100,19 +710,12 @@ const Home = () => {
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-md-12">
-                    <Title
-                      title="Testimonials"
-                      cssClass="fs-1 fw-bold text-center my-5 text-uppercase"
-                    />
+                    <Title title="Testimonials" cssClass="fs-1 fw-bold text-center my-5 text-uppercase" />
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-md-12 testimonials text-center">
-                    {isAdmin && hasPermission && (
-                      <EditIcon
-                        editHandler={() => editHandler("testmonial", true)}
-                      />
-                    )}
+                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("testmonial", true)} />}
 
                     {testimonis.length < 1 ? (
                       (testimonis.length, "No Testimonials Found")
@@ -1139,9 +742,7 @@ const Home = () => {
                         titleTitle="Testmonial Name"
                         descriptionTitle="Testimonial Writeup "
                         showDescription={false}
-                        showExtraFormFields={getTestimonialsFields(
-                          "testmonial"
-                        )}
+                        showExtraFormFields={getTestimonialsFields("testmonial")}
                         dimensions={imageDimensionsJson("testimonial")}
                       />
                     </div>
@@ -1153,101 +754,8 @@ const Home = () => {
         </div>
         {/* END OF TESTIMONIAL COMPONENT =========================================================================================================== */}
 
-        {/* ==== Random Home Services START =================================================================================================*/}
-        <div
-          className={
-            showHideCompList?.productslist?.visibility &&
-            isAdmin &&
-            hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.productslist?.visibility}
-              title={"Product Details"}
-              componentName={"productslist"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.productslist?.id}
-            />
-          )}
-          {showHideCompList?.productslist?.visibility && (
-            <RandomHomeServicesStyled>
-              <div className="container py-5 randomServices">
-                <div className="row">
-                  <div className="col-md-6">
-                    <img src={imgOngoing} alt="" className="w-100 shadow" />
-                  </div>
-                  <div className="col-md-6 p-3 p-md-5 d-flex flex-column justify-content-center">
-                    <Title
-                      title="Product portfolio"
-                      cssClass="text-black fs-3 fw-medium"
-                    />
-                    <p>
-                      Through our relentless pursuit of quality and innovation,
-                      we have achieved several milestones that highlight our
-                      success in the healthcare industry.
-                    </p>
-                    <Link to="" className="moreLink">
-                      More...
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="row my-2 my-md-5 d-flex flex-row flex-md-row-reverse">
-                  <div className="col-md-6">
-                    <img src={imgCompleted} alt="" className="w-100 shadow" />
-                  </div>
-                  <div className="col-md-6 p-3 p-md-5 d-flex flex-column justify-content-center">
-                    <Title
-                      title="Promoting healt and well being"
-                      cssClass="text-black fs-3 fw-medium"
-                    />
-                    <p>
-                      Through our relentless pursuit of quality and innovation,
-                      we have achieved several milestones that highlight our
-                      success in the healthcare industry.
-                    </p>
-                    <Link to="" className="moreLink">
-                      More...
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-md-6">
-                    <img src={imgFuture} alt="" className="w-100 shadow" />
-                  </div>
-                  <div className="col-md-6 p-3 p-md-5 d-flex flex-column justify-content-center">
-                    <Title
-                      title="What we do"
-                      cssClass="text-black fs-3 fw-medium"
-                    />
-                    <p>
-                      Through our relentless pursuit of quality and innovation,
-                      we have achieved several milestones that highlight our
-                      success in the healthcare industry.
-                    </p>
-                    <Link to="" className="moreLink">
-                      More...
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </RandomHomeServicesStyled>
-          )}
-        </div>
-        {/* ==== Random Home Services END =================================================================================================*/}
-
         {/* HOME NEWS START =================================================================================================*/}
-        <div
-          className={
-            showHideCompList?.news?.visibility && isAdmin && hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
+        <div className={showHideCompList?.news?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.news?.visibility}
@@ -1262,15 +770,8 @@ const Home = () => {
               <div className="row pb-2 homeNews">
                 <div className="col-md-12 d-flex justify-content-center align-items-center">
                   <div className="container">
-                    <Title
-                      title="News"
-                      cssClass="fs-1 fw-bold text-center my-5 pt-0 pt-md-0 text-uppercase"
-                    />
-                    <HomeNews
-                      news={news}
-                      setNews={setResponseData}
-                      pagetype={pageType}
-                    />
+                    <Title title="News" cssClass="fs-1 fw-bold text-center my-5 pt-0 pt-md-0 text-uppercase" />
+                    <HomeNews news={news} setNews={setResponseData} pagetype={pageType} />
 
                     <div className="d-flex justify-content-center align-items-center mt-md-4">
                       {/* <Ancher
@@ -1307,421 +808,6 @@ const Home = () => {
           </div>
         </div>
         {/* END OF HOME NEWS START =================================================================================================*/}
-
-        {/* ======================= HOME List of Services DEVELOPED FOR LEOMTECH START ======================= */}
-        <div
-          className={
-            showHideCompList?.news?.visibility && isAdmin && hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.homeservices?.visibility}
-              title={"Home Service"}
-              componentName={"homeservices"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.homeservices?.id}
-            />
-          )}
-          {showHideCompList?.homeservices?.visibility && (
-            <div className="container py-5 homeServices">
-              <h2 className="mb-5">What We Do</h2>
-              <HomeServices />
-            </div>
-          )}
-        </div>
-        {/* ======================= HOME List of Services DEVELOPED FOR LEOMTECH END ======================= */}
-
-        {/* ==== FEATURES SPECICALLY DEVELOPED FOR RISHISYSTEMS START ========================================================================== */}
-        <div
-          className={
-            showHideCompList?.features?.visibility && isAdmin && hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.features?.visibility}
-              title={"Features"}
-              componentName={"features"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.features?.id}
-            />
-          )}
-          {showHideCompList?.features?.visibility && <Features />}
-        </div>
-        {/* ==== FEATURES SPECICALLY DEVELOPED FOR RISHISYSTEMS END ========================================================================== */}
-
-        {/* ===== HOME WHY CHOOSE RISHSYSTEMS START ============================================================================================ */}
-        <div
-          className={
-            showHideCompList?.news?.visibility && isAdmin && hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.whoweare?.visibility}
-              title={"Who we are"}
-              componentName={"whoweare"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.whoweare?.id}
-            />
-          )}
-          {showHideCompList?.whoweare?.visibility && (
-            <div className="row ABriefAbout mb-5">
-              <ABriefAbout
-                cssClass="mb-2 fw-bold title text-black"
-                dimensions={imageDimensionsJson("whoweare")}
-              />
-            </div>
-          )}
-        </div>
-        {/* ===== HOME WHY CHOOSE RISHSYSTEMS END ============================================================================================ */}
-
-        {/* ==== HOME Services SPECICALLY DEVELOPED FOR RISHISYSTEMS START ==================================================================== */}
-
-        <div
-          className={
-            showHideCompList?.homeservicedetails?.visibility &&
-            isAdmin &&
-            hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.homeservicedetails?.visibility}
-              title={"Services Details"}
-              componentName={"homeservicedetails"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.homeservicedetails?.id}
-            />
-          )}
-          {showHideCompList?.homeservicedetails?.visibility && (
-            <div className="row">
-              <div className="col-md-12 ABrief">
-                <ABrief
-                  cssClass="fw-bold title"
-                  dimensions={imageDimensionsJson("homeCareers")}
-                />
-              </div>
-            </div>
-          )}
-        </div>
-        {/* ==== HOME Services SPECICALLY DEVELOPED FOR RISHISYSTEMS END ==================================================================== */}
-
-        {/* ==== HOME Careers START ========================================================================================================== */}
-        <div
-          className={
-            showHideCompList?.homecareers?.visibility &&
-            isAdmin &&
-            hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.homecareers?.visibility}
-              title={"Careers"}
-              componentName={"homecareers"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.homecareers?.id}
-            />
-          )}
-          {showHideCompList?.homecareers?.visibility && (
-            <div className="row homeCareers py-5">
-              <div className="col-lg-6"></div>
-              <div className="col-md-12 col-lg-6 pe-lg-5">
-                <BriefIntroFrontend
-                  introState={componentEdit.briefIntro}
-                  pageType="careers"
-                  introTitleCss="fs-3 fw-medium text-md-center"
-                  introSubTitleCss="fw-medium text-muted text-md-center"
-                  introDecTitleCss="fs-6 fw-normal w-75 m-auto text-md-center"
-                />
-                <div className="bg-white px-5 pb-4 d-flex justify-content-center align-items-center">
-                  <Ancher
-                    AncherLabel="Careers"
-                    Ancherpath="/profile/careers"
-                    AncherClass="btn btn-primary d-flex justify-content-center align-items-center gap-3 w-50"
-                    AnchersvgColor="#ffffff"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-        {/* ==== HOME Careers END ========================================================================================================== */}
-
-        {/* ==== IMAGE GALLERY SPECIFICALLY DESIGNED FOR SAP DESIGN STUDIO START =============================================================== */}
-
-        {/* It will be work only one carosel in the page */}
-        <div
-          className={
-            showHideCompList?.gallery?.visibility && isAdmin && hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.gallery?.visibility}
-              title={"Gallery"}
-              componentName={"gallery"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.gallery?.id}
-            />
-          )}
-          {showHideCompList?.gallery?.visibility && (
-            <ImageGalleryStyled>
-              {/* <div className="text-center mb-5" style={{ marginTop: "100px" }}>
-                <span
-                  className="fs-1 px-4 py-2"
-                  style={{ borderBottom: "1px solid #444444" }}
-                >
-                  View Gallery
-                </span>
-              </div> */}
-
-              <>
-                <div className="container">
-                  <div className="row">
-                    <div className="breiftopMargin">
-                      {isAdmin && hasPermission && (
-                        <EditIcon
-                          editHandler={() => editHandler("weserve", true)}
-                        />
-                      )}
-
-                      <BriefIntroFrontend
-                        introState={componentEdit.weserve}
-                        linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
-                        linkLabel="Read More"
-                        moreLink=""
-                        introTitleCss="text-center mb-3"
-                        introSubTitleCss="fw-medium fs-5 text-center"
-                        introDecTitleCss="fs-6 fw-normal mx-4 text-center lh-6"
-                        detailsContainerCss="col-md-12 py-2 text-center"
-                        anchorContainer="d-flex justify-content-center align-items-center mt-4"
-                        anchersvgColor="#17427C"
-                        pageType={pageType}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {componentEdit.weserve && (
-                  <div className={`adminEditTestmonial selected `}>
-                    <BriefIntroAdmin
-                      editHandler={editHandler}
-                      componentType="weserve"
-                      popupTitle="Brief Intro Banner"
-                      pageType="Home"
-                    />
-                  </div>
-                )}
-              </>
-
-              <div className="container">
-                <div className="row ">
-                  <div className="col-md-10 offset-md-1 homeGalleryCarousel">
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-md-10 offset-md-1">
-                          <Carousel
-                            carouselState={componentEdit.carousel}
-                            category={"industriesweserve"}
-                            containerId="imageGallerycarousel"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="text-center py-4 position-relative "
-                style={{ marginTop: "200px" }}
-              >
-                <Link to="/imageGallery" className="btn btn-outline">
-                  View All
-                </Link>
-              </div>
-            </ImageGalleryStyled>
-          )}
-        </div>
-
-        {/* ==== IMAGE GALLERY SPECIFICALLY DESIGNED FOR SAP DESIGN STUDIO END=============================================================== */}
-
-        {/* == SAP DESIGN STUDIO START========================================================================================================== */}
-
-        {/* SERVICES OFFERED COMPONENT -  DEVELOPED FOR SPECIFICALLY SAP DESIGNS */}
-        <div
-          className={
-            showHideCompList?.servicesoffered?.visibility &&
-            isAdmin &&
-            hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.servicesoffered?.visibility}
-              title={"Services Offered"}
-              componentName={"servicesoffered"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.servicesoffered?.id}
-            />
-          )}
-          {showHideCompList?.servicesoffered?.visibility && (
-            <>
-              <div className="text-center mb-5" style={{ marginTop: "100px" }}>
-                <span
-                  className="fs-1 px-4 py-2"
-                  style={{ borderBottom: "1px solid #444444" }}
-                >
-                  Services Offered
-                </span>
-              </div>
-              <div className="row">
-                <div className="col-md-12 carousel">
-                  {isAdmin && hasPermission && (
-                    <EditIcon
-                      editHandler={() => editHandler("serviceOffered", true)}
-                    />
-                  )}
-
-                  <ServiceOfferedComponent
-                    getBannerAPIURL={`carousel/clientCarouselbyCategory/${serviceOffered}/`}
-                    componentEdit={componentEdit}
-                  />
-                </div>
-              </div>
-
-              {componentEdit.serviceOffered && (
-                <div className="adminEditTestmonial selected">
-                  <AdminBanner
-                    editHandler={editHandler}
-                    componentType="serviceOffered"
-                    getImageListURL={`carousel/getCarousel/${serviceOffered}/`}
-                    deleteImageURL="carousel/updateCarousel/"
-                    imagePostURL="carousel/createCarousel/"
-                    imageUpdateURL="carousel/updateCarousel/"
-                    imageIndexURL="carousel/updateCarouselindex/"
-                    imageLabel="Add Images"
-                    showDescription={false}
-                    showExtraFormFields={getserviceOfferedFields(
-                      serviceOffered
-                    )}
-                    dimensions={imageDimensionsJson("carousel")}
-                  />
-                </div>
-              )}
-            </>
-          )}
-        </div>
-        {/* == SAP DESIGN STUDIO END========================================================================================================== */}
-
-        {/* END OF SAP DESIGN STUDIO COMPONENTS */}
-
-        {/* === HPR INFRA START================================================================================================================= */}
-
-        {/* Projects + brief intro  */}
-
-        {/* ==== PROJECT + BRIEF INTRODUCTION START ===================================================================================================== */}
-
-        <div
-          className={
-            showHideCompList?.hprinfra?.visibility && isAdmin && hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.hprinfra?.visibility}
-              title={"Projects"}
-              componentName={"hprinfra"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.hprinfra?.id}
-            />
-          )}
-          {showHideCompList?.hprinfra?.visibility && <HomeProjects />}
-        </div>
-        {/* ==== PROJECT + BRIEF INTRODUCTION END ===================================================================================================== */}
-
-        {/* ==== PROJECT  BRIEF INTRODUCTION START ===================================================================================================== */}
-
-        <div
-          className={
-            showHideCompList?.projectsbrief?.visibility &&
-            isAdmin &&
-            hasPermission
-              ? "border border-info mb-2"
-              : ""
-          }
-        >
-          {isAdmin && hasPermission && (
-            <ShowHideToggle
-              showhideStatus={showHideCompList?.projectsbrief?.visibility}
-              title={"Projects Brief"}
-              componentName={"projectsbrief"}
-              showHideHandler={showHideHandler}
-              id={showHideCompList?.projectsbrief?.id}
-            />
-          )}
-          {showHideCompList?.projectsbrief?.visibility && (
-            <div className="homeProjectsInfo">
-              <div className="container">
-                <div className="row">
-                  <div className="breiftopMargin">
-                    {isAdmin && hasPermission && (
-                      <EditIcon
-                        editHandler={() => editHandler("projectsBrief", true)}
-                      />
-                    )}
-
-                    <BriefIntroFrontend
-                      introState={componentEdit.projectsBrief}
-                      linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
-                      linkLabel="Read More"
-                      moreLink=""
-                      introTitleCss="fs-3 fw-bold text-center mb-4"
-                      introSubTitleCss="fw-medium text-muted text-center"
-                      introDecTitleCss="fs-6 fw-normal mx-4 text-center lh-6"
-                      detailsContainerCss="col-md-12 py-3"
-                      anchorContainer="d-flex justify-content-center align-items-center mt-4"
-                      anchersvgColor="#17427C"
-                      pageType={"projectsBrief"}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {componentEdit.projectsBrief && (
-                <div className={`adminEditTestmonial selected `}>
-                  <BriefIntroAdmin
-                    editHandler={editHandler}
-                    componentType="projectsBrief"
-                    popupTitle="Brief Intro Banner"
-                    pageType="projectsBrief"
-                  />
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-        {/* ==== PROJECT  BRIEF INTRODUCTION END ===================================================================================================== */}
-
-        {/* END OF HPR INFRA COMPONENTS */}
 
         {/* {showEditPop && <ModelBg />} */}
 

@@ -83,6 +83,9 @@ const clientresponseInterceptorErrortHanler = async (error) => {
   if (error?.response?.status === 404) {
     return Promise.reject(error?.response?.statusText);
   }
+  if (error?.response?.status === 500) {
+    return error;
+  }
   const key = Object.keys(error?.response?.data)[0];
   return Promise.reject(error?.response?.data[key]);
 };
