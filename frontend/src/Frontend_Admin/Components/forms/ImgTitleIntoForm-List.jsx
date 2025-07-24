@@ -161,15 +161,15 @@ const AdminBanner = ({
     <div>
       <EditAdminPopupHeader closeHandler={closeHandler} title={popupTitle} />
 
-      <hr className="m-0" />
+      {/* <hr className="m-0" /> */}
 
       <div className="container mt-2">
-        <NoteComponent note="Drag to shuffle banners" />
+        <NoteComponent note="Shuffle order" />
 
         <div className="row mt-2 d-flex flex-row-reverse">
           {carousel?.length > 0 ? (
-            <div className="heightCtrl imglist">
-              <div className="container">
+            <div className="heightCtrl imglist p-0">
+              <div className="container p-0">
                 <DragDropContext onDragEnd={onDragEnd}>
                   {carousel?.map((item, index) => (
                     <Droppable key={index} droppableId={item.id}>
@@ -260,7 +260,7 @@ const AdminCarouselItem = ({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <div className="row mb-2 p-2 slideItem" key={index}>
+          <div className="row mb-1 p-2 slideItem" key={index}>
             <div className="col-2 col-md-2">
               <i
                 className="fa fa-picture-o fs-2 d-lg-none"
