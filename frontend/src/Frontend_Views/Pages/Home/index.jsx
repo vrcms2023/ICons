@@ -442,7 +442,7 @@ const Home = () => {
                       introTitleCss="fs-3 fw-bold text-center mb-4"
                       introSubTitleCss="fw-medium text-muted text-center"
                       introDecTitleCss="fs-6 fw-normal mx-4 text-center lh-6"
-                      detailsContainerCss="col-md-12 py-3"
+                      detailsContainerCss="col-md-10 offset-md-1 py-3"
                       anchorContainer="d-flex justify-content-center align-items-center mt-4"
                       anchersvgColor="#17427C"
                       pageType={"iconsHelightsBrief"}
