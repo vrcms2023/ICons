@@ -55,6 +55,8 @@ body {
   font-family: "Barlow", sans-serif;
   font-weight: normal !important;
   border-radius: 4px !important;
+  padding: 8px 24px !important;
+  border: 0px !important;
 
   // &:hover svg { transform: rotate(-45deg);}
   &:hover {
@@ -71,13 +73,11 @@ body {
 .btn-primary {
   background-color:${({ theme }) => theme.btnPrimary}; 
   color:${({ theme }) => theme.btnPrimaryTextColor};
-  // border: 1px solid ${({ theme }) => theme.btnPrimaryBorderColor} !important; 
 
 }
 .btn-primary:hover {
   background-color:${({ theme }) => theme.btnPrimaryHover}; 
   color:${({ theme }) => theme.btnPrimaryTextHoverColor};
-  // border: 1px solid ${({ theme }) => theme.btnPrimaryBorderHoverColor} !important; 
 }
 
 .btn-secondary {
@@ -94,7 +94,6 @@ body {
 }
 
 .btn-outline {
-  // background-color:${({ theme }) => theme.btnOutline}; 
   color:${({ theme }) => theme.btnOutlineTextColor};
   border: 1px solid ${({ theme }) => theme.btnOutlineBorderColor} !important; 
   font-weight: 600;
