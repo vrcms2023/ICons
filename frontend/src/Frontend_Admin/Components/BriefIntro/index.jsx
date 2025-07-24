@@ -83,7 +83,7 @@ export const BriefIntroAdmin = ({
     <>
       <EditAdminPopupHeader closeHandler={closeHandler} title={popupTitle} />
       <form className="" onSubmit={handleSubmit(saveandUpdateIntro)}>
-        <hr className="m-0" />
+        {/* <hr className="m-0" /> */}
         <div className="container my-3">
           {success ? (
             <>
