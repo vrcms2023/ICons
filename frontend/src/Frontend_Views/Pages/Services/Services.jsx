@@ -47,6 +47,7 @@ import {
   createShowHideComponent,
   updateShowHideComponent,
 } from "../../../redux/showHideComponent/showHideActions";
+import ShareButtons from "../../../Common/Share";
 
 const Services = () => {
   const editComponentObj = {
@@ -387,7 +388,7 @@ const Services = () => {
               ) : (
                 ""
               )}
-
+              <div className="d-flex justify-content-end align-items-end position-relative"><ShareButtons /></div>
               <div className="row ">
                 <div className="col-12 col-md-8">
                   {/* <Title title={"Services"} cssClass="fs-3 mb-2 pageTitle" /> */}

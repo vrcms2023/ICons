@@ -324,7 +324,7 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
                 style={{ minHeight: isAdmin ? "auto" : "" }}
               >
                 <div
-                  className={`${isAdmin ? "d-flex align-items-center p-2 px-3 mb-3 border" : ""} `}
+                  className={`${isAdmin ? "d-flex align-items-center p-2 px-3 border" : ""} `}
                 >
                   {!isAdmin && (
                     <img
