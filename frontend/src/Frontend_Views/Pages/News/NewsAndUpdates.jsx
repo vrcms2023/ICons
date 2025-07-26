@@ -39,6 +39,7 @@ import {
 import BriefIntroFrontend from "../../../Common/BriefIntro";
 import ShowHideToggle from "../../../Common/ShowHideToggle";
 import BriefIntroAdmin from "../../../Frontend_Admin/Components/BriefIntro";
+import ShareButtons from "../../../Common/Share";
 
 const NewsAndUpdates = () => {
   const editComponentObj = {
@@ -261,6 +262,7 @@ const NewsAndUpdates = () => {
               addStateChanges={componentEdit.addNews}
               editStateChanges={editNews}
             />
+            <div className="d-flex justify-content-end align-items-end position-relative"><ShareButtons /></div>
           </div>
         </div>
         {/* {isAdmin && (

@@ -396,4 +396,10 @@ body {
         }
       }
     }
+
+    
+// UTIL BOOTSTRAP V 5+ CLASSESS
+// --------
+
+.cursor-pointer { cursor: pointer !important; }
 `;
