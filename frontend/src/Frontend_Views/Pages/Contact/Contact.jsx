@@ -76,7 +76,7 @@ const Contact = () => {
    */
   const onFormSubmit = async (data) => {
     try {
-      const response = await axiosClientServiceApi.post(`/contactus/`, {
+      const response = await axiosClientServiceApi.post(`/contactus/listcreate/`, {
         ...data,
       });
       if (response.status === 201) {
@@ -337,7 +337,7 @@ const Contact = () => {
                     {success && (
                       <Alert mesg={"Thank you for contact us"} cssClass={`alert text-white w-50 mx-auto mt-3 p-2 text-center bg-success`} />
                     )}
-                    <RaqUseForm />
+                    <RaqUseForm buttonLabel="SEND REQUEST" />
                   </div>
                 </>
               </div>

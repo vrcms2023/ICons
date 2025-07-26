@@ -29,6 +29,10 @@ export const axiosFileUploadServiceApi = axios.create({
   headers: fileUploadHeader,
 });
 
+export const axiosJobUploadServiceApi = axios.create({
+  headers: fileUploadHeader,
+});
+
 const requestInterceptorRequestHanler = async (config) => {
   store.dispatch(startLoading());
   try {
@@ -98,3 +102,6 @@ axiosFileUploadServiceApi.interceptors.response.use(responseInterceptorResponseH
 
 axiosClientServiceApi.interceptors.request.use(requestInterceptorClientRequestHanler, requestInterceptorErrortHanler);
 axiosClientServiceApi.interceptors.response.use(responseInterceptorResponseHanler, clientresponseInterceptorErrortHanler);
+
+axiosJobUploadServiceApi.interceptors.request.use(requestInterceptorClientRequestHanler, requestInterceptorErrortHanler);
+axiosJobUploadServiceApi.interceptors.response.use(responseInterceptorResponseHanler, clientresponseInterceptorErrortHanler);

@@ -29,7 +29,7 @@ const UserContactForm = ({ closeModel, downloadPDF }) => {
     setFormerror(errors);
     if (Object.keys(errors).length > 0) return;
     try {
-      const response = await axiosClientServiceApi.post(`/contactus/`, {
+      const response = await axiosClientServiceApi.post(`/contactus/listcreate/`, {
         ...formData,
       });
       if (response.status === 201) {
@@ -75,21 +75,13 @@ const UserContactForm = ({ closeModel, downloadPDF }) => {
     <>
       {/* User Contact Form */}
       <div className="col-md-12 d-flex justify-content-center align-items-center flex-column">
-        {success && (
-          <Alert
-            mesg={"Thank you for contact us"}
-            cssClass={`alert text-white w-75 mt-3 p-2 text-center bg-success`}
-          />
-        )}
+        {success && <Alert mesg={"Thank you for contact us"} cssClass={`alert text-white w-75 mt-3 p-2 text-center bg-success`} />}
 
         <form className="my-2 py-3 py-md-5 contactForm" onSubmit={onFormSubmit}>
           {/* <Title title="Quick contact" cssClass="text-black fw-bold mb-4" /> */}
 
           <div className="mb-3 row">
-            <label
-              htmlFor="exampleInputFName"
-              className="col-sm-2 col-form-label"
-            >
+            <label htmlFor="exampleInputFName" className="col-sm-2 col-form-label">
               Name
             </label>
             <div className="col-sm-10">
@@ -113,10 +105,7 @@ const UserContactForm = ({ closeModel, downloadPDF }) => {
             </div>
           </div>
           <div className="mb-3 row">
-            <label
-              htmlFor="exampleInputEmail1"
-              className="col-sm-2 col-form-label"
-            >
+            <label htmlFor="exampleInputEmail1" className="col-sm-2 col-form-label">
               Email
             </label>
             <div className="col-sm-10">
@@ -139,10 +128,7 @@ const UserContactForm = ({ closeModel, downloadPDF }) => {
             </div>
           </div>
           <div className="mb-3 row">
-            <label
-              htmlFor="exampleInputPhone"
-              className="col-sm-2 col-form-label"
-            >
+            <label htmlFor="exampleInputPhone" className="col-sm-2 col-form-label">
               Phone
             </label>
             <div className="col-sm-10">
@@ -165,10 +151,7 @@ const UserContactForm = ({ closeModel, downloadPDF }) => {
             </div>
           </div>
           <div className="mb-3 row">
-            <label
-              htmlFor="exampleFormMesg"
-              className="col-sm-2 col-form-label"
-            >
+            <label htmlFor="exampleFormMesg" className="col-sm-2 col-form-label">
               Message
             </label>
             <div className="col-sm-10">
@@ -185,10 +168,7 @@ const UserContactForm = ({ closeModel, downloadPDF }) => {
           <div className="mb-3 row">
             <div className="col-sm-2"></div>
             <div className="col-sm-10">
-              <button
-                type="submit"
-                className="btn btn-primary w-100 text-uppercase py-2"
-              >
+              <button type="submit" className="btn btn-primary w-100 text-uppercase py-2">
                 Send Request
               </button>
             </div>

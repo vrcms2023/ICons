@@ -4,11 +4,7 @@ import { axiosServiceApi } from "../../../util/axiosUtil";
 import { toast } from "react-toastify";
 import Search from "../../../Common/Search";
 import CustomPagination from "../../../Common/CustomPagination";
-import {
-  getDateAndTimeValue,
-  getTodayDate,
-  paginationDataFormat,
-} from "../../../util/commonUtil";
+import { getDateAndTimeValue, getTodayDate, paginationDataFormat } from "../../../util/commonUtil";
 import { sortCreatedDateByDesc } from "../../../util/dataFormatUtil";
 import Button from "../../../Common/Button";
 import Ancher from "../../../Common/Ancher";
@@ -35,7 +31,7 @@ const ContactUSAdmin = () => {
   useEffect(() => {
     const getAllUserDetails = async () => {
       try {
-        const response = await axiosServiceApi.get(`/contactus/`);
+        const response = await axiosServiceApi.get(`/contactus/listcreate/`);
         if (response?.status === 200 && response.data?.results?.length > 0) {
           setResponseData(response.data);
           setPageloadResults(true);
@@ -49,9 +45,7 @@ const ContactUSAdmin = () => {
   }, []);
 
   const setResponseData = (data) => {
-    setUserDetails(
-      data.results.length > 0 ? sortCreatedDateByDesc(data.results) : []
-    );
+    setUserDetails(data.results.length > 0 ? sortCreatedDateByDesc(data.results) : []);
     setPaginationData(paginationDataFormat(data));
     setCurrentPage(1);
   };
@@ -62,9 +56,7 @@ const ContactUSAdmin = () => {
         responseType: "blob",
         withCredentials: true,
       });
-      const filename = response.headers["content-disposition"]
-        .split("filename=")[1]
-        .replace(/"/g, "");
+      const filename = response.headers["content-disposition"].split("filename=")[1].replace(/"/g, "");
       console.log("filename", filename);
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
@@ -89,12 +81,9 @@ const ContactUSAdmin = () => {
       description: user.description,
     };
     try {
-      const response = await axiosServiceApi.post(
-        `/contactus/sendRequesttoClient/`,
-        {
-          ...data,
-        }
-      );
+      const response = await axiosServiceApi.post(`/contactus/sendRequesttoClient/`, {
+        ...data,
+      });
 
       if (response.status === 200) {
         toast.success(`Request is sent successfully`);
@@ -126,8 +115,8 @@ const ContactUSAdmin = () => {
               <Search
                 setObject={setResponseData}
                 clientSearchURL={"/contactus/searchContacts/"}
-                adminSearchURL={"/contactus/"}
-                clientDefaultURL={"/contactus/"}
+                adminSearchURL={"/contactus/listcreate/"}
+                clientDefaultURL={"/contactus/listcreate/"}
                 searchfiledDeatails={"First Name / Email / Phone Number"}
                 setPageloadResults={setPageloadResults}
                 setSearchquery={setSearchquery}
@@ -135,12 +124,7 @@ const ContactUSAdmin = () => {
               />
             </div>
             <div className="col-md-2 p-0">
-              <Button
-                label={"Contacts"}
-                handlerChange={downloadExcelfile}
-                cssClass="btn btn-outline float-end"
-                icon="fa-download"
-              />
+              <Button label={"Contacts"} handlerChange={downloadExcelfile} cssClass="btn btn-outline float-end" icon="fa-download" />
             </div>
           </>
         )}
@@ -168,11 +152,7 @@ const ContactUSAdmin = () => {
                   <td class="align-middle">{user.description} </td>
                   <td class="align-middle">
                     {getDateAndTimeValue(user.created_at)}
-                    {getTodayDate(user.created_at) && (
-                      <span className="badge bg-warning text-dark px-2 ms-2">
-                        NEW
-                      </span>
-                    )}
+                    {getTodayDate(user.created_at) && <span className="badge bg-warning text-dark px-2 ms-2">NEW</span>}
                   </td>
                   <td class="align-middle">
                     <Button
@@ -202,12 +182,8 @@ const ContactUSAdmin = () => {
         {paginationData?.total_count ? (
           <CustomPagination
             paginationData={paginationData}
-            paginationURL={"/contactus/"}
-            paginationSearchURL={
-              searchQuery
-                ? `/contactus/searchContacts/${searchQuery}/`
-                : "/contactus/"
-            }
+            paginationURL={"/contactus/listcreate/"}
+            paginationSearchURL={searchQuery ? `/contactus/searchContacts/${searchQuery}/` : "/contactus/listcreate/"}
             searchQuery={searchQuery}
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
@@ -218,12 +194,7 @@ const ContactUSAdmin = () => {
           ""
         )}
       </div>
-      {modelShow && (
-        <ContactsendRequstModel
-          closeModel={closeModel}
-          selectedUser={selectedUser}
-        />
-      )}
+      {modelShow && <ContactsendRequstModel closeModel={closeModel} selectedUser={selectedUser} />}
       {modelShow && <ModelBg closeModel={closeModel} />}
     </div>
   );

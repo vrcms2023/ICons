@@ -14,7 +14,7 @@ import Model from "../../../Common/Model";
 import ModelBg from "../../../Common/ModelBg";
 import ContactsendRequstModel from "../../Components/contactsendRequstModel";
 
-const RAQAdmininistration = () => {
+const AppliedJobAdministration = () => {
   const [userDetails, setUserDetails] = useState([]);
   const [paginationData, setPaginationData] = useState({});
   const [pageLoadResult, setPageloadResults] = useState(false);
@@ -29,10 +29,10 @@ const RAQAdmininistration = () => {
    */
 
   useEffect(() => {
-    const getAllUserDetails = async () => {
+    const getAllJobDetails = async () => {
       try {
-        const response = await axiosServiceApi.get(`/contactus/raqform/`);
-        if (response?.status === 200 && response.data?.results?.length > 0) {
+        const response = await axiosServiceApi.get(`/careers/applyJob/`);
+        if (response?.status === 200) {
           setResponseData(response.data);
           setPageloadResults(true);
         }
@@ -41,7 +41,7 @@ const RAQAdmininistration = () => {
       }
     };
 
-    getAllUserDetails();
+    getAllJobDetails();
   }, []);
 
   const setResponseData = (data) => {
@@ -52,7 +52,7 @@ const RAQAdmininistration = () => {
 
   const downloadExcelfile = async () => {
     try {
-      const response = await axiosServiceApi.get(`/contactus/raqexportExcel/`, {
+      const response = await axiosServiceApi.get(`/careers/appliedJobexportExcel/`, {
         responseType: "blob",
         withCredentials: true,
       });
@@ -73,51 +73,25 @@ const RAQAdmininistration = () => {
     }
   };
 
-  const sendRequest = async (user) => {
-    const data = {
-      firstName: user.name,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      description: user.description,
-    };
-    try {
-      const response = await axiosServiceApi.post(`/contactus/sendRequesttoClient/`, {
-        ...data,
-      });
-
-      if (response.status === 200) {
-        toast.success(`Request is sent successfully`);
-      }
-    } catch (error) {
-      console.log("unable to save the career form");
-    }
-  };
-
-  const showModel = (user) => {
-    setModelShow(!modelShow);
-    setSelectedUser(user);
-  };
-
-  const closeModel = () => {
-    setModelShow(!modelShow);
-    setSelectedUser("");
+  const downloadPDF = (url) => {
+    window.open(url, "_blank", "location=yes,height=800,width=600 ,scrollbars=yes,status=yes");
   };
 
   return (
     <div className="container-fluid pt-5 contactsList">
       <div className="row px-2 px-lg-5">
         <div className="col-md-3">
-          <Title title={"RAQ Contacts"} cssClass="fs-1 pageTitle" />
+          <Title title={"Applicant list"} cssClass="fs-1 pageTitle" />
         </div>
         {userDetails?.length > 0 && (
           <>
             <div className="col-md-7">
               <Search
                 setObject={setResponseData}
-                clientSearchURL={"/contactus/raqsearchContacts/"}
-                adminSearchURL={"/contactus/raqform/"}
-                clientDefaultURL={"/contactus/raqform/"}
-                searchfiledDeatails={" Name / Email / Phone Number"}
+                clientSearchURL={"/careers/appliedJobsearchContacts/"}
+                adminSearchURL={"/careers/appliedJobsearchContacts/"}
+                clientDefaultURL={"/careers/applyJob/"}
+                searchfiledDeatails={" Name / Email / Phone Number / Job Title / Job ID"}
                 setPageloadResults={setPageloadResults}
                 setSearchquery={setSearchquery}
                 searchQuery={searchQuery}
@@ -126,7 +100,7 @@ const RAQAdmininistration = () => {
 
             <div className="col-md-2 p-0">
               <Button
-                label={" RAQ Contacts"}
+                label={"Applied Job list"}
                 handlerChange={downloadExcelfile}
                 cssClass="btn btn-outline float-end"
                 icon="fa-download  me-2 d-inline-block"
@@ -144,15 +118,16 @@ const RAQAdmininistration = () => {
                 <th class="align-middle">FirstName</th>
                 <th class="align-middle">Email</th>
                 <th class="align-middle">phoneNumber</th>
-                <th class="align-middle">description</th>
-                <th class="align-middle">Date | Time</th>
+                <th class="align-middle">Job Title</th>
+                <th class="align-middle">Job ID</th>
+                <th class="align-middle">Resume</th>
                 {/* <th className="text-end align-middle">Send Request</th> */}
               </tr>
             </thead>
             <tbody>
               {userDetails?.map((user) => (
                 <tr key={user.id}>
-                  <td class="align-middle">{user.name}</td>
+                  <td class="align-middle">{user.firstName}</td>
                   <td class="align-middle">
                     <i class="fa fs-6 me-2 text-primary fa-envelope" aria-hidden="true"></i>
                     <a href={`mailto:${user.email}`}>{user.email}</a>
@@ -161,27 +136,14 @@ const RAQAdmininistration = () => {
                     <i class="fa fs-4 me-2 fa-mobile" aria-hidden="true"></i>
                     <a href={`tel:${user.phoneNumber}`}>{user.phoneNumber}</a>
                   </td>
-                  <td class="align-middle">{user.description} </td>
+                  <td class="align-middle">{user.jobtitle} </td>
+                  <td class="align-middle">{user.jobID} </td>
                   <td class="align-middle">
-                    {getDateAndTimeValue(user.created_at)}
-                    {getTodayDate(user.created_at) && <span className="badge bg-warning text-dark px-2 ms-2">NEW</span>}
+                    <a href="#!" onClick={() => downloadPDF(`${user.path}`)} className="mx-1 text-dark">
+                      <i class="fa fs-5 me-2 text-primary fa-download" aria-hidden="true"></i>
+                      {user.original_name ? user.original_name : "Resume"}
+                    </a>
                   </td>
-                  {/* <td class="align-middle"> */}
-                  {/* <Button
-                      label={"Send Request"}
-                      handlerChange={() => {
-                        //sendRequest(user);
-                        showModel(user);
-                      }}
-                      cssClass="btn btn-outline px-3 float-end"
-                      icon="fa-paper-plane"
-                    /> */}
-                  {/* <Ancher
-                      AncherClass="btn btn-outline px-3 float-end"
-                      AncherLabel="Send Request "
-                      icon="fa-paper-plane"
-                    /> */}
-                  {/* </td> */}
                 </tr>
               ))}
             </tbody>
@@ -194,8 +156,8 @@ const RAQAdmininistration = () => {
         {paginationData?.total_count ? (
           <CustomPagination
             paginationData={paginationData}
-            paginationURL={"/contactus/raqform/"}
-            paginationSearchURL={searchQuery ? `/contactus/searchContacts/${searchQuery}/` : "/contactus/raqform/"}
+            paginationURL={"/careers/applyJob/"}
+            paginationSearchURL={searchQuery ? `/careers/appliedJobsearchContacts/${searchQuery}/` : "/careers/applyJob/"}
             searchQuery={searchQuery}
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
@@ -212,4 +174,4 @@ const RAQAdmininistration = () => {
   );
 };
 
-export default RAQAdmininistration;
+export default AppliedJobAdministration;
