@@ -86,6 +86,7 @@ const AdminTestimonial = lazy(() => import("./Frontend_Admin/Pages/Login/AdminTe
 const AdminSettings = lazy(() => import("./Frontend_Admin/Pages/Auth/AdminSettings"));
 
 const RAQAdmininistration = lazy(() => import("./Frontend_Admin/Pages/Auth/RAQAdmininistration"));
+const AppliedJobAdministration = lazy(() => import("./Frontend_Admin/Pages/Auth/AppliedJobAdministration"));
 const HomeServices = lazy(() => import("./Frontend_Views/Components/HomeServices"));
 
 function App() {
@@ -181,6 +182,7 @@ function App() {
               <Route path="/userPermission" element={<UserPagePermission />} />
               <Route path="/adminPagesConfiguration" element={<PagesConfiguration />} />
               <Route path="/raqformAdministration" element={<RAQAdmininistration />} />
+              <Route path="/appliedJobsAdministration" element={<AppliedJobAdministration />} />
               <Route path="/settings" element={<AdminSettings />} />
               <Route path="/editproject/:id" element={<AddProject />} />
               <Route path="/password/reset/:uid/:token" element={<ResetPasswordConfirmation />} />

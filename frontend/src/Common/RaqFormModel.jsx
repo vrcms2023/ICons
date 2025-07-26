@@ -9,17 +9,11 @@ const RaqFormModel = ({ closeModel, downloadPDF }) => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title text-dark fs-4">Request For Quotation</h5>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              onClick={closeModel}
-            ></button>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={closeModel}></button>
           </div>
           <div className="modal-body px-4 py-3">
             {/* User Contact Form */}
-            <RaqUseForm closeModel={closeModel} downloadPDF={downloadPDF} />
+            <RaqUseForm closeModel={closeModel} downloadPDF={downloadPDF} buttonLabel="DOWNLOAD" />
           </div>
         </div>
       </div>
