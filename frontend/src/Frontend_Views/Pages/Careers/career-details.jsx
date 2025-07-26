@@ -143,7 +143,7 @@ const Careers = () => {
             <Title title="Details" cssClass="fw-medium fs-4 pageTitle " />
           </div>
           <div className="col-4 col-md-2 text-end">
-            <Link to="/careers" className="btn btn-primary">
+            <Link to="/careers" className="btn btn-outline">
               <i className="fa fa-chevron-left me-2" aria-hidden="true"></i>
               <span className="">Back</span>
             </Link>
