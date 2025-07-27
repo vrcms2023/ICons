@@ -22,6 +22,7 @@ export const InputFields = ({ label, type = "text", fieldName, register, isRequi
               onChange={onChange}
               disabled={rest.disabled}
               className="form-control p-2"
+              {...rest}
             />
             <span className="error">{error}</span>
           </div>
@@ -43,6 +44,7 @@ export const InputFields = ({ label, type = "text", fieldName, register, isRequi
               onChange={onChange}
               disabled={rest.disabled}
               className="form-control p-2"
+              {...rest}
             />
             <span className="error">{error}</span>
           </div>
@@ -58,7 +60,7 @@ export const InputFields = ({ label, type = "text", fieldName, register, isRequi
           <div className="col-sm-12">
             <select className="custom-select custom-select-lg form-control p-2" {...register(fieldName, validationObject)}>
               {rest.options.map((option, index) => (
-                <option key={index} value={option.value} defaultValue={rest?.selectedValue} selected={option.value === rest?.selectedValue}>
+                <option key={index} value={option.value} defaultValue={rest?.selectedValue} selected={option.value === rest?.selectedValue} {...rest}>
                   {option.label}
                 </option>
               ))}
@@ -75,7 +77,14 @@ export const InputFields = ({ label, type = "text", fieldName, register, isRequi
             {isRequired && <span className="error">&nbsp; *</span>}
           </label>
           <div className="col-sm-12">
-            <textarea className="form-control" {...register(fieldName, validationObject)} value={value} rows="3" onChange={onChange}></textarea>
+            <textarea
+              className="form-control"
+              {...register(fieldName, validationObject)}
+              value={value}
+              rows="3"
+              onChange={onChange}
+              {...rest}
+            ></textarea>
             <span className="error">{error}</span>
           </div>
         </div>
@@ -91,6 +100,7 @@ export const InputFields = ({ label, type = "text", fieldName, register, isRequi
               defaultChecked={rest.defaultChecked}
               type={type}
               className="form-check-input"
+              {...rest}
             />
             <label htmlFor="" className="form-check-label ms-2 pt-0 col-form-label text-start text-md-end text-capitalize">
               <small>{label}</small>
@@ -148,6 +158,7 @@ export const InputFields = ({ label, type = "text", fieldName, register, isRequi
               onChange={onChange}
               accept={rest.accept}
               className="form-control p-2"
+              {...rest}
             />
 
             <span className="error">{error}</span>
@@ -165,6 +176,7 @@ export const InputFields = ({ label, type = "text", fieldName, register, isRequi
             onChange={onChange}
             disabled={rest.disabled}
             className="form-control p-2"
+            {...rest}
           />
         </div>
       );
