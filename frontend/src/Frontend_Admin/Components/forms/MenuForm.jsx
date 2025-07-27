@@ -147,7 +147,6 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
     // const _url = data["page_url"].split("/");
 
     // data["page_url"] = "/" + _url[_url.length - 1];
-    data["seo_link"] = `${window.location.origin}${data.page_url}`;
 
     if (!data?.is_Parent) {
       if (!data?.page_parent_ID || parseInt(data?.page_parent_ID) === 0) {
@@ -157,7 +156,6 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
     }
     if (!data?.id) {
       data["created_by"] = getCookie("userName");
-      data["seo_author"] = data.seo_author ? data.seo_author : getCookie("userName");
     } else {
       data["updated_by"] = getCookie("userName");
     }
@@ -271,7 +269,6 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
               )} */}
               {!isParentHasChilds && (
                 <>
-
                   <hr className="mt-4 border-secondary" />
 
                   <div className="d-flex justify-content-between align-items-center">
@@ -288,7 +285,6 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
                       {/* <i className="fa fa-chevron-down" aria-hidden="true"></i> */}
                     </span>
                   </div>
-
                 </>
               )}
               {!isParentHasChilds && show && (
