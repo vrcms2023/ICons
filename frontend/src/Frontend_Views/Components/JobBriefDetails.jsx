@@ -2,17 +2,21 @@ import React from "react";
 
 import Title from "../../Common/Title";
 import { showPosteddate } from "../../util/commonUtil";
+import ShareButtons from "../../Common/Share";
 
 const JobBriefDetails = ({ jobDetails }) => {
   return (
-    <div className="jobBriefDetails p-4">
-      <Title
-        title={jobDetails.job_title ? jobDetails.job_title : "Default Career"}
-        cssClass="fw-bold"
-      />
-      <small className="d-block mb-3 text-muted">
-        {jobDetails.job_location ? jobDetails.job_location : "Default Career"}
-      </small>
+    <div className="jobBriefDetails p-2 position-relative">
+      <div className="d-flex justify-content-end align-items-end position-absolute" style={{right: "10px"}}><ShareButtons /></div>
+       <div className="d-flex justify-content-start align-items-center gap-3">
+        <Title
+          title={jobDetails.job_title ? jobDetails.job_title : "Default Career"}
+          cssClass="fw-bold"
+        />
+        <small className="d-block text-muted">
+          [ {jobDetails.job_location ? jobDetails.job_location : "Default Career"} ]
+        </small>
+      </div>
       <span className="d-block mb-1">
         <strong>Experience</strong> : Minimum{" "}
         {jobDetails.experience_from ? jobDetails.experience_from : 0} to{" "}

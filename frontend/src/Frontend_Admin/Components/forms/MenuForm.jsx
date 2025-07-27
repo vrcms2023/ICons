@@ -271,6 +271,7 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
               )} */}
               {!isParentHasChilds && (
                 <>
+
                   <hr className="mt-4 border-secondary" />
 
                   <div className="d-flex justify-content-between align-items-center">
@@ -287,6 +288,7 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
                       {/* <i className="fa fa-chevron-down" aria-hidden="true"></i> */}
                     </span>
                   </div>
+
                 </>
               )}
               {!isParentHasChilds && show && (
@@ -294,9 +296,10 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
                   <SEOForm register={register} onChangeHanlder={onChangeHanlder} Controller={Controller} control={control} />
                 </div>
               )}
-              <div className="d-flex justify-content-center flex-wrap flex-column flex-sm-row align-items-center gap-1 mt-3">
+              {!show && <hr className="my-1 border-secondary" />}
+              <div className="d-flex justify-content-center flex-wrap flex-column flex-sm-row align-items-center gap-2 mt-3">
                 <Button type="submit" cssClass="btn btn-outline" label={"Close"} handlerChange={closeHandler} />
-                <button className="btn btn-primary mx-3">Save</button>
+                <button className="btn btn-primary">Save</button>
               </div>
             </form>
           </div>

@@ -100,10 +100,10 @@ const AppliedJobAdministration = () => {
 
             <div className="col-md-2 p-0">
               <Button
-                label={"Applied Job list"}
+                label={"Download List"}
                 handlerChange={downloadExcelfile}
                 cssClass="btn btn-outline float-end"
-                icon="fa-download  me-2 d-inline-block"
+                icon="fa-file-excel-o me-2 d-inline-block"
               />
             </div>
           </>
@@ -120,6 +120,7 @@ const AppliedJobAdministration = () => {
                 <th class="align-middle">phoneNumber</th>
                 <th class="align-middle">Job Title</th>
                 <th class="align-middle">Job ID</th>
+                <th class="align-middle">Date</th>
                 <th class="align-middle">Resume</th>
                 {/* <th className="text-end align-middle">Send Request</th> */}
               </tr>
@@ -139,8 +140,12 @@ const AppliedJobAdministration = () => {
                   <td class="align-middle">{user.jobtitle} </td>
                   <td class="align-middle">{user.jobID} </td>
                   <td class="align-middle">
+                    {getDateAndTimeValue(user.created_at)}
+                    {getTodayDate(user.created_at) && <span className="badge bg-warning text-dark px-2 ms-2">NEW</span>}
+                  </td>
+                  <td class="align-middle">
                     <a href="#!" onClick={() => downloadPDF(`${user.path}`)} className="mx-1 text-dark">
-                      <i class="fa fs-5 me-2 text-primary fa-download" aria-hidden="true"></i>
+                      <i class="fa fs-6 me-2 text-secondary fa-download" aria-hidden="true"></i>
                       {user.original_name ? user.original_name : "Resume"}
                     </a>
                   </td>
