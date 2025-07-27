@@ -20,6 +20,7 @@ import Title from "../../../Common/Title";
 
 const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, selectedServiceMenu, rootServiceMenu }) => {
   const dispatch = useDispatch();
+
   const closeHandler = () => {
     editHandler(componentType, false);
     document.body.style.overflow = "";
@@ -39,6 +40,8 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
   });
   const [error, setError] = useState(false);
   const [show, setShow] = useState(false);
+
+  const [seoLink, setSEOLink] = useState("");
 
   const pageUrlValue = watch("page_url");
 
@@ -65,6 +68,13 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
     });
     setMenuIndexValues(menuIndexValues);
   };
+
+  useEffect(() => {
+    if (editMenu) {
+      const seolink = `${window.location.origin}${editMenu.page_url}`;
+      setSEOLink(seolink);
+    }
+  }, [editMenu]);
 
   useEffect(() => {
     let menuOptinList = [];
@@ -137,6 +147,7 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
     // const _url = data["page_url"].split("/");
 
     // data["page_url"] = "/" + _url[_url.length - 1];
+    data["seo_link"] = `${window.location.origin}${data.page_url}`;
 
     if (!data?.is_Parent) {
       if (!data?.page_parent_ID || parseInt(data?.page_parent_ID) === 0) {
@@ -146,6 +157,7 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
     }
     if (!data?.id) {
       data["created_by"] = getCookie("userName");
+      data["seo_author"] = data.seo_author ? data.seo_author : getCookie("userName");
     } else {
       data["updated_by"] = getCookie("userName");
     }
@@ -206,7 +218,7 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
 
   const handleToggleSeoForm = () => {
     setShow(!show);
-  }
+  };
 
   return (
     <>
@@ -259,17 +271,22 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
               )} */}
               {!isParentHasChilds && (
                 <>
-                <hr className="mt-4 border-secondary" />
-               
-                <div className="d-flex justify-content-between align-items-center">
-                  
-                  <Title title="SEO" cssClass="m-0" />
-                   <span onClick={() =>handleToggleSeoForm()} style={{cursor: "pointer"}} className={`px-2 rounded-1 border border-1 ${show ? "text-secondary border-light" : "text-secondary border-light"}`}>
-                    <small><i className={`fa ${show ? "fa-chevron-down text-dark" : "fa-chevron-up text-secondary"}`} aria-hidden="true">
-                    </i> {show ? "CLOSE" : "OPEN" }</small>
-                    {/* <i className="fa fa-chevron-down" aria-hidden="true"></i> */}
-                  </span>
-                </div>
+                  <hr className="mt-4 border-secondary" />
+
+                  <div className="d-flex justify-content-between align-items-center">
+                    <Title title="SEO" cssClass="m-0" />
+                    <span
+                      onClick={() => handleToggleSeoForm()}
+                      style={{ cursor: "pointer" }}
+                      className={`px-2 rounded-1 border border-1 ${show ? "text-secondary border-light" : "text-secondary border-light"}`}
+                    >
+                      <small>
+                        <i className={`fa ${show ? "fa-chevron-down text-dark" : "fa-chevron-up text-secondary"}`} aria-hidden="true"></i>{" "}
+                        {show ? "CLOSE" : "OPEN"}
+                      </small>
+                      {/* <i className="fa fa-chevron-down" aria-hidden="true"></i> */}
+                    </span>
+                  </div>
                 </>
               )}
               {!isParentHasChilds && show && (
