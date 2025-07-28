@@ -25,15 +25,15 @@ const DraggableAddress = forwardRef(
       >
         <div {...dragHandleProps}>
           <div className="row position-reltive">
-            <div className="col-8">
-              <p className="m-0 fw-bold">{item?.location_title}</p>
+            <div className="col-9">
+              <small className="m-0 fw-medium">{item?.location_title} </small>
               <small>
                 {item?.city} - {item?.postcode}
               </small>{" "}
-              <br />
+              
               <small>{item?.state} </small>
             </div>
-            <div className="col-4 d-flex justify-content-around align-items-center flex-md-row gap-3">
+            <div className="col-3 d-flex justify-content-around align-items-center flex-md-row gap-2">
               <Link onClick={(event) => handleCarouselEdit(event, item)}>
                 <i
                   className="fa fa-pencil fs-4 text-warning"

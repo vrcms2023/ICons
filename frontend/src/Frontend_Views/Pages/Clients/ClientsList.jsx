@@ -191,7 +191,7 @@ const ClientsList = () => {
             {/* Page Banner Component */}
             <div className="position-relative">
               {isAdmin && hasPermission && (
-                <EditIcon editHandler={() => editHandler("banner", true)} />
+                <EditIcon editHandler={() => editHandler("banner", true)} editlabel={"Banner"}/>
               )}
               <Banner
                 getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
@@ -203,9 +203,9 @@ const ClientsList = () => {
                 <ImageInputsForm
                   editHandler={editHandler}
                   componentType="banner"
-                  popupTitle="Client List Banner"
+                  popupTitle="Clients - Banner Image"
                   pageType={`${pageType}-banner`}
-                  imageLabel="Banner Image"
+                  imageLabel="Upload Image"
                   showDescription={false}
                   showExtraFormFields={getFormDynamicFields(
                     `${pageType}-banner`
@@ -241,7 +241,7 @@ const ClientsList = () => {
           <div>
             {/* Brief Introduction */}
             {isAdmin && hasPermission && (
-              <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+              <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief"} />
             )}
 
             <BriefIntroFrontend
@@ -255,7 +255,7 @@ const ClientsList = () => {
               <div className={`adminEditTestmonial selected `}>
                 <AdminBriefIntro
                   editHandler={editHandler}
-                  popupTitle="Client list"
+                  popupTitle="Clients - Brief Intro"
                   componentType="briefIntro"
                   pageType={pageType}
                 />

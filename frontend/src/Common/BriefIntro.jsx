@@ -55,7 +55,7 @@ const BriefIntroFrontend = ({
               <Title title={introValue?.intro_title} cssClass={introTitleCss} />
             )}
             {introValue?.subTitle !== "" && (
-              <Title title={introValue?.subTitle} cssClass={introSubTitleCss} />
+              <Title subTitle={introValue?.subTitle} subTitleClassess={introSubTitleCss} />
             )}
             <RichTextView
               data={

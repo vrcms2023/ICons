@@ -9,6 +9,7 @@ export const HomeDynamicServiceStylesComponent = styled.div`
     color: ${({ theme }) => theme.textColor};
 
     .briefIntro {
+
       .btn {
         border: 0 !important;
         text-decoration: underline;

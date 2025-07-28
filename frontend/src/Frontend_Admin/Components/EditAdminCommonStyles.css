@@ -207,7 +207,9 @@
       }
 
       .ql-editor {
-          * {text-align: left; }
+          * {text-align: left; 
+            color:#444
+          }
         }
     }
 

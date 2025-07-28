@@ -9,4 +9,8 @@ export const TestimonialsListPageStyled = styled.div`
     max-width: 150px;
     max-height: 150px;
   }
+
+  .deleteIcon {
+    top: 50px;
+  }
 `;

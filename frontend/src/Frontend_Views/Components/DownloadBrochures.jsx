@@ -64,7 +64,7 @@ const DownloadBrochures = () => {
 
   return (
     <div className={`floatingButton ${scrolled ? "scrolled" : ""}`}>
-      {brochuresList.length === 1 && (
+      {/* {brochuresList.length === 1 && (
         <Button
           label="BROCHURE"
           cssClass="btn btn-primary p-3 text-uppercase"
@@ -76,8 +76,8 @@ const DownloadBrochures = () => {
             )
           }
         />
-      )}
-      {brochuresList.length > 1 && (
+      )} */}
+      {brochuresList.length > 0 && (
         <div class="dropdown">
           <button
             class="btn btn-primary mb-1 dropdown-toggle px-3"

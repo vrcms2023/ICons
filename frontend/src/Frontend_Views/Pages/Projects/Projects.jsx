@@ -114,7 +114,7 @@ const Projects = () => {
           <>
             <div className="position-relative">
               {isAdmin && hasPermission && (
-                <EditIcon editHandler={() => editHandler("banner", true)} />
+                <EditIcon editHandler={() => editHandler("banner", true)} editlabel={"Banner"}/>
               )}
               <Banner
                 getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
@@ -126,9 +126,9 @@ const Projects = () => {
                 <ImageInputsForm
                   editHandler={editHandler}
                   componentType="banner"
-                  popupTitle="Projects Banner"
+                  popupTitle="Projects - Banner Image"
                   pageType={`${pageType}-banner`}
-                  imageLabel="Project Banner Image"
+                  imageLabel="Upload Image"
                   showDescription={false}
                   showExtraFormFields={getFormDynamicFields(
                     `${pageType}-banner`
@@ -165,7 +165,7 @@ const Projects = () => {
             {/* Introduction */}
 
             {isAdmin && hasPermission && (
-              <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+              <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief"}/>
             )}
             {/* <BriefIntro title="Welcome To HPR Infra Projects">
         We believe that construction is a man made wonder. The thought of
@@ -184,7 +184,7 @@ const Projects = () => {
               <div className={`adminEditTestmonial selected `}>
                 <AdminBriefIntro
                   editHandler={editHandler}
-                  popupTitle="Project Details"
+                  popupTitle="Projects - Brief Intro"
                   componentType="briefIntro"
                   pageType={pageType}
                 />

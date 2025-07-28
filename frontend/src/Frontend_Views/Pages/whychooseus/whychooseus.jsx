@@ -114,7 +114,7 @@ const WhyChooseUs = () => {
             <div className="position-relative">
               {isAdmin && hasPermission && (
                 <EditIcon
-                  editHandler={() => editHandler("whychooseus", true)}
+                  editHandler={() => editHandler("whychooseus", true)} editlabel={"Banner"}
                 />
               )}
 
@@ -128,9 +128,9 @@ const WhyChooseUs = () => {
                 <ImageInputsForm
                   editHandler={editHandler}
                   componentType="whychooseus"
-                  popupTitle="Why Choose US"
+                  popupTitle="Keypoints - Banner Image"
                   pageType={`${pageType}-banner`}
-                  imageLabel="Banner Image"
+                  imageLabel="Upload Image"
                   showDescription={false}
                   showExtraFormFields={getFormDynamicFields(
                     `${pageType}-banner`
@@ -166,7 +166,7 @@ const WhyChooseUs = () => {
           <div className="breiftopMargin">
             {/* Brief Introduction  */}
             {isAdmin && hasPermission && (
-              <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+              <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief"} />
             )}
 
             <BriefIntroFrontend
@@ -187,7 +187,7 @@ const WhyChooseUs = () => {
                 <AdminBriefIntro
                   editHandler={editHandler}
                   componentType="briefIntro"
-                  popupTitle="Why Choose us Brief Intro"
+                  popupTitle="Keypoints - Brief Intro"
                   pageType={pageType}
                 />
               </div>

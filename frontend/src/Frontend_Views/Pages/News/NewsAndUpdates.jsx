@@ -149,7 +149,7 @@ const NewsAndUpdates = () => {
             {/* Page Banner Component */}
             <div className="position-relative">
               {isAdmin && hasPermission && (
-                <EditIcon editHandler={() => editHandler("banner", true)} />
+                <EditIcon editHandler={() => editHandler("banner", true)} editlabel={"Banner"}/>
               )}
 
               <Banner
@@ -162,9 +162,9 @@ const NewsAndUpdates = () => {
                 <ImageInputsForm
                   editHandler={editHandler}
                   componentType="banner"
-                  popupTitle="News Banner"
+                  popupTitle="News - Banner Image "
                   pageType={`${pageType}-banner`}
-                  imageLabel="Banner Image"
+                  imageLabel="Upload Image"
                   showDescription={false}
                   showExtraFormFields={getFormDynamicFields(
                     `${pageType}-banner`
@@ -200,7 +200,7 @@ const NewsAndUpdates = () => {
           <div>
             {/* Introduction */}
             {isAdmin && hasPermission && (
-              <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+              <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief"}/>
             )}
 
             <BriefIntroFrontend
@@ -218,6 +218,7 @@ const NewsAndUpdates = () => {
                 <BriefIntroAdmin
                   editHandler={editHandler}
                   componentType="briefIntro"
+                  popupTitle="News - Brief Intro"
                   pageType={pageType}
                 />
               </div>
@@ -281,7 +282,7 @@ const NewsAndUpdates = () => {
                 imagePostURL="appNews/createAppNews/"
                 imageUpdateURL="appNews/updateAppNews/"
                 imageDeleteURL="appNews/updateAppNews/"
-                imageLabel="Add News Image"
+                imageLabel="Upload Image"
                 showDescription={false}
                 showExtraFormFields={getNewslFields("addNews")}
                 dimensions={imageDimensionsJson("addNews")}

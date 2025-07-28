@@ -176,7 +176,7 @@ const About = () => {
             {/* Page Banner Component */}
             <div className="position-relative">
               {isAdmin && hasPermission && (
-                <EditIcon editHandler={() => editHandler("banner", true)} />
+                <EditIcon editHandler={() => editHandler("banner", true)} editlabel={"Banner"} />
               )}
               <Banner
                 getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
@@ -188,9 +188,9 @@ const About = () => {
                 <ImageInputsForm
                   editHandler={editHandler}
                   componentType="banner"
-                  popupTitle="About Banner"
+                  popupTitle="About - Banner Immage"
                   pageType={`${pageType}-banner`}
-                  imageLabel="Banner Image"
+                  imageLabel="Upload Image"
                   showDescription={false}
                   showExtraFormFields={getFormDynamicFields(
                     `${pageType}-banner`
@@ -226,7 +226,7 @@ const About = () => {
           <div className="breiftopMargin">
             {/* Brief Introduction  */}
             {isAdmin && hasPermission && (
-              <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+              <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief"} />
             )}
 
             <BriefIntroFrontend
@@ -247,7 +247,7 @@ const About = () => {
                 <AdminBriefIntro
                   editHandler={editHandler}
                   componentType="briefIntro"
-                  popupTitle="About Brief Intro"
+                  popupTitle="About - Brief Intro"
                   pageType={pageType}
                 />
               </div>
@@ -279,7 +279,7 @@ const About = () => {
               <AddEditAdminNews
                 editHandler={editHandler}
                 category="about"
-                popupTitle="About"
+                popupTitle="About Page"
                 editCarousel={editCarousel}
                 setEditCarousel={setEditCarousel}
                 componentType={`${
@@ -289,7 +289,7 @@ const About = () => {
                 imagePostURL="aboutus/createAboutus/"
                 imageUpdateURL="aboutus/updateAboutus/"
                 imageDeleteURL="aboutus/updateAboutus/"
-                imageLabel="Add About us Banner"
+                imageLabel="Upload Image "
                 showDescription={false}
                 showExtraFormFields={getAboutUSSectionFields()}
                 dimensions={imageDimensionsJson("aboutus")}

@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const TeamStyled = styled.div`
   background-color: ${({ theme }) => theme.transparent};
 
-  .editIcon {
-    top: 10px;
-  }
+  // .editIcon {
+  //   top: 10px;
+  // }
 
   .title {
     color: ${({ theme }) => theme.teamTitleColor};

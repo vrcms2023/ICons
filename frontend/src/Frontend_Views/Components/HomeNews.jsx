@@ -248,7 +248,7 @@ const HomeNews = ({
             imagePostURL="appNews/createAppNews/"
             imageUpdateURL="appNews/updateAppNews/"
             imageDeleteURL="appNews/updateAppNews/"
-            imageLabel="Add News Image"
+            imageLabel="Upload Image"
             showDescription={false}
             showExtraFormFields={getNewslFields()}
           />

@@ -21,6 +21,7 @@ export const StyledMenu = styled.menu`
     .editIcon {
       left: 0;
       top: 0;
+      right: unset;
     }
 
   // .navbar-brand {

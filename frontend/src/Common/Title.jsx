@@ -1,6 +1,8 @@
 import React from "react";
 
 import './Title.css'
+import { TitleSubTitleStyled } from "./StyledComponents/Styled-Title-Component";
+
 
 const Title = ({ 
   title = "",
@@ -11,16 +13,19 @@ const Title = ({
 }) => {
   
   return (
-    <>
-      <h5 className={`${cssClass} ${mainTitleClassess}`}>
+    <TitleSubTitleStyled>
+      {title ? (
+        <h5 className={`${cssClass} ${mainTitleClassess}`}>
         {title}
-        {subTitle ? (
-          <span className={`${subTitleClassess}`}> / {subTitle}</span>
+      </h5>
+      ) : ""}
+      
+      {subTitle ? (
+          <span className={`${subTitleClassess}`}>{subTitle}</span>
         ) : (
           ""
         )}
-      </h5>
-    </>
+    </TitleSubTitleStyled>
   );
 };
 

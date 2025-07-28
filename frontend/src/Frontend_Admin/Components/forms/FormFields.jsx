@@ -220,7 +220,8 @@ export const InputField = ({ label, type = "text", fieldName, register, cssClass
   return (
     <div className="mb-2 row">
       <label htmlFor="" className={`col-sm-12 col-form-label text-capitalize ${cssClass ? cssClass : ""}`}>
-        <small>{label}</small> {isRequired && <span className="error">*</span>}
+        <small>{label} </small> 
+        {/* {isRequired && <span className="error">*</span>} */}
       </label>
       <div className="col-sm-12">
         <input {...register(fieldName, validationObject)} type={type} className="form-control p-2" />

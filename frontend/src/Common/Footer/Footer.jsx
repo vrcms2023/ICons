@@ -156,6 +156,7 @@ const Footer = () => {
                             editHandler={() =>
                               editHandler("footerAboutBrief", true)
                             }
+                            editlabel={"Company Brief"}
                           />
                         )}
 
@@ -425,7 +426,7 @@ const Footer = () => {
                 >
                   {isAdmin && (
                     <EditIcon
-                      editHandler={() => editHandler("address", true)}
+                      editHandler={() => editHandler("address", true)} editlabel={"Social Media"}
                     />
                   )}
 
@@ -504,7 +505,7 @@ const Footer = () => {
 
         <div className="p-3 footerCopyRights">
           {isAdmin && (
-            <EditIcon editHandler={() => editHandler("termsPolacy", true)} />
+            <EditIcon editHandler={() => editHandler("termsPolacy", true)} editlabel={"Terms & Conditions"} />
           )}
 
           <div className="container">
@@ -558,7 +559,7 @@ const Footer = () => {
           <FooterAdminFeilds
             editHandler={editHandler}
             componentType="address"
-            popupTitle="Address"
+            popupTitle="Social Media"
             footerValues={footerValues}
           />
         </div>
@@ -568,7 +569,7 @@ const Footer = () => {
           <AdminTermsPolicy
             termsAndConditionData={termsAndPolicyData}
             editHandler={editHandler}
-            popupTitle="Terms and Policy"
+            popupTitle="Terms"
             componentType="termsPolacy"
           />
         </div>
@@ -583,6 +584,7 @@ const Footer = () => {
         </div>
       )}
       {modelShow && <ModelBg closeModel={closeModel} />}
+      {show && <ModelBg />}
     </FooterStyled>
   );
 };

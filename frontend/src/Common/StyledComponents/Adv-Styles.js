@@ -2,26 +2,28 @@ import styled from "styled-components"
 
 export const AdvertiseComponentStyled = styled.div`
     position: fixed; 
-    top: 0%; 
+    top: 0; 
     right: 0;
-    bottom: 0%;
+    bottom: 0;
     left: 0;
     z-index: 999999; 
     background: #000; 
     background: rgba(0, 0,0, .8);
     transform: translate(0%, 0%);
     height: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     span.close {
         position: absolute;
         right: 0px;
         top: 0px;
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         cursor: pointer;
         text-align: center;
         background: rgba(0,0,0, .4);
-        border-bottom-left-radius: 8px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -32,16 +34,21 @@ export const AdvertiseComponentStyled = styled.div`
 
     .imgContainer {
         position: relative;
+        background: #000;
+        width: auto;
+        max-width: 100%;
+        max-height: 100%;
+        box-sizing: border-box;
     }
 
     .advertismentInfo {
         position: absolute;
         background: rgba(0,0,0, .4);
         color: #fff;
-        bottom: 0;
-        padding: 16px;
+        bottom: 0px;
+        padding: 24px 50px;
         width: 100%;
-        text-align: right;
+        text-align: center;
     }
 
     .title {
@@ -49,22 +56,21 @@ export const AdvertiseComponentStyled = styled.div`
         bottom: 120px;
     }
 
-    .small {
-        width: 640px;
+    .small, .medium, .large {
         height: auto;
-        margin: 1% auto;
+        margin: 0% auto;}
+
+    .small {
+        width: 600px;
     }
 
     .medium {
-        width: 1000px;
-        height: auto;
-        margin: 6% auto;
+        width: 800px;
     }
 
     .large {
-        width: 1200px;
-        height: auto;
-        margin: 2% auto;
+        width: 900px;
+        margin: 0% auto;
     }
 
     img {
