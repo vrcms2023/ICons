@@ -202,7 +202,7 @@ const AddressForm = ({ editHandler, componentType, address, popupTitle }) => {
             </div>
 
             <div className="col-md-12">
-              <p className="text-dark fw-bold mt-3">Address Form</p>
+              <p className="text-dark mt-3">Address Form</p>
               <hr className="mb-3 text-dark" />
             </div>
             <div className="col-md-12 mb-md-0">
@@ -315,12 +315,12 @@ const AddressForm = ({ editHandler, componentType, address, popupTitle }) => {
               <button type="submit" className="btn btn-primary">
                 Save
               </button>
-              <Button
+              {/* <Button
                 type="submit"
                 cssClass="btn btn-more"
                 label={"Close"}
                 handlerChange={closeHandler}
-              />
+              /> */}
             </div>
           </div>
         </div>

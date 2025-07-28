@@ -249,10 +249,10 @@ const Header = () => {
             : "navbar navbar-expand-lg navbar-dark"
         }
       >
-        <div className="container">
+        <div className="container position-relative">
           <>
             {isAdmin && hasPermission && (
-              <EditIcon editHandler={() => editHandler("menu", true)} />
+              <EditIcon editHandler={() => editHandler("menu", true)} editlabel={"Logo"}/>
             )}
             <Link to={isHideMenu ? "#" : "/"} className="navbar-brand logo">
               <ApplicationLogo

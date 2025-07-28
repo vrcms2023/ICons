@@ -51,6 +51,8 @@ export const CounterComponentStyles = styled.div`
             text-align: center;
             width: 80%;
             margin: auto;
+            color: #fff;
+            line-height: 1.4!important;
 
             @media(max-width: 480px) {
                 font-size: 1.5rem !important;

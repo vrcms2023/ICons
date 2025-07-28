@@ -282,7 +282,7 @@ const AdminCarouselItem = ({
                 {item.image_description && item.image_description} */}
                 <RichTextView
                   data={getObjectDescription(componentType, item)}
-                  className={""}
+                  className={"lc1 lineClamp"}
                   showMorelink={false}
                 />
                 {/* <RichTextView

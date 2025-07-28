@@ -416,7 +416,7 @@ const FileUpload = ({
           <div className="mb-2 row">
             {title && (
               <label className="col-sm-12 col-form-label">
-                <Title title={title} cssClass="requiredField" />
+                <Title title={title} cssClass="requiredField fw-normal" />
               </label>
             )}
 
@@ -440,10 +440,10 @@ const FileUpload = ({
                   instantUpload={false}
                 />
               </div>
-              <div className="text-muted">
+              <small className="text-center d-block" style={{ fontSize: ".75rem" }}>
                 You can upload a maximum of {maxFiles ? maxFiles : 4} images at
                 once.
-              </div>
+              </small>
               {error ? <Error>{error}</Error> : ""}
             </div>
             {editImage?.id &&
@@ -482,9 +482,11 @@ const FileUpload = ({
               )}
             {dimensions && (
               <div className="col-12">
-                <small className="" style={{ fontSize: ".75rem" }}>
-                  Min. Width - {dimensions.w} & Height - {dimensions.h} will be
-                  the good for resolution.{" "}
+                <small className="text-center d-block" style={{ fontSize: ".75rem" }}>
+                  {/* Min. Width - {dimensions.w} & Height - {dimensions.h} will be
+                  the good for resolution.{" "} */}
+
+                  Min. size: <strong>{dimensions.w} - {dimensions.h}</strong> for best resolution.
                 </small>
               </div>
             )}

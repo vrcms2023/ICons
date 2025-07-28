@@ -128,7 +128,7 @@ const Careers = () => {
             {/* Page Banner Component */}
             <div className="position-relative careersPage">
               {isAdmin && hasPermission && (
-                <EditIcon editHandler={() => editHandler("banner", true)} />
+                <EditIcon editHandler={() => editHandler("banner", true)} editlabel={"Banner"}/>
               )}
               <Banner
                 getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
@@ -140,9 +140,9 @@ const Careers = () => {
                 <ImageInputsForm
                   editHandler={editHandler}
                   componentType="banner"
-                  popupTitle={`Careers Banner`}
+                  popupTitle={`Careers - Banner Image`}
                   pageType={`${pageType}-banner`}
-                  imageLabel="Banner Image"
+                  imageLabel="Upload Image"
                   showDescription={false}
                   showExtraFormFields={getFormDynamicFields(
                     `${pageType}-banner`
@@ -179,7 +179,7 @@ const Careers = () => {
           <div>
             {/* Introduction */}
             {isAdmin && hasPermission && (
-              <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+              <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief"}/>
             )}
 
             <BriefIntroFrontend
@@ -203,6 +203,7 @@ const Careers = () => {
                   editHandler={editHandler}
                   componentType="briefIntro"
                   pageType={pageType}
+                  popupTitle={`Careers - Brief Info`}
                 />
               </div>
             )}
@@ -234,7 +235,7 @@ const Careers = () => {
             <JobPostFrom
               editHandler={editHandler}
               componentType="addjob"
-              popupTitle="Add Career Details"
+              popupTitle="Add Career"
               type="add"
             />
           </div>

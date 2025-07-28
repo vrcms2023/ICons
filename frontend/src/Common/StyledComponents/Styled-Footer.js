@@ -48,6 +48,7 @@ export const FooterStyled = styled.div`
       font-weight: 500;
       font-style: normal;
       font-size: 1.6rem !important;
+      color: ${({ theme }) => theme.white};
     }
 
     a {
@@ -142,18 +143,18 @@ export const FooterStyled = styled.div`
         @media(max-width: 480px) {
             text-align: center;
           }
-        .editIcon  {
-          top: -48px;
-          right: 0px;
+        // .editIcon  {
+        //   top: -48px;
+        //   right: 0px;
     
-          @media(max-width: 768px) {
-            top: 0px;
-          }
+        //   @media(max-width: 768px) {
+        //     top: 0px;
+        //   }
     
-          i {
-            margin: 0px;
-          }
-        }
+        //   i {
+        //     margin: 0px;
+        //   }
+        // }
 
         // @media (max-width: 991px) {
           //   .socialLinks {

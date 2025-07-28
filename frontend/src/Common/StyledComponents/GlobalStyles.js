@@ -298,10 +298,10 @@ body {
       padding: 5px 12px;
     }
 
-    .editIcon {
-      right: 0px;
-      padding: 0 !important;
-    }
+    // .editIcon {
+    //   right: 0px;
+    //   padding: 0 !important;
+    // }
 
     .mt-6 {
       margin-top: 6rem;

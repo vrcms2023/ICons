@@ -198,7 +198,7 @@ const TestimonialsList = () => {
           <>
             {/* Page Banner Component */}
             <div className="position-relative">
-              {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("banner", true)} />}
+              {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("banner", true)} editlabel={"Banner"}/>}
               <Banner getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`} bannerState={componentEdit.banner} />
             </div>
             {componentEdit.banner && (
@@ -206,9 +206,9 @@ const TestimonialsList = () => {
                 <ImageInputsForm
                   editHandler={editHandler}
                   componentType="banner"
-                  popupTitle={`Testimonial`}
+                  popupTitle="Testinonial - Banner Image"
                   pageType={`${pageType}-banner`}
-                  imageLabel="Banner Image"
+                  imageLabel="Upload Image"
                   showDescription={false}
                   showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
                   dimensions={imageDimensionsJson("banner")}
@@ -233,7 +233,7 @@ const TestimonialsList = () => {
         {showHideCompList?.testimonialbriefintro?.visibility && (
           <div>
             {/* Brief Introduction */}
-            {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("briefIntro", true)} />}
+            {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief"} />}
 
             <BriefIntroFrontend
               introState={componentEdit.briefIntro}
@@ -251,7 +251,12 @@ const TestimonialsList = () => {
 
             {componentEdit.briefIntro && (
               <div className="adminEditTestmonial selected">
-                <AdminBriefIntro editHandler={editHandler} componentType="briefIntro" pageType={pageType} />
+                <AdminBriefIntro 
+                  editHandler={editHandler} 
+                  componentType="briefIntro" 
+                  pageType={pageType} 
+                  popupTitle="Testinonial - Brief Info"
+                  />
               </div>
             )}
           </div>
@@ -297,7 +302,7 @@ const TestimonialsList = () => {
             <AddEditAdminNews
               editHandler={editHandler}
               category="about"
-              popupTitle={`Testimonial`}
+              popupTitle={`Add Testimonial`}
               editCarousel={editCarousel}
               setEditCarousel={setEditCarousel}
               componentType={`${componentEdit.editSection ? "editSection" : "addSection"}`}
@@ -305,7 +310,7 @@ const TestimonialsList = () => {
               deleteImageURL="testimonials/updateTestimonials/"
               imagePostURL="testimonials/createTestimonials/"
               imageUpdateURL="testimonials/updateTestimonials/"
-              imageLabel="Image"
+              imageLabel="Upload Image"
               showDescription={false}
               showExtraFormFields={getTestimonialsFields("testmonial")}
               dimensions={imageDimensionsJson("testimonial")}

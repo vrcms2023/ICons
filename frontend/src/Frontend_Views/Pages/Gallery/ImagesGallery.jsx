@@ -12,6 +12,7 @@ import { axiosClientServiceApi } from "../../../util/axiosUtil";
 import { ImageGalleryStyled } from "../../../Common/StyledComponents/Styled-ImageGallery";
 import ImageGalleryComponent from "../../Components/ImageGalleryComponent";
 import CustomPagination from "../../../Common/CustomPagination";
+import ModelBg from "../../../Common/ModelBg";
 
 const ImagesGallery = () => {
   const editComponentObj = {
@@ -20,7 +21,7 @@ const ImagesGallery = () => {
 
   const pageType = "imageGallery";
   const { isAdmin, hasPermission } = useAdminLoginStatus();
-  //const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [imageGallery, setImageGallery] = useState([]);
   //const [showModal, setShowModal] = useState(false);
@@ -31,7 +32,8 @@ const ImagesGallery = () => {
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
-    //setShow(value);
+    // setShow(value);
+    setShow(!show);
     document.body.style.overflow = "hidden";
   };
 
@@ -96,7 +98,7 @@ const ImagesGallery = () => {
                     imagePostURL="imgGallery/createImageVidoeGallery/"
                     imageUpdateURL="imgGallery/updateImageVidoeGallery/"
                     imageIndexURL="imgGallery/updateNewsIndex/"
-                    imageLabel="Add Image"
+                    imageLabel="Upload Image"
                     showDescription={false}
                     showExtraFormFields={getImageGalleryFields("imageGallery")}
                     dimensions={imageDimensionsJson("imageGallery")}
@@ -134,6 +136,7 @@ const ImagesGallery = () => {
           />
         )}
       </div>
+      {show && <ModelBg />}
     </>
   );
 };

@@ -261,7 +261,7 @@ const Home = () => {
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.carousel?.visibility}
-              title={"Carousel"}
+              title={"Hero Carousel"}
               componentName={"carousel"}
               showHideHandler={showHideHandler}
               id={showHideCompList?.carousel?.id}
@@ -272,7 +272,7 @@ const Home = () => {
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-md-12 p-0 carousel mb-4">
-                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("carousel", true)} />}
+                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("carousel", true)} editlabel={"Hero Carousel"} />}
                     <Carousel carouselState={componentEdit.carousel} category={"carousel"} containerId="carouselHomeGallery" />
                   </div>
                 </div>
@@ -318,20 +318,20 @@ const Home = () => {
               <div className="container">
                 <div className="row">
                   <div className="breiftopMargin">
-                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("briefIntro", true)} />}
+                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief Intro"} />}
 
                     <BriefIntroFrontend
+                      pageType={pageType}
                       introState={componentEdit.briefIntro}
                       linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
                       linkLabel="Read More"
                       moreLink=""
                       introTitleCss="text-center mb-3"
-                      introSubTitleCss="fw-medium fs-5 text-center"
-                      introDecTitleCss="fs-6 fw-normal mx-4 text-center lh-6"
-                      detailsContainerCss="col-md-12 py-2 text-center"
+                      introSubTitleCss="text-center"
+                      introDecTitleCss="text-center lh-6"
+                      detailsContainerCss="col-md-10 offset-md-1 text-center"
                       anchorContainer="d-flex justify-content-center align-items-center mt-4"
                       anchersvgColor="#17427C"
-                      pageType={pageType}
                     />
                   </div>
                 </div>
@@ -339,7 +339,11 @@ const Home = () => {
 
               {componentEdit.briefIntro && (
                 <div className={`adminEditTestmonial selected `}>
-                  <BriefIntroAdmin editHandler={editHandler} componentType="briefIntro" popupTitle="Brief Intro Banner" pageType="Home" />
+                  <BriefIntroAdmin 
+                    editHandler={editHandler} 
+                    componentType="briefIntro" 
+                    popupTitle="Brief Intro Banner" 
+                    pageType="Home" />
                 </div>
               )}
             </>
@@ -363,15 +367,15 @@ const Home = () => {
               <div className="homeDynamciServicesIntro">
                 <div className="container">
                   <div className="breiftopMargin">
-                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("homeDynamciServicesBrief", true)} />}
+                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("homeDynamciServicesBrief", true)} editlabel={"Services"} />}
 
                     <BriefIntroFrontend
                       introState={componentEdit.homeDynamciServicesBrief}
                       linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
                       linkLabel="Read More"
                       moreLink=""
-                      introTitleCss="mb-0"
-                      introSubTitleCss="fw-medium text-muted text-center"
+                      introTitleCss="mb-2"
+                      introSubTitleCss="subTitle"
                       introDecTitleCss="fs-6 fw-normal mx-4 text-center"
                       detailsContainerCss="col-md-12"
                       anchorContainer="d-flex justify-content-center align-items-center mt-4"
@@ -432,15 +436,15 @@ const Home = () => {
               <div className="container">
                 <div className="row">
                   <div className="breiftopMargin">
-                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("iconsHelightsBrief", true)} />}
+                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("iconsHelightsBrief", true)} editlabel={"Hilights"} />}
 
                     <BriefIntroFrontend
                       introState={componentEdit.iconsHelightsBrief}
                       linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
                       linkLabel="Read More"
                       moreLink=""
-                      introTitleCss="fs-3 fw-bold text-center mb-4"
-                      introSubTitleCss="fw-medium text-muted text-center"
+                      introTitleCss="fs-3 fw-bold text-center mb-3"
+                      introSubTitleCss="subTitle text-center"
                       introDecTitleCss="fs-6 fw-normal mx-4 text-center lh-6"
                       detailsContainerCss="col-md-10 offset-md-1 py-3"
                       anchorContainer="d-flex justify-content-center align-items-center mt-4"
@@ -522,7 +526,7 @@ const Home = () => {
             <>
               <div className="row">
                 <div className="col-md-12 p-0 position-relative homePage">
-                  {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("banner", true)} />}
+                  {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("banner", true)} editlabel={"Hero Banner"} />}
                   <Banner getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`} bannerState={componentEdit.banner} />
                 </div>
               </div>
@@ -560,7 +564,7 @@ const Home = () => {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-md-12 p-0 ">
-                  {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("counterlist", true)} />}
+                  {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("counterlist", true)} editlabel={"Counter"} />}
                   <CounterComponentStyles>
                     <CounterCompnentView getDataAPIURL={`counter/getClientCounterSet/`} componentState={componentEdit.counterlist} />
                   </CounterComponentStyles>
@@ -599,7 +603,7 @@ const Home = () => {
             <>
               <div className="container pt-5">
                 <div className="breiftopMargin">
-                  {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("industriesweserveBrief", true)} />}
+                  {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("industriesweserveBrief", true)} editlabel={"Industries Brief"} />}
 
                   <BriefIntroFrontend
                     introState={componentEdit.industriesweserveBrief}
@@ -631,7 +635,7 @@ const Home = () => {
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-md-12 p-0 carousel">
-                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("industriesweserve", true)} />}
+                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("industriesweserve", true)} editlabel={"Industries"} />}
 
                     {/* <Carousel
                       carouselState={componentEdit.industriesweserve}
@@ -715,7 +719,7 @@ const Home = () => {
                 </div>
                 <div className="row">
                   <div className="col-md-12 testimonials text-center">
-                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("testmonial", true)} />}
+                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("testmonial", true)} editlabel={"Testimonials"} />}
 
                     {testimonis.length < 1 ? (
                       (testimonis.length, "No Testimonials Found")

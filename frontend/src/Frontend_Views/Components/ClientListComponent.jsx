@@ -160,7 +160,7 @@ const Client = ({
             {isAdmin && hasPermission && (
               <>
                 <EditIcon
-                  editHandler={() => editHandler("editSection", true, item)}
+                  editHandler={() => editHandler("editSection", true, item)} editlabel={"Client"}
                 />
                 <Link
                   className="deleteSection"

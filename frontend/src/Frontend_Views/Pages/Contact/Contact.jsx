@@ -171,7 +171,7 @@ const Contact = () => {
           <>
             {/* Page Banner Component */}
             <div className="position-relative">
-              {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("banner", true)} />}
+              {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("banner", true)} editlabel={"Banner"} />}
               <Banner getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`} bannerState={componentEdit.banner} />
             </div>
             {componentEdit.banner && (
@@ -179,9 +179,9 @@ const Contact = () => {
                 <ImageInputsForm
                   editHandler={editHandler}
                   componentType="banner"
-                  popupTitle="Contact  Banner"
+                  popupTitle="Contact - Banner Image"
                   pageType={`${pageType}-banner`}
-                  imageLabel="Banner Image"
+                  imageLabel="Upload Image"
                   showDescription={false}
                   showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
                   dimensions={imageDimensionsJson("banner")}
@@ -207,7 +207,7 @@ const Contact = () => {
         {showHideCompList?.contactbriefintro?.visibility && (
           <div>
             {/* Introduction */}
-            {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("briefIntro", true)} />}
+            {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief"} />}
 
             <BriefIntroFrontend
               introState={componentEdit.briefIntro}
@@ -221,7 +221,7 @@ const Contact = () => {
             />
             {componentEdit.briefIntro && (
               <div className={`adminEditTestmonial selected `}>
-                <AdminBriefIntro editHandler={editHandler} componentType="briefIntro" pageType={pageType} />
+                <AdminBriefIntro editHandler={editHandler} componentType="briefIntro" pageType={pageType} popupTitle="Contact - Brief Info" />
               </div>
             )}
           </div>
@@ -231,10 +231,10 @@ const Contact = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="contactPage position-relative col-md-12 text-white blueBg-500 p-0 p-md-3 p-md-5">
-            {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("address", true)} />}
+            {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("address", true)} editlabel={"Address"} />}
             {componentEdit.address && (
               <div className={`adminEditTestmonial selected `}>
-                <AddressForm editHandler={editHandler} popupTitle="Address Details" componentType="address" address={addressList} />
+                <AddressForm editHandler={editHandler} popupTitle="Contact - Address Details" componentType="address" address={addressList} />
               </div>
             )}
 
