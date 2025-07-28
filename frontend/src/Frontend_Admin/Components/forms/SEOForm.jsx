@@ -3,7 +3,7 @@ import { InputFields, RichTextInputEditor_V2 } from "./FormFields";
 
 import Information from "../../../Common/info";
 
-function SEOForm({ Controller, control, register, onChangeHanlder }) {
+function SEOForm({ Controller, control, register, onChangeHanlder, seoLink, seoAuthor, setValue }) {
   const fields = {
     seo_title: false,
     seo_keywords: false,
@@ -27,6 +27,16 @@ function SEOForm({ Controller, control, register, onChangeHanlder }) {
       setSEOErrors((prevFormData) => ({ ...prevFormData, [input.name]: false }));
     }
   };
+  useEffect(() => {
+    setValue("seo_link", seoLink);
+    setValue("seo_author", seoAuthor);
+  }, []);
+
+  const onKeyDownKeyWorrdHandler = (e) => {
+    const input = e.target;
+    const keywords = input?.value?.split(",");
+    setFieldValues((prevFormData) => ({ ...prevFormData, [input.name]: keywords.length }));
+  };
 
   return (
     <>
@@ -42,7 +52,9 @@ function SEOForm({ Controller, control, register, onChangeHanlder }) {
       />
       <div className="d-flex justify-content-between align-items-center">
         <Information info="Meta title tags should be between 50 to 60 characters long" />
-        <Information info={`${fieldValues.seo_title}`} cssClass={`${seoErrors?.seo_title ? "error" : "text-secondary"}`} />
+        <span className={`border border-1 border-success p-2 py-0 ${seoErrors?.seo_title ? "error border-danger" : "text-secondary"}`}>
+          {fieldValues.seo_title}
+        </span>
       </div>
 
       <InputFields key={3} label={"Link"} type={"text"} fieldName={"seo_link"} register={register} onChange={onChangeHanlder} />
@@ -57,8 +69,11 @@ function SEOForm({ Controller, control, register, onChangeHanlder }) {
         register={register}
         onChange={onChangeHanlder}
         maxLength={500}
-        onKeyDown={(e) => onKeyDownHandler(e, 400)}
+        onKeyDown={(e) => onKeyDownKeyWorrdHandler(e, 400)}
       />
+      <div className="d-flex justify-content-end align-items-center">
+        <span className={`border border-1 border-dark p-2 py-0`}>{fieldValues.seo_keywords}</span>
+      </div>
 
       {/* <Information
         info="Meta title tags should be between 400 to 500 characters long"
@@ -76,7 +91,9 @@ function SEOForm({ Controller, control, register, onChangeHanlder }) {
       />
       <div className="d-flex justify-content-between align-items-center">
         <Information info="Meta title tags should be between 900 to 1000 characters long" />
-        <Information info={`${fieldValues.seo_description}`} cssClass={`${seoErrors?.seo_description ? "error" : "text-secondary"}`} />
+        <span className={`border border-1 border-success p-2 py-0 ${seoErrors?.seo_description ? "error border-danger" : "text-secondary"}`}>
+          {fieldValues.seo_description}
+        </span>
       </div>
     </>
   );
