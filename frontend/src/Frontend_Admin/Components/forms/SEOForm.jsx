@@ -9,11 +9,18 @@ function SEOForm({ Controller, control, register, onChangeHanlder }) {
     seo_keywords: false,
     seo_description: false,
   };
+  const fieldsValues = {
+    seo_title: 0,
+    seo_keywords: 0,
+    seo_description: 0,
+  };
 
   const [seoErrors, setSEOErrors] = useState(fields);
+  const [fieldValues, setFieldValues] = useState(fieldsValues);
 
   const onKeyDownHandler = (e, maxLen) => {
     const input = e.target;
+    setFieldValues((prevFormData) => ({ ...prevFormData, [input.name]: input.value.length }));
     if (input.value.length >= maxLen) {
       setSEOErrors((prevFormData) => ({ ...prevFormData, [input.name]: true }));
     } else {
@@ -30,13 +37,14 @@ function SEOForm({ Controller, control, register, onChangeHanlder }) {
         fieldName={"seo_title"}
         register={register}
         onChange={onChangeHanlder}
-        maxLength={60}
-        onKeyDown={(e) => onKeyDownHandler(e, 50)}
+        maxLength={200}
+        onKeyDown={(e) => onKeyDownHandler(e, 60)}
       />
-      <Information
-        info="Meta title tags should be between 50 to 60 characters long"
-        cssClass={`${seoErrors?.seo_title ? "error" : "text-secondary"}`}
-      />
+      <div className="d-flex justify-content-between align-items-center">
+        <Information info="Meta title tags should be between 50 to 60 characters long" />
+        <Information info={`${fieldValues.seo_title}`} cssClass={`${seoErrors?.seo_title ? "error" : "text-secondary"}`} />
+      </div>
+
       <InputFields key={3} label={"Link"} type={"text"} fieldName={"seo_link"} register={register} onChange={onChangeHanlder} />
 
       <InputFields key={4} label={"Author"} type={"text"} fieldName={"seo_author"} register={register} onChange={onChangeHanlder} />
@@ -51,10 +59,11 @@ function SEOForm({ Controller, control, register, onChangeHanlder }) {
         maxLength={500}
         onKeyDown={(e) => onKeyDownHandler(e, 400)}
       />
-      <Information
+
+      {/* <Information
         info="Meta title tags should be between 400 to 500 characters long"
         cssClass={`${seoErrors?.seo_keywords ? "error" : "text-secondary"}`}
-      />
+      /> */}
       <InputFields
         key={6}
         label={"Description"}
@@ -63,12 +72,12 @@ function SEOForm({ Controller, control, register, onChangeHanlder }) {
         register={register}
         onChange={onChangeHanlder}
         maxLength={5000}
-        onKeyDown={(e) => onKeyDownHandler(e, 900)}
+        onKeyDown={(e) => onKeyDownHandler(e, 1000)}
       />
-      <Information
-        info="Meta title tags should be between 900 to 1000 characters long"
-        cssClass={`${seoErrors?.seo_description ? "error" : "text-secondary"}`}
-      />
+      <div className="d-flex justify-content-between align-items-center">
+        <Information info="Meta title tags should be between 900 to 1000 characters long" />
+        <Information info={`${fieldValues.seo_description}`} cssClass={`${seoErrors?.seo_description ? "error" : "text-secondary"}`} />
+      </div>
     </>
   );
 }
