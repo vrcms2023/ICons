@@ -42,6 +42,7 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
   const [show, setShow] = useState(false);
 
   const [seoLink, setSEOLink] = useState("");
+  const [seoAuthor, setSeoAuthor] = useState("");
 
   const pageUrlValue = watch("page_url");
 
@@ -73,6 +74,7 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
     if (editMenu) {
       const seolink = `${window.location.origin}${editMenu.page_url}`;
       setSEOLink(seolink);
+      setSeoAuthor(window.location.origin);
     }
   }, [editMenu]);
 
@@ -289,7 +291,15 @@ const MenuForm = ({ editHandler, menuList, editMenu, componentType, popupTitle, 
               )}
               {!isParentHasChilds && show && (
                 <div className="p-4 py-1 pb-3 seoform" style={{ backgroundColor: "rgba(255, 255, 255, .4)" }}>
-                  <SEOForm register={register} onChangeHanlder={onChangeHanlder} Controller={Controller} control={control} />
+                  <SEOForm
+                    register={register}
+                    onChangeHanlder={onChangeHanlder}
+                    Controller={Controller}
+                    control={control}
+                    seoLink={seoLink}
+                    seoAuthor={seoAuthor}
+                    setValue={setValue}
+                  />
                 </div>
               )}
               {!show && <hr className="my-1 border-secondary" />}
