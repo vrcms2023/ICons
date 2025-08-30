@@ -28,7 +28,11 @@ import { HomeClientsStyled } from "../../../Common/StyledComponents/Styled-HomeC
 // Utilities
 import { axiosClientServiceApi } from "../../../util/axiosUtil";
 import { removeActiveClass } from "../../../util/ulrUtil";
-import { getObjectPositionKey, sortByFieldName, genereateCategoryProducts } from "../../../util/commonUtil";
+import {
+  getObjectPositionKey,
+  sortByFieldName,
+  genereateCategoryProducts,
+} from "../../../util/commonUtil";
 import {
   getCarouselFields,
   getFormDynamicFields,
@@ -257,7 +261,13 @@ const Home = () => {
         </BrochureDownloadStyling>
 
         {/* ==== CAROUSEL COMPONENT START ======================================================================================================= */}
-        <div className={showHideCompList?.carousel?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
+        <div
+          className={
+            showHideCompList?.carousel?.visibility && isAdmin && hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.carousel?.visibility}
@@ -272,8 +282,17 @@ const Home = () => {
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-md-12 p-0 carousel mb-4">
-                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("carousel", true)} editlabel={"Hero Carousel"} />}
-                    <Carousel carouselState={componentEdit.carousel} category={"carousel"} containerId="carouselHomeGallery" />
+                    {isAdmin && hasPermission && (
+                      <EditIcon
+                        editHandler={() => editHandler("carousel", true)}
+                        editlabel={"Hero Carousel"}
+                      />
+                    )}
+                    <Carousel
+                      carouselState={componentEdit.carousel}
+                      category={"carousel"}
+                      containerId="carouselHomeGallery"
+                    />
                   </div>
                 </div>
               </div>
@@ -302,7 +321,13 @@ const Home = () => {
         {/* ==== END CAROUSEL ========================================================================================================= */}
 
         {/* INTRODUCTION COMPONENT START =========================================================================================================== */}
-        <div className={showHideCompList?.briefintro?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
+        <div
+          className={
+            showHideCompList?.briefintro?.visibility && isAdmin && hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.briefintro?.visibility}
@@ -318,7 +343,12 @@ const Home = () => {
               <div className="container">
                 <div className="row">
                   <div className="breiftopMargin">
-                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief Intro"} />}
+                    {isAdmin && hasPermission && (
+                      <EditIcon
+                        editHandler={() => editHandler("briefIntro", true)}
+                        editlabel={"Brief Intro"}
+                      />
+                    )}
 
                     <BriefIntroFrontend
                       pageType={pageType}
@@ -339,11 +369,12 @@ const Home = () => {
 
               {componentEdit.briefIntro && (
                 <div className={`adminEditTestmonial selected `}>
-                  <BriefIntroAdmin 
-                    editHandler={editHandler} 
-                    componentType="briefIntro" 
-                    popupTitle="Brief Intro Banner" 
-                    pageType="Home" />
+                  <BriefIntroAdmin
+                    editHandler={editHandler}
+                    componentType="briefIntro"
+                    popupTitle="Brief Intro Banner"
+                    pageType="Home"
+                  />
                 </div>
               )}
             </>
@@ -351,8 +382,81 @@ const Home = () => {
         </div>
         {/* === END INTRODUCTION=========================================================================================================== */}
 
+        {/* ==== PROJECT + BRIEF INTRODUCTION START ===================================================================================================== */}
+
+        <div
+          className={
+            showHideCompList?.hprinfra?.visibility && isAdmin && hasPermission
+              ? "componentOnBorder"
+              : ""
+          }
+        >
+          <div className="commonBg homeProjectsContainer">
+            {isAdmin && hasPermission && (
+              <ShowHideToggle
+                showhideStatus={showHideCompList?.hprinfra?.visibility}
+                title={"Projects data fetched from the Project Dashboard [ LIMITED TO 3 ]"}
+                componentName={"hprinfra"}
+                showHideHandler={showHideHandler}
+                id={showHideCompList?.hprinfra?.id}
+              />
+            )}
+            {showHideCompList?.hprinfra?.visibility && (
+              <>
+                <>
+                  <div className="container">
+                    <div className="row">
+                      <div className="breiftopMargin">
+                        {isAdmin && hasPermission && (
+                          <EditIcon
+                            editHandler={() => editHandler("projectbriefIntro", true)}
+                            editlabel="Projects"
+                          />
+                        )}
+
+                        <BriefIntroFrontend
+                          pageType={`${pageType}projectbriefIntro`}
+                          introState={componentEdit.projectbriefIntro}
+                          detailsContainerCss="col-lg-10 offset-lg-1 text-center"
+                          introTitleCss=""
+                          introSubTitleCss=""
+                          introDecTitleCss=""
+                          linkLabel="Read More"
+                          linkCss="btn btn-outline"
+                          moreLink=""
+                          anchorContainer=""
+                          anchersvgColor=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {componentEdit.projectbriefIntro && (
+                    <div className={`adminEditTestmonial selected `}>
+                      <BriefIntroAdmin
+                        editHandler={editHandler}
+                        componentType="projectbriefIntro"
+                        popupTitle="Projects Brief"
+                        pageType={`${pageType}projectbriefIntro`}
+                      />
+                    </div>
+                  )}
+                </>
+                <HomeProjects />
+              </>
+            )}
+          </div>
+        </div>
+        {/* ==== PROJECT END ===================================================================================================== */}
+
         {/* ICONS ALL SERVICES ============================ */}
-        <div className={showHideCompList?.homedynamciservicesbrief?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
+        <div
+          className={
+            showHideCompList?.homedynamciservicesbrief?.visibility && isAdmin && hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.homedynamciservicesbrief?.visibility}
@@ -367,7 +471,12 @@ const Home = () => {
               <div className="homeDynamciServicesIntro">
                 <div className="container">
                   <div className="breiftopMargin">
-                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("homeDynamciServicesBrief", true)} editlabel={"Services"} />}
+                    {isAdmin && hasPermission && (
+                      <EditIcon
+                        editHandler={() => editHandler("homeDynamciServicesBrief", true)}
+                        editlabel={"Services"}
+                      />
+                    )}
 
                     <BriefIntroFrontend
                       introState={componentEdit.homeDynamciServicesBrief}
@@ -411,7 +520,12 @@ const Home = () => {
                     ))} */}
                   </div>
                   <div className="text-center text-md-end">
-                    <Ancher AncherLabel="View All" Ancherpath="/all-serivces" AncherClass="mt-4 d-block" AnchersvgColor="#ffffff" />
+                    <Ancher
+                      AncherLabel="View All"
+                      Ancherpath="/all-serivces"
+                      AncherClass="mt-4 d-block"
+                      AnchersvgColor="#ffffff"
+                    />
                   </div>
                 </div>
               </div>
@@ -421,7 +535,13 @@ const Home = () => {
         {/* END OF ICONS ALL SERVICES */}
 
         {/* ICONS HEILIGHT START ================================= */}
-        <div className={showHideCompList?.iconshelightsbrief?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
+        <div
+          className={
+            showHideCompList?.iconshelightsbrief?.visibility && isAdmin && hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.iconshelightsbrief?.visibility}
@@ -436,7 +556,12 @@ const Home = () => {
               <div className="container">
                 <div className="row">
                   <div className="breiftopMargin">
-                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("iconsHelightsBrief", true)} editlabel={"Hilights"} />}
+                    {isAdmin && hasPermission && (
+                      <EditIcon
+                        editHandler={() => editHandler("iconsHelightsBrief", true)}
+                        editlabel={"Hilights"}
+                      />
+                    )}
 
                     <BriefIntroFrontend
                       introState={componentEdit.iconsHelightsBrief}
@@ -471,7 +596,13 @@ const Home = () => {
         {/* END  ========================= */}
 
         {/* ==== HOME PROJECT CAROUSEL - START ===================================================================================================== */}
-        <div className={showHideCompList?.homeprojectcarousel?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
+        <div
+          className={
+            showHideCompList?.homeprojectcarousel?.visibility && isAdmin && hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.homeprojectcarousel?.visibility}
@@ -491,7 +622,13 @@ const Home = () => {
         {/* END ============================== */}
 
         {/* === CLIENTS - COMPONENTS DEVELOPER IN SAP DESIGNS START ===========================================================================  */}
-        <div className={showHideCompList?.homeclient?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
+        <div
+          className={
+            showHideCompList?.homeclient?.visibility && isAdmin && hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.homeclient?.visibility}
@@ -511,7 +648,13 @@ const Home = () => {
         {/* === CLIENTS - COMPONENTS DEVELOPER IN SAP DESIGNS END ===========================================================================  */}
 
         {/* BANNER COMPONENT START =========================================================================================================== */}
-        <div className={showHideCompList?.banner?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
+        <div
+          className={
+            showHideCompList?.banner?.visibility && isAdmin && hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.banner?.visibility}
@@ -526,8 +669,16 @@ const Home = () => {
             <>
               <div className="row">
                 <div className="col-md-12 p-0 position-relative homePage">
-                  {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("banner", true)} editlabel={"Hero Banner"} />}
-                  <Banner getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`} bannerState={componentEdit.banner} />
+                  {isAdmin && hasPermission && (
+                    <EditIcon
+                      editHandler={() => editHandler("banner", true)}
+                      editlabel={"Hero Banner"}
+                    />
+                  )}
+                  <Banner
+                    getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
+                    bannerState={componentEdit.banner}
+                  />
                 </div>
               </div>
               {componentEdit.banner && (
@@ -549,7 +700,13 @@ const Home = () => {
         {/* BANNER COMPONENT END =========================================================================================================== */}
 
         {/* COUNTER COMPONENT START =========================================================================================================== */}
-        <div className={showHideCompList?.counterlist?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
+        <div
+          className={
+            showHideCompList?.counterlist?.visibility && isAdmin && hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.counterlist?.visibility}
@@ -564,9 +721,17 @@ const Home = () => {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-md-12 p-0 ">
-                  {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("counterlist", true)} editlabel={"Counter"} />}
+                  {isAdmin && hasPermission && (
+                    <EditIcon
+                      editHandler={() => editHandler("counterlist", true)}
+                      editlabel={"Counter"}
+                    />
+                  )}
                   <CounterComponentStyles>
-                    <CounterCompnentView getDataAPIURL={`counter/getClientCounterSet/`} componentState={componentEdit.counterlist} />
+                    <CounterCompnentView
+                      getDataAPIURL={`counter/getClientCounterSet/`}
+                      componentState={componentEdit.counterlist}
+                    />
                   </CounterComponentStyles>
                 </div>
               </div>
@@ -589,7 +754,13 @@ const Home = () => {
         {/* === END COUNTER =========================================================================================================== */}
 
         {/* ==== INDUSTRIES WE SERVE - START ======================================================================================================= */}
-        <div className={showHideCompList?.industriesweserve?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
+        <div
+          className={
+            showHideCompList?.industriesweserve?.visibility && isAdmin && hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.industriesweserve?.visibility}
@@ -603,7 +774,12 @@ const Home = () => {
             <>
               <div className="container pt-5">
                 <div className="breiftopMargin">
-                  {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("industriesweserveBrief", true)} editlabel={"Industries Brief"} />}
+                  {isAdmin && hasPermission && (
+                    <EditIcon
+                      editHandler={() => editHandler("industriesweserveBrief", true)}
+                      editlabel={"Industries Brief"}
+                    />
+                  )}
 
                   <BriefIntroFrontend
                     introState={componentEdit.industriesweserveBrief}
@@ -635,7 +811,12 @@ const Home = () => {
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-md-12 p-0 carousel">
-                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("industriesweserve", true)} editlabel={"Industries"} />}
+                    {isAdmin && hasPermission && (
+                      <EditIcon
+                        editHandler={() => editHandler("industriesweserve", true)}
+                        editlabel={"Industries"}
+                      />
+                    )}
 
                     {/* <Carousel
                       carouselState={componentEdit.industriesweserve}
@@ -698,7 +879,13 @@ const Home = () => {
         {/* ==== CAROUSEL COMPONENT END ========================================================================================================= */}
 
         {/* ==== TESTIMONIAL COMPONENT START ====================================================================================================*/}
-        <div className={showHideCompList?.testimonis?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
+        <div
+          className={
+            showHideCompList?.testimonis?.visibility && isAdmin && hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.testimonis?.visibility}
@@ -714,12 +901,20 @@ const Home = () => {
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-md-12">
-                    <Title title="Testimonials" cssClass="fs-1 fw-bold text-center my-5 text-uppercase" />
+                    <Title
+                      title="Testimonials"
+                      cssClass="fs-1 fw-bold text-center my-5 text-uppercase"
+                    />
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-md-12 testimonials text-center">
-                    {isAdmin && hasPermission && <EditIcon editHandler={() => editHandler("testmonial", true)} editlabel={"Testimonials"} />}
+                    {isAdmin && hasPermission && (
+                      <EditIcon
+                        editHandler={() => editHandler("testmonial", true)}
+                        editlabel={"Testimonials"}
+                      />
+                    )}
 
                     {testimonis.length < 1 ? (
                       (testimonis.length, "No Testimonials Found")
@@ -759,7 +954,13 @@ const Home = () => {
         {/* END OF TESTIMONIAL COMPONENT =========================================================================================================== */}
 
         {/* HOME NEWS START =================================================================================================*/}
-        <div className={showHideCompList?.news?.visibility && isAdmin && hasPermission ? "border border-info mb-2" : ""}>
+        <div
+          className={
+            showHideCompList?.news?.visibility && isAdmin && hasPermission
+              ? "border border-info mb-2"
+              : ""
+          }
+        >
           {isAdmin && hasPermission && (
             <ShowHideToggle
               showhideStatus={showHideCompList?.news?.visibility}
@@ -774,7 +975,10 @@ const Home = () => {
               <div className="row pb-2 homeNews">
                 <div className="col-md-12 d-flex justify-content-center align-items-center">
                   <div className="container">
-                    <Title title="News" cssClass="fs-1 fw-bold text-center my-5 pt-0 pt-md-0 text-uppercase" />
+                    <Title
+                      title="News"
+                      cssClass="fs-1 fw-bold text-center my-5 pt-0 pt-md-0 text-uppercase"
+                    />
                     <HomeNews news={news} setNews={setResponseData} pagetype={pageType} />
 
                     <div className="d-flex justify-content-center align-items-center mt-md-4">

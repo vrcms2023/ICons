@@ -1,33 +1,31 @@
-
 .title-border {
-    border-width: 1px;
-    border-style: solid;
-    opacity: 1;
+  border-width: 1px;
+  border-style: solid;
+  opacity: 1;
 }
 
 .ongoing {
-    border-color: #27C400;
+  border-color: #27c400;
 }
 
 .completed {
-    border-color: #FF9D00;
+  border-color: #ff9d00;
 }
 
 .future {
-    border-color: #6D2F9B;
+  border-color: #6d2f9b;
 }
 
 .card-body img {
-    height: 160px;
-    object-fit: cover;
-    object-position: top;
+  /*height: 160px; */
+  object-fit: cover;
+  object-position: top;
 }
 
 .card-body h5 {
-    font-weight: 600;
-    font-style: normal;
-    color: #222;
-    text-align: center;
-    letter-spacing: .05rem;
+  font-weight: 600;
+  font-style: normal;
+  color: #222;
+  text-align: center;
+  letter-spacing: 0.05rem;
 }
-

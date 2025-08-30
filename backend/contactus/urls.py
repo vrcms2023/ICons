@@ -14,4 +14,5 @@ urlpatterns = [
     path('raqform/', RaqFormAPIView.as_view(), name="create_get_Raq_form"),
     path('raqsearchContacts/<query>/', RaqSearchAPIView.as_view(), name="get_raq_search_result"),
     path('raqexportExcel/', RaqExportToExcel.as_view(), name='raq-export-excel'),
+    path('raqDeleteRecord/<pk>/', RaqDeleteAPIView.as_view(), name='raq-delete-record'),
 ]

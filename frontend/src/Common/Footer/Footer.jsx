@@ -112,9 +112,7 @@ const Footer = () => {
   useEffect(() => {
     const getFooterValues = async () => {
       try {
-        const response = await axiosClientServiceApi.get(
-          `/footer/getTermsAndCondition/`
-        );
+        const response = await axiosClientServiceApi.get(`/footer/getTermsAndCondition/`);
         if (response?.data?.terms?.length > 0) {
           setTermsAndPolicyData(response?.data?.terms[0]);
         }
@@ -153,9 +151,7 @@ const Footer = () => {
                       <div className="breiftopMargin">
                         {isAdmin && hasPermission && (
                           <EditIcon
-                            editHandler={() =>
-                              editHandler("footerAboutBrief", true)
-                            }
+                            editHandler={() => editHandler("footerAboutBrief", true)}
                             editlabel={"Company Brief"}
                           />
                         )}
@@ -297,9 +293,7 @@ const Footer = () => {
             </div> */}
 
             <div
-              className={`col-md-3 col-lg-4 text-center text-md-start reachUs ${
-                isAdmin ? "" : ""
-              }`}
+              className={`col-md-3 col-lg-4 text-center text-md-start reachUs ${isAdmin ? "" : ""}`}
             >
               {/* {isAdmin && (
                   <Ancher 
@@ -347,9 +341,7 @@ const Footer = () => {
                       className="fa fa-paper-plane fs-5 me-2"
                       aria-hidden="true"
                     ></i> */}
-                    <Link to={`mailto: ${address?.emailid}`}>
-                      {address?.emailid}
-                    </Link>
+                    <Link to={`mailto: ${address?.emailid}`}>{address?.emailid}</Link>
                   </p>
                 </>
               ) : (
@@ -362,9 +354,7 @@ const Footer = () => {
                       className="fa fa-paper-plane fs-5 me-2"
                       aria-hidden="true"
                     ></i> */}
-                    <Link to={`mailto: ${address?.emailid_2}`}>
-                      {address?.emailid_2}
-                    </Link>
+                    <Link to={`mailto: ${address?.emailid_2}`}>{address?.emailid_2}</Link>
                   </p>
                 </>
               ) : (
@@ -377,9 +367,7 @@ const Footer = () => {
                       className="fa fa-envelope fs-5 me-2"
                       aria-hidden="true"
                     ></i> */}
-                    <Link to={`mailto: ${address?.emailid_3}`}>
-                      {address?.emailid_3}
-                    </Link>
+                    <Link to={`mailto: ${address?.emailid_3}`}>{address?.emailid_3}</Link>
                   </p>
                 </>
               ) : (
@@ -409,24 +397,69 @@ const Footer = () => {
                 />  */}
 
                   <h4 className="mb-3 ">{address?.company_name}</h4>
-                  <p className="m-0 ">{address?.address_dr_no}</p>
-                  <p className="m-0 ">{address?.city}</p>
+                  {address?.address_dr_no && <p className="m-0">{address?.address_dr_no}</p>}
+                  {address?.street && <p className="m-0">{address?.street} </p>}
+                  {address?.location && <p className="m-0">{address?.location} </p>}
+                  {address?.city && <p className="m-0">{address?.city} </p>}
+                  {address?.state && <p className="mb-3">{address?.state}</p>}
+                  {address.phonen_number && (
+                    <p className="mt-2">
+                      <i className="fa fa-phone-square fs-4 me-2" aria-hidden="true"></i>{" "}
+                      {address.phonen_number}
+                    </p>
+                  )}
 
-                  <p className="m-0 ">{address?.street}</p>
-                  <p className="m-0 ">{address?.state}</p>
-                  <p className="m-0 ">{address?.postcode}</p>
+                  {address.phonen_number_2 && (
+                    <p className="mt-2">
+                      <i className="fa fa-phone-square fs-4 me-2" aria-hidden="true"></i>{" "}
+                      {address.phonen_number_2}
+                    </p>
+                  )}
+
+                  {address.phonen_number_3 && (
+                    <p className="mt-2">
+                      <i className="fa fa-whatsapp fs-4 me-2" aria-hidden="true"></i>{" "}
+                      {address.phonen_number_3}{" "}
+                    </p>
+                  )}
+
+                  {address.emailid && (
+                    <p className="mt-0">
+                      <i className="fa fa-envelope-o fs-4 me-2" aria-hidden="true"></i>{" "}
+                      <Link to={`mailto: ${address.emailid && address.emailid}`}>
+                        {address.emailid && address.emailid}
+                      </Link>
+                    </p>
+                  )}
+
+                  {address.emailid_2 && (
+                    <p className="mt-0">
+                      <i className="fa fa-envelope-o fs-4 me-2" aria-hidden="true"></i>{" "}
+                      <Link to={`mailto: ${address.emailid_2 && address.emailid_2}`}>
+                        {address.emailid_2 && address.emailid_2}
+                      </Link>
+                    </p>
+                  )}
+
+                  {address.emailid_3 && (
+                    <p className="mt-0">
+                      <i className="fa fa-envelope-o fs-4 me-2" aria-hidden="true"></i>{" "}
+                      <Link to={`mailto: ${address.emailid_3 && address.emailid_3}`}>
+                        {address.emailid_3 && address.emailid_3}
+                      </Link>
+                    </p>
+                  )}
                 </div>
 
                 <div
                   className={`socialLinks ${
-                    isAdmin
-                      ? "border border-warning mb-3 position-relative p-3"
-                      : ""
+                    isAdmin ? "border border-warning mb-3 position-relative p-3" : ""
                   }`}
                 >
                   {isAdmin && (
                     <EditIcon
-                      editHandler={() => editHandler("address", true)} editlabel={"Social Media"}
+                      editHandler={() => editHandler("address", true)}
+                      editlabel={"Social Media"}
                     />
                   )}
 
@@ -435,28 +468,19 @@ const Footer = () => {
                       to={`https://wa.me/${footerValues.whatsapp_number}?text=Thank you for contact us`}
                       target="_blank"
                     >
-                      <i
-                        className="fa fa-brands fa-whatsapp"
-                        aria-hidden="true"
-                      ></i>
+                      <i className="fa fa-brands fa-whatsapp" aria-hidden="true"></i>
                     </Link>
                   )}
 
                   {footerValues.facebook_url && (
                     <Link to={footerValues.facebook_url} target="_blank">
-                      <i
-                        className="fa fa-facebook-square"
-                        aria-hidden="true"
-                      ></i>
+                      <i className="fa fa-facebook-square" aria-hidden="true"></i>
                     </Link>
                   )}
 
                   {footerValues.twitter_url && (
                     <Link to={footerValues.twitter_url} target="_blank">
-                      <i
-                        className="fa fa-twitter-square"
-                        aria-hidden="true"
-                      ></i>
+                      <i className="fa fa-twitter-square" aria-hidden="true"></i>
                     </Link>
                   )}
 
@@ -470,10 +494,7 @@ const Footer = () => {
 
                   {footerValues.linkedIn_url && (
                     <Link to={footerValues.linkedIn_url} target="_blank">
-                      <i
-                        className="fa fa-linkedin-square"
-                        aria-hidden="true"
-                      ></i>
+                      <i className="fa fa-linkedin-square" aria-hidden="true"></i>
                     </Link>
                   )}
 
@@ -505,15 +526,17 @@ const Footer = () => {
 
         <div className="p-3 footerCopyRights">
           {isAdmin && (
-            <EditIcon editHandler={() => editHandler("termsPolacy", true)} editlabel={"Terms & Conditions"} />
+            <EditIcon
+              editHandler={() => editHandler("termsPolacy", true)}
+              editlabel={"Terms & Conditions"}
+            />
           )}
 
           <div className="container">
             <div className="row">
               <div className="">
                 <div className="d-flex flex-column flex-lg-row text-center text-lg-start justify-content-center justify-content-lg-between align-items-center gap-2">
-                  &copy; {fullYear} - {addressList[0]?.company_name}. All rights
-                  reserved
+                  &copy; {fullYear} - {addressList[0]?.company_name}. All rights reserved
                   {/* <span className="d-inline-block  d-none d-md-block">|</span> */}
                   <div className="d-flex gap-2">
                     <Link
@@ -536,9 +559,7 @@ const Footer = () => {
                 <span className="d-block mt-0 text-center text-lg-start d-block">
                   Designed & developed by{" "}
                   <a href="https://vitsols.com/" className="dby">
-                    <small className="p-1 fw-bold d-inline-block">
-                      VITSOLS
-                    </small>
+                    <small className="p-1 fw-bold d-inline-block">VITSOLS</small>
                   </a>
                 </span>
               </div>
@@ -547,12 +568,7 @@ const Footer = () => {
         </div>
       </footer>
       {modelShow && (
-        <Model
-          obj={termsAndConditionData}
-          privacy={""}
-          closeModel={closeModel}
-          flag="footer"
-        />
+        <Model obj={termsAndConditionData} privacy={""} closeModel={closeModel} flag="footer" />
       )}
       {componentEdit.address && (
         <div className="adminEditTestmonial selected">
@@ -576,11 +592,7 @@ const Footer = () => {
       )}
       {componentEdit.contact && (
         <div className="adminEditTestmonial selected">
-          <ContactInputs
-            editHandler={editHandler}
-            componentType="contact"
-            popupTitle="Contact"
-          />
+          <ContactInputs editHandler={editHandler} componentType="contact" popupTitle="Contact" />
         </div>
       )}
       {modelShow && <ModelBg closeModel={closeModel} />}

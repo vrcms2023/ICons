@@ -7,12 +7,9 @@ import CustomPagination from "../../../Common/CustomPagination";
 import { getDateAndTimeValue, getTodayDate, paginationDataFormat } from "../../../util/commonUtil";
 import { sortCreatedDateByDesc } from "../../../util/dataFormatUtil";
 import Button from "../../../Common/Button";
-import Ancher from "../../../Common/Ancher";
-import { getBaseURL } from "../../../util/ulrUtil";
-
-import Model from "../../../Common/Model";
-import ModelBg from "../../../Common/ModelBg";
-import ContactsendRequstModel from "../../Components/contactsendRequstModel";
+import { Link } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+import DeleteDialog from "../../../Common/DeleteDialog";
 
 const RAQAdmininistration = () => {
   const [userDetails, setUserDetails] = useState([]);
@@ -20,28 +17,24 @@ const RAQAdmininistration = () => {
   const [pageLoadResult, setPageloadResults] = useState(false);
   const [searchQuery, setSearchquery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [modelShow, setModelShow] = useState(false);
-  const [selectedUser, setSelectedUser] = useState("");
-  const baseURL = getBaseURL();
 
   /**
    * get User details
    */
 
-  useEffect(() => {
-    const getAllUserDetails = async () => {
-      try {
-        const response = await axiosServiceApi.get(`/contactus/raqform/`);
-        if (response?.status === 200 && response.data?.results?.length > 0) {
-          setResponseData(response.data);
-          setPageloadResults(true);
-        }
-      } catch (error) {
-        toast.error("Unable to load contactus details");
+  const getAllRaqFormDetails = async () => {
+    try {
+      const response = await axiosServiceApi.get(`/contactus/raqform/`);
+      if (response?.status === 200 && response.data?.results?.length > 0) {
+        setResponseData(response.data);
+        setPageloadResults(true);
       }
-    };
-
-    getAllUserDetails();
+    } catch (error) {
+      toast.error("Unable to load contactus details");
+    }
+  };
+  useEffect(() => {
+    getAllRaqFormDetails();
   }, []);
 
   const setResponseData = (data) => {
@@ -73,34 +66,31 @@ const RAQAdmininistration = () => {
     }
   };
 
-  const sendRequest = async (user) => {
-    const data = {
-      firstName: user.name,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      description: user.description,
-    };
-    try {
-      const response = await axiosServiceApi.post(`/contactus/sendRequesttoClient/`, {
-        ...data,
-      });
-
-      if (response.status === 200) {
-        toast.success(`Request is sent successfully`);
+  const handleRAQdetailsDelete = (user) => {
+    const title = user.name;
+    const deleteRAQDetailsByID = async () => {
+      const response = await axiosServiceApi.delete(`/contactus/raqDeleteRecord/${user.id}/`);
+      if (response.status === 204) {
+        toast.success(`${title} User details is delete successfully `);
+        getAllRaqFormDetails();
       }
-    } catch (error) {
-      console.log("unable to save the career form");
-    }
-  };
+    };
 
-  const showModel = (user) => {
-    setModelShow(!modelShow);
-    setSelectedUser(user);
-  };
-
-  const closeModel = () => {
-    setModelShow(!modelShow);
-    setSelectedUser("");
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <DeleteDialog
+            onClose={onClose}
+            callback={deleteRAQDetailsByID}
+            message={
+              <>
+                Confirm deletion of <span>{title}</span> user details?
+              </>
+            }
+          />
+        );
+      },
+    });
   };
 
   return (
@@ -146,6 +136,7 @@ const RAQAdmininistration = () => {
                 <th class="align-middle">phoneNumber</th>
                 <th class="align-middle">description</th>
                 <th class="align-middle">Date | Time</th>
+                <th class="align-middle">Action</th>
                 {/* <th className="text-end align-middle">Send Request</th> */}
               </tr>
             </thead>
@@ -165,6 +156,11 @@ const RAQAdmininistration = () => {
                   <td class="align-middle">
                     {getDateAndTimeValue(user.created_at)}
                     {getTodayDate(user.created_at) && <span className="badge bg-warning text-dark px-2 ms-2">NEW</span>}
+                  </td>
+                  <td>
+                    <Link to="" className=" ms-4" onClick={() => handleRAQdetailsDelete(user)}>
+                      <i className="fa fa-trash-o fs-4 text-danger" aria-hidden="true" title="Delete"></i>
+                    </Link>
                   </td>
                   {/* <td class="align-middle"> */}
                   {/* <Button
@@ -206,8 +202,6 @@ const RAQAdmininistration = () => {
           ""
         )}
       </div>
-      {modelShow && <ContactsendRequstModel closeModel={closeModel} selectedUser={selectedUser} />}
-      {modelShow && <ModelBg closeModel={closeModel} />}
     </div>
   );
 };

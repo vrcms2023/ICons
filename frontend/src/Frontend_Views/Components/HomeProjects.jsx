@@ -17,9 +17,7 @@ import { getDummyImage, getImagePath } from "../../util/commonUtil";
 const HomeProjects = () => {
   const [ProjectCategoryType, setProjectCategoryType] = useState([]);
   const getPorjectCategory = async () => {
-    const response = await axiosClientServiceApi.get(
-      `/project/clientCategory/`
-    );
+    const response = await axiosClientServiceApi.get(`/project/clientCategory/`);
 
     if (response?.status === 200) {
       setProjectCategoryType(response.data);
@@ -30,7 +28,6 @@ const HomeProjects = () => {
   }, []);
   return (
     <div>
-      <Title title="PROJECTS" cssClass="text-center fs-1" />
       <div className="row my-3 homeProjectsBg">
         <div className="col-md-12 d-flex justify-content-center align-items-center">
           <div className="container">
@@ -44,21 +41,16 @@ const HomeProjects = () => {
                     </div>
                     <div className="card-body pt-0">
                       <img
-                        src={
-                          item?.path ? getImagePath(item.path) : getDummyImage()
-                        }
+                        src={item?.path ? getImagePath(item.path) : getDummyImage()}
                         alt={item?.alternitivetext}
                         className="w-100"
                         style={{
                           width: "100px",
-                          height: "100px",
                           objectFit: "cover",
                         }}
                       />
 
-                      <p className="card-text my-4">
-                        {item.category_description}
-                      </p>
+                      <p className="card-text my-4">{item.category_description}</p>
                       <Link to={`${item.readMore_link}`}>
                         Continue{" "}
                         {/* <svg

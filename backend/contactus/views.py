@@ -7,7 +7,7 @@ from products.models import Category
 from .models import ContactUS, Brochures, RaqForm
 from .serializers import ContactUSSerializer, BrochuresSerializer, RaqFormSerializer
 from rest_framework import generics, permissions
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, DestroyAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.core.mail import  EmailMessage
@@ -450,7 +450,15 @@ class RaqSearchAPIView(ListAPIView):
         
         serializer = RaqFormSerializer(snippet, many=True)
         return Response({"contactus": serializer.data}, status=status.HTTP_200_OK)
-    
+
+class RaqDeleteAPIView(DestroyAPIView):
+    queryset = RaqForm.objects.all()
+    serializer_class = RaqFormSerializer
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({"message": "Deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 class RaqExportToExcel(APIView):
     permission_classes = [permissions.AllowAny]
