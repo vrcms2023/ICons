@@ -10,7 +10,7 @@ import { InputFields } from "../../Frontend_Admin/Components/forms/FormFields";
 import Button from "../../Common/Button";
 import { countries, natureofprojectOptions } from "../../data/coutrieslist";
 
-const RaqUseForm = ({ closeModel, downloadPDF, buttonLabel = "DOWNLOAD" }) => {
+const RaqUseForm = ({ closeModel, downloadPDF, buttonLabel = "DOWNLOAD", setFormSuccess }) => {
   const {
     register,
     reset,
@@ -33,8 +33,8 @@ const RaqUseForm = ({ closeModel, downloadPDF, buttonLabel = "DOWNLOAD" }) => {
       });
       if (response.status === 201) {
         toast.success("Your request is submit succuessfully");
-        if (closeModel) {
-          closeModel();
+        setFormSuccess(true);
+        if (downloadPDF) {
           downloadPDF();
         }
         reset();

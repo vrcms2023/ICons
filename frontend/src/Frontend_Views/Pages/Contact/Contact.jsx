@@ -56,7 +56,7 @@ const Contact = () => {
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
 
   const [show, setShow] = useState(false);
-  const [success, setsuccess] = useState(false);
+  const [formSuccess, setFormSuccess] = useState(false);
 
   const [mapValues, setMapValues] = useState("");
   const { addressList } = useSelector((state) => state.addressList);
@@ -70,28 +70,6 @@ const Contact = () => {
   useEffect(() => {
     removeActiveClass();
   }, []);
-
-  /**
-   * contactus form submit
-   */
-  const onFormSubmit = async (data) => {
-    try {
-      const response = await axiosClientServiceApi.post(`/contactus/listcreate/`, {
-        ...data,
-      });
-      if (response.status === 201) {
-        toast.success("Your request is submit succuessfully");
-        removeCookie("clientInformation");
-        setCookie("clientInformation", data.email, { maxAge: 86400 });
-        reset();
-        setsuccess(true);
-      } else {
-        toast.error("unable to process your request");
-      }
-    } catch (error) {
-      toast.error("unable to process your request");
-    }
-  };
 
   // useEffect(() => {
   //   window.scrollTo(0, 0);
@@ -154,6 +132,17 @@ const Contact = () => {
       dispatch(createShowHideComponent(newData));
     }
   };
+
+  // auto-hide after 30 seconds
+  useEffect(() => {
+    if (formSuccess) {
+      const timer = setTimeout(() => {
+        setFormSuccess(false);
+      }, 5000); // 5 sec
+
+      return () => clearTimeout(timer); // cleanup if component unmounts
+    }
+  }, [formSuccess]);
 
   return (
     <ContactPageStyled>
@@ -352,13 +341,25 @@ const Contact = () => {
                   </div>
 
                   <div className="col-md-12 col-lg-5 p-1 px-3 p-md-5 mb-md-5 quickContact">
-                    {success && (
+                    {/* {formSuccess && (
                       <Alert
-                        mesg={"Thank you for contact us"}
+                        mesg={
+                          " Thank you for contacting us. Our team will get back to you at the earliest opportunity."
+                        }
                         cssClass={`alert text-white w-50 mx-auto mt-3 p-2 text-center bg-success`}
                       />
+                    )} */}
+                    {formSuccess && (
+                      <div className="alert alert-success text-center" role="alert">
+                        Thank you for contacting us. <br />
+                        Our team will get back to you at the earliest opportunity.
+                      </div>
                     )}
-                    <RaqUseForm buttonLabel="SEND REQUEST" />
+                    <RaqUseForm
+                      buttonLabel="SEND REQUEST"
+                      successMessage="Thank you for contacting us. <br/> Our team will get back to you at the earliest opportunity."
+                      setFormSuccess={setFormSuccess}
+                    />
                   </div>
                 </>
               </div>
