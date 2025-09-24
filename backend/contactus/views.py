@@ -11,9 +11,6 @@ from rest_framework.generics import ListAPIView, DestroyAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.core.mail import  EmailMessage
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
 from django.template.loader import get_template
 from django.conf import settings
 from django.http import Http404
@@ -404,43 +401,39 @@ class RaqFormAPIView(generics.CreateAPIView):
                 'hangout' : serializer.data["hangout"],
                 'other' : serializer.data["other"],
             }
-            admin_message = render_to_string('admin_raq_mesg.html', admin_ctx)
-            admin_msg = EmailMultiAlternatives(
+            admin_message = get_template('admin_raq_mesg.html').render(admin_ctx)
+            admin_msg = EmailMessage(
                     serializer.data["name"] + ' - RAQ Enquiry form' ,
                     admin_message,
                     serializer.data["email"],
                     [settings.EMAIL_HOST_USER]
             )
-            #admin_msg.content_subtype ="html"# Main content is now text/html
-            admin_msg.attach_alternative(admin_message, "text/html")
+            admin_msg.content_subtype ="html"# Main content is now text/html
             admin_msg.send()
-
+           
             
-            subject = settings.EMAIL_CUSTOMER_THANK_YOU_MESSAGE + settings.APP_NAME
             if(formType and formType=="brochureDownload"):
                 subject = settings.EMAIL_BROUCHER_CUSTOMER_THANK_YOU_MESSAGE
                 client_ctx = {
                     'user': serializer.data["name"],
-                    "message": settings.EMAIL_CUSTOMER_BROCHURE_AUTO_REPLY_HTML
+                    "message": settings.EMAIL_CUSTOMER_BROCHURE_AUTO_REPLY_HTML 
                 }
         
             if(formType and formType=="contact"):
-                subject = settings.EMAIL_CONTACT_CUSTOMER_THANK_YOU_MESSAGE + settings.APP_NAME
+                subject = settings.EMAIL_CONTACT_CUSTOMER_THANK_YOU_MESSAGE
                 client_ctx = {
                     'user': serializer.data["name"],
                     "message": settings.EMAIL_CUSTOMER_CONTACT_AUTO_REPLY_HTML
                 }
-
-            
-            client_message_html = render_to_string('customer-mesg.html', client_ctx)
-            client_message_text = strip_tags(client_message_html)
-            client_msg = EmailMultiAlternatives(
+                
+            client_message = get_template('customer-mesg.html').render(client_ctx)
+            client_msg = EmailMessage(
                     subject,
-                    client_message_text,
+                    client_message,
                     settings.EMAIL_HOST_USER,
                     [serializer.data["email"]]
             )          
-            client_msg.attach_alternative(client_message_html, "text/html")
+          
             client_msg.content_subtype ="html"# Main content is now text/html
             client_msg.send()
              
