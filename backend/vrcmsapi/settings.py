@@ -172,9 +172,44 @@ EMAIL_REQUEST_MESSAGE_2="to Elevate Your Experience!"
 # EMAIL_USE_TLS = False
 
 EMAIL_CUSTOMER_THANK_YOU_MESSAGE = "Thanks for contacting"
+EMAIL_BROUCHER_CUSTOMER_THANK_YOU_MESSAGE = "Thank you for Downloading Our Brochure"
+EMAIL_CONTACT_CUSTOMER_THANK_YOU_MESSAGE = "Thank You for Reaching Out to "
 EMAIL_CUSTOMER_AUTO_REPLY_MESSAGE = " This automatic reply is just to let you know that we received your message and we will get back to you with a response as quickly as possible. During business hours, we do our best to reply as quick as we can, usually within a couple of hours."
 EMAIL_CUSTOMER_JOB_THANK_YOU_MESSAGE="Thank you for apply job in"
 APP_NAME = " ICONSENGG "
+
+EMAIL_CUSTOMER_CONTACT_AUTO_REPLY_HTML = """
+<p>Thank you for getting in touch with <strong>ICON Industrial Engineering Services Pvt. Ltd.</strong>. 
+We’ve received your inquiry, and our team is already reviewing it. 
+One of our representatives will reach out to you within 2 working days to assist you further.</p>
+
+<p>If you’d like to explore our services in more detail or discuss specific requirements, 
+we’d be happy to connect with you. Please feel free to reply to this email 
+or reach us at <a href="mailto:contactus@iconsengg.com">contactus@iconsengg.com</a>.</p>
+
+<p>We truly appreciate your interest and look forward to connecting with you soon.</p>
+
+<br>
+
+<p>Best regards,<br>
+<strong>Team ICONS</strong></p>
+"""
+
+EMAIL_CUSTOMER_BROCHURE_AUTO_REPLY_HTML = """
+<p>Thank you for downloading our brochure and taking the time to learn more about 
+<strong>ICON Industrial Engineering Services Pvt. Ltd.</strong>.</p>
+
+<p>If you’d like to explore our services in more detail or discuss specific requirements, 
+we’d be happy to connect with you. Please feel free to reach us at 
+<a href="mailto:contactus@iconsengg.com">contactus@iconsengg.com</a>.</p>
+
+<p>We look forward to staying in touch.</p>
+
+<br>
+
+<p>Best regards,<br>
+<strong>Team ICONS</strong></p>
+"""
 
 RESUME_FILE_SIZE = 5
 

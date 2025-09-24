@@ -359,6 +359,7 @@ const Contact = () => {
                       buttonLabel="SEND REQUEST"
                       successMessage="Thank you for contacting us. <br/> Our team will get back to you at the earliest opportunity."
                       setFormSuccess={setFormSuccess}
+                      formType="contact"
                     />
                   </div>
                 </>

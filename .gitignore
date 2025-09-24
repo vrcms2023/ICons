@@ -17,6 +17,7 @@
 /media/
 /envs/
 /backend/.env
+backend/static.zip
 
 # misc
 .DS_Store
