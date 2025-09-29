@@ -27,7 +27,7 @@ const HomeProjects = () => {
     getPorjectCategory();
   }, []);
   return (
-    <div>
+    <div className="container">
       <div className="row my-3 homeProjectsBg">
         <div className="col-md-12 d-flex justify-content-center align-items-center">
           <div className="container">

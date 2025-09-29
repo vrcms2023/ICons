@@ -41,9 +41,7 @@ const HomeServices = ({ title }) => {
 
   const getClinetServiceList = async () => {
     try {
-      let response = await axiosClientServiceApi.get(
-        `/services/getClientHomePageService/`
-      );
+      let response = await axiosClientServiceApi.get(`/services/getClientHomePageService/`);
 
       let data = mapServicePagetoComponent(response.data, 6);
       setClientServiceList(data);
@@ -56,32 +54,24 @@ const HomeServices = ({ title }) => {
     <>
       {clientServiceList?.map((items, index) =>
         items?.child.map((item) => (
-          <div
-            className="col-md-4 col-sm-6 p-4 py-3 p-md-1 p-lg-3"
-            key={`${index}+homeService`}
-          >
+          <div className="col-md-4 col-sm-6 p-4 py-3 p-md-1 p-lg-3" key={`${index}+homeService`}>
             <div
               className="briefIntro"
               // style={{
               //   backgroundImage: `url(${item.path ? getImagePath(item.path) : getImagePath("/media/images/dummy-image-square.png")})`,
               // }}
             >
-              <Link
-                to={`${item.services_page_url}`}
-                className="m-0 text-decoration-none titleLink"
-              >
-                <Title
-                  title={item.feature_title}
-                  cssClass="serviceTitle lc1 lineClamp"
-                />
+              <Link to={`${item.services_page_url}`} className="m-0 text-decoration-none titleLink">
+                <Title title={item.feature_title} cssClass="serviceTitle lc1 lineClamp" />
               </Link>
 
               {item.feature_description && (
                 <RichTextView
                   data={item.feature_description}
                   className={"description"}
-                  // characterLimit={200}
+                  characterLimit={200}
                   showMorelink={false}
+                  id={item.id}
                 />
                 // <div
                 //   className="description"
@@ -140,11 +130,7 @@ const HomeServices = ({ title }) => {
 
       {componentEdit.service ? (
         <div className="adminEditTestmonial">
-          <ServiceForm
-            editHandler={editHandler}
-            componentType="service"
-            popupTitle="Service"
-          />
+          <ServiceForm editHandler={editHandler} componentType="service" popupTitle="Service" />
         </div>
       ) : (
         ""

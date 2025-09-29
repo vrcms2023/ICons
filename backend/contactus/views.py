@@ -401,14 +401,22 @@ class RaqFormAPIView(generics.CreateAPIView):
                 'hangout' : serializer.data["hangout"],
                 'other' : serializer.data["other"],
             }
+
+            if(formType and formType=="brochureDownload"):
+                subject = serializer.data["name"] + '-' + settings.EMAIL_BROUCHER_CUSTOMER_THANK_YOU_MESSAGE
+                
+            if(formType and formType=="contact"):
+                subject = serializer.data["name"] + '-' + settings.EMAIL_CONTACT_CUSTOMER_THANK_YOU_MESSAGE
+
+
             admin_message = get_template('admin_raq_mesg.html').render(admin_ctx)
             admin_msg = EmailMessage(
-                    serializer.data["name"] + ' - RAQ Enquiry form' ,
-                    admin_message,
-                    serializer.data["email"],
-                    [settings.EMAIL_HOST_USER]
+                    subject=subject,
+                    body=admin_message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[settings.DEFAULT_FROM_EMAIL]
             )
-            admin_msg.content_subtype ="html"# Main content is now text/html
+            admin_msg.content_subtype = "html"  # Main content is now text/html
             admin_msg.send()
            
             

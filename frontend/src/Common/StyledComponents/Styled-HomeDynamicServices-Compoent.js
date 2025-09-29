@@ -9,7 +9,6 @@ export const HomeDynamicServiceStylesComponent = styled.div`
     color: ${({ theme }) => theme.textColor};
 
     .briefIntro {
-
       .btn {
         border: 0 !important;
         text-decoration: underline;
@@ -51,7 +50,7 @@ export const HomeDynamicServiceStylesComponent = styled.div`
         &:hover {
           background-color: rgba(0, 0, 0, 0.2);
           // border: 4px solid rgba(255, 255, 255, .4);
-          border-bottom: 20px solid rgba(255, 255, 255, .4);
+          border-bottom: 20px solid rgba(255, 255, 255, 0.4);
 
           // #FF9D00;
 
@@ -85,6 +84,10 @@ export const HomeDynamicServiceStylesComponent = styled.div`
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 6;
+          }
+          ol,
+          ul {
+            display: none !important;
           }
 
           p,
@@ -140,7 +143,6 @@ export const HomeDynamicServiceStylesComponent = styled.div`
         color: #fff;
       }
 
-
       .row {
         .col-md-4 .briefIntro {
           background-repeat: no-repeat;
@@ -148,13 +150,13 @@ export const HomeDynamicServiceStylesComponent = styled.div`
           border-radius: 3px;
 
           &:hover {
-            box-shadow: 0 .8rem 1rem rgba(0, 0, 0, .35) !important;
+            box-shadow: 0 0.8rem 1rem rgba(0, 0, 0, 0.35) !important;
           }
           * {
             color: #fff !important;
           }
 
-          @media(max-width: 768px) {
+          @media (max-width: 768px) {
             background-position: right 32px bottom;
           }
         }
@@ -162,7 +164,7 @@ export const HomeDynamicServiceStylesComponent = styled.div`
         .col-md-4:nth-child(1) .briefIntro {
           // background-image: url('../../../Images/studies.png');
           // background: linear-gradient(90deg,rgba(228, 157, 32, 1) 0%, rgba(203, 192, 28, 1) 100%);
-          background: linear-gradient(180deg,rgba(228, 157, 32, 1) 0%, rgba(232, 156, 26, 1) 100%);
+          background: linear-gradient(180deg, rgba(228, 157, 32, 1) 0%, rgba(232, 156, 26, 1) 100%);
           // background: #E49D20 !important;
         }
 
@@ -170,35 +172,35 @@ export const HomeDynamicServiceStylesComponent = styled.div`
           // background-image: url('../../../Images/engineering.png');
           // background: #CBC01C !important;
           // background: linear-gradient(90deg,rgba(203, 192, 28, 1) 0%, rgba(230, 219, 40, 1) 100%);
-          background: linear-gradient(180deg,rgba(203, 192, 28, 1) 0%, rgba(199, 187, 18, 1) 100%);
+          background: linear-gradient(180deg, rgba(203, 192, 28, 1) 0%, rgba(199, 187, 18, 1) 100%);
         }
 
         .col-md-4:nth-child(3) .briefIntro {
           // background-image: url('../../../Images/calculator.png');
           // background: #E6DB28 !important;
           // background: linear-gradient(90deg,rgba(230, 219, 40, 1) 0%, rgba(167, 207, 46, 1) 100%);
-          background: linear-gradient(180deg,rgba(222, 209, 19, 1) 0%, rgba(212, 199, 17, 1) 100%);
+          background: linear-gradient(180deg, rgba(222, 209, 19, 1) 0%, rgba(212, 199, 17, 1) 100%);
         }
 
         .col-md-4:nth-child(4) .briefIntro {
           // background-image: url('../../../Images/management.png');
           // background: #58981B !important;
           // background: linear-gradient(245deg,rgba(88, 152, 27, 1) 0%, rgba(228, 157, 32, 1) 100%);
-          background: linear-gradient(180deg,rgba(167, 207, 46, 1) 0%, rgba(148, 186, 32, 1) 100%);
+          background: linear-gradient(180deg, rgba(167, 207, 46, 1) 0%, rgba(148, 186, 32, 1) 100%);
         }
 
         .col-md-4:nth-child(5) .briefIntro {
           // background-image: url('../../../Images/engineer.png');
           // background: #8DB21F !important;
           // background: linear-gradient(245deg,rgba(141, 178, 31, 1) 0%, rgba(88, 152, 27, 1) 100%);
-          background: linear-gradient(180deg,rgba(141, 178, 31, 1) 0%, rgba(126, 161, 21, 1) 100%);
+          background: linear-gradient(180deg, rgba(141, 178, 31, 1) 0%, rgba(126, 161, 21, 1) 100%);
         }
 
-        .col-md-4:nth-child(6) .briefIntro{
+        .col-md-4:nth-child(6) .briefIntro {
           // background-image: url('../../../Images/engineering-services.png');
           // background: #A7CF2E !important;
           // background: linear-gradient(245deg,rgba(167, 207, 46, 1) 0%, rgba(141, 178, 31, 1) 100%);
-          background: linear-gradient(180deg,rgba(88, 152, 27, 1) 0%, rgba(83, 145, 25, 1) 100%);
+          background: linear-gradient(180deg, rgba(88, 152, 27, 1) 0%, rgba(83, 145, 25, 1) 100%);
         }
       }
     }
