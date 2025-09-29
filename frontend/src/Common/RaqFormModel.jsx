@@ -34,6 +34,7 @@ const RaqFormModel = ({ closeModel, downloadPDF }) => {
                 downloadPDF={downloadPDF}
                 buttonLabel="DOWNLOAD"
                 setFormSuccess={setFormSuccess}
+                formType="brochureDownload"
               />
             )}
           </div>

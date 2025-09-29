@@ -10,7 +10,13 @@ import { InputFields } from "../../Frontend_Admin/Components/forms/FormFields";
 import Button from "../../Common/Button";
 import { countries, natureofprojectOptions } from "../../data/coutrieslist";
 
-const RaqUseForm = ({ closeModel, downloadPDF, buttonLabel = "DOWNLOAD", setFormSuccess }) => {
+const RaqUseForm = ({
+  closeModel,
+  downloadPDF,
+  buttonLabel = "DOWNLOAD",
+  setFormSuccess,
+  formType,
+}) => {
   const {
     register,
     reset,
@@ -26,6 +32,7 @@ const RaqUseForm = ({ closeModel, downloadPDF, buttonLabel = "DOWNLOAD", setForm
   };
 
   const onFormSubmit = async (data) => {
+    data.formType = formType;
     console.log(data);
     try {
       const response = await axiosClientServiceApi.post(`/contactus/raqform/`, {

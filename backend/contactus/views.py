@@ -381,6 +381,8 @@ class RaqFormAPIView(generics.CreateAPIView):
     
     def post(self, request, format=None):
         serializer = RaqFormSerializer(data=request.data)
+        formType = request.data.get("formType")
+       
         
         if serializer.is_valid():
             serializer.save()            
@@ -408,14 +410,25 @@ class RaqFormAPIView(generics.CreateAPIView):
             )
             admin_msg.content_subtype ="html"# Main content is now text/html
             admin_msg.send()
+           
             
-            client_ctx = {
-                'user': serializer.data["name"], 
-                "message": settings.EMAIL_CUSTOMER_THANK_YOU_MESSAGE + settings.APP_NAME + settings.EMAIL_CUSTOMER_AUTO_REPLY_MESSAGE
-            }
+            if(formType and formType=="brochureDownload"):
+                subject = settings.EMAIL_BROUCHER_CUSTOMER_THANK_YOU_MESSAGE
+                client_ctx = {
+                    'user': serializer.data["name"],
+                    "message": settings.EMAIL_CUSTOMER_BROCHURE_AUTO_REPLY_HTML 
+                }
+        
+            if(formType and formType=="contact"):
+                subject = settings.EMAIL_CONTACT_CUSTOMER_THANK_YOU_MESSAGE
+                client_ctx = {
+                    'user': serializer.data["name"],
+                    "message": settings.EMAIL_CUSTOMER_CONTACT_AUTO_REPLY_HTML
+                }
+                
             client_message = get_template('customer-mesg.html').render(client_ctx)
             client_msg = EmailMessage(
-                    settings.EMAIL_CUSTOMER_THANK_YOU_MESSAGE + settings.APP_NAME,
+                    subject,
                     client_message,
                     settings.EMAIL_HOST_USER,
                     [serializer.data["email"]]
