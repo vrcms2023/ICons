@@ -54,7 +54,11 @@ const HomeServices = ({ title }) => {
     <>
       {clientServiceList?.map((items, index) =>
         items?.child.map((item) => (
-          <div className="col-md-4 col-sm-6 p-4 py-3 p-md-1 p-lg-3" key={`${index}+homeService`}>
+          <div
+            className="col-md-4 col-sm-6 p-4 py-3 p-md-1 p-lg-3"
+            aria-label={`Service ${item.id}`}
+            key={`${index}+homeService`}
+          >
             <div
               className="briefIntro"
               // style={{
