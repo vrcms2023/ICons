@@ -20,13 +20,7 @@ import SkeletonNews from "../../Common/Skeltons/SkeltonNews";
 import RichTextView from "../../Common/RichTextView";
 // Styles
 
-const JobPost = ({
-  addJobs,
-  posts,
-  setPosts,
-  setPageloadResults,
-  setEditState,
-}) => {
+const JobPost = ({ addJobs, posts, setPosts, setPageloadResults, setEditState }) => {
   const editComponentObj = {
     job: false,
   };
@@ -59,9 +53,7 @@ const JobPost = ({
         response = await axiosServiceApi.get(`/careers/createCareer/`);
         setPageloadResults(true);
       } else {
-        response = await axiosClientServiceApi.get(
-          `/careers/clientCareersList/`
-        );
+        response = await axiosClientServiceApi.get(`/careers/clientCareersList/`);
         setPageloadResults(false);
       }
       // const data = sortCreatedDateByDesc(response.data.careers);
@@ -73,9 +65,7 @@ const JobPost = ({
 
   const deleteJobPost = (id, title) => {
     const deleteImageByID = async () => {
-      const response = await axiosServiceApi.delete(
-        `/careers/updateCareer/${id}/`
-      );
+      const response = await axiosServiceApi.delete(`/careers/updateCareer/${id}/`);
       if (response.status === 204) {
         toast.success(`${title} Career is delete successfully `);
         getCareerData();
@@ -89,7 +79,11 @@ const JobPost = ({
             onClose={onClose}
             callback={deleteImageByID}
             // message={`deleting the ${title} image?`}
-            message={<>Confirm deletion of <span>{title}</span> News?</>}
+            message={
+              <>
+                Confirm deletion of <span>{title}</span> News?
+              </>
+            }
           />
         );
       },
@@ -99,18 +93,13 @@ const JobPost = ({
   const publishCareer = async (item) => {
     let response = "";
     try {
-      response = await axiosServiceApi.patch(
-        `/careers/publishCareers/${item.id}/`,
-        { publish: !item.publish }
-      );
+      response = await axiosServiceApi.patch(`/careers/publishCareers/${item.id}/`, {
+        publish: !item.publish,
+      });
 
       if (response.status === 200) {
         let careers = response.data.careers;
-        toast.success(
-          `Career ${
-            careers.publish ? "published" : "un published"
-          } successfully`
-        );
+        toast.success(`Career ${careers.publish ? "published" : "un published"} successfully`);
         getCareerData();
       }
     } catch (error) {
@@ -134,19 +123,12 @@ const JobPost = ({
 
       {posts?.length > 0 ? (
         posts.map((item, index) => (
-          <div
-            className={`col-md-6 col-lg-3 mt-3 mt-md-4 position-relative`}
-            key={item.id}
-          >
+          <div className={`col-md-6 col-lg-3 mt-3 mt-md-4 position-relative`} key={item.id}>
             <div className="d-flex gap-5 gap-sm-4 gap-md-3 gap-lg-3 justify-content-end mb-2 p-1">
               {isAdmin && hasPermission ? (
                 <>
                   <div>
-                    <Link
-                      to=""
-                      onClick={() => editHandler("job", true, item)}
-                      className=" p-2"
-                    >
+                    <Link to="" onClick={() => editHandler("job", true, item)} className=" p-2">
                       <i
                         className="fa fa-pencil text-warning cursor-pointer fs-6"
                         aria-hidden="true"
@@ -157,23 +139,15 @@ const JobPost = ({
                   <div>
                     <Link
                       to=""
-                      onClick={(event) =>
-                        deleteJobPost(item.id, item.job_title)
-                      }
+                      onClick={(event) => deleteJobPost(item.id, item.job_title)}
                       className=" p-2"
                     >
-                      <i
-                        className="fa fa-trash-o fs-6 text-danger"
-                        aria-hidden="true"
-                      ></i>
+                      <i className="fa fa-trash-o fs-6 text-danger" aria-hidden="true"></i>
                     </Link>
                   </div>
 
                   <div>
-                    <Link
-                      to={`/career-details/${item.id}/`}
-                      className="text-secondary"
-                    >
+                    <Link to={`/career-details/${item.id}/`} className="text-secondary">
                       <i className="fa fa-expand fs-6" aria-hidden="true"></i>
                     </Link>
                   </div>
@@ -181,13 +155,9 @@ const JobPost = ({
                   <div className="">
                     <Link to="" onClick={() => publishCareer(item)}>
                       {item.publish ? (
-                        <small className="text-success fw-bold rounded">
-                          P
-                        </small>
+                        <small className="text-success fw-bold rounded">P</small>
                       ) : (
-                        <small className="text-muted fw-bold px-1 rounded">
-                          P
-                        </small>
+                        <small className="text-muted fw-bold px-1 rounded">P</small>
                       )}
                     </Link>
                     {/* <EditIcon editHandler={() => publishCareer(item)} /> */}
@@ -195,10 +165,7 @@ const JobPost = ({
                 </>
               ) : (
                 <div>
-                  <Link
-                    to={`/career-details/${item.id}/`}
-                    className="text-secondary"
-                  >
+                  <Link to={`/career-details/${item.id}/`} className="text-secondary">
                     <i className="fa fa-expand" aria-hidden="true"></i>
                   </Link>
                 </div>
@@ -220,17 +187,11 @@ const JobPost = ({
 
             <div className="p-4 jobPost">
               <small className="d-block location mb-3">
-                <i
-                  className="fa fa-map-marker fs-4 me-1"
-                  aria-hidden="true"
-                ></i>{" "}
+                <i className="fa fa-map-marker fs-4 me-1" aria-hidden="true"></i>{" "}
                 {item.job_location}
               </small>
               <div className="mt-0 mb-3">
-                <Title
-                  title={item.job_title}
-                  cssClass="fs-4 jobTitle"
-                />
+                <Title title={item.job_title} cssClass="fs-4 jobTitle" />
               </div>
               <div className="mt-0 mb-3">
                 <Title title="Company" cssClass="subTitle" />
@@ -239,10 +200,7 @@ const JobPost = ({
               <div className="">
                 <Title title="Job Description" cssClass="subTitle" />
                 <div className="m-0">
-                  <RichTextView
-                    data={getFirstShortDescription(item?.description)}
-                    className={""}
-                  />
+                  <RichTextView data={item?.description} className={""} showMorelink={true} />
                   {/* <div
                     dangerouslySetInnerHTML={{
                       __html: getFirstShortDescription(item?.description),
@@ -262,11 +220,8 @@ const JobPost = ({
                   "Today"
                 ) : (
                   <>
-                    [{" "}
-                    <strong className="subTitle">
-                      {showPosteddate(item.posted_date)}
-                    </strong>{" "}
-                    ] days ago
+                    [ <strong className="subTitle">{showPosteddate(item.posted_date)}</strong> ]
+                    days ago
                   </>
                 )}
               </small>

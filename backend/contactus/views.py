@@ -4,8 +4,8 @@ from xmlrpc.client import Boolean
 
 from products.serializers import CategorySerializer
 from products.models import Category
-from .models import ContactUS, Brochures, RaqForm
-from .serializers import ContactUSSerializer, BrochuresSerializer, RaqFormSerializer
+from .models import ContactUS, Brochures, IconsenggRaqForm
+from .serializers import ContactUSSerializer, BrochuresSerializer, IconsenggRaqFormSerializer
 from rest_framework import generics, permissions
 from rest_framework.generics import ListAPIView, DestroyAPIView
 from rest_framework.response import Response
@@ -66,20 +66,20 @@ class ContactUSAPIView(generics.CreateAPIView):
                     serializer.data["firstName"] + ' - Enquiry form' ,
                     admin_message,
                     serializer.data["email"],
-                    [settings.EMAIL_HOST_USER]
+                    [settings.DEFAULT_FROM_EMAIL]
             )
             admin_msg.content_subtype ="html"# Main content is now text/html
             admin_msg.send()
             
             client_ctx = {
                 'user': serializer.data["firstName"], 
-                "message": settings.EMAIL_CUSTOMER_THANK_YOU_MESSAGE + settings.APP_NAME + settings.EMAIL_CUSTOMER_AUTO_REPLY_MESSAGE
+                "message": settings.EMAIL_CUSTOMER_MESSAGE
             }
             client_message = get_template('customer-mesg.html').render(client_ctx)
             client_msg = EmailMessage(
-                    settings.EMAIL_CUSTOMER_THANK_YOU_MESSAGE + settings.APP_NAME,
+                    settings.EMAIL_THANK_YOU_MESSAGE,
                     client_message,
-                    settings.EMAIL_HOST_USER,
+                    settings.DEFAULT_FROM_EMAIL,
                     [serializer.data["email"]]
             )
            
@@ -106,7 +106,7 @@ class ContactUSAPIView(generics.CreateAPIView):
             #     'Thank you contact VRCMS ' + serializer.data["firstName"],
             #     serializer.data["description"] + serializer.data["phoneNumber"],
             #     serializer.data["email"], 
-            #     [settings.EMAIL_HOST_USER, serializer.data["email"], "designerkrishna@gmail.com"]
+            #     [settings.DEFAULT_FROM_EMAIL, serializer.data["email"], "designerkrishna@gmail.com"]
             # )
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -208,9 +208,9 @@ class SendEnquierytoCustomer(generics.CreateAPIView):
             }
             client_message = get_template('customer-requestForm.html').render(client_ctx)
             client_msg = EmailMessage(
-                    settings.EMAIL_REQUEST_MESSAGE_1 +  settings.APP_NAME + settings.EMAIL_REQUEST_MESSAGE_1,
+                    settings.EMAIL_REQUEST_MESSAGE,
                     client_message,
-                    settings.EMAIL_HOST_USER,
+                    settings.DEFAULT_FROM_EMAIL,
                     [serializer.data["email"]]
             )
 
@@ -360,10 +360,10 @@ class ClientViewBrochures(generics.CreateAPIView):
     
 
 
-class RaqFormAPIView(generics.CreateAPIView):
+class IconsenggRaqFormAPIView(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny,)
-    queryset = RaqForm.objects.all()
-    serializer_class = RaqFormSerializer
+    queryset = IconsenggRaqForm.objects.all()
+    serializer_class = IconsenggRaqFormSerializer
     pagination_class = CustomPagination
 
     """
@@ -371,18 +371,17 @@ class RaqFormAPIView(generics.CreateAPIView):
     """
 
     def get(self, request, format=None):
-        snippets = RaqForm.objects.all()
+        snippets = IconsenggRaqForm.objects.all()
         results = get_custom_paginated_data(self, snippets)
         if results is not None:
             return results
         
-        serializer = RaqFormSerializer(snippets, many=True)
+        serializer = IconsenggRaqFormSerializer(snippets, many=True)
         return Response({"raqform": serializer.data}, status=status.HTTP_200_OK)
     
     def post(self, request, format=None):
-        serializer = RaqFormSerializer(data=request.data)
+        serializer = IconsenggRaqFormSerializer(data=request.data)
         formType = request.data.get("formType")
-       
         
         if serializer.is_valid():
             serializer.save()            
@@ -401,16 +400,28 @@ class RaqFormAPIView(generics.CreateAPIView):
                 'hangout' : serializer.data["hangout"],
                 'other' : serializer.data["other"],
             }
+            
+            if(formType and formType=="brochureDownload"):
+                subject = serializer.data["name"] + '-' + settings.EMAIL_BROUCHER_CUSTOMER_THANK_YOU_MESSAGE
+                
+            if(formType and formType=="contact"):
+                subject = serializer.data["name"] + '-' + settings.EMAIL_CONTACT_CUSTOMER_THANK_YOU_MESSAGE
+            
             admin_message = get_template('admin_raq_mesg.html').render(admin_ctx)
             admin_msg = EmailMessage(
-                    serializer.data["name"] + ' - RAQ Enquiry form' ,
-                    admin_message,
-                    serializer.data["email"],
-                    [settings.EMAIL_HOST_USER]
+                    subject=subject,
+                    body=admin_message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[settings.DEFAULT_FROM_EMAIL]
             )
             admin_msg.content_subtype ="html"# Main content is now text/html
-            admin_msg.send()
-           
+            try:
+                result = admin_msg.send()
+                print(f"Sent {result} email(s)")
+            except Exception as e:
+                print(f"Email failed: {e}")
+                
+            
             
             if(formType and formType=="brochureDownload"):
                 subject = settings.EMAIL_BROUCHER_CUSTOMER_THANK_YOU_MESSAGE
@@ -435,24 +446,39 @@ class RaqFormAPIView(generics.CreateAPIView):
             )          
           
             client_msg.content_subtype ="html"# Main content is now text/html
-            client_msg.send()
+            
+            try:
+                result = client_msg.send()
+                print(f"Sent {result} email(s)")
+            except Exception as e:
+                print(f"Email failed: {e}")
+            
              
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
+class RaqDeleteAPIView(DestroyAPIView):
+    queryset = IconsenggRaqForm.objects.all()
+    serializer_class = IconsenggRaqFormSerializer
 
-class RaqSearchAPIView(ListAPIView):
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({"message": "Deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class IconsenggRaqSearchAPIView(ListAPIView):
     permission_classes = [permissions.AllowAny]
-    serializer_class = RaqFormSerializer
+    serializer_class = IconsenggRaqFormSerializer
     pagination_class = CustomPagination
 
     def get_object(self, query):
         try:
-            return RaqForm.objects.filter(
+            return IconsenggRaqForm.objects.filter(
                 Q(name__icontains=query) | Q(email__icontains=query) | Q(phoneNumber__icontains=query)
             )
-        except RaqForm.DoesNotExist:
+        except IconsenggRaqForm.DoesNotExist:
             raise Http404
 
     def get(self, request, query, format=None):
@@ -461,27 +487,19 @@ class RaqSearchAPIView(ListAPIView):
         if results is not None:
             return results
         
-        serializer = RaqFormSerializer(snippet, many=True)
+        serializer = IconsenggRaqFormSerializer(snippet, many=True)
         return Response({"contactus": serializer.data}, status=status.HTTP_200_OK)
+    
 
-class RaqDeleteAPIView(DestroyAPIView):
-    queryset = RaqForm.objects.all()
-    serializer_class = RaqFormSerializer
-
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        self.perform_destroy(instance)
-        return Response({"message": "Deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-
-class RaqExportToExcel(APIView):
+class IconsenggRaqExportToExcel(APIView):
     permission_classes = [permissions.AllowAny]
-    serializer_class = RaqFormSerializer
+    serializer_class = IconsenggRaqFormSerializer
     pagination_class = CustomPagination
 
     def get(self, request):
         # Get data from database
-        queryset = RaqForm.objects.all()
-        serializer = RaqFormSerializer(queryset, many=True)
+        queryset = IconsenggRaqForm.objects.all()
+        serializer = IconsenggRaqFormSerializer(queryset, many=True)
         
         # Create Excel workbook and worksheet
         wb = Workbook()

@@ -15,12 +15,16 @@ import os
 from datetime import timedelta
 import mimetypes
 import pymysql
+import logging
+import smtplib
+smtplib.SMTP.debuglevel = 1  # enables SMTP debug output
+
 pymysql.version_info = (1, 4, 6, 'final', 0)  # (major, minor, micro, releaselevel, serial)
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 #BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
@@ -39,7 +43,7 @@ else:
     print("debug not workig")
 
 #ALLOWED_HOSTS = ['jettik8s.xyz', '127.0.0.1']
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['iconsengg.com','www.iconsengg.com']
 
 mimetypes.add_type("text/css", ".css", True)
 
@@ -120,63 +124,103 @@ WSGI_APPLICATION = 'vrcmsapi.wsgi.application'
 
 JOB_ACCEPT_FILE_TYPE= ['.docx', '.rtf', '.pdf']
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 ### ---------------------------- DATABASES Configuration for Local development ----------------------------- ###
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT':os.environ.get('DB_PORT'),
-    }
-}
-
-### ---------------------------- DATABASES Configuration for Production ----------------------------- ###
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'leomtechDB',
-#         'USER': 'leonpharmacorp',
-#         'PASSWORD': 'H?6[upt+FzW?',
-#         'HOST': 'demo.leonpharmacorp.com',
-#         'PORT':3306,
+#         'NAME': os.environ.get('DB_NAME'),
+#         'USER': os.environ.get('DB_USER'),
+#         'PASSWORD': os.environ.get('DB_PASS'),
+#         'HOST': os.environ.get('DB_HOST'),
+#         'PORT':os.environ.get('DB_PORT'),
 #     }
 # }
+
+### ---------------------------- DATABASES Configuration for Production ----------------------------- ###
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'IConsSystemDB',
+        'USER': 'iconsDBUSer',
+        'PASSWORD': 'js=j2EVQQZUT',
+        'HOST': 'iconsengg.com',
+        'PORT':3306,
+    }
+}
 
 
 
 ### ---------------------------- Email Configuration for Local development ----------------------------- ###
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_USE_SSL = True
-EMAIL_USE_TLS = False
-EMAIL_REQUEST_MESSAGE_1="Discover the Latest Features and Enhancements from  to Elevate Your Experience!"
-EMAIL_REQUEST_MESSAGE_2="to Elevate Your Experience!"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = os.environ.get('EMAIL_HOST')
+# EMAIL_PORT = os.environ.get('EMAIL_PORT')
+# EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
-# env properties not workign need check later
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 465
-# EMAIL_HOST_USER = 'ramajsworks@gmail.com'
-# EMAIL_HOST_PASSWORD = 'yacmpavxfgfdtozz'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.office365.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
+# EMAIL_HOST_USER = 'contactus@iconsengg.com'
+# #EMAIL_HOST_PASSWORD = '1995#saIdInesh'
+# EMAIL_HOST_PASSWORD='mmrqwjtnnpkghxpc' #app password
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_USE_TLS = False
+# EMAIL_HOST = 'localhost'
+# EMAIL_HOST_USER = 'no-reply@iconsengg.com'
+# EMAIL_HOST_PASSWORD = 'Fv&KnAfxBZ)o'
+# EMAIL_PORT = 25
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "localhost"
+EMAIL_PORT = 25
+EMAIL_USE_TLS = ''
+EMAIL_USE_SSL = ''
+EMAIL_HOST_USER = ''
+#EMAIL_HOST_USER = 'test12345@iconsengg.com'
+EMAIL_HOST_PASSWORD = ''  # Office 365 app password
+DEFAULT_FROM_EMAIL = 'contactus@iconsengg.com'
+
+
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_USE_TLS = False
+# EMAIL_HOST = 'localhost'
+# EMAIL_HOST_USER = 'no-reply@iconsengg.com'
+# EMAIL_HOST_PASSWORD = 'Fv&KnAfxBZ)o'
+# EMAIL_PORT = 25
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # EMAIL_USE_SSL = True
 # EMAIL_USE_TLS = False
-
+EMAIL_REQUEST_MESSAGE_1="Discover the Latest Features and Enhancements from  to Elevate Your Experience!"
+EMAIL_REQUEST_MESSAGE_2="to Elevate Your Experience!"
 EMAIL_CUSTOMER_THANK_YOU_MESSAGE = "Thanks for contacting"
-EMAIL_BROUCHER_CUSTOMER_THANK_YOU_MESSAGE = "Thank you for Downloading Our Brochure"
-EMAIL_CONTACT_CUSTOMER_THANK_YOU_MESSAGE = "Thank You for Reaching Out to ICONS"
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# EMAIL_USE_SSL = True
+# EMAIL_USE_TLS = False
+EMAIL_THANK_YOU_MESSAGE="Thank you for contacting ICONS"
+# EMAIL_REQUEST_MESSAGE="Exciting New Features & Updates in ICONSEngg Enhance Your Experience!"
+
+EMAIL_CUSTOMER_MESSAGE = "Thank you for contacting ICONS. This automatic reply is just to let you know that we received your message and we will get back to you with a response as quickly as possible. During business hours, we do our best to reply as quick as we can, usually within a couple of hours."
+
+EMAIL_REQUEST_MESSAGE="Exciting New Features & Updates in VRCMS Enhance Your Experience!"
+
 EMAIL_CUSTOMER_AUTO_REPLY_MESSAGE = " This automatic reply is just to let you know that we received your message and we will get back to you with a response as quickly as possible. During business hours, we do our best to reply as quick as we can, usually within a couple of hours."
 EMAIL_CUSTOMER_JOB_THANK_YOU_MESSAGE="Thank you for apply job in"
 APP_NAME = " ICONSENGG "
+
+EMAIL_BROUCHER_CUSTOMER_THANK_YOU_MESSAGE = "Thank you for Downloading Our Brochure"
+EMAIL_CONTACT_CUSTOMER_THANK_YOU_MESSAGE = "Thank You for Reaching Out to ICONS"
 
 EMAIL_CUSTOMER_CONTACT_AUTO_REPLY_HTML = """
 <p>Thank you for getting in touch with <strong>ICON Industrial Engineering Services Pvt. Ltd.</strong>. 
@@ -312,12 +356,6 @@ DJOSER = {
     },
 }
 
-CSRF_COOKIE_PATH = "/"                # Ensure cookie is available on all paths
-CSRF_COOKIE_DOMAIN = None            # Default: current domain
-CSRF_COOKIE_HTTPONLY = False         # Allows JS access
-CSRF_COOKIE_SAMESITE = "Lax"         # Allows sending CSRF from same-site frontends
-CSRF_USE_SESSIONS = False
-CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS
 
 CORS_EXPOSE_HEADERS = ['Content-Disposition']  # ← Critical for React access
 
@@ -330,6 +368,27 @@ CORS_ORIGIN_ALLOW_ALL  = True
 #CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://192.168.29.99:3000"]
 
 
-CSRF_TRUSTED_ORIGINS = [os.environ.get('HOST_URL')]
+CSRF_TRUSTED_ORIGINS = ['https://iconsengg.com','https://iconsengg.com']
 
-CORS_ALLOWED_ORIGINS = [os.environ.get('HOST_URL')]
+CORS_ALLOWED_ORIGINS = ['https://iconsengg.com','https://iconsengg.com']
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+        },
+        "django.core.mail": {
+            "handlers": ["console"],
+            "level": "DEBUG",  # Shows SMTP connection logs
+            "propagate": False,
+        },
+    },
+}

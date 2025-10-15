@@ -7,8 +7,13 @@ import ShareButtons from "../../Common/Share";
 const JobBriefDetails = ({ jobDetails }) => {
   return (
     <div className="jobBriefDetails p-2 position-relative">
-      <div className="d-flex justify-content-end align-items-end position-absolute" style={{right: "10px"}}><ShareButtons /></div>
-       <div className="d-flex justify-content-start align-items-center gap-3">
+      <div
+        className="d-flex justify-content-end align-items-end position-absolute"
+        style={{ right: "10px" }}
+      >
+        <ShareButtons />
+      </div>
+      <div className="d-flex justify-content-start align-items-center gap-3">
         <Title
           title={jobDetails.job_title ? jobDetails.job_title : "Default Career"}
           cssClass="fw-bold"
@@ -40,17 +45,15 @@ const JobBriefDetails = ({ jobDetails }) => {
             {jobDetails.openings ? jobDetails.openings : 0}
           </div>
         </div>
+      </div>
 
-        {/* <a
-          className="btn btn-outline mt-3 mt-lg-0"
-          href={`mailto:${
-            jobDetails.contactEmail
-              ? jobDetails.contactEmail
-              : "contact@leomtech.com"
-          }`}
-        >
-          Contact US
-        </a> */}
+      <div className="my-4">
+        <div>
+          <strong>About company </strong>
+        </div>
+        <div>
+          {jobDetails.about_company ? jobDetails.about_company : "Default Company Description"}
+        </div>
       </div>
     </div>
   );

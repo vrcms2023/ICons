@@ -65,8 +65,8 @@ export const fieldValidation = {
   },
   about_company: {
     maxLength: {
-      value: 100,
-      message: "Max 100 Characters only",
+      value: 1000,
+      message: "Max 1000 Characters only",
     },
   },
   job_title: {

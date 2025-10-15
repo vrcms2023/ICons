@@ -30,9 +30,7 @@ const BriefIntroFrontend = ({
   useEffect(() => {
     const getBriefIntro = async () => {
       try {
-        const response = await axiosClientServiceApi.get(
-          `/carousel/clientHomeIntro/${pageType}/`
-        );
+        const response = await axiosClientServiceApi.get(`/carousel/clientHomeIntro/${pageType}/`);
 
         if (response?.status === 200) {
           setIntroValues(response.data.intro);
@@ -82,11 +80,7 @@ const BriefIntroFrontend = ({
               <div className={anchorContainer}>
                 <Ancher
                   AncherLabel={linkLabel}
-                  Ancherpath={
-                    introValue?.intro_morelink
-                      ? introValue.intro_morelink
-                      : moreLink
-                  }
+                  Ancherpath={introValue?.intro_morelink ? introValue.intro_morelink : moreLink}
                   // Ancherpath={moreLink}
                   AncherClass={linkCss}
                   AnchersvgColor={anchersvgColor}

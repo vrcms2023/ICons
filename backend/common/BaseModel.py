@@ -18,6 +18,7 @@ class BaseModel(models.Model):
         abstract = True 
 
 
+
 def image_upload_path(instance, filename):
     now = timezone.now()
     base, extension = os.path.splitext(filename.lower())

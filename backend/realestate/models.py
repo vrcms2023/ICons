@@ -5,34 +5,34 @@ from common.BaseModel import BaseModel, ImageModel
 
 class ProjectCategory(models.Model):
         idprojectcategories = models.CharField(max_length=100, primary_key=True)
-        projectLabel = models.CharField(max_length=50)
-        projectValue = models.CharField(max_length=50)
+        projectLabel = models.CharField(max_length=300)
+        projectValue = models.CharField(max_length=300)
 
 class Category(ImageModel):              
-        category_Label = models.CharField(max_length=50)
-        category_Value = models.CharField(max_length=50, blank=True, null=True)
+        category_Label = models.CharField(max_length=300)
+        category_Value = models.CharField(max_length=300, blank=True, null=True)
         category_description =   models.CharField(blank=True, max_length=5000, null=True)
         readMore_link =  models.CharField(blank=True, max_length=100, null=True)
 
 
 class Projects(BaseModel):       
-        projectCategoryID = models.CharField(max_length=100 )
-        projectCategoryName= models.CharField(max_length=50)
+        projectCategoryID = models.CharField(max_length=300 )
+        projectCategoryName= models.CharField(max_length=300)
         projectCategoryValue = models.CharField(max_length=50)
-        projectTitle = models.CharField(max_length=50, null=False, unique=True)
+        projectTitle = models.CharField(max_length=300, null=False, unique=True)
         description = models.CharField(max_length=5000, null=True, blank=True)
-        percentValue = models.CharField(max_length=50, null=True, blank=True)
+        percentValue = models.CharField(max_length=300, null=True, blank=True)
         isActive = models.BooleanField(default=False)
         publish = models.BooleanField(default=False)
-        aboutstitle= models.CharField(max_length=50, null=True, blank=True)
-        aboutussubtitle= models.CharField(max_length=50, null=True, blank=True)
+        aboutstitle= models.CharField(max_length=300, null=True, blank=True)
+        aboutussubtitle= models.CharField(max_length=300, null=True, blank=True)
         imageDescription= models.CharField(max_length=1000, null=True, blank=True)
         userID = models.CharField(max_length=50)
-        seo_title =         models.CharField(blank=True, max_length=200, null=True)
+        seo_title =         models.CharField(blank=True, max_length=300, null=True)
         seo_description =   models.CharField(blank=True, max_length=1000, null=True)
-        seo_link =          models.CharField(blank=True, max_length=200, null=True)
-        seo_author =        models.CharField(blank=True, max_length=200, null=True)
-        seo_keywords =      models.CharField(blank=True, max_length=200, null=True)  
+        seo_link =          models.CharField(blank=True, max_length=300, null=True)
+        seo_author =        models.CharField(blank=True, max_length=300, null=True)
+        seo_keywords =      models.CharField(blank=True, max_length=2000, null=True)  
 
         
 

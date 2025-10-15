@@ -648,7 +648,7 @@ const Home = () => {
         {/* === CLIENTS - COMPONENTS DEVELOPER IN SAP DESIGNS END ===========================================================================  */}
 
         {/* BANNER COMPONENT START =========================================================================================================== */}
-        <div
+        {/* <div
           className={
             showHideCompList?.banner?.visibility && isAdmin && hasPermission
               ? "border border-info mb-2"
@@ -666,7 +666,7 @@ const Home = () => {
           )}
 
           {showHideCompList?.banner?.visibility && (
-            <>
+            <div className="container">
               <div className="row">
                 <div className="col-md-12 p-0 position-relative homePage">
                   {isAdmin && hasPermission && (
@@ -694,9 +694,9 @@ const Home = () => {
                   />
                 </div>
               )}
-            </>
+            </div>
           )}
-        </div>
+        </div> */}
         {/* BANNER COMPONENT END =========================================================================================================== */}
 
         {/* COUNTER COMPONENT START =========================================================================================================== */}

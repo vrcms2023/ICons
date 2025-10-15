@@ -1,0 +1,20 @@
+# Serve static files
+<IfModule mod_alias.c>
+  Alias /static/ /home/h67xwpuqz3p2/iconsengg_python/staticfiles/
+</IfModule>
+
+<Directory /home/h67xwpuqz3p2/iconsengg_python/staticfiles>
+  Require all granted
+</Directory>
+
+# (Optional) Redirect HTTP to HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# (Optional) Remove trailing slashes for consistency
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [R=301,L]
+
+# (Optional) Prevent directory listings
+Options -Indexes

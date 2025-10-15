@@ -27,7 +27,7 @@ class Careers(BaseModel):
         no_of_application=  models.IntegerField(null=True, blank=True )
         employment_Type =   models.CharField(max_length=100, null=True, blank=True )
         mode_of_work =      models.CharField(max_length=100, null=True, blank=True )
-        about_company  =    models.CharField(max_length=100, null=True, blank=True )
+        about_company  =    models.CharField(max_length=1000, null=True, blank=True )
         
 def validate_file_extension(value):
     ext = os.path.splitext(value.name)[1]  
