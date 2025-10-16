@@ -56,9 +56,10 @@ const HomeProjects = () => {
 };
 
 const ProjectItem = ({ projectsList }) => {
+  const limit = 20;
   return (
     <div>
-      {projectsList?.map((item, index) => (
+      {projectsList?.slice(0, limit).map((item, index) => (
         <React.Fragment key={index}>
           <div>{item.projectTitle} </div>
         </React.Fragment>
