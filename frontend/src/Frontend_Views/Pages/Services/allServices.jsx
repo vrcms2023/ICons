@@ -150,7 +150,7 @@ const AllServices = () => {
                 className="row allService mb-5 border border-1"
                 key={`${index}+homeService`}
               >
-                <div className="col-md-5 p-0 allServiceImg">
+                <div className="col-md-4 p-0 allServiceImg">
                   <img
                     src={
                       item?.path
@@ -161,7 +161,7 @@ const AllServices = () => {
                     className="img-fluid"
                   />
                 </div>
-                <div className="col-md-7 p-4 allServiceDetails">
+                <div className="col-md-8 p-3 py-4 allServiceDetails">
                   <Title title={item.feature_title} cssClass="serviceTitle" />
                   {item.feature_description && (
                     <RichTextView
@@ -175,12 +175,14 @@ const AllServices = () => {
                     //   dangerouslySetInnerHTML={{ __html: item.feature_description }}
                     // />
                   )}
-                  <Ancher
-                    AncherLabel="Read More"
-                    Ancherpath={`${item.services_page_url}`}
-                    AncherClass="d-block mt-3"
-                    AnchersvgColor="#ffffff"
-                  />
+                  <div className="text-end">
+                    <Ancher
+                      AncherLabel="Read More"
+                      Ancherpath={`${item.services_page_url}`}
+                      AncherClass="d-block mt-3"
+                      AnchersvgColor="#ffffff"
+                    />
+                  </div>
                 </div>
               </div>
             ))

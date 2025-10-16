@@ -390,7 +390,7 @@ const Services = () => {
               ) : (
                 ""
               )}
-              <div className="d-flex justify-content-end align-items-end position-relative"><ShareButtons /></div>
+              {/* <div className="d-flex justify-content-end align-items-end position-relative"><ShareButtons /></div> */}
               <div className="row ">
                 <div className="col-12 col-md-8">
                   {/* <Title title={"Services"} cssClass="fs-3 mb-2 pageTitle" /> */}
@@ -405,7 +405,7 @@ const Services = () => {
               {selectedServiceProject.page_url !== "/services/addservices" &&
                 selectedServiceList.map((item, index) => (
                   <div
-                    className={`row mb-5 my-md-5 ${
+                    className={`row mb-4 my-md-4 ${
                       isAdmin
                         ? "border border-warning mb-3 position-relative"
                         : "border border-md-1"
@@ -468,11 +468,10 @@ const Services = () => {
                       }}
                     /> */}
                     </div>
-                    <div className="col-md-4 p-0">
+                    <div className="col-md-4 p-2">
                       <img
                         src={getImagePath(item.path)}
                         alt=""
-                        className="h-100 "
                       />
                     </div>
                   </div>

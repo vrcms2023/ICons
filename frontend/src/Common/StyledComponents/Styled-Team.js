@@ -32,19 +32,29 @@ export const TeamStyled = styled.div`
     object-fit: cover;
     object-position: top;
     height: 300px;
-    width: 100%;
+    // width: 100%;
   }
   
   .ql-editor {
-    padding: 0
+    padding: 0 !important;
+  }
+
+  .more {
+    font-size: 14px;
   }
 
   .memberCard {
     background-color: ${({ theme }) => theme.white};
     // border:1px solid ${({ theme }) => theme.secondaryColor};
     // border-radius: 5px;
-    margin: 15px 0;
+    margin: 0 0 30px 0;
     overflow: hidden;
+    height: 570px;
+    max-height: 100%;
+
+    @media (max-width: 767px) {
+      height: auto;
+    }
 
     .memberDetails {
       color: ${({ theme }) => theme.teamTextColor};
@@ -61,9 +71,9 @@ export const TeamStyled = styled.div`
   // -webkit-box-orient: vertical;  
   // overflow: hidden;
 
-  @media(max-width: 480px) {
-    -webkit-line-clamp: none;
-  }
+      // @media(max-width: 480px) {
+      //   -webkit-line-clamp: none;
+      // }
         // p:before {
         //   content: "⬦  ";
         //   font-size: 16px;

@@ -22,14 +22,22 @@ export const AboutPageStyled = styled.div`
       }
 
       img {
-        transition: transform 0.4s ease;
+        min-width: 100%;
+        max-width: 280px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
       }
 
-      &:hover {background:rgb(248, 248, 248);}
+      // img {
+      //   transition: transform 0.4s ease;
+      // }
 
-        &:hover img {
-            transform: scale(1.1);
-        }
+      // &:hover {background:rgb(248, 248, 248);}
+
+      //   &:hover img {
+      //       transform: scale(1.1);
+      //   }
     }
     
     .quill {
@@ -44,13 +52,14 @@ export const AboutPageStyled = styled.div`
       line-height: 1.6;
       margin-bottom: 12px
     }
-
-    
-      
-    }
+  }
     
     .leftColumn {
       background-color: ${({ theme }) => theme.transparent};
+
+      h5 {
+        margin-bottom: 0px !important;
+      }
     }
     .rightColumn {
       background-color: ${({ theme }) => theme.transparent};
@@ -120,8 +129,8 @@ export const AboutPageStyled = styled.div`
         flex-direction: row-reverse;
         background: #fbfbfb;
         // padding: 24px 10px;
-        margin-top: 32px;
-        margin-bottom: 32px;
+        // margin-top: 32px;
+        // margin-bottom: 32px;
 
         @media (max-width: 768px) {
           padding: 0;

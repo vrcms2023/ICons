@@ -24,20 +24,30 @@ export const ServicesStyled = styled.div`
       }
       
       .servicesPage {
+
+        h5 {
+          margin-bottom: 0px !important;
+        }
+
         ul, ol {
             margin: 15px 10px;
 
             li {
-                border-bottom: 1px solid ${({ theme }) => theme.lightgray};
-                padding: 12px 7px;
+                // border-bottom: 1px solid ${({ theme }) => theme.lightgray};
+                padding: 6px 0px !important;
               }
         }
 
         img {
             object-fit: cover;
-            object-position: center;
             width: 100%;
-            // height: 100%;
+            max-width: 440px;
+            height: 100%;
+            border-radius: 8px;
+
+            @media (max-width: 767px) {
+              height: 200px;
+            }
         }
       }
       
@@ -58,7 +68,7 @@ export const ServicesStyled = styled.div`
         }
         li {
           padding: 5px 10px;
-            cursor: pointer;
+            // cursor: pointer;
             span.notPublished {
               color: #ccc !important;
             }

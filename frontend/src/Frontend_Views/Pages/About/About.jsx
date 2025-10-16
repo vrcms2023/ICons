@@ -237,7 +237,7 @@ const About = () => {
               introTitleCss="fs-3 fw-medium text-center"
               introSubTitleCss="fs-5 fw-medium text-muted text-center"
               introDecTitleCss="fs-6 fw-normal w-75 m-auto text-center"
-              detailsContainerCss="col-md-12 p-4 p-lg-5"
+              detailsContainerCss="col-md-12 px-4 px-lg-5"
               anchorContainer="d-flex justify-content-center align-items-center mt-4"
               anchersvgColor="#17427C"
               pageType={pageType}
@@ -257,11 +257,12 @@ const About = () => {
       </div>
       <AboutPageStyled>
         <div className="container-fluid container-lg ">
+          {isAdmin && hasPermission && (
           <div className="row my-3 d-flex align-items-center">
             {/* <div className="col-md-6 fs-3 mt-4 mt-md-0">
               <Title title="About Us" cssClass="fs-1 pageTitle" />
             </div> */}
-            {isAdmin && hasPermission && (
+           
               <div className="col-12 text-end">
                 <span className="d-inline-block me-2">Add content</span>
                 <button
@@ -272,8 +273,8 @@ const About = () => {
                   <i className="fa fa-plus" aria-hidden="true"></i>
                 </button>
               </div>
-            )}
           </div>
+           )}
           {componentEdit.editSection || componentEdit.addSection ? (
             <div className={`adminEditTestmonial selected `}>
               <AddEditAdminNews
@@ -304,7 +305,7 @@ const About = () => {
               aboutList.map((item, index) => (
                 <div
                   key={item.id}
-                  className={`row mx-2 mb-4 ${
+                  className={`row mx-2 mb-3 ${
                     isAdmin
                       ? "border border-warning mb-5 position-relative"
                       : "border"
@@ -328,7 +329,7 @@ const About = () => {
                       </Link>
                     </>
                   )}
-                  <div className="col-12 col-lg-7 p-4 d-flex justify-content-center align-items-start flex-column leftColumn">
+                  <div className="col-12 col-lg-8 p-4 d-flex justify-content-center align-items-start flex-column leftColumn">
                     {item.aboutus_title ? (
                       <Title
                         title={item.aboutus_title}
@@ -363,7 +364,7 @@ const About = () => {
                     /> */}
                   </div>
 
-                  <div className="col-lg-5 p-0 d-flex justify-content-center align-items-start flex-column rightColumn">
+                  <div className="col-lg-4 p-2 rightColumn">
                     {/* <Title
                           title={"OUR WORK LOCATIONS"}
                           cssClass="fs-5 my-5 title"
@@ -371,7 +372,6 @@ const About = () => {
                     <img
                       src={getImagePath(item.path)}
                       alt=""
-                      className="object-fit-cover m-auto w-100 h-100"
                     />
                   </div>
                 </div>

@@ -5,7 +5,8 @@ export const TestimonialCarouselPageStyled = styled.div`
 .testimonials {
     background-color:${({ theme }) => theme.testimonialsBg}; 
     color:${({ theme }) => theme.testimonialsTextColor};
-    min-height: 480px;
+    min-height: 340px;
+    max-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,11 +17,25 @@ export const TestimonialCarouselPageStyled = styled.div`
     // border-radius: 30px;
     // padding: 70px 75px !important;
 
+    @media (max-width: 767px) {
+      min-height: 480px;
+    }
+
     .testimonialImg {
-        width: 125px;
-        height: 125px;
-        object-fit: cover;
-        box-shadow: 0 5px 5px rgba(0,0,0, .5) !important
+      width: 100%;
+      max-width: 400px;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+        // width: 125px;
+        // height: 125px;
+        // box-shadow: 0 5px 5px rgba(0,0,0, .5) !important
+
+        @media (max-width: 767px) {
+          max-width: 100% !important;
+          height: 160px;
+          margin-bottom: 24px;
+        }
       }
 
       i.fa {

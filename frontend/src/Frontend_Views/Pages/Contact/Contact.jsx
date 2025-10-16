@@ -243,7 +243,7 @@ const Contact = () => {
 
       <div className="container-fluid">
         <div className="row">
-          <div className="contactPage position-relative col-md-12 text-white blueBg-500 p-0 p-md-3 p-md-5">
+          <div className="contactPage position-relative col-md-12 text-white blueBg-500 p-0 p-md-3 p-md-4">
             {isAdmin && hasPermission && (
               <EditIcon editHandler={() => editHandler("address", true)} editlabel={"Address"} />
             )}
@@ -265,7 +265,7 @@ const Contact = () => {
                     className={`my-4 my-nd-0 ${addressList.length === 1 ? "col-md-8 text-center" : addressList.length === 2 ? "col-md-6" : addressList.length === 3 ? "col-md-4" : "col-md-3"}`}
                     
                   > */}
-                  <div className="col-md-12 col-lg-7">
+                  <div className="col-md-12 col-lg-7 addressBlock d-flex align-items-center">
                     <div className="row">
                       {addressList?.map((item, index) => (
                         <div
@@ -277,7 +277,7 @@ const Contact = () => {
 
                           <div className="mb-2 contactAddress" key={index}>
                             {item.company_name && (
-                              <p className="m-0 fs-4 fw-medium"> {item.company_name} </p>
+                              <p className="mb-2 fs-4 fw-medium companyName"> {item.company_name} </p>
                             )}
 
                             {item.address_dr_no && <p className="m-0">{item.address_dr_no}</p>}
@@ -287,29 +287,29 @@ const Contact = () => {
                             {item.state && <p className="mb-3">{item.state}</p>}
 
                             {item.phonen_number && (
-                              <p className="mt-2">
-                                <i className="fa fa-phone-square fs-4 me-2" aria-hidden="true"></i>{" "}
+                              <p className="my-1">
+                                <i className="fa fa-phone-square fs-5 me-2" aria-hidden="true"></i>{" "}
                                 {item.phonen_number}
                               </p>
                             )}
 
                             {item.phonen_number_2 && (
-                              <p className="mt-2">
-                                <i className="fa fa-phone-square fs-4 me-2" aria-hidden="true"></i>{" "}
+                              <p className="my-1">
+                                <i className="fa fa-phone-square fs-5 me-2" aria-hidden="true"></i>{" "}
                                 {item.phonen_number_2}
                               </p>
                             )}
 
                             {item.phonen_number_3 && (
-                              <p className="mt-2">
-                                <i className="fa fa-whatsapp fs-4 me-2" aria-hidden="true"></i>{" "}
+                              <p className="my-1">
+                                <i className="fa fa-whatsapp fs-5 me-2" aria-hidden="true"></i>{" "}
                                 {item.phonen_number_3}{" "}
                               </p>
                             )}
 
                             {item.emailid && (
                               <p className="mt-0">
-                                <i className="fa fa-envelope-o fs-4 me-2" aria-hidden="true"></i>{" "}
+                                <i className="fa fa-envelope-o fs-5 me-2" aria-hidden="true"></i>{" "}
                                 <Link to={`mailto: ${item.emailid && item.emailid}`}>
                                   {item.emailid && item.emailid}
                                 </Link>
@@ -318,7 +318,7 @@ const Contact = () => {
 
                             {item.emailid_2 && (
                               <p className="mt-0">
-                                <i className="fa fa-envelope-o fs-4 me-2" aria-hidden="true"></i>{" "}
+                                <i className="fa fa-envelope-o fs-5 me-2" aria-hidden="true"></i>{" "}
                                 {/* <a href="">{item.emailid_2}</a> */}
                                 <Link to={`mailto: ${item.emailid_2 && item.emailid_2}`}>
                                   {item.emailid_2 && item.emailid_2}
@@ -340,7 +340,7 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="col-md-12 col-lg-5 p-1 px-3 p-md-5 mb-md-5 quickContact">
+                  <div className="col-md-12 col-lg-5 p-1 px-3 px-md-5 quickContact d-flex align-items-center">
                     {/* {formSuccess && (
                       <Alert
                         mesg={

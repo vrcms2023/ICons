@@ -180,8 +180,8 @@ const RaqUseForm = ({
 
               <InputFields type="hidden" label="Teams" fieldName="other" register={register} />
             </div>
-            <div className="d-flex justify-content-center flex-wrap flex-column flex-sm-row align-items-center gap-1 mt-3">
-              <button className="btn btn-primary mx-3">{buttonLabel} </button>
+            <div className="d-flex justify-content-center flex-wrap flex-column flex-sm-row align-items-center">
+              <button className="btn btn-primary">{buttonLabel} </button>
             </div>
           </div>
         </form>

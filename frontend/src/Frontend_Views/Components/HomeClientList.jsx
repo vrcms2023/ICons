@@ -4,6 +4,7 @@ import Slider from "react-slick";
 // import "slick-carousel/slick/slick-theme.css";
 import { HomeClientItem } from "./HomeClientItem";
 import { Link } from "react-router-dom";
+import Title from "../../Common/Title";
 
 export const HomeClientList = ({ clientsList }) => {
   const settings = {
@@ -36,14 +37,7 @@ export const HomeClientList = ({ clientsList }) => {
   };
   return (
     <>
-      <div className="text-center">
-        <span
-          className="fs-1 pb-4 d-block"
-          // style={{ borderBottom: "1px solid #444444" }}
-        >
-          Our Clients We Proudly Served
-        </span>
-      </div>
+      <Title title="Our Clients We Proudly Served" cssClass="text-center fw-medium mb-5" />
 
       <div className="slider-container">
         <Slider {...settings}>

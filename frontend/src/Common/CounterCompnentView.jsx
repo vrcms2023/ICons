@@ -30,16 +30,18 @@ const CounterCompnentView = ({ getDataAPIURL, componentState }) => {
   return (
     <div className="counterComponentView d-flex flex-column align-items-center justify-content-between">
       {!counterData && <SkeletonImage />}
-      {counterData?.title !== "" && <Title title={counterData?.title} cssClass="counterTitle" />}
-      <div className="counterComponentViewContainer d-flex flex-wrap justify-content-center">
+      {counterData?.title !== "" && <Title title={counterData?.title} cssClass="counterTitle fw-medium mb-3" />}
+      <div className="counterComponentViewContainer d-flex flex-column flex-md-row flex-wrap justify-content-center">
         {counterData?.counters &&
           counterData?.counters.map((counter, index) => (
             <div key={index} className="counterItem text-center d-flex align-items-center justify-content-center m-md-2">
-              <h3 className="counterLabel">{counter.label}</h3>
-              <p className="counterValue">
-                <CountUp end={counter.counter} delay={2} />
-              </p>
-              <span className="counterSymbol">{counter.symbol}</span>
+              <div className="d-flex flex-column">
+                <div className="counterValue">
+                  <CountUp end={counter.counter} delay={2} />
+                  <span className="counterSymbol ms-3">{counter.symbol}</span>
+                </div>
+                <h3 className="counterLabel">{counter.label}</h3>
+              </div>
             </div>
           ))}
       </div>

@@ -19,14 +19,27 @@ export const ContactPageStyled = styled.div`
 
     .contactAddress {
       color: ${({ theme }) => theme.textColor};
+
+      .companyName {
+        line-height: 1.3;
+      }
   
       i {
         color: ${({ theme }) => theme.iconColor};
       }
     }
+
+    .contactForm input, .contactForm select{
+      padding: 6px !important;
+    }
+
+    .addressBlock {
+      background: ${({ theme }) => theme.lightWhiteFB};
+    }
     
     .quickContact {
-      background: ${({ theme }) => theme.lightWhiteFB};
+      // background: ${({ theme }) => theme.lightWhiteFB};
+      border: 1px solid  ${({ theme }) => theme.lightWhiteFB};
 
       .formTitle {
         color: ${({ theme }) => theme.textColor};
