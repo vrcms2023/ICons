@@ -44,6 +44,7 @@ const BriefIntroFrontend = ({
     }
   }, [introState, pageType]);
 
+  console.log(introValue)
   return (
     <div className="container">
       <BriefIntroStyled>
@@ -66,6 +67,7 @@ const BriefIntroFrontend = ({
               className={"introDecTitleCss"}
               showMorelink={false}
             />
+            
             {/* {introValue?.intro_desc ? (
               <p className={introDecTitleCss}>
                 {introValue?.intro_desc

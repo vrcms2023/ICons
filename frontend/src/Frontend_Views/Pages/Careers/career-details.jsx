@@ -137,7 +137,7 @@ const Careers = () => {
         )}
       </div>
 
-      <div className="container mb-3">
+      <div className="container mt-4">
         <div className="row">
           <div className="col-8 col-md-10">
             <Title title="Details" cssClass="fw-medium fs-4 pageTitle " />
@@ -158,11 +158,11 @@ const Careers = () => {
       </CareerFilterStyled> */}
 
       <CareersPageStyled>
-        <div className="container py-4 mb-md-5 py-md-4">
+        <div className="container py-4 ">
           <div className="row d-flex flex-rowreverse">
             <div className="col-md-9 p-0">
               <JobBriefDetails jobDetails={posts} />
-              <div className="jobDescription mb-4">
+              <div className="jobDescription p-3">
                 {posts.description && (
                   <RichTextView data={posts.description} className={""} showMorelink={false} />
                   // <div
@@ -181,7 +181,7 @@ const Careers = () => {
               </div>
               <JobCurrentOpenings />
             </div>
-            <div className="col-md-3 pe-0">
+            <div className="col-md-3 px-0 ps-md-2 pe-md-0">
               <ApplyForm jobDetails={posts} />
             </div>
           </div>
