@@ -7,11 +7,8 @@ import AdminBriefIntro from "../../../Frontend_Admin/Components/BriefIntro/index
 import EditIcon from "../../../Common/AdminEditIcon";
 import ModelBg from "../../../Common/ModelBg";
 import Banner from "../../../Common/Banner";
-import { dataFormatedByCatergoryName } from "../../../util/dataFormatUtil";
-import {
-  getFormDynamicFields,
-  imageDimensionsJson,
-} from "../../../util/dynamicFormFields";
+import { dataFormatedByCatergoryName, sortByCreatedDate } from "../../../util/dataFormatUtil";
+import { getFormDynamicFields, imageDimensionsJson } from "../../../util/dynamicFormFields";
 import "./Projects.css";
 import ImageInputsForm from "../../../Frontend_Admin/Components/forms/ImgTitleIntoForm";
 import { removeActiveClass } from "../../../util/ulrUtil";
@@ -49,9 +46,9 @@ const Projects = () => {
   useEffect(() => {
     if (clientProjects?.projectList?.length > 0) {
       const projectList = dataFormatedByCatergoryName(clientProjects);
-      setCompleted(projectList.completed);
-      setFuture(projectList.upcoming);
-      setOngoing(projectList.ongoing);
+      setCompleted(sortByCreatedDate(projectList.completed));
+      setFuture(sortByCreatedDate(projectList.upcoming));
+      setOngoing(sortByCreatedDate(projectList.ongoing));
     }
   }, [clientProjects]);
 
@@ -94,9 +91,7 @@ const Projects = () => {
     <>
       <div
         className={
-          showHideCompList?.projetstbanner?.visibility &&
-          isAdmin &&
-          hasPermission
+          showHideCompList?.projetstbanner?.visibility && isAdmin && hasPermission
             ? "border border-info mb-2"
             : ""
         }
@@ -114,7 +109,7 @@ const Projects = () => {
           <>
             <div className="position-relative">
               {isAdmin && hasPermission && (
-                <EditIcon editHandler={() => editHandler("banner", true)} editlabel={"Banner"}/>
+                <EditIcon editHandler={() => editHandler("banner", true)} editlabel={"Banner"} />
               )}
               <Banner
                 getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
@@ -130,9 +125,7 @@ const Projects = () => {
                   pageType={`${pageType}-banner`}
                   imageLabel="Upload Image"
                   showDescription={false}
-                  showExtraFormFields={getFormDynamicFields(
-                    `${pageType}-banner`
-                  )}
+                  showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
                   dimensions={imageDimensionsJson("banner")}
                 />
               </div>
@@ -142,9 +135,7 @@ const Projects = () => {
       </div>
       <div
         className={
-          showHideCompList?.projectsbriefintro?.visibility &&
-          isAdmin &&
-          hasPermission
+          showHideCompList?.projectsbriefintro?.visibility && isAdmin && hasPermission
             ? "border border-info mb-2"
             : ""
         }
@@ -165,7 +156,7 @@ const Projects = () => {
             {/* Introduction */}
 
             {isAdmin && hasPermission && (
-              <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief"}/>
+              <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief"} />
             )}
             {/* <BriefIntro title="Welcome To HPR Infra Projects">
         We believe that construction is a man made wonder. The thought of
@@ -195,19 +186,13 @@ const Projects = () => {
       </div>
 
       <div className="container-fluid projectsList">
-        {ongoing?.length > 0 && (
-          <ProjectItem projectList={ongoing} projectType={ongoing} />
-        )}
+        {ongoing?.length > 0 && <ProjectItem projectList={ongoing} projectType={ongoing} />}
 
         {/* Completed Projects */}
-        {completed?.length > 0 && (
-          <ProjectItem projectList={completed} projectType={completed} />
-        )}
+        {completed?.length > 0 && <ProjectItem projectList={completed} projectType={completed} />}
 
         {/* future Projects */}
-        {future?.length > 0 && (
-          <ProjectItem projectList={future} projectType={future} />
-        )}
+        {future?.length > 0 && <ProjectItem projectList={future} projectType={future} />}
       </div>
 
       {show && <ModelBg />}

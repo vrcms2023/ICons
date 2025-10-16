@@ -68,9 +68,7 @@ const HomeNews = ({
   useEffect(() => {
     const getNews = async () => {
       try {
-        const response = await axiosClientServiceApi.get(
-          `/appNews/clientAppNews/`
-        );
+        const response = await axiosClientServiceApi.get(`/appNews/clientAppNews/`);
         // console.log(response.data.results, "News Component");
         if (response?.status === 200) {
           //const data = sortCreatedDateByDesc(response.data.appNews);
@@ -99,9 +97,7 @@ const HomeNews = ({
    */
   const DeleteNews = (id, name) => {
     const deleteImageByID = async () => {
-      const response = await axiosFileUploadServiceApi.delete(
-        `appNews/updateAppNews/${id}/`
-      );
+      const response = await axiosFileUploadServiceApi.delete(`appNews/updateAppNews/${id}/`);
       if (response.status === 204) {
         const list = news.filter((item) => item.id !== id);
         setNews(list);
@@ -151,10 +147,7 @@ const HomeNews = ({
 
   const updateObjectsIndex = async (data) => {
     try {
-      let response = await axiosServiceApi.put(
-        `/appNews/updateNewsIndex/`,
-        data
-      );
+      let response = await axiosServiceApi.put(`/appNews/updateNewsIndex/`, data);
       if (response?.data?.appNews) {
         return response.data.appNews;
       }
@@ -204,9 +197,7 @@ const HomeNews = ({
                   {isAdmin && hasPermission ? (
                     <>
                       {location.pathname === "/news" ? (
-                        <p className="text-center fs-6">
-                          Please add news items
-                        </p>
+                        <p className="text-center fs-6">Please add news items</p>
                       ) : (
                         <>
                           <p className="text-center fs-6">
@@ -255,7 +246,7 @@ const HomeNews = ({
         </div>
       )}
 
-      {showModel ? (
+      {showModel && (
         <div className="newsModel ">
           <div className="newsModalWrapper p-4 bg-white shadow-lg">
             <div className="d-flex justify-content-between align-items-center gap-4 mb-1 pb-2 border-bottom">
@@ -273,11 +264,7 @@ const HomeNews = ({
                 alt={obj.news_title}
               />
               {obj.news_description ? (
-                <RichTextView
-                  data={obj.news_description}
-                  className={""}
-                  showMorelink={false}
-                />
+                <RichTextView data={obj.news_description} className={""} showMorelink={false} />
               ) : (
                 // <div
                 //   dangerouslySetInnerHTML={{ __html: obj.news_description }}
@@ -287,8 +274,6 @@ const HomeNews = ({
             </div>
           </div>
         </div>
-      ) : (
-        ""
       )}
       {showModelBg && <ModelBg />}
 
@@ -314,18 +299,13 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
           {...provided.draggableProps}
         >
           {/* <div className="col-md-12 col-lg-12 mb-4 mb-lg-0 border border-1" key={item.id}> */}
-          <div
-            className={`col-md-12 col-lg-12 ${isAdmin ? "px-3" : ""}`}
-            key={item.id}
-          >
+          <div className={`col-md-12 col-lg-12 ${isAdmin ? "px-3" : ""}`} key={item.id}>
             <NewsStyled>
               <div
                 className={`card homeNews ${isAdmin ? "adminView" : ""}`}
                 style={{ minHeight: isAdmin ? "auto" : "" }}
               >
-                <div
-                  className={`${isAdmin ? "d-flex align-items-center p-2 px-3 border" : ""} `}
-                >
+                <div className={`${isAdmin ? "d-flex align-items-center p-2 px-3 border" : ""} `}>
                   {!isAdmin && (
                     <img
                       src={getImagePath(item?.path)}
@@ -348,11 +328,7 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
                   >
                     <div className={`${isAdmin ? "px-3" : "p-3"}`}>
                       <Title
-                        title={
-                          item.news_title
-                            ? item.news_title
-                            : "Update news Title"
-                        }
+                        title={item.news_title ? item.news_title : "Update news Title"}
                         cssClass={`fs-6 lineClamp lc2 ${!isAdmin && "fw-bold"}`}
                         mainTitleClassess={` fw-medium lh-sm lineClamp lc1 ${isAdmin ? "fs-6" : "fs-5"}`}
                         subTitleClassess=""
@@ -364,9 +340,7 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
                         </small>
                       )}
                       {!isAdmin && (
-                        <div
-                          className={`card-text  ${isAdmin ? "mb-0" : "mb-2"}`}
-                        >
+                        <div className={`card-text  ${isAdmin ? "mb-0" : "mb-2"}`}>
                           {item.news_description ? (
                             <RichTextView
                               data={item?.news_description}
@@ -384,10 +358,7 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
                           )}
                         </div>
                       )}
-                      <Link
-                        className="moreLink"
-                        onClick={() => handleModel(item)}
-                      >
+                      <Link className="moreLink" onClick={() => handleModel(item)}>
                         More..
                       </Link>
                     </div>
@@ -396,26 +367,15 @@ const NewsItem = ({ item, index, handleModel, DeleteNews, editHandler }) => {
                     {isAdmin && hasPermission && (
                       <div className="d-flex justify-content-end gap-2">
                         {/* <EditIcon editHandler={() => editHandler("news", true, item)} /> */}
-                        <Link
-                          onClick={() => editHandler("news", true, item)}
-                          className=" p-2"
-                        >
-                          <i
-                            className="fa fa-pencil fs-5 text-warning"
-                            aria-hidden="true"
-                          ></i>
+                        <Link onClick={() => editHandler("news", true, item)} className=" p-2">
+                          <i className="fa fa-pencil fs-5 text-warning" aria-hidden="true"></i>
                         </Link>
 
                         <Link
-                          onClick={(event) =>
-                            DeleteNews(item.id, item.news_title)
-                          }
+                          onClick={(event) => DeleteNews(item.id, item.news_title)}
                           className="p-2"
                         >
-                          <i
-                            className="fa fa-trash-o fs-5 text-danger"
-                            aria-hidden="true"
-                          ></i>
+                          <i className="fa fa-trash-o fs-5 text-danger" aria-hidden="true"></i>
                         </Link>
                       </div>
                     )}
