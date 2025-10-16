@@ -11,11 +11,7 @@ const ProjectItem = ({ projectList, projectType }) => {
       <div className="row">
         <div className="col-md-12 ">
           <Title
-            title={
-              projectList.length > 0
-                ? projectList[0].projectCategoryName
-                : "Ongoing Projects"
-            }
+            title={projectList.length > 0 ? projectList[0].projectCategoryName : "Ongoing Projects"}
             cssClass="blue-900 fs-5 mb-3"
           />
         </div>
@@ -26,10 +22,7 @@ const ProjectItem = ({ projectList, projectType }) => {
               <div className="col-md-3 mb-3" key={project.id}>
                 <div className="position-relative box">
                   <div className="infoStrip">
-                    <Title
-                      title={project.projectTitle}
-                      cssClass="text-white fs-5"
-                    />
+                    <Title title={project.projectTitle} cssClass="text-white fs-5" />
                     {/* <Link to="" className="blue-900">
                     more details
                   </Link> */}
@@ -38,7 +31,7 @@ const ProjectItem = ({ projectList, projectType }) => {
                       onClick={() =>
                         navigate("/project-details", {
                           state: {
-                            selectedPorject: projectType,
+                            selectedProjects: projectType,
                             projectid: project.id,
                           },
                         })
@@ -50,10 +43,7 @@ const ProjectItem = ({ projectList, projectType }) => {
                   {project.imgs.length > 0 ? (
                     <img src={`${baseURL}${project.imgs[0].path}`} alt="" />
                   ) : (
-                    <img
-                      src={`${baseURL}/media/images/dummy-image-square.png`}
-                      alt=""
-                    />
+                    <img src={`${baseURL}/media/images/dummy-image-square.png`} alt="" />
                   )}
                 </div>
               </div>
