@@ -54,11 +54,10 @@ export const CareersPageStyled = styled.div`
     .title {
       color: ${({ theme }) => theme.textColor};
       border-bottom: 1px solid ${({ theme }) => theme.white};
-      text-align: center;
     }
 
     // background: ${({ theme }) => theme.secondaryColor};
-    border: 1px solid ${({ theme }) => theme.primaryColor};
+    border: 1px solid ${({ theme }) => theme.grayeee};
 
     ul {
       list-style: none;
@@ -92,25 +91,28 @@ export const CareersPageStyled = styled.div`
     // border: 1px solid ${({ theme }) => theme.white};
 
     p {
-      font-size: .9rem
+      font-size: .9rem;
+      margin-bottom: 4px;
     }
     
 
-    ul {
+    ul, ol {
+      margin-top: 12px;
       margin-left: 25px;
 
       li {
-        padding: 5px 0;
+        padding: 6px 0;
         list-style: none !important;
+        font-size: 1rem;
 
-        &::before {
-          content: "*";
-          color: ${({ theme }) => theme.secondaryColor};
-          font-weight: bold;
-          display: inline-block;
-          width: 1em;
-          margin-left: -1em;
-        }
+        // &::before {
+        //   content: "*";
+        //   color: ${({ theme }) => theme.secondaryColor};
+        //   font-weight: bold;
+        //   display: inline-block;
+        //   width: 1em;
+        //   margin-left: -1em;
+        // }
       }
     }
   }

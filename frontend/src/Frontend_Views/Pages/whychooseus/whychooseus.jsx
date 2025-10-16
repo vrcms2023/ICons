@@ -174,10 +174,10 @@ const WhyChooseUs = () => {
               linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
               linkLabel="Read More"
               moreLink=""
-              introTitleCss="fs-3 fw-medium text-center"
+              introTitleCss="fs-3 fw-medium text-center m-0"
               introSubTitleCss="fw-medium text-muted text-center"
               introDecTitleCss="fs-6 fw-normal w-75 m-auto text-center"
-              detailsContainerCss="col-md-12 p-4 p-lg-5"
+              detailsContainerCss="col-md-12 p-3 pb-0"
               anchorContainer="d-flex justify-content-center align-items-center mt-4"
               anchersvgColor="#17427C"
               pageType={pageType}
@@ -195,7 +195,7 @@ const WhyChooseUs = () => {
           </div>
         )}
       </div>
-      <div className="container mt-4">
+      <div className="container mt-2">
         <div className="row">
           {keyPointsList.map((i) => (
             <div className="col-md-6" key={i}>
