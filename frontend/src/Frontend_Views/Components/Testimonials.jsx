@@ -41,26 +41,37 @@ const Testimonials = ({ testimonis }) => {
     }
     return (
       <div className={`${position} article position-absolute`} key={item.id}>
-        {!item.path ? (
-          <i className="fa fa-user" aria-hidden="true"></i>
-        ) : (
-          <img src={getImagePath(item.path)} className="rounded-circle my-4 testimonialImg shadow-lg" alt="User" />
-        )}
-        <Title title={item.testimonial_title} cssClass="mb-2 px-3 fs-3 fw-bold text-md-center title" />
-        <RichTextView data={item?.testimonial_description} showMorelink={false} className="w-75 m-auto mt-3 mb-5 px-3 px-md-5 fs-6" />
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4 d-flex justify-content-enter align-items-center">
+                {!item.path ? (
+                  <i className="fa fa-user" aria-hidden="true"></i>
+                ) : (
+                  <img src={getImagePath(item.path)} className="testimonialImg" alt="User" />
+                )}
+            </div>
+            <div className="col-md-8 d-flex flex-column justify-content-center">
+                <Title title={item.testimonial_title} cssClass="text-start fw-medium fs-3 title m-0" />
+                <RichTextView data={item?.testimonial_description} showMorelink={false} className=" m-auto mb-4 fs-6" />
 
-        <div className="d-flex justify-content-center gap-5">
-          <Link to="" onClick={() => setIndex(index + 1)}>
-            {" "}
-            {/* <img src={leftArrow} alt="Previous" width="42" height="42" /> */}
-            <i className="fa fa-chevron-left fs-3" aria-hidden="true"></i>
-          </Link>
-          <Link to="" onClick={() => setIndex(index - 1)}>
-            {" "}
-            {/* <img src={rightArrow} alt="Next" width="42" height="42" /> */}
-            <i className="fa fa-chevron-right fs-3" aria-hidden="true"></i>
-          </Link>
+                <div className="d-flex justify-content-center justify-content-md-end gap-5">
+                  <Link to="" onClick={() => setIndex(index + 1)}>
+                    {" "}
+                    {/* <img src={leftArrow} alt="Previous" width="42" height="42" /> */}
+                    <i className="fa fa-chevron-left fs-4" aria-hidden="true"></i>
+                  </Link>
+                  <Link to="" onClick={() => setIndex(index - 1)}>
+                    {" "}
+                    {/* <img src={rightArrow} alt="Next" width="42" height="42" /> */}
+                    <i className="fa fa-chevron-right fs-4" aria-hidden="true"></i>
+                  </Link>
+                </div>
+            </div>
+          </div>
         </div>
+        
+
+        
       </div>
     );
   });

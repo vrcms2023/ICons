@@ -568,7 +568,7 @@ const Home = () => {
                       linkCss="btn btn-outline d-flex justify-content-center align-items-center gap-3"
                       linkLabel="Read More"
                       moreLink=""
-                      introTitleCss="fs-3 fw-bold text-center mb-3"
+                      introTitleCss="text-center mb-1"
                       introSubTitleCss="subTitle text-center"
                       introDecTitleCss="fs-6 fw-normal mx-4 text-center lh-6"
                       detailsContainerCss="col-md-10 offset-md-1 py-3"
@@ -903,12 +903,12 @@ const Home = () => {
                   <div className="col-md-12">
                     <Title
                       title="Testimonials"
-                      cssClass="fs-1 fw-bold text-center my-5 text-uppercase"
+                      cssClass="fs-2 text-center fw-medium my-5 "
                     />
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-12 testimonials text-center">
+                  <div className="col-md-12 testimonials">
                     {isAdmin && hasPermission && (
                       <EditIcon
                         editHandler={() => editHandler("testmonial", true)}
@@ -977,7 +977,7 @@ const Home = () => {
                   <div className="container">
                     <Title
                       title="News"
-                      cssClass="fs-1 fw-bold text-center my-5 pt-0 pt-md-0 text-uppercase"
+                      cssClass="fs-2 fw-medium text-center my-5 pt-0 pt-md-0"
                     />
                     <HomeNews news={news} setNews={setResponseData} pagetype={pageType} />
 

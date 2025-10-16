@@ -8,8 +8,8 @@ export const HomeClientsStyled = styled.div`
   background-attachment: fixed;
   background-image: url(${bgImage});
   background-position: center;
-  padding: 120px 0;
-  margin: 32px 0;
+  padding: 64px 0;
+  margin: 24px 0;
 
   @media (max-width: 480px) {
     padding: 32px 0;

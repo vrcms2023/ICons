@@ -315,7 +315,7 @@ const Team = () => {
           </div>
         </div>
 
-        <div className="row mb-0 py-2 py-md-4">
+        <div className="row mb-0 py-2">
           <div className="col-md-6">
             <Title title="Our Team" cssClass="fs-3 fs-md-1 pageTitle" />
           </div>
@@ -468,7 +468,7 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
               </>
             )}
             <div className="text-center">
-              <img src={getImagePath(item.path)} className="" alt="" />
+              <img src={getImagePath(item.path)} className="img-fluid" alt={item.team_member_name}  />
             </div>
 
             <div className=" text-start p-4 memberDetails">
@@ -484,9 +484,11 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
               {item.team_member_about_us && (
                 <RichTextView
                   data={item.team_member_about_us}
-                  className={"strengths"}
-                  showMorelink={true}
+                  className={"strengths lineClamp lc5"}
+                  showMorelink={false}
                 />
+
+                
                 // <div
                 //   className="strengths my-3"
                 //   dangerouslySetInnerHTML={{
@@ -494,19 +496,25 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
                 //   }}
                 // />
               )}
-
-              {item.team_member_email && (
+              <div className="mt-3 text-end">
+                <Link to="" className="more">Read More</Link>
+              </div>
+              {/* Team Member Email ID */}
+              {/* {item.team_member_email && (
                 <div className="mt-3">
                   <a href={`mailto:${item.team_member_email}`}>
                     {item.team_member_email}
                   </a>
                 </div>
-              )}
-              {item.team_member_phone_number && (
-                <p>{item.team_member_phone_number}</p>
-              )}
+              )} */}
 
-              <div className="social">
+              {/* Team Member Phone Number */}
+              {/* {item.team_member_phone_number && (
+                <p>{item.team_member_phone_number}</p>
+              )} */}
+
+              {/* Team Member Social Media */}
+              {/* <div className="social">
                 {item.facebook_url && (
                   <Link to={item.facebook_url} target="_blank">
                     <i className="fa fa-facebook-square" aria-hidden="true"></i>
@@ -548,7 +556,7 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
                     <i className="fa fa-pinterest" aria-hidden="true"></i>
                   </Link>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

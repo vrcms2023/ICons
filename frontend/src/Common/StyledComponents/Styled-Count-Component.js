@@ -13,16 +13,16 @@ export const CounterComponentStyles = styled.div`
     position: relative;
 
     @media(min-width: 992px) {
-        padding: 180px 0;
+        padding: 64px 0;
     }
 
     @media(max-width: 991px) {
-        padding: 120px 0;
+        padding: 48px 0;
     }
 
-    @media(max-width: 480px) {
-        padding: 90px 0;
-    }
+    // @media(max-width: 480px) {
+    //     padding: 90px 0;
+    // }
 
     &::before {
         content: "";
@@ -47,9 +47,9 @@ export const CounterComponentStyles = styled.div`
 
     .counterComponentView {
         .counterTitle{
-            font-size: 2rem !important;
+            font-size: 2.5rem !important;
             text-align: center;
-            width: 80%;
+            // width: 80%;
             margin: auto;
             color: #fff;
             line-height: 1.4!important;
@@ -62,14 +62,14 @@ export const CounterComponentStyles = styled.div`
     }
     
     .counterComponentViewContainer  {
-        gap: 50px;
+        gap: 96px;
 
         @media(max-width: 991px) {
-            gap: 24px;
+            gap: 64px;
         }
 
-        @media(max-width: 480px) {
-            gap: 10px;
+        @media(max-width: 768px) {
+            gap: 24px;
         }
 
         .counterItem {
@@ -78,34 +78,29 @@ export const CounterComponentStyles = styled.div`
             @media(max-width: 991px) { 
                 gap: 24px;
             }
-
-            @media(max-width: 480px) {
-                gap: 12px;
-            }
-        }
-
-        .counterLabel {
-            width: 120px;
-            text-align: left;
-
-            @media(min-width: 481px) {
-                font-size: 1.6rem;
-            }
-
-            @media(max-width: 480px) {
+            
+            .counterLabel {
                 font-size: 1.2rem;
+                text-align: left;
             }
+
+            .counterSymbol {
+                font-size: 4rem;
+
+                @media(max-width: 480px) {
+                    font-size: 2rem;
+                }
+            }
+
+            .counterValue, .counterLabel  {
+                margin: 0;
+            }
+            
         }
+
+        
 
         .counterValue {
-            
-            text-decoration: underline;
-            text-underline-offset: 12px;
-            text-decoration-thickness: 4px;
-            text-decoration-color: ${({ theme }) => theme.black};
-            color: #fff;
-            // box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.4);
-
             font-weight: bold;
             background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(${bgImage});
              background-size: cover;
@@ -114,34 +109,28 @@ export const CounterComponentStyles = styled.div`
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent; 
-        }
 
-        
+            span {
+                font-size: 4rem;
 
-        .counterValue, .counterLabel  {
-            margin: 0
-        }
-    }
+                @media(max-width: 991px) {
+                    font-size: 3.2rem;
+                }
 
-    .counterValue {
-        span {
-            font-size: 8rem;
-
-            @media(max-width: 991px) {
-                font-size: 6rem;
+                // @media(max-width: 480px) {
+                //     font-size: 2rem;
+                // }
             }
 
-            @media(max-width: 480px) {
-                font-size: 5rem;
+            span:not(.counterSymbol ) {
+                text-decoration: underline;
+                text-underline-offset: 12px;
+                text-decoration-thickness: 2px;
+                text-decoration-color: ${({ theme }) => theme.black};
             }
         }
+
     }
 
-    .counterSymbol {
-        font-size: 5rem;
-
-         @media(max-width: 480px) {
-            font-size: 3rem;
-        }
-    }
+    
 `

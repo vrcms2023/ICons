@@ -127,10 +127,10 @@ const Footer = () => {
 
   return (
     <FooterStyled>
-      <div className="container-fluid footerCompanyBrief py-5">
+      <div className="container-fluid footerCompanyBrief py-4">
         <div className="container">
           <div className="row">
-            <div className="col-md-4 col-lg-3 d-flex align-items-center justify-content-center justify-content-md-start">
+            <div className="col-md-4 col-lg-3 d-flex align-items-center justify-content-center">
               <ApplicationLogo
                 getBannerAPIURL={`banner/clientBannerIntro/header-logo/`}
                 bannerState={componentEdit.menu}
