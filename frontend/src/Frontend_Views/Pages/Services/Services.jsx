@@ -77,6 +77,10 @@ const Services = () => {
   );
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const pageURL = location.pathname;
     if (pageURL && serviceMenu.length > 0 && !isNewServiceCreated.current) {
       const sortedMapped = sortByFieldName(serviceMenu, "service_postion");

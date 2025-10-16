@@ -46,6 +46,10 @@ const AllServices = () => {
     }
   }, [showHideList]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const showHideHandler = async (id, compName) => {
     if (id) {
       dispatch(updateShowHideComponent(id));
