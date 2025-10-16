@@ -24,10 +24,7 @@ import {
   sortByFieldName,
   updateArrIndex,
 } from "../../../util/commonUtil";
-import {
-  axiosClientServiceApi,
-  axiosServiceApi,
-} from "../../../util/axiosUtil";
+import { axiosClientServiceApi, axiosServiceApi } from "../../../util/axiosUtil";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../../Common/DeleteDialog";
 import { toast } from "react-toastify";
@@ -65,6 +62,10 @@ const Team = () => {
   const [searchQuery, setSearchquery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [obj, setObj] = useState({});
+  const [showModel, setShowModel] = useState(false);
+  const [showModelBg, setShowModelBg] = useState(false);
+
   const editHandler = (name, value, item) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
@@ -92,9 +93,7 @@ const Team = () => {
   useEffect(() => {
     const getTeamMemberDetails = async () => {
       try {
-        const response = await axiosClientServiceApi.get(
-          `/ourteam/clentViewOurTeamDetails/`
-        );
+        const response = await axiosClientServiceApi.get(`/ourteam/clentViewOurTeamDetails/`);
         if (response?.status === 200) {
           setResponseData(response.data);
         }
@@ -102,10 +101,7 @@ const Team = () => {
         console.log("unable to access ulr because of server is down");
       }
     };
-    if (
-      (!componentEdit.addSection || !componentEdit.editSection) &&
-      !searchQuery
-    ) {
+    if ((!componentEdit.addSection || !componentEdit.editSection) && !searchQuery) {
       getTeamMemberDetails();
     }
   }, [componentEdit.addSection, componentEdit.editSection]);
@@ -115,9 +111,7 @@ const Team = () => {
     const name = item.team_member_name;
 
     const deleteSection = async () => {
-      const response = await axiosServiceApi.delete(
-        `/ourteam/UpdateOurteamDetail/${id}/`
-      );
+      const response = await axiosServiceApi.delete(`/ourteam/UpdateOurteamDetail/${id}/`);
       if (response.status === 204) {
         const list = team.filter((list) => list.id !== id);
         setTeam(list);
@@ -160,10 +154,7 @@ const Team = () => {
 
   const updateObjectsIndex = async (data) => {
     try {
-      let response = await axiosServiceApi.put(
-        `/ourteam/updateTeamindex/`,
-        data
-      );
+      let response = await axiosServiceApi.put(`/ourteam/updateTeamindex/`, data);
       if (response?.data?.team) {
         return response.data.team;
       }
@@ -194,6 +185,17 @@ const Team = () => {
     }
   };
 
+  const handleModel = (obj) => {
+    setObj(obj);
+    setShowModel(true);
+    setShowModelBg(true);
+  };
+
+  const closeModel = () => {
+    setShowModel(false);
+    setShowModelBg(false);
+  };
+
   return (
     <>
       <div
@@ -216,7 +218,10 @@ const Team = () => {
           <>
             <div className="position-relative">
               {isAdmin && hasPermission && (
-                <EditIcon editHandler={() => editHandler("banner", true)} editlabel={"Banner Image"}/>
+                <EditIcon
+                  editHandler={() => editHandler("banner", true)}
+                  editlabel={"Banner Image"}
+                />
               )}
               <Banner
                 getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
@@ -232,9 +237,7 @@ const Team = () => {
                   pageType={`${pageType}-banner`}
                   imageLabel="Upload Image"
                   showDescription={false}
-                  showExtraFormFields={getFormDynamicFields(
-                    `${pageType}-banner`
-                  )}
+                  showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
                   dimensions={imageDimensionsJson("banner")}
                 />
               </div>
@@ -244,9 +247,7 @@ const Team = () => {
       </div>
       <div
         className={
-          showHideCompList?.teambriefintro?.visibility &&
-          isAdmin &&
-          hasPermission
+          showHideCompList?.teambriefintro?.visibility && isAdmin && hasPermission
             ? "border border-info mb-2"
             : ""
         }
@@ -266,7 +267,10 @@ const Team = () => {
           <div>
             {/* Brief Introduction */}
             {isAdmin && hasPermission && (
-              <EditIcon editHandler={() => editHandler("briefIntro", true)} editlabel={"Brief Info"}/>
+              <EditIcon
+                editHandler={() => editHandler("briefIntro", true)}
+                editlabel={"Brief Info"}
+              />
             )}
 
             <BriefIntroFrontend
@@ -344,18 +348,14 @@ const Team = () => {
               popupTitle="Team"
               editCarousel={editCarousel}
               setEditCarousel={setEditCarousel}
-              componentType={`${
-                componentEdit.editSection ? "editSection" : "addSection"
-              }`}
+              componentType={`${componentEdit.editSection ? "editSection" : "addSection"}`}
               getImageListURL="ourteam/createteam/"
               deleteImageURL="ourteam/UpdateOurteamDetail/"
               imagePostURL="ourteam/createteam/"
               imageUpdateURL="ourteam/UpdateOurteamDetail/"
               imageLabel="Upload Image"
               showDescription={false}
-              showExtraFormFields={getTeamMemberFields(
-                editCarousel?.team_member_position
-              )}
+              showExtraFormFields={getTeamMemberFields(editCarousel?.team_member_position)}
               dimensions={imageDimensionsJson("teams")}
             />
           </div>
@@ -380,14 +380,13 @@ const Team = () => {
                           key={index}
                           item={item}
                           index={index}
+                          handleModel={handleModel}
                           editHandler={editHandler}
                           deleteAboutSection={deleteAboutSection}
                         />
                       ))
                     ) : (
-                      <p className="text-center text-muted py-5">
-                        Please add page contents...
-                      </p>
+                      <p className="text-center text-muted py-5">Please add page contents...</p>
                     )}
                     {provided.placeholder}
                   </div>
@@ -401,9 +400,7 @@ const Team = () => {
             <CustomPagination
               paginationData={paginationData}
               paginationURL={
-                isAdmin
-                  ? "/ourteam/createteam/"
-                  : "/clieourteamnt/clentViewOurTeamDetails/"
+                isAdmin ? "/ourteam/createteam/" : "/clieourteamnt/clentViewOurTeamDetails/"
               }
               paginationSearchURL={
                 searchQuery
@@ -421,6 +418,31 @@ const Team = () => {
           )}
         </div>
       </div>
+
+      {showModel && (
+        <div className="newsModel ">
+          <div className="newsModalWrapper p-4 bg-white shadow-lg">
+            <div className="d-flex justify-content-between align-items-center gap-4 mb-1 pb-2 border-bottom">
+              <Title title={obj.news_title} cssClass="fs-4" />
+              <Link onClick={closeModel} className="text-secondary ">
+                <i className="fa fa-times fs-4" aria-hidden="true"></i>
+              </Link>
+            </div>
+            <div className="my-3 newsDetails">
+              <img
+                className="w-100 mb-3"
+                style={{ height: "240px", objectFit: "cover" }}
+                src={getImagePath(obj.path)}
+                alt={obj.team_member_name}
+              />
+              {obj.team_member_about_us && (
+                <RichTextView data={obj.team_member_about_us} className={""} showMorelink={false} />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      {showModelBg && <ModelBg />}
       {show && <ModelBg />}
     </>
   );
@@ -428,7 +450,7 @@ const Team = () => {
 
 export default Team;
 
-const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
+const TeamItem = ({ item, index, handleModel, deleteAboutSection, editHandler }) => {
   const { isAdmin, hasPermission } = useAdminLoginStatus();
   return (
     <Draggable
@@ -454,28 +476,25 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
             {isAdmin && hasPermission && (
               <>
                 <EditIcon
-                  editHandler={() => editHandler("editSection", true, item)} editlabel={"Profile"}
+                  editHandler={() => editHandler("editSection", true, item)}
+                  editlabel={"Profile"}
                 />
-                <Link
-                  className="deleteSection"
-                  onClick={() => deleteAboutSection(item)}
-                >
-                  <i
-                    className="fa fa-trash-o text-danger fs-4"
-                    aria-hidden="true"
-                  ></i>
+                <Link className="deleteSection" onClick={() => deleteAboutSection(item)}>
+                  <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i>
                 </Link>
               </>
             )}
             <div className="text-center">
-              <img src={getImagePath(item.path)} className="img-fluid" alt={item.team_member_name}  />
+              <img
+                src={getImagePath(item.path)}
+                className="img-fluid"
+                alt={item.team_member_name}
+              />
             </div>
 
             <div className=" text-start p-4 memberDetails">
               {item.team_member_designation && (
-                <small className="mb-2 fw-bold">
-                  {item.team_member_designation}
-                </small>
+                <small className="mb-2 fw-bold">{item.team_member_designation}</small>
               )}
 
               {item.team_member_name && (
@@ -488,7 +507,6 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
                   showMorelink={false}
                 />
 
-                
                 // <div
                 //   className="strengths my-3"
                 //   dangerouslySetInnerHTML={{
@@ -497,7 +515,9 @@ const TeamItem = ({ item, index, deleteAboutSection, editHandler }) => {
                 // />
               )}
               <div className="mt-3 text-end">
-                <Link to="" className="more">Read More</Link>
+                <Link to="" className="more" onClick={() => handleModel(item)}>
+                  Read More
+                </Link>
               </div>
               {/* Team Member Email ID */}
               {/* {item.team_member_email && (

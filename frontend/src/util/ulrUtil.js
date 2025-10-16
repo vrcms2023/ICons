@@ -1,12 +1,12 @@
 import { getCookie } from "./cookieUtil";
 
-// export function getBaseURL() {
-//   return "http://127.0.0.1:8000";
-// }
-
 export function getBaseURL() {
-  return "https://iconsengg.com";
+  return "http://127.0.0.1:8000";
 }
+
+// export function getBaseURL() {
+//   return "https://iconsengg.com";
+// }
 
 export function removeActiveClass() {
   const menuIDs = [
