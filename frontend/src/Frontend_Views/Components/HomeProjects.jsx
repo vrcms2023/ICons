@@ -65,6 +65,7 @@ const HomeProjects = () => {
 };
 
 const ProjectItem = ({ projectsList }) => {
+  const limit = 20;
   return (
     <div class="scroll-container">
     <div className="scroll-content">
