@@ -44,7 +44,7 @@ const HomeProjects = () => {
                 <div className={completed?.length > 0 ? "col-md-6 py-4 bg-ongoing" : "col-md-12"}>
                   <Title
                     title={ongoing[0]?.projectCategoryName}
-                    cssClass="text-capitalize fw-medium fs-4 mb-4 text-center"
+                    cssClass="text-capitalize fw-bold fs-4 mb-4 text-center"
                   />
                   <ProjectItem projectsList={ongoing} projectType={ongoing} />
                 </div>
@@ -54,7 +54,7 @@ const HomeProjects = () => {
                 <div className={ongoing?.length > 0 ? "col-md-6 py-4 bg-completed" : "col-md-12"}>
                   <Title
                     title={completed[0]?.projectCategoryName}
-                    cssClass="text-capitalize fw-medium fs-4 mb-3 text-center"
+                    cssClass="text-capitalize fw-bold fs-4 mb-3 text-center"
                   />
                   <ProjectItem projectsList={completed} projectType={completed} />
                 </div>
