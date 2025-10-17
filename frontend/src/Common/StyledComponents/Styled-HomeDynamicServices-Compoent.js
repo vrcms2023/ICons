@@ -34,7 +34,7 @@ export const HomeDynamicServiceStylesComponent = styled.div`
         padding: 32px;
         border-bottom: 8px solid #4588d3;
         // border-bottom: 6px solid ${({ theme }) => theme.gray444};
-        
+
         background-size: 72px;
         cursor: pointer;
         background-repeat: no-repeat;
@@ -60,13 +60,12 @@ export const HomeDynamicServiceStylesComponent = styled.div`
           }
         }
 
-
         h5,
         .quill,
         a {
           position: relative;
         }
-        h5.serviceTitle  {
+        h5.serviceTitle {
           z-index: 2;
           font-weight: 500;
           line-height: normal !important;
@@ -108,6 +107,8 @@ export const HomeDynamicServiceStylesComponent = styled.div`
           }
 
           .description {
+            height: 148px;
+            overflow: hidden;
             p:not(:first-child) {
               display: none;
             }
@@ -156,8 +157,7 @@ export const HomeDynamicServiceStylesComponent = styled.div`
             box-shadow: 0 0.8rem 1rem rgba(0, 0, 0, 0.35) !important;
           }
           * {
-            color: #0F3461 !important;
-
+            color: #0f3461 !important;
           }
 
           @media (max-width: 768px) {

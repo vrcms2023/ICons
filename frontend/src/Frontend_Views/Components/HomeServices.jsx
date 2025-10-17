@@ -72,8 +72,7 @@ const HomeServices = ({ title }) => {
               {item.feature_description && (
                 <RichTextView
                   data={item.feature_description}
-                  className={"description"}
-                  characterLimit={200}
+                  className={"description lc5 lineClamp"}
                   showMorelink={false}
                   id={item.id}
                 />

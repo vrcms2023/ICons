@@ -53,7 +53,9 @@ background: linear-gradient(350deg, rgba(218,87,0,0.9332107843137255) 0%, rgba(2
 .lableIconPlaceholder {
   padding-left: 15px;
 }
-
+.ql-container {
+  font-size: 1rem;
+}
 .ql-container.ql-snow {
   border: 0 !important;
 }

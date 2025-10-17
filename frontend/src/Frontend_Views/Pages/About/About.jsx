@@ -25,10 +25,7 @@ import {
 } from "../../../util/dynamicFormFields";
 import { getImagePath } from "../../../util/commonUtil";
 import { sortByUpdatedDate } from "../../../util/dataFormatUtil";
-import {
-  axiosClientServiceApi,
-  axiosServiceApi,
-} from "../../../util/axiosUtil";
+import { axiosClientServiceApi, axiosServiceApi } from "../../../util/axiosUtil";
 
 // CSS
 import { AboutPageStyled } from "../../../Common/StyledComponents/Styled-AboutPage";
@@ -58,9 +55,7 @@ const About = () => {
   const [editCarousel, setEditCarousel] = useState({});
   const [showHideCompList, setShowHideCompList] = useState([]);
 
-  const { error, success, showHideList } = useSelector(
-    (state) => state.showHide
-  );
+  const { error, success, showHideList } = useSelector((state) => state.showHide);
 
   useEffect(() => {
     if (showHideList.length > 0) {
@@ -125,9 +120,7 @@ const About = () => {
     const name = item.aboutus_title;
 
     const deleteSection = async () => {
-      const response = await axiosServiceApi.delete(
-        `/aboutus/updateAboutus/${id}/`
-      );
+      const response = await axiosServiceApi.delete(`/aboutus/updateAboutus/${id}/`);
       if (response.status === 204) {
         const list = aboutList.filter((list) => list.id !== id);
         setAboutList(list);
@@ -192,9 +185,7 @@ const About = () => {
                   pageType={`${pageType}-banner`}
                   imageLabel="Upload Image"
                   showDescription={false}
-                  showExtraFormFields={getFormDynamicFields(
-                    `${pageType}-banner`
-                  )}
+                  showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
                   dimensions={imageDimensionsJson("banner")}
                 />
               </div>
@@ -204,9 +195,7 @@ const About = () => {
       </div>
       <div
         className={
-          showHideCompList?.aboutbriefintro?.visibility &&
-          isAdmin &&
-          hasPermission
+          showHideCompList?.aboutbriefintro?.visibility && isAdmin && hasPermission
             ? "border border-info mb-2"
             : ""
         }
@@ -235,7 +224,7 @@ const About = () => {
               linkLabel="Read More"
               moreLink=""
               introTitleCss="fs-3 fw-medium text-center"
-              introSubTitleCss="fs-5 fw-medium text-muted text-center"
+              introSubTitleCss="fs-6 fw-medium text-muted text-center"
               introDecTitleCss="fs-6 fw-normal w-75 m-auto text-center"
               detailsContainerCss="col-md-12 px-4 px-lg-5"
               anchorContainer="d-flex justify-content-center align-items-center mt-4"
@@ -258,11 +247,11 @@ const About = () => {
       <AboutPageStyled>
         <div className="container-fluid container-lg ">
           {isAdmin && hasPermission && (
-          <div className="row my-3 d-flex align-items-center">
-            {/* <div className="col-md-6 fs-3 mt-4 mt-md-0">
+            <div className="row my-3 d-flex align-items-center">
+              {/* <div className="col-md-6 fs-3 mt-4 mt-md-0">
               <Title title="About Us" cssClass="fs-1 pageTitle" />
             </div> */}
-           
+
               <div className="col-12 text-end">
                 <span className="d-inline-block me-2">Add content</span>
                 <button
@@ -273,8 +262,8 @@ const About = () => {
                   <i className="fa fa-plus" aria-hidden="true"></i>
                 </button>
               </div>
-          </div>
-           )}
+            </div>
+          )}
           {componentEdit.editSection || componentEdit.addSection ? (
             <div className={`adminEditTestmonial selected `}>
               <AddEditAdminNews
@@ -283,9 +272,7 @@ const About = () => {
                 popupTitle="About Page"
                 editCarousel={editCarousel}
                 setEditCarousel={setEditCarousel}
-                componentType={`${
-                  componentEdit.editSection ? "editSection" : "addSection"
-                }`}
+                componentType={`${componentEdit.editSection ? "editSection" : "addSection"}`}
                 imageGetURL="aboutus/clientAboutus/"
                 imagePostURL="aboutus/createAboutus/"
                 imageUpdateURL="aboutus/updateAboutus/"
@@ -306,26 +293,14 @@ const About = () => {
                 <div
                   key={item.id}
                   className={`row mx-2 mb-3 ${
-                    isAdmin
-                      ? "border border-warning mb-5 position-relative"
-                      : "border"
+                    isAdmin ? "border border-warning mb-5 position-relative" : "border"
                   } ${index % 2 === 0 ? "normalCSS" : "flipCSS"}`}
                 >
                   {isAdmin && hasPermission && (
                     <>
-                      <EditIcon
-                        editHandler={() =>
-                          editHandler("editSection", true, item)
-                        }
-                      />
-                      <Link
-                        className="deleteSection"
-                        onClick={() => deleteAboutSection(item)}
-                      >
-                        <i
-                          className="fa fa-trash-o text-danger fs-4"
-                          aria-hidden="true"
-                        ></i>
+                      <EditIcon editHandler={() => editHandler("editSection", true, item)} />
+                      <Link className="deleteSection" onClick={() => deleteAboutSection(item)}>
+                        <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i>
                       </Link>
                     </>
                   )}
@@ -369,17 +344,12 @@ const About = () => {
                           title={"OUR WORK LOCATIONS"}
                           cssClass="fs-5 my-5 title"
                         /> */}
-                    <img
-                      src={getImagePath(item.path)}
-                      alt=""
-                    />
+                    <img src={getImagePath(item.path)} alt="" />
                   </div>
                 </div>
               ))
             ) : (
-              <p className="text-center text-muted py-5">
-                Please add page contents...
-              </p>
+              <p className="text-center text-muted py-5">Please add page contents...</p>
             )}
           </div>
         </div>

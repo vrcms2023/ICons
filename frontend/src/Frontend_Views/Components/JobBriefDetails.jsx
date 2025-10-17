@@ -5,8 +5,7 @@ import { showPosteddate } from "../../util/commonUtil";
 import ShareButtons from "../../Common/Share";
 
 const JobBriefDetails = ({ jobDetails }) => {
-
-  console.log("Job Details", jobDetails)
+  console.log("Job Details", jobDetails);
 
   return (
     <div className="jobBriefDetails p-3 position-relative">
@@ -27,7 +26,7 @@ const JobBriefDetails = ({ jobDetails }) => {
       </div>
       <div className="mb-2">
         <span className="fw-medium">Experience</span> : Minimum{" "}
-        {jobDetails.experience_from ? jobDetails.experience_from : 0} to 
+        {jobDetails.experience_from ? jobDetails.experience_from : 0} to&nbsp;
         {jobDetails.experience_to ? jobDetails.experience_to : 0} years
       </div>
       <div className="mb-2">
@@ -35,18 +34,20 @@ const JobBriefDetails = ({ jobDetails }) => {
         {jobDetails.education ? jobDetails.education : "Default Career"}
       </div>
       <div className="mb-2">
-        <span className="fw-medium">Location</span> : {jobDetails.job_location ? jobDetails.job_location : ""}
+        <span className="fw-medium">Location</span> :{" "}
+        {jobDetails.job_location ? jobDetails.job_location : ""}
       </div>
       <div className="mb-2">
         <span className="fw-medium">Skills</span> : {jobDetails.skills ? jobDetails.skills : ""}
       </div>
       <div className="mb-2">
-        <span className="fw-medium">Work Mode</span> : {jobDetails.mode_of_work ? jobDetails.mode_of_work : ""}
+        <span className="fw-medium">Work Mode</span> :{" "}
+        {jobDetails.mode_of_work ? jobDetails.mode_of_work : ""}
       </div>
       <div className="mb-2">
-        <span className="fw-medium">Employment Type</span> : {jobDetails.employment_Type ? jobDetails.employment_Type : ""}
+        <span className="fw-medium">Employment Type</span> :{" "}
+        {jobDetails.employment_Type ? jobDetails.employment_Type : ""}
       </div>
-    
 
       <hr className="my-3" />
 
