@@ -20,7 +20,7 @@ const ProjectTabs = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [projects, setProjects] = useState(location?.state?.selectedPorject);
+  const [projects, setProjects] = useState(location?.state?.selectedProjects);
   const [projectid, setprojectid] = useState(location?.state?.projectid);
   // const [selectedProject, setSelectedProject] = useState(null)
   const [amenities, setAmenities] = useState({});
@@ -55,6 +55,9 @@ const ProjectTabs = () => {
       id.classList.add("active");
     }
   });
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const getProjects = async (projectid) => {
     // const {value} = e.target
@@ -139,9 +142,7 @@ const ProjectTabs = () => {
   const filterImages = (data) => {
     return data.filter(
       (item) =>
-        item.contentType === ".jpg" ||
-        item.contentType === ".jpeg" ||
-        item.contentType === ".png"
+        item.contentType === ".jpg" || item.contentType === ".jpeg" || item.contentType === ".png"
     );
   };
 
@@ -333,11 +334,7 @@ const ProjectTabs = () => {
                   role="tabpanel"
                   aria-labelledby="nav-home-tab"
                 >
-                  <HomeTab
-                    project={projectHome}
-                    thumbImgs={thumbImgs}
-                    pdfs={pdfs}
-                  />
+                  <HomeTab project={projectHome} thumbImgs={thumbImgs} pdfs={pdfs} />
                 </div>
                 {isProjectImg ? (
                   <div
@@ -346,10 +343,7 @@ const ProjectTabs = () => {
                     role="tabpanel"
                     aria-labelledby="nav-gallery-tab"
                   >
-                    <ProjectGalleryView
-                      projectImages={projectImages}
-                      type="projectgallery"
-                    />
+                    <ProjectGalleryView projectImages={projectImages} type="projectgallery" />
                   </div>
                 ) : (
                   ""

@@ -55,16 +55,19 @@ const SEO = () => {
     }
   }, [products, productID]);
 
-  useEffect(() => {
-    console.log("seoObject?.seo_title", seoObject?.seo_title);
-  }, [seoObject]);
   return (
     <>
       <Helmet>
         <title>{seoObject?.seo_title ? seoObject?.seo_title : "ICONSENGG"}</title>
-        <meta name="description" content={seoObject?.seo_description ? seoObject?.seo_description : "ICONSENGG"} />
+        <meta
+          name="description"
+          content={seoObject?.seo_description ? seoObject?.seo_description : "ICONSENGG"}
+        />
         <meta name="link" content={seoObject?.seo_link ? seoObject?.seo_link : "ICONSENGG"} />
-        <meta name="keywords" content={seoObject?.seo_keywords ? seoObject?.seo_keywords : "ICONSENGG"} />
+        <meta
+          name="keywords"
+          content={seoObject?.seo_keywords ? seoObject?.seo_keywords : "ICONSENGG"}
+        />
         <meta name="author" content={seoObject?.seo_author ? seoObject?.seo_author : "ICONSENGG"} />
       </Helmet>
     </>
