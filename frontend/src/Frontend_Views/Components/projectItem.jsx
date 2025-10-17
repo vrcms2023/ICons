@@ -7,20 +7,17 @@ const ProjectItem = ({ projectList, projectType }) => {
   const navigate = useNavigate();
   const baseURL = getBaseURL();
 
-  console.log(projectList, "list")
+  console.log(projectList, "list");
   return (
     <div className="container d-flex flex-column">
       <Title
         title={projectList.length > 0 ? projectList[0].projectCategoryName : "Ongoing Projects"}
-        cssClass="text-secondary fs-3 text-capitalize fw-medium mb-3"
+        cssClass="text-primary fs-3 text-capitalize fw-medium mb-3"
       />
-      <div className="d-flex flex-wrap gap-3">
+      <div className="d-flex flex-wrap gap-4">
         {projectList.length > 0 &&
           projectList.map((project) => (
-            <div
-              key={project.id}
-              className="border border-light p-3 flex-grow-0 project-card"
-            >
+            <div key={project.id} className="shadow-sm  p-3 flex-grow-0 project-card">
               <Title title={project.projectTitle} cssClass="fs-5" />
               <div className="lc2 lineClamp">{project.description}</div>
               <Link
@@ -89,9 +86,8 @@ const ProjectItem = ({ projectList, projectType }) => {
       ) : (
         ""
       )} */}
-      <hr className="my-4 my-md-5 border border-2 border-light"/>
+      <hr className="my-4 my-md-5 border border-2 border-light" />
     </div>
-
   );
 };
 
