@@ -78,6 +78,9 @@ export const fieldValidation = {
   country: {
     required: "Please select Country",
   },
+  jobDescription: {
+    required: "Please enter Job Description",
+  },
   path: [
     {
       type: "required",

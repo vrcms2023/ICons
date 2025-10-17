@@ -41,13 +41,12 @@ const ApplyForm = ({ jobDetails }) => {
     formData.append("cityAddress", data.cityAddress);
     try {
       const response = await axiosJobUploadServiceApi.post(`/careers/applyJob/create/`, formData);
-      console.log(response);
       if (response.status === 201) {
-        toast.success(`Request is sent successfully`);
+        toast.success(`Your job application has been submitted successfully.`);
       }
     } catch (error) {
       setServerError(error[0]);
-      toast.error("unable to process your request");
+      toast.error("Unable to process your request");
     }
     reset();
   };
@@ -73,7 +72,13 @@ const ApplyForm = ({ jobDetails }) => {
               />
             </div>
             <div className="col-12">
-              <InputFields label="Last Name" fieldName="lastName" register={register} isRequired={false} onChange={() => handleChange("lastName")} />
+              <InputFields
+                label="Last Name"
+                fieldName="lastName"
+                register={register}
+                isRequired={false}
+                onChange={() => handleChange("lastName")}
+              />
             </div>
             <div className="col-12">
               <InputFields
@@ -104,7 +109,9 @@ const ApplyForm = ({ jobDetails }) => {
                 error={errors?.path?.message}
                 onChange={() => handleChange("path")}
               />
-              <small className="my-2 d-block">Only .docx, .rtf, .pdf formats allowed to a max size of 5 MB.</small>
+              <small className="my-2 d-block">
+                Only .docx, .rtf, .pdf formats allowed to a max size of 5 MB.
+              </small>
             </div>
             <div className="col-12">
               <InputFields
@@ -143,6 +150,9 @@ const ApplyForm = ({ jobDetails }) => {
                 type="textarea"
                 label="Description of your project"
                 fieldName="description"
+                isRequired={true}
+                validationObject={fieldValidation.jobDescription}
+                error={errors?.description?.message}
                 register={register}
                 onChange={() => handleChange("description")}
               />
