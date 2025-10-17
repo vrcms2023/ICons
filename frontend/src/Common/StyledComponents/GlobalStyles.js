@@ -107,6 +107,9 @@ body {
 
 .moreLink {
   color:${({ theme }) => theme.primaryColor};
+  padding: 8px;
+  border: 0;
+  background: none;
 }
 
 .moreLink:hover {

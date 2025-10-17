@@ -1,31 +1,52 @@
 import React from "react";
 import Title from "../../Common/Title";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../util/ulrUtil";
 
 const ProjectItem = ({ projectList, projectType }) => {
   const navigate = useNavigate();
   const baseURL = getBaseURL();
+
+  console.log(projectList, "list")
   return (
-    <div className="container my-5 pb-3">
-      <div className="row">
-        <div className="col-md-12 ">
-          <Title
-            title={projectList.length > 0 ? projectList[0].projectCategoryName : "Ongoing Projects"}
-            cssClass="blue-900 fs-5 mb-3"
-          />
-        </div>
+    <div className="container d-flex flex-column">
+      <Title
+        title={projectList.length > 0 ? projectList[0].projectCategoryName : "Ongoing Projects"}
+        cssClass="text-secondary fs-3 text-capitalize fw-medium mb-3"
+      />
+      <div className="d-flex flex-wrap gap-3">
+        {projectList.length > 0 &&
+          projectList.map((project) => (
+            <div
+              key={project.id}
+              className="border border-light p-3 flex-grow-0"
+              style={{ flex: "0 0 calc(25% - 1rem)" }} // 3 per row minus gap
+            >
+              <Title title={project.projectTitle} cssClass="fs-5" />
+              <div className="lc2 lineClamp">{project.description}</div>
+              <Link
+                className="mt-2 d-block"
+                to="/project-details"
+                state={{ selectedProjects: projectType, projectid: project.id }}
+              >
+                More details
+              </Link>
+            </div>
+          ))}
       </div>
-      <div className="row">
+
+
+      {/* <div className="row">
         {projectList.length > 0
           ? projectList.map((project) => (
               <div className="col-md-3 mb-3" key={project.id}>
+                <Title title={project.projectTitle} cssClass="fs-5" />
                 <div className="position-relative box">
                   <div className="infoStrip">
                     <Title title={project.projectTitle} cssClass="text-white fs-5" />
-                    {/* <Link to="" className="blue-900">
+                    <Link to="" className="blue-900">
                     more details
-                  </Link> */}
+                  </Link>
                     <button
                       className="btn btn-primary btn-sm"
                       onClick={() =>
@@ -49,7 +70,7 @@ const ProjectItem = ({ projectList, projectType }) => {
               </div>
             ))
           : ""}
-      </div>
+      </div> */}
       {/* {projectList.length > 3 ? (
         <div className="row mt-3">
           <div className="col-md-12 text-center py-3">
@@ -71,7 +92,9 @@ const ProjectItem = ({ projectList, projectType }) => {
       ) : (
         ""
       )} */}
+      <hr className="my-5 border border-2 border-light"/>
     </div>
+
   );
 };
 
