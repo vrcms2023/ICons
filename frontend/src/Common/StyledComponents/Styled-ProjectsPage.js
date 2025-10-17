@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ProjectsPageStyled = styled.div`
    
     .projectsList {
-         padding: 48px 0;
+        //  padding: 48px 0;
 
         h5 {
             text-transform: capitalize;
@@ -60,6 +60,21 @@ export const ProjectsPageStyled = styled.div`
             object-fit: cover;
         }
 
+        .project-card {
+            flex: 0 0 calc(33.333% - 1rem); /* 3 per row with gap */
+        }
+
+        @media (max-width: 992px) {
+            .project-card {
+                flex: 0 0 calc(50% - 1rem); /* 2 per row on tablets */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .project-card {
+                flex: 0 0 100%; /* 1 per row on mobile */
+            }
+        }
         
     }
     .projectTabs {

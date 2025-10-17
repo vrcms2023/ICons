@@ -19,8 +19,7 @@ const ProjectItem = ({ projectList, projectType }) => {
           projectList.map((project) => (
             <div
               key={project.id}
-              className="border border-light p-3 flex-grow-0"
-              style={{ flex: "0 0 calc(25% - 1rem)" }} // 3 per row minus gap
+              className="border border-light p-3 flex-grow-0 project-card"
             >
               <Title title={project.projectTitle} cssClass="fs-5" />
               <div className="lc2 lineClamp">{project.description}</div>
@@ -34,8 +33,6 @@ const ProjectItem = ({ projectList, projectType }) => {
             </div>
           ))}
       </div>
-
-
       {/* <div className="row">
         {projectList.length > 0
           ? projectList.map((project) => (
@@ -92,7 +89,7 @@ const ProjectItem = ({ projectList, projectType }) => {
       ) : (
         ""
       )} */}
-      <hr className="my-5 border border-2 border-light"/>
+      <hr className="my-4 my-md-5 border border-2 border-light"/>
     </div>
 
   );
