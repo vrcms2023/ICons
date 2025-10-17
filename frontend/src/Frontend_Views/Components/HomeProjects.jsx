@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 // Styles
 import "./HomeProjects.css";
 import Title from "../../Common/Title";
-import styled from "styled-components";
 import { getClientProjects } from "../../redux/project/clientProjectActions";
 import { dataFormatedByCatergoryName, sortByCreatedDate } from "../../util/dataFormatUtil";
 import { Link } from "react-router-dom";
-import Button from "../../Common/Button";
 
 const HomeProjects = () => {
   const { clientProjects } = useSelector((state) => state.clientProjects);
@@ -33,7 +36,7 @@ const HomeProjects = () => {
 
   return (
     <div className="container">
-      <div className="row my-4 mb-md-5 homeProjectsBg shadow-sm">
+      <div className="row my-4 py-4 mb-md-5 homeProjectsBg">
         <div className="col-md-12 d-flex justify-content-center align-items-center">
           <div className="container p-0">
             <div className="row">
@@ -41,7 +44,7 @@ const HomeProjects = () => {
                 <div className={completed?.length > 0 ? "col-md-6 py-4 bg-ongoing" : "col-md-12"}>
                   <Title
                     title={ongoing[0]?.projectCategoryName}
-                    cssClass="text-capitalize fw-medium fs-4 mb-3 text-center"
+                    cssClass="text-capitalize fw-medium fs-4 mb-4 text-center"
                   />
                   <ProjectItem projectsList={ongoing} projectType={ongoing} />
                 </div>
@@ -77,9 +80,31 @@ const ProjectItem = ({ projectsList, projectType }) => {
       },
     });
   };
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    vertical: true,
+    verticalSwiping: true,
+    swipeToSlide: true,
+    autoplay: true,
+    speed: 1000,
+    autoplaySpeed: 2000,
+    arrows: false, // Remove arrows for ticker behavior
+    pauseOnHover: true,
+    adaptiveHeight: false,
+    // beforeChange: function(currentSlide, nextSlide) {
+    //   console.log("before change", currentSlide, nextSlide);
+    // },
+    // afterChange: function(currentSlide) {
+    //   console.log("after change", currentSlide);
+    // }
+  };
   return (
-    <div class="scroll-container">
-      <div className="scroll-content">
+    <div className="slider-container">
+      <Slider {...settings}>
         {projectsList?.map((item, index) => (
           <React.Fragment key={index}>
             <div className="item mb-2 text-center">
@@ -93,9 +118,28 @@ const ProjectItem = ({ projectsList, projectType }) => {
             </div>
           </React.Fragment>
         ))}
-      </div>
+      </Slider>
     </div>
   );
 };
 
 export default HomeProjects;
+
+
+// <div class="scroll-container">
+    //   <div className="scroll-content">
+    //     {projectsList?.map((item, index) => (
+    //       <React.Fragment key={index}>
+    //         <div className="item mb-2 text-center">
+    //           <Link
+    //             to="/"
+    //             onClick={(e) => handleClick(e, item)}
+    //             className="p-2 link-underline link-underline-opacity-0"
+    //           >
+    //             {item.projectTitle}
+    //           </Link>
+    //         </div>
+    //       </React.Fragment>
+    //     ))}
+    //   </div>
+    // </div>
