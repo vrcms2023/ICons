@@ -56,7 +56,9 @@ const ProjectTabs = lazy(() => import("./Frontend_Views/Components/ProjectsTabs/
 const ImagesGallery = lazy(() => import("./Frontend_Views/Pages/Gallery/ImagesGallery"));
 const VideosGallery = lazy(() => import("./Frontend_Views/Pages/Gallery/VideosGallery"));
 const CaseStudies = lazy(() => import("./Frontend_Views/Pages/Casestudies/CaseStudies"));
-const CaseStudiesDetails = lazy(() => import("./Frontend_Views/Pages/Casestudies/caseStudies-details"));
+const CaseStudiesDetails = lazy(
+  () => import("./Frontend_Views/Pages/Casestudies/caseStudies-details")
+);
 const NewsAndUpdates = lazy(() => import("./Frontend_Views/Pages/News/NewsAndUpdates"));
 const TestimonialsList = lazy(() => import("./Frontend_Views/Pages/Testimonials/TestimonialsList"));
 
@@ -64,9 +66,13 @@ const Login = lazy(() => import("./Frontend_Admin/Pages/Auth/Login"));
 const Registration = lazy(() => import("./Frontend_Admin/Pages/Auth/Registration"));
 const ChangePassword = lazy(() => import("./Frontend_Admin/Pages/Auth/ChangePassword"));
 const ResetPassword = lazy(() => import("./Frontend_Admin/Pages/Auth/ResetPassword"));
-const ResetPasswordConfirmation = lazy(() => import("./Frontend_Admin/Pages/Auth/ResetPasswordConfirmation"));
+const ResetPasswordConfirmation = lazy(
+  () => import("./Frontend_Admin/Pages/Auth/ResetPasswordConfirmation")
+);
 const Activation = lazy(() => import("./Frontend_Admin/Pages/Auth/Activation"));
-const ResendActivationEmail = lazy(() => import("./Frontend_Admin/Pages/Auth/ResendActivationEmail"));
+const ResendActivationEmail = lazy(
+  () => import("./Frontend_Admin/Pages/Auth/ResendActivationEmail")
+);
 // const Dashboard = lazy(
 //   () => import("./Frontend_Admin/Pages/Login/Dashboard_V1")
 // );
@@ -86,7 +92,9 @@ const AdminTestimonial = lazy(() => import("./Frontend_Admin/Pages/Login/AdminTe
 const AdminSettings = lazy(() => import("./Frontend_Admin/Pages/Auth/AdminSettings"));
 
 const RAQAdmininistration = lazy(() => import("./Frontend_Admin/Pages/Auth/RAQAdmininistration"));
-const AppliedJobAdministration = lazy(() => import("./Frontend_Admin/Pages/Auth/AppliedJobAdministration"));
+const AppliedJobAdministration = lazy(
+  () => import("./Frontend_Admin/Pages/Auth/AppliedJobAdministration")
+);
 const HomeServices = lazy(() => import("./Frontend_Views/Components/HomeServices"));
 
 function App() {
