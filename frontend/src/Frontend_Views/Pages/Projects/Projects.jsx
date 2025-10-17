@@ -20,6 +20,7 @@ import {
   getAllShowHideComponentsList,
   updateShowHideComponent,
 } from "../../../redux/showHideComponent/showHideActions";
+import { ProjectsPageStyled } from "../../../Common/StyledComponents/Styled-ProjectsPage";
 
 const Projects = () => {
   const editComponentObj = {
@@ -88,7 +89,7 @@ const Projects = () => {
   };
 
   return (
-    <>
+    <ProjectsPageStyled>
       <div
         className={
           showHideCompList?.projetstbanner?.visibility && isAdmin && hasPermission
@@ -196,7 +197,7 @@ const Projects = () => {
       </div>
 
       {show && <ModelBg />}
-    </>
+    </ProjectsPageStyled>
   );
 };
 
