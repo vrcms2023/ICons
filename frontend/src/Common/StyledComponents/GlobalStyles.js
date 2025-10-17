@@ -234,6 +234,7 @@ body {
         top: 0px;
         bottom: 0px;
         left: 0px;
+        right: 0;
         // width: 500px;
         height: 100%;
         margin: auto;
@@ -250,7 +251,7 @@ body {
       }
       
       .newsModalWrapper {
-        width: 70%;
+        width: 60%;
         height: 90%;
         margin: auto;
         border-radius: 10px;
@@ -264,11 +265,11 @@ body {
       
       @media (max-width: 768px) {
         .newsModalWrapper {
-          width: 100%;
+          width: 90%;
         }
       
         .newsModalWrapper .newsDetails {
-          max-height: 300px;
+          // max-height: 300px;
         }
     }
     .error {

@@ -429,12 +429,15 @@ const Team = () => {
               </Link>
             </div>
             <div className="my-3 newsDetails">
+              <div className="text-center">
               <img
-                className="w-100 mb-3"
-                style={{ height: "240px", objectFit: "cover" }}
+                className="mb-3 rounded img-fluid m-3 mx-auto"
+                style={{ width: "320px", height: "240px", objectFit: "cover" }}
                 src={getImagePath(obj.path)}
                 alt={obj.team_member_name}
               />
+              <p className="fw-bold">{obj.team_member_name}</p>
+              </div>
               {obj.team_member_about_us && (
                 <RichTextView data={obj.team_member_about_us} className={""} showMorelink={false} />
               )}
