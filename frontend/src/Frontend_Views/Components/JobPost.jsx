@@ -21,6 +21,8 @@ import RichTextView from "../../Common/RichTextView";
 // Styles
 
 const JobPost = ({ addJobs, posts, setPosts, setPageloadResults, setEditState }) => {
+
+  console.log(posts)
   const editComponentObj = {
     job: false,
   };
@@ -123,7 +125,8 @@ const JobPost = ({ addJobs, posts, setPosts, setPageloadResults, setEditState })
 
       {posts?.length > 0 ? (
         posts.map((item, index) => (
-          <div className={`col-md-6 col-lg-3 mt-3 mt-md-4 position-relative`} key={item.id}>
+          // <div className={`col-md-6 col-lg-4 mb-5 position-relative post`} key={item.id}>
+            <div className={`${(isAdmin && hasPermission) ? "mb-5" : "mb-4"} col-md-6 col-lg-4  position-relative post`} key={item.id}>
             <div className="d-flex gap-5 gap-sm-4 gap-md-3 gap-lg-3 justify-content-end mb-2 p-1">
               {isAdmin && hasPermission ? (
                 <>
@@ -164,11 +167,12 @@ const JobPost = ({ addJobs, posts, setPosts, setPageloadResults, setEditState })
                   </div>
                 </>
               ) : (
-                <div>
-                  <Link to={`/career-details/${item.id}/`} className="text-secondary">
-                    <i className="fa fa-expand" aria-hidden="true"></i>
-                  </Link>
-                </div>
+                ""
+                // <div>
+                //   <Link to={`/career-details/${item.id}/`} className="text-secondary">
+                //     <i className="fa fa-expand" aria-hidden="true"></i>
+                //   </Link>
+                // </div>
               )}
             </div>
 
@@ -185,46 +189,89 @@ const JobPost = ({ addJobs, posts, setPosts, setPageloadResults, setEditState })
 
             {/* publihser Icon */}
 
-            <div className="p-4 jobPost">
+            <div className="p-3 jobPost position-relative">
               <small className="d-block location mb-3">
                 <i className="fa fa-map-marker fs-4 me-1" aria-hidden="true"></i>{" "}
                 {item.job_location}
               </small>
               <div className="mt-0 mb-3">
-                <Title title={item.job_title} cssClass="fs-4 jobTitle" />
+                <Title title={item.job_title} cssClass="fs-4 jobTitle lc3 lineClamp" />
               </div>
-              <div className="mt-0 mb-3">
+              {/* <div className="mt-0 mb-3">
                 <Title title="Company" cssClass="subTitle" />
                 <p className="m-0">{item.company_name} </p>
-              </div>
-              <div className="">
+              </div> */}
+              {/* <div className="">
                 <Title title="Job Description" cssClass="subTitle" />
                 <div className="m-0">
                   <RichTextView data={item?.description} className={""} showMorelink={true} />
-                  {/* <div
+                  <div
                     dangerouslySetInnerHTML={{
                       __html: getFirstShortDescription(item?.description),
                     }}
-                  /> */}
+                  />
+                </div>
+              </div>
+              */}
+
+              <div className="d-flex gap-2 align-items-center my-0">
+                <Title title="Experience :" cssClass="fs-6" />
+                <div>
+                {item.experience_from ? item.experience_from : 0} to{" "}
+                {item.experience_to ? item.experience_to : 0} Years
                 </div>
               </div>
 
-              <div className="d-block my-2">
-                <Title title="Experience" cssClass="subTitle" />
-                {item.experience_from ? item.experience_from : 0} to{" "}
-                {item.experience_to ? item.experience_to : 0} Years
+              <div className="d-block mb-2">
+                <Title title="Education :" cssClass="fs-6" />
+                <div>
+                  {item.education ? item.education : ""}
+                </div>
               </div>
-              <small className="d-block">
-                <Title title="Posted on" cssClass="subTitle" />
+
+
+              <div className="d-block mb-2">
+                <Title title="Skills :" cssClass="fs-6" />
+                <div>
+                  {item.skills ? item.skills : ""}
+                </div>
+              </div>
+              <div className="d-flex gap-2 align-items-center">
+                <Title title="Posted on :" cssClass="fs-6" />
+                <div>
                 {showPosteddate(item.posted_date) === 0 ? (
                   "Today"
                 ) : (
                   <>
-                    [ <strong className="subTitle">{showPosteddate(item.posted_date)}</strong> ]
-                    days ago
+                     {showPosteddate(item.posted_date)} days ago
                   </>
                 )}
-              </small>
+                </div>
+              </div>
+
+              <div className="d-flex gap-2 align-items-center my-0">
+                  <Title title="Work Mode : " cssClass="fs-6" />
+                  <div>
+                    {item.mode_of_work ? item.mode_of_work : ""} 
+                  </div>
+                </div>
+
+                
+
+              <div className="d-flex gap-2 align-items-center my-0">
+                <Title title="Employment Type :" cssClass="fs-6" />
+                <div>
+                {item. employment_Type ? item. employment_Type : ""} 
+                </div>
+              </div>
+
+              <div className="d-flex justify-content-center mt-3 position-absolute bottom-0 right-0 left-0 applyNow">
+                  <Link to={`/career-details/${item.id}/`} className="btn btn-primary btn-sm">
+                    Apply Now
+                  </Link>
+                </div>
+                
+             
 
               {/* {isAdmin ? (
                   <div className="text-end">
