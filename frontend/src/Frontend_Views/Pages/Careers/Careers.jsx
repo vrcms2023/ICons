@@ -243,7 +243,7 @@ const Careers = () => {
 
         <div>
           <CareersPageStyled>
-            <div className="row mb-4 pb-4">
+            <div className="row mb-4">
               <div className="col-md-6">
                 <Title title="Careers" cssClass="fs-3 pageTitle" />
               </div>

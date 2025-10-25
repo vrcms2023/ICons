@@ -13,7 +13,7 @@ const JobBriefDetails = ({ jobDetails }) => {
         className="d-flex justify-content-end align-items-end position-absolute"
         style={{ right: "10px" }}
       >
-        <ShareButtons />
+        {/* <ShareButtons /> */}
       </div>
       <div className="d-flex justify-content-start align-items-center gap-3">
         <Title

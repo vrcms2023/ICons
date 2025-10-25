@@ -216,7 +216,7 @@ const Footer = () => {
           </div> */}
           {/* <hr className="my-4" /> */}
           <div className="row py-5">
-            <div className="col-md-3 col-lg-4 text-center text-md-start">
+            <div className="col-lg-6 text-center text-md-start">
               <Title title="Company" cssClass="mb-4 mb-md-0" />
 
               <ul className="row ps-2 mx-3 mx-md-auto">
@@ -292,10 +292,11 @@ const Footer = () => {
               )}              
             </div> */}
 
+          {/*}
             <div
               className={`col-md-3 col-lg-4 text-center text-md-start reachUs ${isAdmin ? "" : ""}`}
             >
-              {/* {isAdmin && (
+               {isAdmin && (
                   <Ancher 
                     Ancherpath="/contact"
                     AncherClass="btn btn-warning float-end"
@@ -304,11 +305,11 @@ const Footer = () => {
                     icon=""
                     iconCss="ms-2 m-auto"
                   />
-                )} */}
+                )}
               <Title title="Reach Us" />
               {address.phonen_number ? (
                 <p className="m-0 pb-2">
-                  {/* <i className="fa fa-phone fs-5 me-2" aria-hidden="true"></i> */}
+                  <i className="fa fa-phone fs-5 me-2" aria-hidden="true"></i>
                   {address?.phonen_number}
                 </p>
               ) : (
@@ -316,7 +317,7 @@ const Footer = () => {
               )}
               {address.phonen_number_2 ? (
                 <p className="m-0 pb-2">
-                  {/* <i className="fa fa-phone fs-5 me-2" aria-hidden="true"></i> */}
+                  <i className="fa fa-phone fs-5 me-2" aria-hidden="true"></i>
                   {address?.phonen_number_2}
                 </p>
               ) : (
@@ -324,10 +325,10 @@ const Footer = () => {
               )}
               {address.phonen_number_3 ? (
                 <p className="m-0 pb-2">
-                  {/* <i
+                  <i
                     className="fa fa-whatsapp fs-5 me-2"
                     aria-hidden="true"
-                  ></i> */}
+                  ></i>
                   {address?.phonen_number_3}
                 </p>
               ) : (
@@ -337,10 +338,10 @@ const Footer = () => {
               {address.emailid ? (
                 <>
                   <p className="m-0 pb-2">
-                    {/* <i
+                    <i
                       className="fa fa-paper-plane fs-5 me-2"
                       aria-hidden="true"
-                    ></i> */}
+                    ></i>
                     <Link to={`mailto: ${address?.emailid}`}>{address?.emailid}</Link>
                   </p>
                 </>
@@ -350,10 +351,10 @@ const Footer = () => {
               {address.emailid_2 ? (
                 <>
                   <p className="m-0 pb-3 ">
-                    {/* <i
+                    <i
                       className="fa fa-paper-plane fs-5 me-2"
                       aria-hidden="true"
-                    ></i> */}
+                    ></i>
                     <Link to={`mailto: ${address?.emailid_2}`}>{address?.emailid_2}</Link>
                   </p>
                 </>
@@ -363,10 +364,10 @@ const Footer = () => {
               {address.emailid_3 ? (
                 <>
                   <p className="m-0 ">
-                    {/* <i
+                    <i
                       className="fa fa-envelope fs-5 me-2"
                       aria-hidden="true"
-                    ></i> */}
+                    ></i>
                     <Link to={`mailto: ${address?.emailid_3}`}>{address?.emailid_3}</Link>
                   </p>
                 </>
@@ -374,19 +375,20 @@ const Footer = () => {
                 ""
               )}
 
-              {/* <div className="d-flex flex-column justify-content-center align-items-center text-center justify-content-md-start align-items-md-start text-md-start mt-4">
+               <div className="d-flex flex-column justify-content-center align-items-center text-center justify-content-md-start align-items-md-start text-md-start mt-4">
                 <Title title="Downloads" />
                 <div>
                   <DownloadBrochures />
                 </div>
-              </div> */}
+              </div>
             </div>
             <hr className="d-block d-md-none my-4" />
+          */}
             {
               <div
                 // align-items-center justify-content-md-center justify-content-lg-end align-items-md-end align-items-end justify-content-md-end
                 // ${ isAdmin ? "border border-warning mb-3 position-relative" : "" }
-                className={`col-md-6 col-lg-4 pb-md-0 socialMedia d-flex flex-column gap-5 gap-md-0 align-items-center align-items-md-start justify-content-between pb-4 pb-md-0`}
+                className={`col-lg-4 offset-lg-2 pb-md-0 socialMedia d-flex flex-column gap-5 gap-md-0 align-items-center align-items-md-start justify-content-between pb-4 pb-md-0`}
               >
                 <div className="FooterAddress">
                   <Title title="We Are At" />

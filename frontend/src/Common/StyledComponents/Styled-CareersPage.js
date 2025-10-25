@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const CareersPageStyled = styled.div`
+
+
+
   .jobTitle {
     color: ${({ theme }) => theme.textColor};
     font-weight: 600;
@@ -16,9 +19,15 @@ export const CareersPageStyled = styled.div`
   }
 
   .jobPost {
+    height: 100%;
+    min-height: 580px;
     border: 1px solid ${({ theme }) => theme.grayddd};
     // background-color: ${({ theme }) => theme.primaryColor};
     border-bottom: 4px solid ${({ theme }) => theme.clientColor};
+
+    @media (max-width: 768px) {
+      
+    }
 
     &:hover {
       border-bottom: 4px solid ${({ theme }) => theme.teritoryColor};
@@ -30,6 +39,11 @@ export const CareersPageStyled = styled.div`
 
     .fa-expand {
       font-size: 1.2rem;
+    }
+
+    .applyNow {
+      bottom: 32px !important;
+      width: calc(100% - 2rem) !important;
     }
   }
 
